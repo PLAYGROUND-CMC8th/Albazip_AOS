@@ -57,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_name">
 
         <EditText
+            android:id="@+id/et_first_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="16dp"
@@ -85,6 +86,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_name">
 
         <EditText
+            android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="16dp"
@@ -126,6 +128,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_age">
 
         <EditText
+            android:id="@+id/et_age"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="16dp"
@@ -133,6 +136,8 @@
             android:background="@null"
             android:fontFamily="@font/roboto_medium"
             android:hint="출생년도(YYYY)"
+            android:maxLength="4"
+            android:inputType="number"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="13sp"
             android:textColor="@color/customBlack"
@@ -162,7 +167,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="6dp"
-        android:background="@drawable/rectangle_custom_white_radius"
+        android:background="@drawable/btn_selecter_sex"
         app:layout_constraintEnd_toStartOf="@id/rl_woman"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@id/tv_sex"
@@ -189,7 +194,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="6dp"
         android:layout_marginTop="14dp"
-        android:background="@drawable/rectangle_fill_yellow_radius_yellow"
+        android:background="@drawable/btn_selecter_sex"
         app:layout_constraintEnd_toEndOf="@id/rl_age"
         app:layout_constraintStart_toEndOf="@id/rl_man"
         app:layout_constraintTop_toBottomOf="@id/tv_sex">

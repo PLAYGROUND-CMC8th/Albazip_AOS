@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckBox
+import androidx.core.content.ContextCompat
 import com.example.albazip.MainActivity
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
@@ -29,7 +30,7 @@ class AgreementFragment : BaseFragment<FragmentAgreementBinding>(
         
         // 비밀번호 입력 화면으로 이동
         binding.btnNext.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.main_fragment,InputPWFragment()).commit()
+            parentFragmentManager.beginTransaction().replace(R.id.main_fragment,InputPhoneFragment()).commit()
         }
 
         // 이전 화면으로 이동
@@ -58,13 +59,11 @@ class AgreementFragment : BaseFragment<FragmentAgreementBinding>(
                 }
             }
 
-            // 전체 동의가 되었으면
-            if (cbAgreeAll.isChecked) {
+            // 전체 동의가 되었을 때
+            if (cbAgreeAll.isChecked) { // 활성화
                 activateBtn()
-                showCustomToast("활성화")
-            } else {
+            } else { // 비활성화
                 deActivateBtn()
-                showCustomToast("비활성화")
             }
 
         }
@@ -73,10 +72,12 @@ class AgreementFragment : BaseFragment<FragmentAgreementBinding>(
     // 버튼 활성화 함수
     private fun activateBtn() {
         binding.btnNext.isClickable = true
+        binding.btnNext.background = ContextCompat.getDrawable(requireContext(), R.drawable.btn_main_yellow_fill_rounded)
     }
 
     // 버튼 비활성화 함수
     private fun deActivateBtn() {
         binding.btnNext.isClickable = false
+        binding.btnNext.background = ContextCompat.getDrawable(requireContext(), R.drawable.btn_disable_yellow_fill_rounded)
     }
 }

@@ -113,6 +113,24 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/warning_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호가 일치하지 않습니다."
+        android:fontFamily="@font/roboto_medium"
+        android:textStyle="normal"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:textSize="12sp"
+        android:textColor="#ff3b30"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="17sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@id/rl_confirm_pw"
+        app:layout_constraintTop_toBottomOf="@id/rl_confirm_pw"
+        />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_next"
         android:layout_width="0dp"
@@ -123,6 +141,7 @@
         android:stateListAnimator="@null"
         android:textStyle="bold"
         android:textSize="16sp"
+        android:clickable="false"
         android:fontFamily="@font/roboto_bold"
         android:layout_marginBottom="24dp"
         android:layout_marginHorizontal="24dp"
