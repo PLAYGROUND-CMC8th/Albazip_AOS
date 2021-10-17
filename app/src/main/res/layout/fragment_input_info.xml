@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="68dp"
+        android:fontFamily="@font/roboto_bold"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="9sp"
+        android:text="기본정보를 입력해주세요."
+        android:textColor="@color/customBlack"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/roboto_medium"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="13sp"
+        android:text="성명"
+        android:textColor="#6f6f6f"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <RelativeLayout
+        android:id="@+id/rl_first_name"
+        android:layout_width="110dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_name">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="14dp"
+            android:background="@null"
+            android:fontFamily="@font/roboto_medium"
+            android:hint="성"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:textColor="@color/customBlack"
+            android:textColorHint="@color/hintTxtColor"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_name"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rl_first_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_name">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="14dp"
+            android:background="@null"
+            android:fontFamily="@font/roboto_medium"
+            android:hint="이름"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:textColor="@color/customBlack"
+            android:textColorHint="@color/hintTxtColor"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/roboto_medium"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="13sp"
+        android:text="나이"
+        android:textColor="#6f6f6f"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/rl_first_name" />
+
+    <RelativeLayout
+        android:id="@+id/rl_age"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintEnd_toEndOf="@id/rl_name"
+        app:layout_constraintStart_toStartOf="@id/tv_age"
+        app:layout_constraintTop_toBottomOf="@id/tv_age">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="14dp"
+            android:background="@null"
+            android:fontFamily="@font/roboto_medium"
+            android:hint="출생년도(YYYY)"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:textColor="@color/customBlack"
+            android:textColorHint="@color/hintTxtColor"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/roboto_medium"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="13sp"
+        android:text="성별"
+        android:textColor="#6f6f6f"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/rl_age" />
+
+    <RelativeLayout
+        android:id="@+id/rl_man"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="6dp"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintEnd_toStartOf="@id/rl_woman"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/tv_sex"
+        app:layout_constraintTop_toBottomOf="@id/tv_sex">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center_horizontal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:text="남자"
+            android:textColor="#343434"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_woman"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/rectangle_fill_yellow_radius_yellow"
+        app:layout_constraintEnd_toEndOf="@id/rl_age"
+        app:layout_constraintStart_toEndOf="@id/rl_man"
+        app:layout_constraintTop_toBottomOf="@id/tv_sex">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center_horizontal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:text="여자"
+            android:textColor="#343434"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/btn_disable_yellow_fill_rounded"
+        android:fontFamily="@font/roboto_bold"
+        android:stateListAnimator="@null"
+        android:text="회원가입 완료"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

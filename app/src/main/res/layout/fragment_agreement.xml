@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="약관 동의"
+        android:textSize="24sp"
+        android:letterSpacing="-0.03"
+        android:layout_marginTop="68dp"
+        android:layout_marginStart="36dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textStyle="bold"
+        android:textColor="@color/customBlack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_agree_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+    <CheckBox
+        android:id="@+id/cb_agree_all"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:button="@android:color/transparent"
+        android:background="@drawable/ic_check_box_state"/>
+
+        <TextView
+            android:id="@+id/tv_agree_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/cb_agree_all"
+            android:fontFamily="@font/roboto_bold"
+            android:text="전체 동의"
+            android:gravity="center_vertical"
+            android:textColor="@color/customBlack"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="19dp"
+        android:background="#efefef"
+        android:layout_marginHorizontal="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_agree_all">
+    </View>
+
+    <RelativeLayout
+        android:id="@+id/rl_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/view_divider">
+
+        <CheckBox
+            android:id="@+id/cb_age"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:button="@android:color/transparent"
+            android:background="@drawable/ic_check_box_state"/>
+
+        <TextView
+            android:id="@+id/tv_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/cb_age"
+            android:fontFamily="@font/roboto_medium"
+            android:text="(필수) 만 14세 이상입니다."
+            android:gravity="center_vertical"
+            android:textColor="@color/customBlack"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_service"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        app:layout_constraintEnd_toEndOf="@id/view_divider"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/rl_age">
+
+        <CheckBox
+            android:id="@+id/cb_service"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:button="@android:color/transparent"
+            android:background="@drawable/ic_check_box_state"/>
+
+        <TextView
+            android:id="@+id/tv_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:paddingEnd="10dp"
+            android:layout_toEndOf="@id/cb_service"
+            android:fontFamily="@font/roboto_medium"
+            android:text="(필수) 서비스 이용약관 동의"
+            android:gravity="center_vertical"
+            android:textColor="@color/customBlack"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tv_show_service"
+            android:text="보기"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#cecece"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="19sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_collect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        app:layout_constraintEnd_toEndOf="@id/view_divider"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/rl_service">
+
+        <CheckBox
+            android:id="@+id/cb_collect"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:button="@android:color/transparent"
+            android:background="@drawable/ic_check_box_state"/>
+
+        <TextView
+            android:id="@+id/tv_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:paddingEnd="10dp"
+            android:layout_toEndOf="@id/cb_collect"
+            android:fontFamily="@font/roboto_medium"
+            android:text="(필수) 서비스 이용약관 동의"
+            android:gravity="center_vertical"
+            android:textColor="@color/customBlack"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tv_show_collect"
+            android:text="보기"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#cecece"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="19sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="다음"
+        android:background="@drawable/btn_disable_yellow_fill_rounded"
+        android:textColor="@color/white"
+        android:stateListAnimator="@null"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:clickable="false"
+        android:fontFamily="@font/roboto_bold"
+        android:layout_marginBottom="24dp"
+        android:layout_marginHorizontal="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
