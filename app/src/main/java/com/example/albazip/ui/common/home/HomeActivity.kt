@@ -1,8 +1,6 @@
-package com.example.albazip.ui.home
+package com.example.albazip.ui.common.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityHomeBinding
 

@@ -1,22 +1,17 @@
-package com.example.albazip.ui.register
+package com.example.albazip.ui.common.register
 
 import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.View
-import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentInputPhoneBinding
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import kotlin.math.roundToInt
 
 class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     FragmentInputPhoneBinding::bind,
@@ -29,8 +24,11 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // hintText 설정
-        // 굵기
+        // 기본 정보 입력 화면으로 이동
+        binding.btnNext.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_fragment, InputInfoFragment()).commit()
+        }
 
         // focus 감지
         binding.etInputPhone.setOnFocusChangeListener { v, hasFocus ->

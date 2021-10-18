@@ -1,15 +1,12 @@
-package com.example.albazip.ui.register
+package com.example.albazip.ui.common.register
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckBox
 import androidx.core.content.ContextCompat
-import com.example.albazip.MainActivity
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentAgreementBinding
-import com.example.albazip.ui.login.RegisterActivity
 
 // 약관동의
 class AgreementFragment : BaseFragment<FragmentAgreementBinding>(
@@ -30,7 +27,9 @@ class AgreementFragment : BaseFragment<FragmentAgreementBinding>(
         
         // 비밀번호 입력 화면으로 이동
         binding.btnNext.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.main_fragment,InputPhoneFragment()).commit()
+            parentFragmentManager.beginTransaction().replace(R.id.main_fragment,
+                InputPhoneFragment()
+            ).commit()
         }
 
         // 이전 화면으로 이동

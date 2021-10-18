@@ -1,6 +1,5 @@
-package com.example.albazip.ui.register
+package com.example.albazip.ui.common.register
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher

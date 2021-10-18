@@ -169,7 +169,6 @@
         android:id="@+id/btn_next"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:enabled="false"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/btn_disable_yellow_fill_rounded"

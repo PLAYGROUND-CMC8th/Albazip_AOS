@@ -3,16 +3,14 @@ package com.example.albazip
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityMainBinding
-import com.example.albazip.ui.login.LoginActivity
-import com.example.albazip.ui.login.RegisterActivity
+import com.example.albazip.ui.common.login.LoginActivity
+import com.example.albazip.ui.common.register.RegisterActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
 
@@ -23,7 +21,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         // 회원가입 화면으로 이동
         binding.btnRegister.setOnClickListener {
-            val nextIntent = Intent(this,RegisterActivity::class.java)
+            val nextIntent = Intent(this, RegisterActivity::class.java)
             startActivity(nextIntent)
         }
 

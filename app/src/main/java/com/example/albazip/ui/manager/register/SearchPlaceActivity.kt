@@ -1,8 +1,6 @@
-package com.example.albazip.ui.register.manager
+package com.example.albazip.ui.manager.register
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivitySearchPlaceBinding
 
