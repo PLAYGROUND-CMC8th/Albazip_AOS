@@ -1,11 +1,16 @@
 package com.example.albazip.ui.register
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.View
+import android.widget.EditText
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentInputPhoneBinding
@@ -23,6 +28,9 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // hintText 설정
+        // 굵기
 
         // focus 감지
         binding.etInputPhone.setOnFocusChangeListener { v, hasFocus ->
@@ -61,8 +69,16 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                // 텍스트 크기 동적 변경
                 if (s!!.isEmpty()) {
-                    return
+                    binding.etInputPhone.typeface =
+                        ResourcesCompat.getFont(requireContext(), R.font.roboto_medium)
+                    binding.etInputPhone.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16F)
+                } else {
+                    binding.etInputPhone.typeface =
+                        ResourcesCompat.getFont(requireContext(), R.font.roboto_bold)
+                    binding.etInputPhone.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18F)
                 }
 
                 _afterLength = s.length
@@ -87,14 +103,21 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                         )
                     } else if (_afterLength == 15) {
                         binding.etInputPhone.setText(
-                            s.toString().substring(0, 13) + " " + s.toString().substring(13, s.length)
+                            s.toString().substring(0, 13) + " " + s.toString()
+                                .substring(13, s.length)
                         )
                     }
                 }
                 binding.etInputPhone.setSelection(binding.etInputPhone.length())
 
                 // 휴대폰 번호 입력완료시 전송 버튼 활성화
-
+                if (s.length == 13) { // 활성화
+                    binding.rlClickableCertify.isEnabled = true
+                    binding.tvCertify.setTextColor(Color.parseColor("#343434"))
+                } else { // 비활성화
+                    binding.rlClickableCertify.isEnabled = false
+                    binding.tvCertify.setTextColor(Color.parseColor("#cecece"))
+                }
 
             }
 
@@ -141,10 +164,6 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 
         }
 
-        override fun onFinish() {
-            //countdown finish
-            //onClickStart()
-        }
+        override fun onFinish() {}
     }
-
 }

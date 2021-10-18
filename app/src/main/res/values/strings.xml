@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Albazip</string>
     <string name="tv_alert_info">반드시 본인의 매장을 등록해주세요. 본인의 매장이 아닐 경우 알바집 서비스 이용이 제한됩니다.</string>
-    <string name="hint_phone"><font size="16">-없이 번호입력</font></string>
 </resources>

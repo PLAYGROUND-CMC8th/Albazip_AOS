@@ -15,6 +15,9 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
     FragmentInputPwBinding::bind,
     R.layout.fragment_input_pw
 ) {
+    var firstFlags: Boolean = false
+    var secondFlags: Boolean = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,11 +50,16 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
         // 포커스 여부 감지
         binding.etConfirmPw.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus && binding.etConfirmPw.text.toString().isEmpty())
-                binding.rlConfirmPw.background = ContextCompat.getDrawable(requireContext(), R.drawable.rectagnle_yellow_radius)
+                binding.rlConfirmPw.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.rectagnle_yellow_radius)
             else if (hasFocus && binding.etInputPw.text.toString() == binding.etConfirmPw.text.toString()) {
-                binding.rlConfirmPw.background = ContextCompat.getDrawable(requireContext(), R.drawable.rectagnle_yellow_radius)
+                binding.rlConfirmPw.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.rectagnle_yellow_radius)
             } else {
-                binding.rlConfirmPw.background = ContextCompat.getDrawable(requireContext(), R.drawable.rectangle_custom_white_radius)
+                binding.rlConfirmPw.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.rectangle_custom_white_radius
+                )
             }
         }
 
@@ -68,6 +76,7 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
                             R.drawable.ic_checked_correct
                         )
                     )
+                    firstFlags = true
                 } else {
                     binding.ivInputCheck.setImageDrawable(
                         ContextCompat.getDrawable(
@@ -75,6 +84,7 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
                             R.drawable.ic_checked_normal
                         )
                     )
+                    firstFlags = false
                 }
             }
 
@@ -101,7 +111,7 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
                             )
                         )
                         binding.warningTv.visibility = View.VISIBLE
-                        deActivateBtn()
+                        secondFlags = false
 
                     } else {
                         binding.rlConfirmPw.background = ContextCompat.getDrawable(
@@ -116,10 +126,11 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
                         )
 
                         binding.warningTv.visibility = View.INVISIBLE
-                        activateBtn()
-
+                        secondFlags = true
                     }
                 }
+
+                allChecked()
             }
         })
 
@@ -145,7 +156,7 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
                         )
 
                         binding.warningTv.visibility = View.VISIBLE
-                        deActivateBtn()
+                        secondFlags = false
 
                     } else { // 일치
                         binding.rlConfirmPw.background = ContextCompat.getDrawable(
@@ -159,28 +170,37 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
                             )
                         )
                         binding.warningTv.visibility = View.INVISIBLE
-                        activateBtn()
+                        secondFlags = true
+
                     }
                 } else { // 공백일 때
                     binding.warningTv.visibility = View.INVISIBLE
                 }
-
+                allChecked()
             }
         })
     }
 
     // 버튼 활성화 함수
     private fun activateBtn() {
-        binding.btnNext.isClickable = true
+        binding.btnNext.isEnabled = true
         binding.btnNext.background =
             ContextCompat.getDrawable(requireContext(), R.drawable.btn_main_yellow_fill_rounded)
     }
 
     // 버튼 비활성화 함수
     private fun deActivateBtn() {
-        binding.btnNext.isClickable = false
+        binding.btnNext.isEnabled = false
         binding.btnNext.background =
             ContextCompat.getDrawable(requireContext(), R.drawable.btn_disable_yellow_fill_rounded)
+    }
+
+    private fun allChecked() {
+        if (firstFlags == true && secondFlags == true) {
+            activateBtn()
+        } else {
+            deActivateBtn()
+        }
     }
 
 }

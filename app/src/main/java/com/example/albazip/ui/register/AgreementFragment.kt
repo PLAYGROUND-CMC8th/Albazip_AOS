@@ -71,13 +71,13 @@ class AgreementFragment : BaseFragment<FragmentAgreementBinding>(
 
     // 버튼 활성화 함수
     private fun activateBtn() {
-        binding.btnNext.isClickable = true
+        binding.btnNext.isEnabled = true
         binding.btnNext.background = ContextCompat.getDrawable(requireContext(), R.drawable.btn_main_yellow_fill_rounded)
     }
 
     // 버튼 비활성화 함수
     private fun deActivateBtn() {
-        binding.btnNext.isClickable = false
+        binding.btnNext.isEnabled = false
         binding.btnNext.background = ContextCompat.getDrawable(requireContext(), R.drawable.btn_disable_yellow_fill_rounded)
     }
 }
