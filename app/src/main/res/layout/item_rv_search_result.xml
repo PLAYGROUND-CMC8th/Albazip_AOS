@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:id="@+id/rl_item_bg"
+    android:layout_width="match_parent"
     android:layout_height="92dp"
+    android:layout_marginEnd="14dp"
     android:background="@drawable/bg_selector_place"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -26,18 +28,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_place_name"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="24dp"
-        android:textStyle="normal"
-        android:textSize="14sp"
-        android:textColor="#6f6f6f"
+        android:layout_marginEnd="24dp"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="15sp"
-        tools:text="광주 서구 상무자유로 32"/>
+        android:textColor="#6f6f6f"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        tools:text="광주 서구 상무자유로 32" />
 
 
 </RelativeLayout>
