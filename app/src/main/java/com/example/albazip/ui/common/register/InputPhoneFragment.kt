@@ -9,6 +9,8 @@ import android.util.TypedValue
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentInputPhoneBinding
@@ -17,6 +19,8 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     FragmentInputPhoneBinding::bind,
     R.layout.fragment_input_phone
 ) {
+
+    var btnEnabled:Boolean = false
 
     // 타이머 설정
     var timer = 165
@@ -28,6 +32,11 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
         binding.btnNext.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_fragment, InputInfoFragment()).commit()
+        }
+
+        // 뒤로가기 버튼(약관동의)
+        binding.btnBack.setOnClickListener {
+           activity?.supportFragmentManager?.popBackStack()
         }
 
         // focus 감지
@@ -141,6 +150,25 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 
     }
 
+    // 버튼 상태 저장
+    override fun onPause() {
+        super.onPause()
+        btnEnabled = binding.btnNext.isEnabled == true
+    }
+
+    // 버튼 상태 반환(화면 돌아왔을 때)
+    override fun onResume() {
+        super.onResume()
+
+        if(btnEnabled == true){
+            binding.rlClickableCertify.isEnabled = true
+            binding.tvCertify.setTextColor(Color.parseColor("#343434"))
+        }else{
+            binding.rlClickableCertify.isEnabled = false
+            binding.tvCertify.setTextColor(Color.parseColor("#cecece"))
+        }
+    }
+
     private val mCountDown: CountDownTimer = object : CountDownTimer(99000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
 
@@ -164,4 +192,5 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 
         override fun onFinish() {}
     }
+
 }

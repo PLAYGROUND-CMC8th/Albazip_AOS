@@ -42,7 +42,6 @@ class SearchPlaceActivity :
 
             override fun onClick(view: View, position: Int) {
 
-
                 // 클릭 시 스크롤 이동
                 linearLayoutManager.scrollToPositionWithOffset(position, 0)
 
@@ -51,9 +50,7 @@ class SearchPlaceActivity :
                 }
 
                 pAdapter.notifyDataSetChanged()
-
             }
-
         }
 
         // 만든 어댑터 recyclerview 에 연결

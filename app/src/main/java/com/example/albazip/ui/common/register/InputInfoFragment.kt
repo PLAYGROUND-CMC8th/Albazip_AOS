@@ -1,10 +1,13 @@
 package com.example.albazip.ui.common.register
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.albazip.MainActivity
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentInputInfoBinding
@@ -23,7 +26,14 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
 
         // 메인 화면으로 이동
         binding.btnNext.setOnClickListener {
+            val mainIntent = Intent(context,MainActivity::class.java)
+            startActivity(mainIntent)
             activity?.finish()
+        }
+
+        // 이전 화면으로 이동(비밀번호 입력)
+        binding.btnBack.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStack()
         }
 
         // 포커스 여부 감지

@@ -13,22 +13,32 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
     FragmentInputPwBinding::bind,
     R.layout.fragment_input_pw
 ) {
+
+    var btnEnabled:Boolean = false
+
     var firstFlags: Boolean = false
     var secondFlags: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 이전 화면으로 이동
+        // 이전 화면으로 이동(번호 입력)
         binding.btnBack.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_fragment, AgreementFragment()).commit()
+            activity?.supportFragmentManager?.popBackStack()
         }
 
         // 기본 정보 입력 화면으로 이동
         binding.btnNext.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_fragment, InputInfoFragment()).commit()
+            prevFragment = activity?.supportFragmentManager?.findFragmentById(R.id.main_fragment)
+
+            val transaction = activity?.supportFragmentManager?.beginTransaction()?.add(R.id.main_fragment,
+                InputInfoFragment()
+            )
+
+            transaction?.detach(prevFragment!!)
+
+            transaction?.addToBackStack(null)
+            transaction?.commit()
         }
 
         // 포커스 여부 감지
@@ -200,5 +210,23 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
             deActivateBtn()
         }
     }
+
+    // 버튼 상태 저장
+    override fun onPause() {
+        super.onPause()
+        btnEnabled = binding.btnNext.isEnabled == true
+    }
+
+    // 버튼 상태 반환(화면 돌아왔을 때)
+    override fun onResume() {
+        super.onResume()
+
+        if(btnEnabled == true){
+            activateBtn()
+        }else{
+            deActivateBtn()
+        }
+    }
+
 
 }

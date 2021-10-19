@@ -16,6 +16,8 @@ abstract class BaseFragment<B : ViewBinding>(
     private val bind: (View) -> B,
     @LayoutRes layoutResId: Int
 ) : Fragment(layoutResId) {
+
+    var prevFragment: Fragment? = null
     private var _binding: B? = null
     lateinit var mLoadingDialog: LoadingDialog
 
