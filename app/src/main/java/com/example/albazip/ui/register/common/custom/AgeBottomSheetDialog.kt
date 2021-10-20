@@ -53,6 +53,7 @@ class AgeBottomSheetDialog : BottomSheetDialogFragment() {
             minValue = yearMin
             maxValue = yearMax
             wrapSelectorWheel = false
+            value = 1998
             descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         }
 
