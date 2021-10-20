@@ -10,7 +10,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(ActivityRegisterB
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportFragmentManager.beginTransaction().replace(R.id.main_fragment, AgreementFragment()).commitAllowingStateLoss()
-
+        // 약관동의 화면 fragment 올리기
+        supportFragmentManager.beginTransaction().replace(R.id.main_fragment, InputInfoFragment()).commitAllowingStateLoss()
     }
 }

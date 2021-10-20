@@ -19,5 +19,32 @@
         <item name="android:editTextStyle">@style/customEditTextFontStyle</item>
         <item name="android:radioButtonStyle">@style/customRadioButtonFontStyle</item>
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
+
+        <!-- BottomSheet Dialog -->
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
+
+    <!-- BottomSheet Dialog Custom -->
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@drawable/rectangle_fill_white_radius_top_20</item>
+    </style>
+
+    <!--NumberPicker Custom -->
+    <style name="AgePicker" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorSecondary">#bcbcbc</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="selectableItemBackground">@color/black</item>
+        <item name="colorOnPrimarySurface">@color/black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
 </resources>
+

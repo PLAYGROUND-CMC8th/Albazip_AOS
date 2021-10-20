@@ -7,14 +7,17 @@ import androidx.core.content.ContextCompat
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentAgreementBinding
+import com.example.albazip.ui.register.common.presenter.AgreeContract
 
 // 약관동의
-class AgreementFragment : BaseFragment<FragmentAgreementBinding>(
+class AgreementFragment(
+
+) : BaseFragment<FragmentAgreementBinding>(
     FragmentAgreementBinding::bind,
     R.layout.fragment_agreement
 ) {
 
-    var btnEnabled:Boolean = false
+    var btnEnabled: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

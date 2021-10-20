@@ -10,6 +10,7 @@ import com.example.albazip.ui.main.MainActivity
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentInputInfoBinding
+import com.example.albazip.ui.register.common.custom.AgeBottomSheetDialog
 
 class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
     FragmentInputInfoBinding::bind,
@@ -61,18 +62,6 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
                     )
                 }
             }
-            etAge.setOnFocusChangeListener { v, hasFocus ->
-                if (hasFocus)
-                    binding.rlAge.background = ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.rectagnle_yellow_radius
-                    ) else {
-                    binding.rlAge.background = ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.rectangle_custom_white_radius
-                    )
-                }
-            }
         }
 
         // 입력감지(first-name)
@@ -100,18 +89,23 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
         })
 
 
+        /////////// 여기를 fragment 로 대체
         // 입력감지(나이)
-        binding.etAge.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+//        binding.etAge.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                age_flags = s?.length!! == 4
+//                checkIntentState()
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {}
+//        })
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                age_flags = s?.length!! == 4
-                checkIntentState()
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
+        // 생년월일 picker dialog 생성
+        binding.tvInputAge.setOnClickListener {
+            AgeBottomSheetDialog().show(childFragmentManager,"agePicker")
+        }
 
 
         // 성별 선택

@@ -11,13 +11,15 @@ import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityMainBinding
 import com.example.albazip.ui.login.LoginActivity
 import com.example.albazip.ui.register.common.RegisterActivity
+import com.example.albazip.util.ScreenToFull
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        fullScreen(this)
+        // 전체화면으로 만들기 (상태바 제거)
+        ScreenToFull().fullScreen(this)
 
         // 회원가입 화면으로 이동
         binding.btnRegister.setOnClickListener {
@@ -32,21 +34,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    private fun fullScreen(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (activity.window.insetsController != null) {
-                val insetsController = activity.window.insetsController
-                if (insetsController != null) {
-                    insetsController.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                    insetsController.systemBarsBehavior =
-                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-                }
-            }
-        } else {
-            activity.window.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
-    }
+
 }

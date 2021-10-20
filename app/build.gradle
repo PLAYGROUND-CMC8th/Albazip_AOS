@@ -49,4 +49,7 @@ dependencies {
 
     // 로딩 다이얼로그
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    // NumberPicker
+    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
 }
