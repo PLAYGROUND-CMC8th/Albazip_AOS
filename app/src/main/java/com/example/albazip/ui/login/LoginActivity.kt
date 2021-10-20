@@ -1,4 +1,4 @@
-package com.example.albazip.ui.common.login
+package com.example.albazip.ui.login
 
 import android.os.Bundle
 import com.example.albazip.config.BaseActivity

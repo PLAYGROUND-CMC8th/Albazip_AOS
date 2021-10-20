@@ -1,4 +1,5 @@
 package com.example.albazip.config
 
-class BasePresenter {
+interface BasePresenter {
+    fun start()
 }

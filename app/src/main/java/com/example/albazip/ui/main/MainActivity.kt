@@ -1,4 +1,4 @@
-package com.example.albazip
+package com.example.albazip.ui.main
 
 import android.app.Activity
 import android.content.Intent
@@ -9,8 +9,8 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityMainBinding
-import com.example.albazip.ui.common.login.LoginActivity
-import com.example.albazip.ui.common.register.RegisterActivity
+import com.example.albazip.ui.login.LoginActivity
+import com.example.albazip.ui.register.common.RegisterActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
 
@@ -27,7 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         // 로그인 화면으로 이동
         binding.btnLogin.setOnClickListener {
-            val nextIntent = Intent(this,LoginActivity::class.java)
+            val nextIntent = Intent(this, LoginActivity::class.java)
             startActivity(nextIntent)
         }
     }

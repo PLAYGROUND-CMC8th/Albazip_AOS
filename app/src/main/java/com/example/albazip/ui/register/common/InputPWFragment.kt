@@ -1,4 +1,4 @@
-package com.example.albazip.ui.common.register
+package com.example.albazip.ui.register.common
 
 import android.os.Bundle
 import android.text.Editable

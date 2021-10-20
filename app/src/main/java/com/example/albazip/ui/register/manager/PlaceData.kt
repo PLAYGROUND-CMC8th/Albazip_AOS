@@ -1,4 +1,4 @@
-package com.example.albazip.ui.manager.register
+package com.example.albazip.ui.register.manager
 
 import android.graphics.drawable.Drawable
 import android.view.View

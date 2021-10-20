@@ -1,16 +1,11 @@
-package com.example.albazip.ui.manager.register
+package com.example.albazip.ui.register.manager
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
-import androidx.core.view.allViews
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivitySearchPlaceBinding
-import com.example.albazip.ui.manager.register.adapter.PlaceListAdapter
+import com.example.albazip.ui.register.manager.adapter.PlaceListAdapter
 
 class SearchPlaceActivity :
     BaseActivity<ActivitySearchPlaceBinding>(ActivitySearchPlaceBinding::inflate) {

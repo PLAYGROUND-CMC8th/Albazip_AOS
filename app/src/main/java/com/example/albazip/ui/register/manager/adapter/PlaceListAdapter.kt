@@ -1,16 +1,12 @@
-package com.example.albazip.ui.manager.register.adapter
+package com.example.albazip.ui.register.manager.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.Toast
-import androidx.constraintlayout.widget.Placeholder
-import androidx.core.view.allViews
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.databinding.ItemRvSearchResultBinding
-import com.example.albazip.ui.manager.register.PlaceData
+import com.example.albazip.ui.register.manager.PlaceData
 
 class PlaceListAdapter(var context: Context, var itemList: ArrayList<PlaceData>) :
     RecyclerView.Adapter<PlaceListAdapter.PlaceHolder>() {

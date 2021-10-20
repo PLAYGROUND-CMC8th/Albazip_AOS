@@ -1,4 +1,4 @@
-package com.example.albazip.ui.common.register
+package com.example.albazip.ui.register.common
 
 import android.graphics.Color
 import android.os.Bundle
@@ -9,8 +9,6 @@ import android.util.TypedValue
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentInputPhoneBinding

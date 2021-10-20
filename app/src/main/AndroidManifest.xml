@@ -10,14 +10,14 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Albazip">
-        <activity android:name="com.example.albazip.ui.manager.register.SearchPlaceActivity"
+        <activity android:name="com.example.albazip.ui.register.manager.SearchPlaceActivity"
             android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
-        <activity android:name="com.example.albazip.ui.common.home.HomeActivity">
+        <activity android:name="com.example.albazip.ui.home.common.HomeActivity">
         </activity>
-        <activity android:name="com.example.albazip.ui.common.login.LoginActivity" />
-        <activity android:name="com.example.albazip.ui.common.register.RegisterActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.albazip.ui.login.LoginActivity" />
+        <activity android:name="com.example.albazip.ui.register.common.RegisterActivity" />
+        <activity android:name="com.example.albazip.ui.main.MainActivity">
             <intent-filter>
 
                 <action android:name="android.intent.action.MAIN" />
