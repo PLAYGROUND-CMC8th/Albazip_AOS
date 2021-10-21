@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.register.manager.SearchPlaceActivity">
+    tools:context=".src.register.manager.SearchPlaceActivity">
 
     <ImageButton
         android:id="@+id/iv_back"
@@ -31,10 +31,12 @@
 
         <!-- 텍스트 입력 할 때는 bold 로 변경 -->
         <EditText
+            android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginHorizontal="16dp"
+            android:singleLine="true"
             android:background="@null"
             android:fontFamily="@font/roboto_medium"
             android:hint="매장명+지점 검색"
@@ -86,7 +88,7 @@
 
     <!-- 지도 띄울 공간 -->
     <RelativeLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/rl_mapview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
