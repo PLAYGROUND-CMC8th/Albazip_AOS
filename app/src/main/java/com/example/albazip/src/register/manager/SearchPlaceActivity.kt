@@ -4,17 +4,16 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.albazip.config.ApplicationClass.Companion.KAKAO_API_KEY
-import com.example.albazip.config.ApplicationClass.Companion.KAKAO_URL
+import androidx.viewpager2.widget.ViewPager2
+import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.data.network.response.SearchPlaceResponse
 import com.example.albazip.databinding.ActivitySearchPlaceBinding
+import com.example.albazip.src.register.manager.adapter.SearchResultVPAdpater
 import com.example.albazip.src.register.manager.data.local.PlaceData
-import com.example.albazip.src.register.manager.adapter.PlaceListAdapter
+import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import retrofit2.Call
@@ -26,27 +25,58 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SearchPlaceActivity :
     BaseActivity<ActivitySearchPlaceBinding>(ActivitySearchPlaceBinding::inflate) {
 
-    private lateinit var pAdapter: PlaceListAdapter
-
-    val resetX: Double = 0.0
-    val resetY: Double = 0.0
-
-    // 매장 리스트를 담기 위한 배열 생성
+    // 검색 결과를 담기 위한 배열 생성
     val itemList = ArrayList<PlaceData>()
+
+    private lateinit var placeAdapter: SearchResultVPAdpater
+
+    private lateinit var marker:MapPOIItem
+    private lateinit var mapView:MapView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 뷰페이저 설정
+        /* 여백, 너비에 대한 정의 */
+        val pagerWidth = resources.getDimensionPixelOffset(R.dimen.pageWidth)
+        val screenWidth = resources.displayMetrics.widthPixels
+        val pagerPadding = ((screenWidth-pagerWidth)*0.3).toInt() // 아이템의 padding
+        val offsetPx = ((screenWidth-pagerWidth)*0.15).toInt() // 아이템 간의 간격
+
+        binding.vpPlace.clipChildren = false
+        binding.vpPlace.setPadding(pagerPadding,0,pagerPadding,0)
+        binding.vpPlace.setPageTransformer { page, position ->
+            page.translationX = position * offsetPx
+        }
+
+        binding.vpPlace.offscreenPageLimit = 1 // 몇 개의 페이지를 미리 로드 해둘것인지
+
+        // 페이지 선택 동작 반환 함수
+        binding.vpPlace.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+
+                // pager 활성화
+                for(i in 0 until itemList.size) {
+                    itemList[i].flags = i == position
+                    placeAdapter.notifyDataSetChanged()
+                }
+
+                // 맵 뷰 갱신
+                setMapView(position)
+
+                super.onPageSelected(position)
+            }
+        })
 
         // 엔터 키로 edittext 입력 받기
         binding.etSearch.setOnKeyListener { v, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
 
                 // 키보드 내리기
                 val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
 
-                // 엔터 눌렀을때 행동
+                // 엔터 눌렀을때 행동 -> 키워드로 검색하기
                 searchKeyword(binding.etSearch.text.toString())
 
                 return@setOnKeyListener true
@@ -55,104 +85,46 @@ class SearchPlaceActivity :
             false
         }
 
-        // 엔터 눌렀을 때 연결해준다 !
+        // 맵 뷰 띄우기 (초기화)
+        initialMapView()
+    }
 
-
-//      // map view 띄우기
-        val mapView = MapView(this)
+    // 맵 뷰 띄우기
+    private fun initialMapView(){
+        mapView = MapView(this)
         val mapViewContainer = binding.rlMapview
 
         mapViewContainer.addView(mapView)
 
-        //val mapPoint = MapPoint.mapPointWithGeoCoord(37.608046,127.061159)
-        //
-        //mapView.setMapCenterPoint(mapPoint,true)
+        // 어댑터 생성
+        placeAdapter = SearchResultVPAdpater(itemList)
 
-
-        //       val marker:MapPOIItem = MapPOIItem()
-//        marker.itemName = ""
-//        marker.tag = 0
-//        marker.isCustomImageAutoscale = true
-//        marker.markerType = MapPOIItem.MarkerType.BluePin
-//        marker.mapPoint = MapPoint.mapPointWithGeoCoord(126.54587355630036,33.379777816446165)
-
-
-        //mapView.addPOIItem(marker)
-
-        //mapView.setMapCenterPoint(mapPoint,true)
-        //mapView.setZoomLevel(-1,true)
-
-
-        // 시작 뷰 설정
-
-
-//        itemList.add(PlaceData("서플라이 가", "광주 광산구 임방울대로826번길 47", false))
-//        itemList.add(PlaceData("서플라이 나", "광주 서구 상무자유로 32", false))
-//        itemList.add(PlaceData("서플라이 다", "광주 광산구 임방울대로826번길 47", false))
-//        itemList.add(PlaceData("서플라이 라", "광주 서구 상무자유로 32", false))
-//        itemList.add(PlaceData("서플라이 마", "광주 광산구 임방울대로826번길 47", false))
-//        itemList.add(PlaceData("서플라이 바", "광주 서구 상무자유로 32", false))
-
-        pAdapter = PlaceListAdapter(this, itemList)
-//
-        // 리사이클러 뷰 타입 설정
-        val linearLayoutManager = LinearLayoutManager(this)
-        linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-
-        binding.rvPlace.layoutManager = linearLayoutManager
-
-        pAdapter.itemClick = object : PlaceListAdapter.ItemClick {
-
-            override fun onClick(view: View, position: Int) {
-
-                // 클릭 시 스크롤 이동
-                linearLayoutManager.scrollToPositionWithOffset(position, 0)
-
-                for (i in 0 until itemList.size) {
-                    itemList[i].flags = i == position
-                }
-
-                pAdapter.notifyDataSetChanged()
-
-                showCustomToast("itemList[position].locationX: " + itemList[position].locationX)
-
-
-                // 지도 view 재갱신
-                // val newPoint = MapPoint.mapPointWithGeoCoord(itemList[position].locationX, itemList[position].locationY)
-                mapView.setMapCenterPointAndZoomLevel(
-                    MapPoint.mapPointWithGeoCoord(
-                        37.608046,
-                        127.061159
-                    ), -1, true
-                )
-                Log.d(
-                    "Test",
-                    "x" + itemList[position].locationX.toString() + "y:" + itemList[position].locationY.toString()
-                )
-
-
-                mapView.requestLayout()
-
-//                mapView.zoomIn(true)
-//                mapView.zoomOut(true)
-//                mapView.requestLayout()
-                //setMarker(itemList[position].locationX, itemList[position].locationY)
-            }
+        marker = MapPOIItem()
+        marker.apply {
+            itemName = "서울특별시청"   // 마커 이름
+            mapPoint = MapPoint.mapPointWithGeoCoord(37.5666805, 126.9784147)
+            markerType = MapPOIItem.MarkerType.CustomImage
+            customImageResourceId = R.drawable.ic_pin_location
+            selectedMarkerType = MapPOIItem.MarkerType.CustomImage
+            customSelectedImageResourceId = R.drawable.ic_pin_location
+            isCustomImageAutoscale = false
+           // setCustomImageAnchor(0.5f, 1.0f)
         }
 
-//        // 만든 어댑터 recyclerview 에 연결
-//        binding.rvPlace.adapter = pAdapter
-
+        // 기본 값은 서울시청
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.5666805, 126.9784147),true)
+        mapView.addPOIItem(marker)
     }
+
 
     // 키워드 검색 함수
     private fun searchKeyword(keyword: String) {
         val retrofit = Retrofit.Builder()   // Retrofit 구성
-            .baseUrl(KAKAO_URL)
+            .baseUrl(ApplicationClass.KAKAO_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val api = retrofit.create(SearchPlaceRetrofitInterface::class.java)   // 통신 인터페이스를 객체로 생성
-        val call = api.getSearchKeyword(KAKAO_API_KEY, keyword)   // 검색 조건 입력
+        val call = api.getSearchKeyword(ApplicationClass.KAKAO_API_KEY, keyword)   // 검색 조건 입력
 
         // API 서버에 요청
         call.enqueue(object : Callback<SearchPlaceResponse> {
@@ -160,22 +132,23 @@ class SearchPlaceActivity :
                 call: Call<SearchPlaceResponse>,
                 response: Response<SearchPlaceResponse>
             ) {
-                // 통신 성공 (검색 결과는 response.body()에 담겨있음)
-                Log.d("Test", "Raw: ${response.raw()}")
+
+                // 여기서 view 의 정보를 미리 저장해둔다.
 
                 // itemList 초기화
                 itemList.clear()
 
+                // 검색 결과 리스트 itemList 배열에 담기
                 for (i in 0 until response.body()!!.documents.size) {
                     //  Log.d("Test", "Body: ${response.body()?.documents?.get(0)?.place_name}")
-                    if (i == 0) {
+                    if (i == 0) { // 첫 번째 매장은 검색과 동시에 자동 활성화
                         itemList.add(
                             PlaceData(
                                 "${response.body()?.documents?.get(i)?.place_name}",
                                 "${response.body()?.documents?.get(i)?.road_address_name}",
                                 true,
-                                response.body()?.documents?.get(i)?.x!!.toDouble(),
-                                response.body()?.documents?.get(i)?.y!!.toDouble()
+                                response.body()?.documents?.get(i)?.y!!.toDouble(),
+                                response.body()?.documents?.get(i)?.x!!.toDouble()
                             )
                         )
                     } else {
@@ -184,34 +157,41 @@ class SearchPlaceActivity :
                                 "${response.body()?.documents?.get(i)?.place_name}",
                                 "${response.body()?.documents?.get(i)?.road_address_name}",
                                 false,
-                                response.body()?.documents?.get(i)?.x!!.toDouble(),
-                                response.body()?.documents?.get(i)?.y!!.toDouble()
+                                response.body()?.documents?.get(i)?.y!!.toDouble(),
+                                response.body()?.documents?.get(i)?.x!!.toDouble()
                             )
                         )
                     }
                 }
 
                 // adapter 와의 연결
-                // 만든 어댑터 recyclerview 에 연결
-                binding.rvPlace.adapter = pAdapter
-
-                Log.d("Test", "Body: ${response.body()?.documents?.get(0)?.place_name}")
-                Log.d("Test", "Body: ${response.body()?.documents?.get(0)?.address_name}")
-                Log.d(
-                    "Test",
-                    "Body: ${response.body()?.documents?.get(0)?.road_address_name}"
-                ) // 이걸로 가자
-                Log.d("Test", "Body: ${response.body()?.documents?.get(0)?.x}")
-                Log.d("Test", "Body: ${response.body()?.documents?.get(0)?.y}")
+                // 만든 어댑터 pager 에 연결(=데이터 갱신)
+                binding.vpPlace.adapter = placeAdapter
             }
 
             override fun onFailure(call: Call<SearchPlaceResponse>, t: Throwable) {
                 // 통신 실패
                 Log.w("MainActivity", "통신 실패: ${t.message}")
-                showCustomToast("통신실패?")
             }
 
         })
     }
 
+    // 맵 뷰 갱신 -> 근데 이 지도가 바로바로 뜰지가 의문
+    private fun setMapView(position:Int){
+
+        // 매장의 중심 좌표 받아오기
+        val positionY = itemList[position].latitute
+        val positionX = itemList[position].longtitude
+
+        val selectedLMapPoint = MapPoint.mapPointWithGeoCoord(positionY, positionX)
+
+        // 중심좌표 이동
+        mapView.setMapCenterPointAndZoomLevel(selectedLMapPoint,0,false)
+
+        // 마커 재설정
+        marker.mapPoint = MapPoint.mapPointWithGeoCoord(positionY,positionX)
+        marker.itemName = itemList[position].name
+
+    }
 }

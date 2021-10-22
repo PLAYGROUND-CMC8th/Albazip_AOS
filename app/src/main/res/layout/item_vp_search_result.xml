@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_selector_place"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tv_place_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="23dp"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="13sp"
+        android:textColor="#343434"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="서플라이" />
+
+    <TextView
+        android:id="@+id/tv_place_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_place_name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="15sp"
+        android:textColor="#6f6f6f"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        tools:text="광주 서구 상무자유로 32" />
+
+
+</RelativeLayout>

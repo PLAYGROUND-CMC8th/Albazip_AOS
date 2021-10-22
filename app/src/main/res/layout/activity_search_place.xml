@@ -38,6 +38,7 @@
             android:layout_marginHorizontal="16dp"
             android:singleLine="true"
             android:background="@null"
+            android:textStyle="bold"
             android:fontFamily="@font/roboto_medium"
             android:hint="매장명+지점 검색"
             android:letterSpacing="-0.01"
@@ -92,9 +93,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="-60dp"
         android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rl_search_result"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rl_search_place" />
@@ -123,16 +124,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_place"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_place"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="30dp"
             android:clipToPadding="false"
-            android:paddingHorizontal="36dp"
             android:orientation="horizontal"
-            tools:listitem="@layout/item_rv_search_result"
+            android:clipChildren="false"
             app:layout_constraintBottom_toTopOf="@id/btn_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
