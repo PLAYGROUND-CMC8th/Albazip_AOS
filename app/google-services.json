@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "603267097825",
+    "project_id": "albazip-be2a9",
+    "storage_bucket": "albazip-be2a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603267097825:android:475fd11f3d9bd065dfc3a0",
+        "android_client_info": {
+          "package_name": "com.example.albazip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603267097825-j6bf588ihk5ulf83svd7307cohqve881.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.albazip",
+            "certificate_hash": "5b570480c2b1b5ae2db1dcda5af85d468789256a"
+          }
+        },
+        {
+          "client_id": "603267097825-i68rm1girs0j19ch8hi22nqo21be1oa2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSowcOHHvYzHOIl8OiAcIsUvFGnxWSCPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603267097825-i68rm1girs0j19ch8hi22nqo21be1oa2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

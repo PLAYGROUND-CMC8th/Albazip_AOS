@@ -50,7 +50,8 @@
 
     <!-- 경고 문구 -->
     <LinearLayout
-        android:visibility="gone"
+        android:id="@+id/ll_waring_info"
+        android:visibility="visible"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="36dp"
@@ -71,6 +72,7 @@
             android:src="@drawable/ic_alert_circle" />
 
         <TextView
+            android:id="@+id/tv_waring"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
@@ -91,6 +93,7 @@
     <RelativeLayout
         android:id="@+id/rl_mapview"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="-60dp"
@@ -103,6 +106,7 @@
     <!-- 가게 선택 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rl_search_result"
+        android:visibility="invisible"
         android:layout_width="0dp"
         android:layout_height="281dp"
         android:background="@drawable/bg_result"
@@ -157,5 +161,74 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <!-- 검색 결과 없음 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_search_none"
+        android:visibility="invisible"
+        android:layout_width="0dp"
+        android:layout_height="281dp"
+        android:background="@drawable/bg_result"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_search_none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="36dp"
+            android:letterSpacing="-0.03"
+            android:text="검색결과"
+            android:textColor="#a3a3a3"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_search_none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_location_none"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_search_none"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_result_none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_search_none"
+            android:text="검색결과가 없어요."
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="22sp"
+            android:layout_marginTop="14dp"
+            android:textStyle="bold"
+            android:textColor="@color/customBlack"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="-3sp"
+            android:gravity="center_horizontal"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_self"
+            android:layout_width="96dp"
+            android:layout_height="37dp"
+            android:text="직접등록"
+            android:layout_marginTop="14dp"
+            android:stateListAnimator="@null"
+            android:layout_marginBottom="56dp"
+            android:background="@drawable/rectangle_fill_yellow_radius_15"
+            app:layout_constraintStart_toStartOf="@id/tv_result_none"
+            app:layout_constraintEnd_toEndOf="@id/tv_result_none"
+            app:layout_constraintTop_toBottomOf="@id/tv_result_none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/white"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

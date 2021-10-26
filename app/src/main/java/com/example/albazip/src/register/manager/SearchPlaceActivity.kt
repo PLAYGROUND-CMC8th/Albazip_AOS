@@ -1,9 +1,11 @@
 package com.example.albazip.src.register.manager
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.albazip.R
@@ -30,8 +32,11 @@ class SearchPlaceActivity :
 
     private lateinit var placeAdapter: SearchResultVPAdpater
 
-    private lateinit var marker:MapPOIItem
-    private lateinit var mapView:MapView
+    private lateinit var marker: MapPOIItem
+    private lateinit var mapView: MapView
+
+    private lateinit var intentResultName:String
+    private lateinit var intentResultAdress:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +45,11 @@ class SearchPlaceActivity :
         /* 여백, 너비에 대한 정의 */
         val pagerWidth = resources.getDimensionPixelOffset(R.dimen.pageWidth)
         val screenWidth = resources.displayMetrics.widthPixels
-        val pagerPadding = ((screenWidth-pagerWidth)*0.3).toInt() // 아이템의 padding
-        val offsetPx = ((screenWidth-pagerWidth)*0.15).toInt() // 아이템 간의 간격
+        val pagerPadding = ((screenWidth - pagerWidth) * 0.3).toInt() // 아이템의 padding
+        val offsetPx = ((screenWidth - pagerWidth) * 0.15).toInt() // 아이템 간의 간격
 
         binding.vpPlace.clipChildren = false
-        binding.vpPlace.setPadding(pagerPadding,0,pagerPadding,0)
+        binding.vpPlace.setPadding(pagerPadding, 0, pagerPadding, 0)
         binding.vpPlace.setPageTransformer { page, position ->
             page.translationX = position * offsetPx
         }
@@ -56,10 +61,14 @@ class SearchPlaceActivity :
             override fun onPageSelected(position: Int) {
 
                 // pager 활성화
-                for(i in 0 until itemList.size) {
+                for (i in 0 until itemList.size) {
                     itemList[i].flags = i == position
                     placeAdapter.notifyDataSetChanged()
                 }
+
+                // 선택된 가게 정보 받아오기
+                intentResultName = itemList[position].name
+                intentResultAdress = itemList[position].address
 
                 // 맵 뷰 갱신
                 setMapView(position)
@@ -71,6 +80,12 @@ class SearchPlaceActivity :
         // 엔터 키로 edittext 입력 받기
         binding.etSearch.setOnKeyListener { v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+
+                // 지도 화면 활성화
+                if (binding.rlMapview.visibility == View.INVISIBLE) {
+                    binding.rlMapview.visibility = View.VISIBLE // Map 뷰 나타내기
+                    binding.rlSearchResult.visibility = View.VISIBLE // 하단 뷰 나타내기
+                }
 
                 // 키보드 내리기
                 val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -87,10 +102,27 @@ class SearchPlaceActivity :
 
         // 맵 뷰 띄우기 (초기화)
         initialMapView()
+
+        // 다음 버튼을 눌렀을 때 -> 데이터 넘겨주기
+        binding.btnNext.setOnClickListener {
+
+            val nextIntent = Intent(this,RegisterPlaceActivity::class.java)
+            nextIntent.putExtra("name",intentResultName)
+            nextIntent.putExtra("adress",intentResultAdress)
+            startActivity(nextIntent)
+
+        }
+
+        // 직접등록 버튼을 눌렀을 때 -> 그냥 띄우기
+        binding.btnSelf.setOnClickListener {
+            val nextIntent = Intent(this,RegisterPlaceActivity::class.java)
+            startActivity(nextIntent)
+        }
+
     }
 
     // 맵 뷰 띄우기
-    private fun initialMapView(){
+    private fun initialMapView() {
         mapView = MapView(this)
         val mapViewContainer = binding.rlMapview
 
@@ -108,11 +140,11 @@ class SearchPlaceActivity :
             selectedMarkerType = MapPOIItem.MarkerType.CustomImage
             customSelectedImageResourceId = R.drawable.ic_pin_location
             isCustomImageAutoscale = false
-           // setCustomImageAnchor(0.5f, 1.0f)
+            // setCustomImageAnchor(0.5f, 1.0f)
         }
 
         // 기본 값은 서울시청
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.5666805, 126.9784147),true)
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.5666805, 126.9784147), true)
         mapView.addPOIItem(marker)
     }
 
@@ -133,35 +165,49 @@ class SearchPlaceActivity :
                 response: Response<SearchPlaceResponse>
             ) {
 
-                // 여기서 view 의 정보를 미리 저장해둔다.
-
                 // itemList 초기화
                 itemList.clear()
 
-                // 검색 결과 리스트 itemList 배열에 담기
-                for (i in 0 until response.body()!!.documents.size) {
-                    //  Log.d("Test", "Body: ${response.body()?.documents?.get(0)?.place_name}")
-                    if (i == 0) { // 첫 번째 매장은 검색과 동시에 자동 활성화
-                        itemList.add(
-                            PlaceData(
-                                "${response.body()?.documents?.get(i)?.place_name}",
-                                "${response.body()?.documents?.get(i)?.road_address_name}",
-                                true,
-                                response.body()?.documents?.get(i)?.y!!.toDouble(),
-                                response.body()?.documents?.get(i)?.x!!.toDouble()
+                if (response.body() != null) {
+
+                    // 검색결과 UI 나타내기
+                    showResultBg()
+
+                    // 검색 결과 리스트 itemList 배열에 담기
+                    for (i in 0 until response.body()!!.documents.size) {
+                        //  Log.d("Test", "Body: ${response.body()?.documents?.get(0)?.place_name}")
+                        if (i == 0) { // 첫 번째 매장은 검색과 동시에 자동 활성화
+                            itemList.add(
+                                PlaceData(
+                                    "${response.body()?.documents?.get(i)?.place_name}",
+                                    "${response.body()?.documents?.get(i)?.road_address_name}",
+                                    true,
+                                    response.body()?.documents?.get(i)?.y!!.toDouble(),
+                                    response.body()?.documents?.get(i)?.x!!.toDouble()
+                                )
                             )
-                        )
-                    } else {
-                        itemList.add(
-                            PlaceData(
-                                "${response.body()?.documents?.get(i)?.place_name}",
-                                "${response.body()?.documents?.get(i)?.road_address_name}",
-                                false,
-                                response.body()?.documents?.get(i)?.y!!.toDouble(),
-                                response.body()?.documents?.get(i)?.x!!.toDouble()
+                        } else {
+                            itemList.add(
+                                PlaceData(
+                                    "${response.body()?.documents?.get(i)?.place_name}",
+                                    "${response.body()?.documents?.get(i)?.road_address_name}",
+                                    false,
+                                    response.body()?.documents?.get(i)?.y!!.toDouble(),
+                                    response.body()?.documents?.get(i)?.x!!.toDouble()
+                                )
                             )
-                        )
+                        }
                     }
+
+                    // 1. 검색 결과에 공백만 들어갔을 때 -> ex)"   "
+                    // 2. body 는 존재하지만 내부 데이터가 없을 때 -> response.body()?.documents : []  -> ex) "ㄱㄹㄹㄹ" 처럼 막 입력
+                    // 왜 그런지는 모르겠지만 서버에서 []를 반환하므로 일단 if 문으로 처리해줬다.
+                    if(response.body()?.documents!!.isEmpty()){
+                        showNoneBg()
+                    }
+
+                } else { // 통신에서 받아온 검색결과가 없을 때 -> 검색결과 없음
+                    showNoneBg()
                 }
 
                 // adapter 와의 연결
@@ -178,7 +224,7 @@ class SearchPlaceActivity :
     }
 
     // 맵 뷰 갱신 -> 근데 이 지도가 바로바로 뜰지가 의문
-    private fun setMapView(position:Int){
+    private fun setMapView(position: Int) {
 
         // 매장의 중심 좌표 받아오기
         val positionY = itemList[position].latitute
@@ -187,11 +233,24 @@ class SearchPlaceActivity :
         val selectedLMapPoint = MapPoint.mapPointWithGeoCoord(positionY, positionX)
 
         // 중심좌표 이동
-        mapView.setMapCenterPointAndZoomLevel(selectedLMapPoint,0,false)
+        mapView.setMapCenterPointAndZoomLevel(selectedLMapPoint, 0, true)
 
         // 마커 재설정
-        marker.mapPoint = MapPoint.mapPointWithGeoCoord(positionY,positionX)
+        marker.mapPoint = MapPoint.mapPointWithGeoCoord(positionY, positionX)
         marker.itemName = itemList[position].name
 
     }
+
+    // 검색 결과 o 뷰그룹
+    private fun showResultBg(){
+        binding.clSearchNone.visibility = View.GONE
+        binding.rlSearchResult.visibility = View.VISIBLE
+    }
+
+    // 검색 결과 x 뷰그룹
+    private fun showNoneBg(){
+        binding.rlSearchResult.visibility = View.GONE
+        binding.clSearchNone.visibility = View.VISIBLE
+    }
+
 }

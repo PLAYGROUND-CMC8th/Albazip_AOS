@@ -65,4 +65,11 @@ dependencies {
 
     // https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+    // firebase
+    implementation platform('com.google.firebase:firebase-bom:28.4.2')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
 }
+
+apply plugin: 'com.google.gms.google-services'

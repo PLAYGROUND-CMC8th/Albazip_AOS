@@ -2,11 +2,13 @@ package com.example.albazip.src.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityMainBinding
 import com.example.albazip.src.login.LoginActivity
 import com.example.albazip.src.register.common.RegisterActivity
 import com.example.albazip.util.ScreenToFull
+import com.google.android.gms.tasks.OnCompleteListener
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
 
@@ -28,6 +30,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             startActivity(nextIntent)
         }
     }
-
-
+    
 }

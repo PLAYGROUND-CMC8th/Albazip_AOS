@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageButton
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
@@ -32,11 +33,149 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <TextView
+        android:id="@+id/tv_closed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="13sp"
+        android:text="매장 휴무일"
+        android:textColor="#6f6f6f"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_no_closed"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_marginTop="12dp"
+        android:text="연중무휴"
+        android:background="@color/mainYellow"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/tv_closed"
+        app:layout_constraintTop_toBottomOf="@id/tv_closed" />
+
+    <LinearLayout
+        android:id="@+id/ll_closed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="36dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/btn_no_closed"
+        app:layout_constraintTop_toBottomOf="@id/btn_no_closed">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:text="월"
+            android:background="@drawable/ripple_day_btn"
+            android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:text="화"
+                android:background="@drawable/ripple_day_btn"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:text="수"
+                android:background="@drawable/ripple_day_btn"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:text="목"
+                android:background="@drawable/ripple_day_btn"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:text="금"
+                android:background="@drawable/ripple_day_btn"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:text="토"
+                android:background="@drawable/ripple_day_btn"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:text="일"
+                android:background="@drawable/ripple_day_btn"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1.2">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="55dp"
+                android:layout_height="31dp"
+                android:text="공휴일"
+                android:background="@color/mainYellow"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_medium"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="13sp"
@@ -45,7 +184,7 @@
         android:textSize="16sp"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="@id/tv_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@id/ll_closed" />
 
     <TextView
         android:id="@+id/tv_start_time"
@@ -181,44 +320,42 @@
         android:id="@+id/rl_pay_day"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="36dp"
         android:layout_marginTop="14dp"
+        android:layout_marginEnd="36dp"
         android:background="@drawable/rectangle_custom_white_radius"
-        app:layout_constraintStart_toStartOf="@id/tv_pay_day"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_pay_day"
         app:layout_constraintTop_toBottomOf="@id/tv_pay_day">
 
         <TextView
             android:id="@+id/tv_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="매월"
-            android:layout_marginStart="16dp"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:textColor="#a3a3a3"
-            android:letterSpacing="-0.03"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:letterSpacing="-0.03"
+            android:text="매월"
+            android:textColor="#a3a3a3"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/et_select_day"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:layout_marginStart="16dp"
-            android:layout_toEndOf="@id/tv_month"
             android:layout_toStartOf="@id/tv_day"
-            android:textStyle="normal"
-            android:textSize="16sp"
-            android:textColorHint="@color/hintTxtColor"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="1 - 31 사이에서 하루 선택"
             android:letterSpacing="-0.03"
             android:textColor="@color/customBlack"
-            android:layout_centerVertical="true"
-            android:gravity="end"
+            android:textColorHint="@color/hintTxtColor"
+            android:textSize="16sp"
+            android:textStyle="normal"
             tools:text="31"
-            android:hint="1 - 31 사이에서 하루 선택"
-            android:background="@null"
 
             />
 
@@ -226,16 +363,14 @@
             android:id="@+id/tv_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="일"
-            android:layout_marginEnd="16dp"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:textColor="#a3a3a3"
-            android:letterSpacing="-0.03"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"/>
-
-
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:letterSpacing="-0.03"
+            android:text="일"
+            android:textColor="#a3a3a3"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.albazip.config
 
 import android.app.Application
+import com.example.albazip.util.PreferenceUtil
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,10 +17,17 @@ class ApplicationClass: Application()  {
 
         // Retrofit 인스턴스, 앱 실행시 한번만 생성하여 사용합니다.
         lateinit var sRetrofit: Retrofit
+
+        // sharedPreference : 초기 정보를 받기 위한 prefs 생성
+        lateinit var prefs: PreferenceUtil
     }
 
     override fun onCreate() {
         super.onCreate()
+
+        // sharedPreference
+        prefs = PreferenceUtil(applicationContext)
+
     }
 
     // 레트로핏 인스턴스를 생성하고, 레트로핏에 각종 설정값들을 지정해줍니다.

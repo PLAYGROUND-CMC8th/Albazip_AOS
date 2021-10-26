@@ -1,6 +1,8 @@
 package com.example.albazip.src.register.common.custom
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +14,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class AgeBottomSheetDialog : BottomSheetDialogFragment() {
 
     private lateinit var binding:DialogFragmentAgeBinding
-    private var selectedAge:Int = 1950
+    private var selectedAge:Int = 1998 // 초기값 설정
+    lateinit var bottomSheetClickListener:BottomSheetClickListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        bottomSheetClickListener = requireParentFragment() as BottomSheetClickListener
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,13 +35,14 @@ class AgeBottomSheetDialog : BottomSheetDialogFragment() {
 
         // 취소 버튼
         binding.btnCancel.setOnClickListener {
+
             dismiss()
         }
 
         // 확인 버튼
         binding.btnOk.setOnClickListener {
-
-            Toast.makeText(requireContext(),selectedAge.toString(),Toast.LENGTH_LONG).show()
+            // activity에 값 전달
+            bottomSheetClickListener.onItemSelected(selectedAge.toString())
 
             dismiss()
         }
@@ -59,6 +70,10 @@ class AgeBottomSheetDialog : BottomSheetDialogFragment() {
         binding.numberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
             selectedAge = newVal
         }
+    }
+
+    interface BottomSheetClickListener{
+        fun onItemSelected(text:String)
     }
 
 

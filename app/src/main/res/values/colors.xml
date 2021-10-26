@@ -15,4 +15,5 @@
     <color name="subYellow">#fffaea</color>
     <color name="disableYellow">#ffe17f</color>
     <color name="hintTxtColor">#c8c8c8</color>
+    <color name="waringTxtColor">#ff3b30</color>
 </resources>
