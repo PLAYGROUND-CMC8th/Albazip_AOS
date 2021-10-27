@@ -74,12 +74,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:text="월"
-            android:background="@drawable/ripple_day_btn"
-            android:textSize="12sp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:text="월"
+                android:background="@drawable/ripple_day_btn"
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <RelativeLayout

@@ -8,5 +8,10 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //
+        binding.btnNext.setOnClickListener {
+
+        }
     }
 }

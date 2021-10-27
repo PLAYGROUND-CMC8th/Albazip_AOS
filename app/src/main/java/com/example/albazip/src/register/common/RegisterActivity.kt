@@ -11,6 +11,6 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(ActivityRegisterB
         super.onCreate(savedInstanceState)
 
         // 약관동의 화면 fragment 올리기
-        supportFragmentManager.beginTransaction().replace(R.id.main_fragment, InputInfoFragment()).commitAllowingStateLoss()
+        supportFragmentManager.beginTransaction().replace(R.id.main_fragment, InputPhoneFragment()).commitAllowingStateLoss()
     }
 }

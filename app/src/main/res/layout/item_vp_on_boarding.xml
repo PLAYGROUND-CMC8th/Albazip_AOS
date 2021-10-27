@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".src.register.manager.ManagerOnBoardingActivity">
+
+    <ImageView
+        android:id="@+id/iv_onboard"
+        android:layout_width="312dp"
+        android:layout_height="370dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/img_onboarding_1"
+        app:layout_constraintBottom_toTopOf="@id/tv_vp_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tv_vp_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="92dp"
+        android:layout_marginTop="41dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="6sp"
+        android:text="근무자 관리"
+        android:textColor="#343434"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_vp_contents"
+        app:layout_constraintEnd_toEndOf="@id/iv_onboard"
+        app:layout_constraintStart_toStartOf="@id/iv_onboard"
+        app:layout_constraintTop_toBottomOf="@id/iv_onboard" />
+
+    <TextView
+        android:id="@+id/tv_vp_contents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="147dp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center_horizontal"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="-1sp"
+        android:paddingHorizontal="46dp"
+        android:textAlignment="center"
+        android:textColor="#6f6f6f"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_vp_title"
+        tools:text="근무자의 스케줄과 시급을 설정하고, 업무\n 리스트를 작성해 편리하게 인수인계 하세요." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

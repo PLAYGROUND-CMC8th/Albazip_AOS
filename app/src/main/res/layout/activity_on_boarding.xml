@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".src.register.manager.ManagerOnBoardingActivity">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/onboard_vp2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_location"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="36dp"
+        android:layout_marginHorizontal="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/onboard_vp2"
+        app:layout_constraintStart_toStartOf="@id/onboard_vp2">
+
+        <TextView
+            android:id="@+id/tv_skip"
+            android:layout_width="102dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:letterSpacing="-0.03"
+            android:text="건너뛰기"
+            android:textColor="#adadad"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <LinearLayout
+            android:id="@+id/ll_indicator"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginHorizontal="34dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/tv_skip"
+            android:layout_toStartOf="@id/tv_next">
+
+            <ImageView
+                android:id="@+id/iv_indicator_one"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginEnd="6dp"
+                android:background="@null"
+                android:src="@drawable/onboarding_indicator" />
+
+            <ImageView
+                android:id="@+id/iv_indicator_two"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginEnd="6dp"
+                android:background="@null"
+                android:src="@drawable/onboarding_indicator" />
+
+            <ImageView
+                android:id="@+id/iv_indicator_three"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@null"
+                android:src="@drawable/onboarding_indicator" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="102dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:letterSpacing="-0.03"
+            android:text="다음"
+            android:textColor="#ffc400"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/onboard_frame"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:text="시작하기"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#343434"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="4sp"
+                android:gravity="center"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/rectangle_fill_yellow_radius_15"
+                android:layout_marginHorizontal="24dp"/>
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
