@@ -1,4 +1,4 @@
-package com.example.albazip.src.register.manager
+package com.example.albazip.src.register.worker
 
 import android.os.Bundle
 import android.view.View
@@ -9,9 +9,8 @@ import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityOnBoardingBinding
 import com.example.albazip.src.register.common.adapter.OnBoardingVPAdapter
 import com.example.albazip.src.register.common.data.OnBoardData
-import kotlin.collections.ArrayList
 
-class ManagerOnBoardingActivity :
+class WorkerOnBoardingActivity :
     BaseActivity<ActivityOnBoardingBinding>(ActivityOnBoardingBinding::inflate) {
 
     private lateinit var onBoardingAdpater: OnBoardingVPAdapter
@@ -26,15 +25,15 @@ class ManagerOnBoardingActivity :
         // viewpager 리스트
         boardList.add(
             OnBoardData(
-                getDrawable(R.drawable.img_onboarding_1), "근무자 관리",
-                "근무자의 스케줄과 시급을 설정하고, \n업무 리스트를 작성해 편리하게 인수인계 하세요."
+                getDrawable(R.drawable.img_w_onboarding_1), "업무 체크",
+                "업무 리스트를 체크하고, 하루에\n 주어진 업무를 빼먹지 않고 수행할 수 있어요."
             )
         )
 
         boardList.add(
             OnBoardData(
-                getDrawable(R.drawable.img_onboarding_2), "실시간 근태보고",
-                "업무 리스트를 작성하면 근무자가 업무를\n체크하고 관리자는 업무 진행현황을\n실시간으로 확인할 수 있어요."
+                getDrawable(R.drawable.img_w_onboarding_2), "근무일 및 급여 확인",
+                "QR체크를 통한 출퇴근 기록으로\n정확한 근무한 날과 시간이 기록돼요!\n또한 이 달에 받을 급여를 미리 알 수 있어요."
             )
         )
 
@@ -68,7 +67,7 @@ class ManagerOnBoardingActivity :
                 } else {
                     // 세번째라면
                     // 뷰페이지 이동 막기
-                        currentPosition = 2
+                    currentPosition = 2
                     binding.onboardVp2.isUserInputEnabled = false
                     binding.onboardFrame.visibility = View.VISIBLE // 시작 버튼 레이아웃 보이기
                 }
