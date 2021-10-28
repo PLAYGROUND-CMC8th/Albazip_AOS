@@ -5,20 +5,99 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentInputPhoneBinding
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import java.util.concurrent.TimeUnit
 
 class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     FragmentInputPhoneBinding::bind,
     R.layout.fragment_input_phone
 ) {
 
-    var btnEnabled:Boolean = false
+    companion object {
+        private const val TAG = "PhoneAuthActivity"
+    }
+
+    // [START declare_auth]
+    private lateinit var auth: FirebaseAuth
+    // [END declare_auth]
+
+    private var storedVerificationId: String? = ""
+    private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
+    private lateinit var credential: PhoneAuthCredential
+
+    private var isCertifyOk:Boolean = false
+    private var isDeleteOK:Boolean = false
+
+
+    // 인증 콜백 함수
+    private val callbacks by lazy {
+        // Initialize phone auth callbacks
+        // [START phone_auth_callbacks]
+        object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+            // 다른 기타 인증이 완료된 상태
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                // This callback will be invoked in two situations:
+                // 1 - Instant verification. In some cases the phone number can be instantly
+                //     verified without needing to send or enter a verification code.
+                // 2 - Auto-retrieval. On some devices Google Play services can automatically
+                //     detect the incoming verification SMS and perform verification without
+                //     user action.
+                Log.d(TAG, "onVerificationCompleted:$credential")
+                signInWithPhoneAuthCredential(credential)
+            }
+
+            // 번호 인증 실패 상태
+            override fun onVerificationFailed(e: FirebaseException) {
+                // This callback is invoked in an invalid request for verification is made,
+                // for instance if the the phone number format is not valid.
+                Log.w(TAG, "onVerificationFailed", e)
+
+                if (e is FirebaseAuthInvalidCredentialsException) {
+                    // Invalid request
+                } else if (e is FirebaseTooManyRequestsException) {
+                    // The SMS quota for the project has been exceeded
+                }
+
+                // Show a message and update the UI
+            }
+
+            // 전화번호는 확인되었으나 코드 인증이 필요한 상태
+            override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) {
+                // The SMS verification code has been sent to the provided phone number, we
+                // now need to ask the user to enter the code and then construct a credential
+                // by combining the code with a verification ID.
+                Log.d(TAG, "onCodeSent:$verificationId")
+
+                // Save verification ID and resending token so we can use them later
+                storedVerificationId = verificationId
+                resendToken = token
+            }
+        }
+        // [END phone_auth_callbacks]
+
+    }
+
+
+    // 버튼 활성화 상태
+    var btnEnabled: Boolean = false
 
     // 타이머 설정
     var timer = 165
@@ -26,15 +105,59 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // [START initialize_auth]
+        // Initialize Firebase Auth
+        auth = Firebase.auth
+        // [END initialize_auth]
+
+
         // 기본 정보 입력 화면으로 이동
         binding.btnNext.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_fragment, InputInfoFragment()).commit()
+
+            val inputCode = binding.etCertify.text.toString()
+            if(inputCode.isNotEmpty()) {
+                verifyPhoneNumberWithCode(storedVerificationId, inputCode)
+
+                // 인증번호가 일치하면 (계정 삭제후) 다음화면으로 넘기기
+                if (isCertifyOk == true) {
+
+                    showCustomToast("여기 찍혔나?")
+
+                    mCountDown.cancel()
+
+                    // 파베 계정 삭제 (더미데이터 삭제)
+                    deleteAccount()
+
+                    if (isDeleteOK == true) {
+
+                        showCustomToast("여기도 찍혔나?")
+
+                        // 유저 전화번호 prefs
+                        ApplicationClass.prefs.setString("phone",binding.etInputPhone.text.toString().replace(" ",""))
+
+                        prevFragment =
+                            activity?.supportFragmentManager?.findFragmentById(R.id.main_fragment)
+
+                        val transaction = activity?.supportFragmentManager?.beginTransaction()?.add(
+                            R.id.main_fragment,
+                            InputPWFragment()
+                        )
+
+                        transaction?.detach(prevFragment!!)
+
+                        transaction?.addToBackStack(null)
+                        transaction?.commit()
+                    }
+                }
+            }
+
+
         }
 
         // 뒤로가기 버튼(약관동의)
         binding.btnBack.setOnClickListener {
-           activity?.supportFragmentManager?.popBackStack()
+            mCountDown.cancel()
+            activity?.supportFragmentManager?.popBackStack()
         }
 
         // focus 감지
@@ -130,22 +253,34 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 
         })
 
-        // 인증 버튼 클릭
+        // 인증하기 버튼 클릭 시 (메세지 전송)
         binding.rlClickableCertify.setOnClickListener {
 
             binding.rlCertify.visibility = View.VISIBLE
 
+            // edittext에 있는 번호를 받아온다.
+            val getPhoneNum = binding.etInputPhone.text.toString().replace(" ","")
+            val inputPhoneNum = "+82 " + getPhoneNum
+
+            showCustomToast(getPhoneNum)
+
+            // 인증 메세지 전송하기
+            startPhoneNumberVerification(inputPhoneNum)
             // 카운트 다운 시작
             mCountDown.start()
+
+            // 다음(인증)버튼 활성화
+            binding.btnNext.isEnabled = true
         }
 
-        // 기본 정보 입력 화면으로 이동
-        binding.btnNext.setOnClickListener {
-            mCountDown.cancel()
-            parentFragmentManager.beginTransaction().replace(R.id.main_fragment, InputPWFragment())
-                .commit()
-        }
+        // 재전송 버튼
+        binding.rlClickableResend.setOnClickListener {
+            val getPhoneNum = binding.etInputPhone.text.toString().replace(" ","")
+            val inputPhoneNum = "+82 " + getPhoneNum
 
+            // 인증번호 재전송
+            resendVerificationCode(inputPhoneNum, resendToken)
+        }
     }
 
     // 버튼 상태 저장
@@ -154,19 +289,25 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
         btnEnabled = binding.btnNext.isEnabled == true
     }
 
+    override fun onDetach() {
+        super.onDetach()
+
+    }
+
     // 버튼 상태 반환(화면 돌아왔을 때)
     override fun onResume() {
         super.onResume()
 
-        if(btnEnabled == true){
+        if (btnEnabled == true) {
             binding.rlClickableCertify.isEnabled = true
             binding.tvCertify.setTextColor(Color.parseColor("#343434"))
-        }else{
+        } else {
             binding.rlClickableCertify.isEnabled = false
             binding.tvCertify.setTextColor(Color.parseColor("#cecece"))
         }
     }
 
+    // 카운트 다운 함수
     private val mCountDown: CountDownTimer = object : CountDownTimer(99000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
 
@@ -190,5 +331,89 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 
         override fun onFinish() {}
     }
+
+    // 핸드폰 인증 시작 함수
+    private fun startPhoneNumberVerification(phoneNumber: String) {
+        // [START start_phone_auth]
+        val options = PhoneAuthOptions.newBuilder(auth)
+            .setPhoneNumber(phoneNumber)       // Phone number to verify
+            .setTimeout(120L, TimeUnit.SECONDS) // Timeout and unit
+            .setActivity(requireActivity())                 // Activity (for callback binding)
+            .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
+            .build()
+        PhoneAuthProvider.verifyPhoneNumber(options)
+        // [END start_phone_auth]
+    }
+
+    // 인증번호 확인
+    private fun verifyPhoneNumberWithCode(verificationId: String?, code: String) {
+        // [START verify_with_code]
+        credential = PhoneAuthProvider.getCredential(verificationId!!, code)
+        // [END verify_with_code]
+
+        // 계정 생성
+        signInWithPhoneAuthCredential(credential)
+    }
+
+    // 인증번호 재전송 함수
+    private fun resendVerificationCode(
+        phoneNumber: String,
+        token: PhoneAuthProvider.ForceResendingToken?
+    ) {
+        val optionsBuilder = PhoneAuthOptions.newBuilder(auth)
+            .setPhoneNumber(phoneNumber)       // Phone number to verify
+            .setTimeout(120L, TimeUnit.SECONDS) // Timeout and unit
+            .setActivity(requireActivity())                 // Activity (for callback binding)
+            .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
+        if (token != null) {
+            optionsBuilder.setForceResendingToken(token) // callback's ForceResendingToken
+        }
+        PhoneAuthProvider.verifyPhoneNumber(optionsBuilder.build())
+    }
+
+    // [START sign_in_with_phone] // 아이디 생성
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithCredential:success")
+
+                    val user = task.result?.user
+                    // 계정 생성완료
+                    isCertifyOk = true
+                    showCustomToast("인증 번호 인증 성공/계정 생성 완료")
+                    Log.d(TAG,"계정 생성 완료")
+
+                } else {
+                    // 계정 생성 실패
+                    // Sign in failed, display a message and update the UI
+                    showCustomToast("계정 생성 실패")
+                    Log.d(TAG,"계정 생성 실패")
+                    isCertifyOk = false
+
+                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                        // The verification code entered was invalid
+                    }
+                    // Update UI
+                }
+            }
+    }
+
+    private fun deleteAccount(){
+        FirebaseAuth.getInstance().currentUser?.reauthenticate(credential)?.addOnCompleteListener {
+            if(it.isSuccessful){
+                isDeleteOK = true
+                FirebaseAuth.getInstance().currentUser?.delete() // 유저 정보 삭제
+                Toast.makeText(requireContext(),"계정삭제완료",Toast.LENGTH_LONG).show()
+            }else{
+                isDeleteOK = false
+                Log.w(TAG,"")
+                Toast.makeText(requireContext(),"유저정보 삭제 실패 ",Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
 
 }

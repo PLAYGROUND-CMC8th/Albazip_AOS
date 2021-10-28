@@ -9,6 +9,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".config.ApplicationClass"
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
@@ -28,18 +29,19 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".src.register.manager.RegisterPlaceActivity" />
         <activity android:name=".src.home.common.HomeActivity" />
-        <activity android:name=".src.login.LoginActivity" />
-        <activity android:name=".src.register.common.RegisterActivity" />
-        <activity android:name=".src.main.MainActivity" />
-        <activity android:name=".src.register.manager.InputBNumActivity">
-
-        </activity>
-        <activity android:name=".src.register.worker.WorkerOnBoardingActivity">
+        <activity android:name=".src.login.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".src.register.common.RegisterActivity" >
+        </activity>
+        <activity android:name=".src.main.MainActivity" >
+        </activity>
+        <activity android:name=".src.register.manager.InputBNumActivity"/>
+        <activity android:name=".src.register.worker.WorkerOnBoardingActivity">
         </activity>
     </application>
 

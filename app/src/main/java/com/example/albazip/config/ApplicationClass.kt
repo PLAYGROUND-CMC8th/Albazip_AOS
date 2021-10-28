@@ -13,13 +13,19 @@ class ApplicationClass: Application()  {
         const val KAKAO_URL = "https://dapi.kakao.com/"
         const val KAKAO_API_KEY = "KakaoAK de9363698180277fcaae08b7d4bf415c"  // REST API 키
 
-        const val API_URL = ""  // 주야가 만든 서버 주소
+        const val API_URL = "http://3.128.114.36:3000"  // 주야가 만든 서버 주소
 
         // Retrofit 인스턴스, 앱 실행시 한번만 생성하여 사용합니다.
         lateinit var sRetrofit: Retrofit
 
         // sharedPreference : 초기 정보를 받기 위한 prefs 생성
         lateinit var prefs: PreferenceUtil
+
+        // JWT Token Header 키 값
+        val X_ACCESS_TOKEN = "X-ACCESS-TOKEN"
+
+        // 로그인 여부 체크
+        var loginFlags:Int =  0
     }
 
     override fun onCreate() {
@@ -27,6 +33,9 @@ class ApplicationClass: Application()  {
 
         // sharedPreference
         prefs = PreferenceUtil(applicationContext)
+
+        // 레트로핏 인스턴스 생성
+        initRetrofitInstance()
 
     }
 

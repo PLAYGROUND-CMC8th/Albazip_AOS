@@ -8,7 +8,7 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityOnBoardingBinding
 import com.example.albazip.src.register.common.adapter.OnBoardingVPAdapter
-import com.example.albazip.src.register.common.data.OnBoardData
+import com.example.albazip.src.register.common.data.local.OnBoardData
 
 class WorkerOnBoardingActivity :
     BaseActivity<ActivityOnBoardingBinding>(ActivityOnBoardingBinding::inflate) {

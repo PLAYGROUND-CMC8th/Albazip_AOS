@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:background="@null"
+            style="@style/EditTextStyle"
             android:singleLine="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
@@ -57,7 +58,7 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="13sp"
             android:textColor="@color/customBlack"
-            android:textColorHint="#c8c8c8"
+            android:textColorHint="@color/hintTxtColor"
             android:textSize="16sp"
             android:textStyle="normal" />
 
@@ -88,6 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:singleLine="true"
+            style="@style/EditTextStyle"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
             android:hint="비밀번호 재입력"
@@ -98,7 +100,7 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="13sp"
             android:textColor="@color/customBlack"
-            android:textColorHint="#c8c8c8"
+            android:textColorHint="@color/hintTxtColor"
             android:textSize="16sp"
             android:textStyle="normal" />
 
@@ -137,7 +139,7 @@
         android:layout_height="50dp"
         android:text="다음"
         android:background="@drawable/btn_disable_yellow_fill_rounded"
-        android:textColor="@color/white"
+        android:textColor="@color/disableTxtColor"
         android:stateListAnimator="@null"
         android:textStyle="bold"
         android:textSize="16sp"

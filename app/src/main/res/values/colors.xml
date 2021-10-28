@@ -11,9 +11,11 @@
     <color name="systembar">#61000000</color>
     <color name="customBlack">#343434</color>
     <color name="customWhite">#efefef</color>
-    <color name="mainYellow">#ffc400</color>
+    <color name="mainYellow">#ffd85c</color>
     <color name="subYellow">#fffaea</color>
-    <color name="disableYellow">#ffe17f</color>
+    <color name="disableYellow">#ffefbd</color>
+    <color name="disableTxtColor">#adadad</color>
     <color name="hintTxtColor">#c8c8c8</color>
+    <color name="subTxtColor">#6f6f6f</color>
     <color name="waringTxtColor">#ff3b30</color>
 </resources>

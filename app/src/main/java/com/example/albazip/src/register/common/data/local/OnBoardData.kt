@@ -1,4 +1,4 @@
-package com.example.albazip.src.register.common.data
+package com.example.albazip.src.register.common.data.local
 
 import android.graphics.drawable.Drawable
 

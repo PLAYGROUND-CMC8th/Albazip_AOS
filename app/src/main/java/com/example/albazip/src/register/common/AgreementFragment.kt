@@ -1,5 +1,6 @@
 package com.example.albazip.src.register.common
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckBox
@@ -102,11 +103,13 @@ class AgreementFragment(
     private fun activateBtn() {
         binding.btnNext.isEnabled = true
         binding.btnNext.background = ContextCompat.getDrawable(requireContext(), R.drawable.btn_main_yellow_fill_rounded)
+        binding.btnNext.setTextColor(Color.parseColor("#343434"))
     }
 
     // 버튼 비활성화 함수
     private fun deActivateBtn() {
         binding.btnNext.isEnabled = false
         binding.btnNext.background = ContextCompat.getDrawable(requireContext(), R.drawable.btn_disable_yellow_fill_rounded)
+        binding.btnNext.setTextColor(Color.parseColor("#adadad"))
     }
 }

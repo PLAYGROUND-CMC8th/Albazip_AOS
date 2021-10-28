@@ -196,7 +196,7 @@
         android:layout_height="50dp"
         android:text="다음"
         android:background="@drawable/btn_disable_yellow_fill_rounded"
-        android:textColor="@color/white"
+        android:textColor="@color/disableTxtColor"
         android:stateListAnimator="@null"
         android:textStyle="bold"
         android:textSize="16sp"

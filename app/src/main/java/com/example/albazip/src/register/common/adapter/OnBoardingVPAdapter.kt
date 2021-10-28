@@ -2,12 +2,11 @@ package com.example.albazip.src.register.common.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.albazip.databinding.ItemVpOnBoardingBinding
-import com.example.albazip.src.register.common.data.OnBoardData
+import com.example.albazip.src.register.common.data.local.OnBoardData
 
 class OnBoardingVPAdapter(val context:Context, private val itemList:ArrayList<OnBoardData>): RecyclerView.Adapter<OnBoardingVPAdapter.OnBoardHolder>(){
 

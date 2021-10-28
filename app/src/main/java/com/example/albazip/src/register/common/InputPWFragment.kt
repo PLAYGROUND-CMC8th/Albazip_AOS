@@ -1,11 +1,13 @@
 package com.example.albazip.src.register.common
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentInputPwBinding
 
@@ -29,6 +31,10 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
 
         // 기본 정보 입력 화면으로 이동
         binding.btnNext.setOnClickListener {
+
+            // 비밀번호 prefs
+            prefs.setString("pwd",binding.etConfirmPw.text.toString())
+
             prevFragment = activity?.supportFragmentManager?.findFragmentById(R.id.main_fragment)
 
             val transaction = activity?.supportFragmentManager?.beginTransaction()?.add(R.id.main_fragment,
@@ -194,6 +200,7 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
         binding.btnNext.isEnabled = true
         binding.btnNext.background =
             ContextCompat.getDrawable(requireContext(), R.drawable.btn_main_yellow_fill_rounded)
+        binding.btnNext.setTextColor(Color.parseColor("#343434"))
     }
 
     // 버튼 비활성화 함수
@@ -201,6 +208,7 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
         binding.btnNext.isEnabled = false
         binding.btnNext.background =
             ContextCompat.getDrawable(requireContext(), R.drawable.btn_disable_yellow_fill_rounded)
+        binding.btnNext.setTextColor(Color.parseColor("#adadad"))
     }
 
     private fun allChecked() {

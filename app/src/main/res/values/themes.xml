@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/systembar</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">@color/disableYellow</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
@@ -53,6 +53,23 @@
     <style name="Theme.Albazip.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Albazip.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    // edittext 스타일
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/mainYellow</item>
+
+        <item name="colorControlActivated">@color/mainYellow</item>
+
+        <item name="android:textCursorDrawable">@drawable/edittext_cursor</item>
+
+        <item name="android:textColor">@color/customBlack</item>
+
+        <item name="android:textColorHint">@color/hintTxtColor</item>
+
+        <item name="android:textColorHighlight">@color/mainYellow</item>
+
+    </style>
+
 
 
 </resources>
