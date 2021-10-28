@@ -38,7 +38,7 @@
             android:layout_marginHorizontal="16dp"
             android:singleLine="true"
             android:background="@null"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:fontFamily="@font/roboto_medium"
             android:hint="매장명+지점 검색"
             android:letterSpacing="-0.01"
@@ -49,7 +49,7 @@
     </RelativeLayout>
 
     <!-- 경고 문구 -->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_waring_info"
         android:visibility="visible"
         android:layout_width="0dp"
@@ -66,6 +66,7 @@
             android:id="@+id/iv_alert_circle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:background="@android:color/transparent"
@@ -75,6 +76,8 @@
             android:id="@+id/tv_waring"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/iv_alert_circle"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="14dp"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="16dp"
@@ -87,7 +90,7 @@
             android:textStyle="normal" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <!-- 지도 띄울 공간 -->
     <RelativeLayout
@@ -148,11 +151,11 @@
             android:layout_height="50dp"
             android:layout_marginHorizontal="24dp"
             android:layout_marginBottom="24dp"
-            android:background="@drawable/btn_disable_yellow_fill_rounded"
+            android:background="@drawable/rectangle_fill_yellow_radius_15"
             android:fontFamily="@font/roboto_bold"
             android:stateListAnimator="@null"
             android:text="다음"
-            android:textColor="@color/white"
+            android:textColor="@color/customBlack"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -221,7 +224,7 @@
             android:layout_marginTop="14dp"
             android:stateListAnimator="@null"
             android:layout_marginBottom="56dp"
-            android:background="@drawable/rectangle_fill_yellow_radius_15"
+            android:background="@drawable/rectangle_fill_custom_black_15"
             app:layout_constraintStart_toStartOf="@id/tv_result_none"
             app:layout_constraintEnd_toEndOf="@id/tv_result_none"
             app:layout_constraintTop_toBottomOf="@id/tv_result_none"

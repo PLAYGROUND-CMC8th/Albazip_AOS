@@ -3,10 +3,12 @@ package com.example.albazip.src.register.manager
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.example.albazip.R
 import com.example.albazip.config.ApplicationClass
@@ -35,8 +37,8 @@ class SearchPlaceActivity :
     private lateinit var marker: MapPOIItem
     private lateinit var mapView: MapView
 
-    private lateinit var intentResultName:String
-    private lateinit var intentResultAdress:String
+    private lateinit var intentResultName: String
+    private lateinit var intentResultAdress: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,19 +108,21 @@ class SearchPlaceActivity :
         // 다음 버튼을 눌렀을 때 -> 데이터 넘겨주기
         binding.btnNext.setOnClickListener {
 
-            val nextIntent = Intent(this,RegisterPlaceActivity::class.java)
-            nextIntent.putExtra("name",intentResultName)
-            nextIntent.putExtra("adress",intentResultAdress)
+            val nextIntent = Intent(this, RegisterPlaceActivity::class.java)
+            nextIntent.putExtra("name", intentResultName)
+            nextIntent.putExtra("adress", intentResultAdress)
             startActivity(nextIntent)
 
         }
 
         // 직접등록 버튼을 눌렀을 때 -> 그냥 띄우기
         binding.btnSelf.setOnClickListener {
-            val nextIntent = Intent(this,RegisterPlaceActivity::class.java)
+            val nextIntent = Intent(this, RegisterPlaceActivity::class.java)
             startActivity(nextIntent)
         }
 
+        // 텍스트 굵기 동적 변경
+        changeTxtType(binding.etSearch)
     }
 
     // 맵 뷰 띄우기
@@ -133,8 +137,9 @@ class SearchPlaceActivity :
 
         marker = MapPOIItem()
         marker.apply {
-            itemName = "서울특별시청"   // 마커 이름
-            mapPoint = MapPoint.mapPointWithGeoCoord(37.5666805, 126.9784147)
+            itemName = ""   // 마커 이름
+            // 38.147314803776126, 128.37823483213774
+            mapPoint = MapPoint.mapPointWithGeoCoord(33.36122638880121, 126.52303557215161)
             markerType = MapPOIItem.MarkerType.CustomImage
             customImageResourceId = R.drawable.ic_pin_location
             selectedMarkerType = MapPOIItem.MarkerType.CustomImage
@@ -143,8 +148,9 @@ class SearchPlaceActivity :
             // setCustomImageAnchor(0.5f, 1.0f)
         }
 
-        // 기본 값은 서울시청
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.5666805, 126.9784147), true)
+        // 기본 값은 설악산 국립공원
+        //mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(33.36072484129289, 126.52380790651357), 6, false)
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(38.147314803776126,128.37823483213774), false)
         mapView.addPOIItem(marker)
     }
 
@@ -202,7 +208,7 @@ class SearchPlaceActivity :
                     // 1. 검색 결과에 공백만 들어갔을 때 -> ex)"   "
                     // 2. body 는 존재하지만 내부 데이터가 없을 때 -> response.body()?.documents : []  -> ex) "ㄱㄹㄹㄹ" 처럼 막 입력
                     // 왜 그런지는 모르겠지만 서버에서 []를 반환하므로 일단 if 문으로 처리해줬다.
-                    if(response.body()?.documents!!.isEmpty()){
+                    if (response.body()?.documents!!.isEmpty()) {
                         showNoneBg()
                     }
 
@@ -233,7 +239,7 @@ class SearchPlaceActivity :
         val selectedLMapPoint = MapPoint.mapPointWithGeoCoord(positionY, positionX)
 
         // 중심좌표 이동
-        mapView.setMapCenterPointAndZoomLevel(selectedLMapPoint, 0, true)
+        mapView.setMapCenterPointAndZoomLevel(selectedLMapPoint, 0, false)
 
         // 마커 재설정
         marker.mapPoint = MapPoint.mapPointWithGeoCoord(positionY, positionX)
@@ -242,13 +248,13 @@ class SearchPlaceActivity :
     }
 
     // 검색 결과 o 뷰그룹
-    private fun showResultBg(){
+    private fun showResultBg() {
         binding.clSearchNone.visibility = View.GONE
         binding.rlSearchResult.visibility = View.VISIBLE
     }
 
     // 검색 결과 x 뷰그룹
-    private fun showNoneBg(){
+    private fun showNoneBg() {
         binding.rlSearchResult.visibility = View.GONE
         binding.clSearchNone.visibility = View.VISIBLE
     }

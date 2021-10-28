@@ -26,23 +26,29 @@
 
         <activity
             android:name=".src.register.manager.SearchPlaceActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".src.register.manager.RegisterPlaceActivity" />
-        <activity android:name=".src.home.common.HomeActivity" />
-        <activity android:name=".src.login.LoginActivity" >
+            android:windowSoftInputMode="adjustPan|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".src.register.manager.RegisterPlaceActivity" />
+        <activity android:name=".src.home.common.HomeActivity" >
+
+        </activity>
+        <activity android:name=".src.login.LoginActivity" >
+        </activity>
         <activity android:name=".src.register.common.RegisterActivity" >
         </activity>
         <activity android:name=".src.main.MainActivity" >
         </activity>
-        <activity android:name=".src.register.manager.InputBNumActivity"/>
+        <activity android:name=".src.register.manager.InputBNumActivity">
+
+        </activity>
         <activity android:name=".src.register.worker.WorkerOnBoardingActivity">
         </activity>
+        <activity android:name=".src.home.common.SettingActivity"/>
     </application>
 
 </manifest>

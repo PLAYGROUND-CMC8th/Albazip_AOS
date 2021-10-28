@@ -35,6 +35,10 @@ class RegisterPlaceActivity :
             binding.etName.setTypeface(null, Typeface.BOLD)
             binding.etLocationMain.setTypeface(null, Typeface.BOLD)
 
+            // 입력 flags 참 설정
+            name_flags = true
+            main_place_flags =true
+
         }
 
         binding.rlPlaceType.setOnClickListener {
@@ -122,6 +126,7 @@ class RegisterPlaceActivity :
         binding.btnNext.isEnabled = true
         binding.btnNext.background =
             ContextCompat.getDrawable(this, R.drawable.btn_main_yellow_fill_rounded)
+        binding.btnNext.setTextColor(Color.parseColor("#343434"))
     }
 
     // 버튼 비활성화 함수
@@ -129,6 +134,7 @@ class RegisterPlaceActivity :
         binding.btnNext.isEnabled = false
         binding.btnNext.background =
             ContextCompat.getDrawable(this, R.drawable.btn_disable_yellow_fill_rounded)
+        binding.btnNext.setTextColor(Color.parseColor("#adadad"))
     }
 
 }

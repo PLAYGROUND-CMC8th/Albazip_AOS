@@ -1,11 +1,18 @@
 package com.example.albazip.config
 
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.viewbinding.ViewBinding
+import com.example.albazip.R
 import com.example.albazip.util.LoadingDialog
 
 // 액티비티의 기본을 작성, 뷰 바인딩 활용
@@ -29,6 +36,7 @@ abstract class BaseActivity<B : ViewBinding>(private val inflate: (LayoutInflate
         mLoadingDialog = LoadingDialog(context)
         mLoadingDialog.show()
     }
+
     // 띄워 놓은 로딩 다이얼로그를 없앰.
     fun dismissLoadingDialog() {
         if (mLoadingDialog.isShowing) {
@@ -40,4 +48,24 @@ abstract class BaseActivity<B : ViewBinding>(private val inflate: (LayoutInflate
     fun showCustomToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
+    // 테스트 크기 동적 변경
+    fun changeTxtType(editText: EditText) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(s?.length!! >= 1){
+                    editText.setTypeface(null,Typeface.BOLD)
+                }else{
+                    editText.setTypeface(null,Typeface.NORMAL)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+    }
+
 }
