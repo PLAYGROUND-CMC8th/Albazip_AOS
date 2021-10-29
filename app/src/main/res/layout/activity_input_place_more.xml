@@ -50,11 +50,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_no_closed"
-        android:layout_width="wrap_content"
+        android:layout_width="65dp"
         android:layout_height="31dp"
         android:layout_marginTop="12dp"
+        android:background="@drawable/bg_selector_rest_long"
+        android:textColor="#6f6f6f"
         android:text="연중무휴"
-        android:background="@color/mainYellow"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/tv_closed"
         app:layout_constraintTop_toBottomOf="@id/tv_closed" />
@@ -70,102 +71,92 @@
         app:layout_constraintStart_toStartOf="@id/btn_no_closed"
         app:layout_constraintTop_toBottomOf="@id/btn_no_closed">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="31dp"
-                android:layout_height="31dp"
-                android:text="월"
-                android:background="@drawable/ripple_day_btn"
-                android:textSize="12sp" />
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="31dp"
-                android:layout_height="31dp"
-                android:text="화"
-                android:background="@drawable/ripple_day_btn"
-                android:textSize="12sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="31dp"
-                android:layout_height="31dp"
-                android:text="수"
-                android:background="@drawable/ripple_day_btn"
-                android:textSize="12sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="31dp"
-                android:layout_height="31dp"
-                android:text="목"
-                android:background="@drawable/ripple_day_btn"
-                android:textSize="12sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="31dp"
-                android:layout_height="31dp"
-                android:text="금"
-                android:background="@drawable/ripple_day_btn"
-                android:textSize="12sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="31dp"
-                android:layout_height="31dp"
-                android:text="토"
-                android:background="@drawable/ripple_day_btn"
-                android:textSize="12sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="31dp"
-                android:layout_height="31dp"
-                android:text="일"
-                android:background="@drawable/ripple_day_btn"
-                android:textSize="12sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_mon"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:textColor="#6f6f6f"
+            android:background="@drawable/bg_selector_rest_oval"
+            android:text="월"
             android:layout_marginEnd="2dp"
-            android:layout_weight="1.2">
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="55dp"
-                android:layout_height="31dp"
-                android:text="공휴일"
-                android:background="@color/mainYellow"
-                android:textSize="12sp" />
-        </RelativeLayout>
+            android:textSize="12sp" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_tue"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="2dp"
+            android:textColor="#6f6f6f"
+            android:background="@drawable/bg_selector_rest_oval"
+            android:text="화"
+            android:textSize="12sp" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_wen"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="2dp"
+            android:textColor="#6f6f6f"
+            android:background="@drawable/bg_selector_rest_oval"
+            android:text="수"
+            android:textSize="12sp" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_thur"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="2dp"
+            android:textColor="#6f6f6f"
+            android:background="@drawable/bg_selector_rest_oval"
+            android:text="목"
+            android:textSize="12sp" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_fri"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="2dp"
+            android:textColor="#6f6f6f"
+            android:background="@drawable/bg_selector_rest_oval"
+            android:text="금"
+            android:textSize="12sp" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_sat"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="2dp"
+            android:textColor="#6f6f6f"
+            android:background="@drawable/bg_selector_rest_oval"
+            android:text="토"
+            android:textSize="12sp" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_sun"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="2dp"
+            android:textColor="#6f6f6f"
+            android:background="@drawable/bg_selector_rest_oval"
+            android:text="일"
+            android:textSize="12sp" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_holiday"
+            android:layout_width="55dp"
+            android:layout_height="31dp"
+            android:textColor="#6f6f6f"
+            android:background="@drawable/bg_selector_rest_long"
+            android:text="공휴일"
+            android:textSize="12sp" />
 
 
     </LinearLayout>
@@ -228,10 +219,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="14dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
             android:background="@null"
-            android:gravity="center_horizontal"
             android:hint="00:00"
+            android:maxLength="5"
+            android:inputType="number"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="-18sp"
             android:textAlignment="center"
@@ -288,11 +282,14 @@
             android:id="@+id/et_end_time"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="14dp"
             android:background="@null"
-            android:gravity="center_horizontal"
             android:hint="24:00"
+            android:maxLength="5"
+            android:inputType="number"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="-18sp"
             android:textAlignment="center"
@@ -340,23 +337,19 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/et_select_day"
+        <TextView
+            android:id="@+id/tv_select_day"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/tv_day"
             android:background="@null"
-            android:gravity="end"
-            android:hint="1 - 31 사이에서 하루 선택"
+            android:gravity="center|end"
+            android:text="1 - 31"
             android:letterSpacing="-0.03"
-            android:textColor="@color/customBlack"
-            android:textColorHint="@color/hintTxtColor"
+            android:textColor="@color/hintTxtColor"
             android:textSize="16sp"
             android:textStyle="normal"
-            tools:text="31"
-
             />
 
         <TextView
@@ -385,7 +378,7 @@
         android:fontFamily="@font/roboto_bold"
         android:stateListAnimator="@null"
         android:text="매장 등록하기"
-        android:textColor="@color/white"
+        android:textColor="@color/disableTxtColor"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
