@@ -102,6 +102,20 @@ class SearchPlaceActivity :
             false
         }
 
+        // 포커스 상태 반환
+        binding.etSearch.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus)
+                binding.rlSearchPlace.background = ContextCompat.getDrawable(
+                    this,
+                    R.drawable.rectagnle_yellow_radius
+                ) else {
+                binding.rlSearchPlace.background = ContextCompat.getDrawable(
+                    this,
+                    R.drawable.rectangle_custom_white_radius
+                )
+            }
+        }
+
         // 맵 뷰 띄우기 (초기화)
         initialMapView()
 

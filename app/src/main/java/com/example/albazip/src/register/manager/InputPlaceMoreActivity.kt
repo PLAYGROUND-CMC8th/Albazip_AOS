@@ -52,27 +52,16 @@ class InputPlaceMoreActivity :
         binding.btnHoliday.setOnClickListener(this) // 공휴일
 
 
-        binding.rlEndTime.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus)
-                binding.rlEndTime.background = ContextCompat.getDrawable(
-                    this,
-                    R.drawable.rectagnle_yellow_radius
-                ) else {
-                binding.rlEndTime.background = ContextCompat.getDrawable(
-                    this,
-                    R.drawable.rectangle_custom_white_radius
-                )
-            }
-        }
-
         // 오픈시간 선택
         binding.tvInputStartTime.setOnClickListener {
             TimePickerBottomSheetDialog("매장 오픈시간", 0).show(supportFragmentManager, "openpicker")
 
+            removeFocus()
+
             // 포커스 설정
             binding.rlStartTime.background = ContextCompat.getDrawable(
                 this,
-                R.drawable.rectagnle_yellow_radius
+                R.drawable.rectangle_fill_white_radius_yellow_15
             )
         }
 
@@ -80,10 +69,12 @@ class InputPlaceMoreActivity :
         binding.tvInputEndTime.setOnClickListener {
             TimePickerBottomSheetDialog("매장 마감시간", 1).show(supportFragmentManager, "closepicker")
 
+            removeFocus()
+
             // 포커스 설정
             binding.rlEndTime.background = ContextCompat.getDrawable(
                 this,
-                R.drawable.rectagnle_yellow_radius
+                R.drawable.rectangle_fill_white_radius_yellow_15
             )
         }
 
@@ -91,7 +82,14 @@ class InputPlaceMoreActivity :
         // 급여일 선택
         binding.rlPayDay.setOnClickListener {
             PayDayBottomSheetDialog().show(supportFragmentManager, "dayPicker")
-            this.currentFocus?.clearFocus() // 이전 작업 포커스 없애기
+
+            removeFocus()
+
+            // 포커스 넣기
+            binding.rlPayDay.background = ContextCompat.getDrawable(
+                this,
+                R.drawable.rectagnle_yellow_radius
+            )
         }
 
     }
@@ -194,6 +192,8 @@ class InputPlaceMoreActivity :
         binding.tvSelectDay.textSize = 18F
         binding.tvSelectDay.setTextColor(Color.parseColor("#343434"))
         binding.tvSelectDay.setTypeface(null, Typeface.BOLD)
+        // 포커스 제거
+        removeFocus()
     }
 
     override fun onTimeSelected(h: String, m: String, flag: Int) {
@@ -218,10 +218,7 @@ class InputPlaceMoreActivity :
         if (flag == 0) { // 오픈 값 넣기
             binding.tvInputStartTime.setText(displayHour + ":" + displayMinute)
             // 포커스 해제
-            binding.rlStartTime.background = ContextCompat.getDrawable(
-                this,
-                R.drawable.rectangle_fill_white_radius_gray_15
-            )
+            removeFocus()
             binding.tvInputStartTime.setTextColor(Color.parseColor("#343434"))
 
             // 운영시간 계산
@@ -233,10 +230,7 @@ class InputPlaceMoreActivity :
         } else { // 마감 값 넣기
             binding.tvInputEndTime.setText(displayHour + ":" + displayMinute)
             // 포커스 해제
-            binding.rlEndTime.background = ContextCompat.getDrawable(
-                this,
-                R.drawable.rectangle_fill_white_radius_gray_15
-            )
+            removeFocus()
             binding.tvInputEndTime.setTextColor(Color.parseColor("#343434"))
 
             // 운영시간 계산
@@ -284,6 +278,25 @@ class InputPlaceMoreActivity :
             }
         }
 
+    }
+
+    // 포커스 제거 함수
+    private fun removeFocus(){
+        // 오픈 시간
+        binding.rlStartTime.background = ContextCompat.getDrawable(
+            this,
+            R.drawable.rectangle_fill_white_radius_gray_15
+        )
+        // 마감 시간
+        binding.rlEndTime.background = ContextCompat.getDrawable(
+            this,
+            R.drawable.rectangle_fill_white_radius_gray_15
+        )
+        // 급여일
+        binding.rlPayDay.background = ContextCompat.getDrawable(
+            this,
+            R.drawable.rectangle_custom_white_radius
+        )
     }
 
 }

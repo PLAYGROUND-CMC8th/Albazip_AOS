@@ -19,11 +19,6 @@
 
         </activity>
         <activity android:name=".src.register.manager.InputPlaceMoreActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -43,6 +38,7 @@
         <activity android:name=".src.register.common.RegisterActivity" >
         </activity>
         <activity android:name=".src.splash.SplashActivity">
+
         </activity>
         <activity android:name=".src.main.MainActivity" >
 
@@ -50,7 +46,13 @@
         <activity android:name=".src.register.manager.InputBNumActivity">
 
         </activity>
-        <activity android:name=".src.register.worker.RegisterJoinActivity"/>
+        <activity android:name=".src.register.worker.RegisterJoinActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".src.register.worker.WorkerOnBoardingActivity">
         </activity>
         <activity android:name=".src.home.common.SettingActivity"/>

@@ -26,6 +26,9 @@ class RegisterPlaceActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 포커스 감지 함수
+        onFocus()
+
         // 받아오는 데이터 값이 존재하면 -> 값 미리 넣어주기
         if (intent.hasExtra("name")) {
             binding.etName.setText(intent.getStringExtra("name")) // 매장명
@@ -43,6 +46,15 @@ class RegisterPlaceActivity :
 
         binding.rlPlaceType.setOnClickListener {
             TypeBottomSheetDialog().show(supportFragmentManager, "typePicker")
+
+            // 모든 포커스 제거
+            window.decorView.clearFocus()
+
+            // 포커스 감지
+            binding.rlPlaceType.background = ContextCompat.getDrawable(
+                this,
+                R.drawable.rectagnle_yellow_radius
+            )
         }
 
         // 텍스트 굵기 변화
@@ -63,6 +75,12 @@ class RegisterPlaceActivity :
         binding.tvType.setTypeface(null, Typeface.BOLD)
         place_type_flags = true
         checkIntentState()
+
+        // 배경 변경
+        binding.rlPlaceType.background = ContextCompat.getDrawable(
+            this,
+            R.drawable.rectangle_custom_white_radius
+        )
     }
 
     // 글씨 굵기 설정
@@ -135,6 +153,52 @@ class RegisterPlaceActivity :
         binding.btnNext.background =
             ContextCompat.getDrawable(this, R.drawable.btn_disable_yellow_fill_rounded)
         binding.btnNext.setTextColor(Color.parseColor("#adadad"))
+    }
+
+    // focus 감지
+    fun onFocus(){
+
+        // 매장명 입력감지
+        binding.etName.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus)
+                binding.rlPlaceName.background = ContextCompat.getDrawable(
+                    this,
+                    R.drawable.rectagnle_yellow_radius
+                ) else {
+                binding.rlPlaceName.background = ContextCompat.getDrawable(
+                    this,
+                    R.drawable.rectangle_custom_white_radius
+                )
+            }
+        }
+
+        // 매장명 (main) 입력감지
+        binding.etLocationMain.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus)
+                binding.rlLocationMain.background = ContextCompat.getDrawable(
+                    this,
+                    R.drawable.rectagnle_yellow_radius
+                ) else {
+                binding.rlLocationMain.background = ContextCompat.getDrawable(
+                    this,
+                    R.drawable.rectangle_custom_white_radius
+                )
+            }
+        }
+
+        // 매장명 (sub) 입력감지
+        binding.etLocationSub.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus)
+                binding.rlLocationSub.background = ContextCompat.getDrawable(
+                    this,
+                    R.drawable.rectagnle_yellow_radius
+                ) else {
+                binding.rlLocationSub.background = ContextCompat.getDrawable(
+                    this,
+                    R.drawable.rectangle_custom_white_radius
+                )
+            }
+        }
     }
 
 }

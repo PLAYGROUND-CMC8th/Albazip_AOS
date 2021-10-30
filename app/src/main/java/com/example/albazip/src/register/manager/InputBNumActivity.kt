@@ -153,10 +153,6 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
         })
 
 
-
-
-
-
         // 다음 버튼 클릭
         binding.btnNext.setOnClickListener {
 
@@ -214,6 +210,14 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
 
             // 경고 텍스트 띄우기
             binding.warningTv.visibility = View.VISIBLE
+
+            // 사업자 이름 체크박스 해제
+            binding.ivInputCheckName.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this@InputBNumActivity,
+                    R.drawable.ic_checked_normal
+                )
+            )
         }
 
     }
