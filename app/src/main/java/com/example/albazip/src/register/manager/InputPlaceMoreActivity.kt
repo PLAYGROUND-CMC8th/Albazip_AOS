@@ -9,6 +9,8 @@ import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.set
@@ -21,6 +23,7 @@ import com.example.albazip.src.register.manager.custom.TimePickerBottomSheetDial
 import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class InputPlaceMoreActivity :
     BaseActivity<ActivityInputPlaceMoreBinding>(ActivityInputPlaceMoreBinding::inflate),
@@ -39,6 +42,7 @@ class InputPlaceMoreActivity :
             startActivity(nextIntent)
             finish()
         }
+
 
         // 휴일 선택 버튼
         binding.btnNoClosed.setOnClickListener(this) // 연중무휴
@@ -99,64 +103,56 @@ class InputPlaceMoreActivity :
         binding.apply {
             when (v) {
                 btnNoClosed -> {
-                    btnNoClosed.isSelected = true
-                    btnNoClosed.setTextColor(Color.parseColor("#343434"))
-                    checkDayFalse()
+                    btnNoClosed.isSelected = btnNoClosed.isSelected == false
+                    checkNoClosedState()
+                    EnableDay()
                 }
 
                 btnMon -> {
-                    btnMon.isSelected = true
-                    btnMon.setTextColor(Color.parseColor("#343434"))
-                    btnNoClosed.setTextColor(Color.parseColor("#6f6f6f"))
+                    btnMon.isSelected = btnMon.isSelected == false
+                    checkDayState(btnMon)
 
                     btnNoClosed.isSelected = false
                 }
                 btnTue -> {
-                    btnTue.isSelected = true
-                    btnTue.setTextColor(Color.parseColor("#343434"))
-                    btnNoClosed.setTextColor(Color.parseColor("#6f6f6f"))
+                    btnTue.isSelected = btnTue.isSelected == false
+                    checkDayState(btnTue)
 
                     btnNoClosed.isSelected = false
                 }
                 btnWen -> {
-                    btnWen.isSelected = true
-                    btnWen.setTextColor(Color.parseColor("#343434"))
-                    btnNoClosed.setTextColor(Color.parseColor("#6f6f6f"))
+                    btnWen.isSelected = btnWen.isSelected == false
+                    checkDayState(btnWen)
 
                     btnNoClosed.isSelected = false
                 }
                 btnThur -> {
-                    btnThur.isSelected = true
-                    btnThur.setTextColor(Color.parseColor("#343434"))
-                    btnNoClosed.setTextColor(Color.parseColor("#6f6f6f"))
+                    btnThur.isSelected = btnThur.isSelected == false
+                    checkDayState(btnThur)
 
                     btnNoClosed.isSelected = false
                 }
                 btnFri -> {
-                    btnFri.isSelected = true
-                    btnFri.setTextColor(Color.parseColor("#343434"))
-                    btnNoClosed.setTextColor(Color.parseColor("#6f6f6f"))
+                    btnFri.isSelected = btnFri.isSelected == false
+                    checkDayState(btnFri)
 
                     btnNoClosed.isSelected = false
                 }
                 btnSat -> {
-                    btnSat.isSelected = true
-                    btnSat.setTextColor(Color.parseColor("#343434"))
-                    btnNoClosed.setTextColor(Color.parseColor("#6f6f6f"))
+                    btnSat.isSelected = btnSat.isSelected == false
+                    checkDayState(btnSat)
 
                     btnNoClosed.isSelected = false
                 }
                 btnSun -> {
-                    btnSun.isSelected = true
-                    btnSun.setTextColor(Color.parseColor("#343434"))
-                    btnNoClosed.setTextColor(Color.parseColor("#6f6f6f"))
+                    btnSun.isSelected = btnSun.isSelected == false
+                    checkDayState(btnSun)
 
                     btnNoClosed.isSelected = false
                 }
                 btnHoliday -> {
-                    btnHoliday.isSelected = true
-                    btnHoliday.setTextColor(Color.parseColor("#343434"))
-                    btnNoClosed.setTextColor(Color.parseColor("#6f6f6f"))
+                    btnHoliday.isSelected = btnHoliday.isSelected == false
+                    checkDayState(btnHoliday)
 
                     btnNoClosed.isSelected = false
                 }
@@ -165,25 +161,143 @@ class InputPlaceMoreActivity :
         }
     }
 
-    fun checkDayFalse() {
-        binding.apply {
-            btnMon.isSelected = false
-            btnTue.isSelected = false
-            btnWen.isSelected = false
-            btnThur.isSelected = false
-            btnFri.isSelected = false
-            btnSat.isSelected = false
-            btnSun.isSelected = false
-            btnHoliday.isSelected = false
 
-            btnMon.setTextColor(Color.parseColor("#6f6f6f"))
-            btnTue.setTextColor(Color.parseColor("#6f6f6f"))
-            btnWen.setTextColor(Color.parseColor("#6f6f6f"))
-            btnThur.setTextColor(Color.parseColor("#6f6f6f"))
-            btnFri.setTextColor(Color.parseColor("#6f6f6f"))
-            btnSat.setTextColor(Color.parseColor("#6f6f6f"))
-            btnSun.setTextColor(Color.parseColor("#6f6f6f"))
-            btnHoliday.setTextColor(Color.parseColor("#6f6f6f"))
+    private fun checkNoClosedState(){
+        binding.apply {
+            if (btnNoClosed.isSelected == true) {
+                btnNoClosed.setTextColor(Color.parseColor("#343434"))
+                btnNoClosed.background = ContextCompat.getDrawable(
+                    this@InputPlaceMoreActivity,
+                    R.drawable.rectangle_fill_yellow_radius_16
+                )
+            } else {
+                btnNoClosed?.setTextColor(Color.parseColor("#6f6f6f"))
+                btnNoClosed?.background = ContextCompat.getDrawable(
+                    this@InputPlaceMoreActivity,
+                    R.drawable.rectangle_fill_white_radius_gray_16
+                )
+            }
+        }
+    }
+
+    private fun checkDayState(v:AppCompatButton?){
+        if(v?.isSelected == true){
+            checkDayTrue(v)
+        }else{
+            checkDayFalse(v)
+        }
+    }
+
+    fun checkDayTrue(v: AppCompatButton?){
+        // 버튼 리스트를 담는 배열 생성
+        binding.apply {
+            val btnList: ArrayList<AppCompatButton> = arrayListOf(
+                btnMon, btnTue, btnWen,
+                btnThur, btnFri, btnSat, btnSun, btnHoliday
+            )
+
+            // 배경 초기화
+            if (btnNoClosed.isSelected == true) {
+                for(i in 0 until 8){
+                    if(i != 7) {
+                        // 초기화된 배경색
+                        btnList[i].background = ContextCompat.getDrawable(
+                            this@InputPlaceMoreActivity,
+                            R.drawable.oval_fill_white_stroke_gray
+                        )
+
+                    }else{
+                        // 초기화된 배경색
+                        btnList[i].background = ContextCompat.getDrawable(
+                            this@InputPlaceMoreActivity,
+                            R.drawable.rectangle_fill_white_radius_gray_16
+                        )
+                    }
+
+                    // 버튼 비활성화
+                    btnList[i].isSelected = false
+
+                    // 연중무휴 버튼 비활성화
+                    btnNoClosed.isSelected = false
+                    btnNoClosed.background = ContextCompat.getDrawable(
+                        this@InputPlaceMoreActivity,
+                        R.drawable.rectangle_fill_gray_radius_16
+                    )
+                    btnNoClosed.setTextColor(Color.parseColor("#6f6f6f"))
+
+                    // 텍스트 색 설정
+                    btnList[i].setTextColor(Color.parseColor("#6f6f6f"))
+                }
+            }
+        }
+
+        // 값 선택 여부 받기
+        v?.isSelected = true
+        v?.setTextColor(Color.parseColor("#343434"))
+
+        if(binding.btnHoliday != v) {
+            v?.background = ContextCompat.getDrawable(
+                this@InputPlaceMoreActivity,
+                R.drawable.oval_fill_yellow
+            )
+        }else{
+            v?.background = ContextCompat.getDrawable(
+                this@InputPlaceMoreActivity,
+                R.drawable.rectangle_fill_yellow_radius_16
+            )
+        }
+    }
+
+    fun checkDayFalse(v: AppCompatButton?){
+        // 값 선택 여부 받기
+        v?.isSelected = false
+        v?.setTextColor(Color.parseColor("#6f6f6f"))
+
+        if(binding.btnHoliday != v) {
+            v?.background = ContextCompat.getDrawable(
+                this@InputPlaceMoreActivity,
+                R.drawable.oval_fill_white_stroke_gray
+            )
+        }else{
+            v?.background = ContextCompat.getDrawable(
+                this@InputPlaceMoreActivity,
+                R.drawable.rectangle_fill_white_radius_gray_16
+            )
+        }
+    }
+
+    // 요일 선택 비활성화
+    fun EnableDay() {
+        binding.apply {
+
+            // 버튼 리스트를 담는 배열 생성
+            val btnList : ArrayList<AppCompatButton> = arrayListOf(btnMon,btnTue,btnWen,
+                btnThur,btnFri,btnSat,btnSun,btnHoliday)
+
+            for(i in 0 until 8){
+                if(i != 7) {
+                    // 비활성화 배경색
+                    btnList[i].background = ContextCompat.getDrawable(
+                        this@InputPlaceMoreActivity,
+                        R.drawable.oval_fill_custom_white
+                    )
+
+                }else{
+                    // 비활성화 배경색
+                    btnList[i].background = ContextCompat.getDrawable(
+                        this@InputPlaceMoreActivity,
+                        R.drawable.rectangle_fill_gray_radius_16
+                    )
+                }
+
+                // 버튼 비활성화
+                btnList[i].isSelected = false
+
+                // 텍스트 색 설정
+                btnList[i].setTextColor(Color.parseColor("#6f6f6f"))
+            }
+
+
         }
     }
 
