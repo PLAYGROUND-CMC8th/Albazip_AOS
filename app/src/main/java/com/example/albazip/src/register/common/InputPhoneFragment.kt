@@ -39,10 +39,6 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var credential: PhoneAuthCredential
 
-    private var isCertifyOk:Boolean = false
-    private var isDeleteOK:Boolean = false
-
-
     // 인증 콜백 함수
     private val callbacks by lazy {
         // Initialize phone auth callbacks
@@ -114,43 +110,11 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
         // 기본 정보 입력 화면으로 이동
         binding.btnNext.setOnClickListener {
 
-            val inputCode = binding.etCertify.text.toString()
-            if(inputCode.isNotEmpty()) {
-                verifyPhoneNumberWithCode(storedVerificationId, inputCode)
+            // 인증번호 입력
+            if(binding.etCertify.text.toString().isNotEmpty()) {
 
-                // 인증번호가 일치하면 (계정 삭제후) 다음화면으로 넘기기
-                if (isCertifyOk == true) {
-
-                    showCustomToast("여기 찍혔나?")
-
-                    mCountDown.cancel()
-
-                    // 파베 계정 삭제 (더미데이터 삭제)
-                    deleteAccount()
-
-                    if (isDeleteOK == true) {
-
-                        showCustomToast("여기도 찍혔나?")
-
-                        // 유저 전화번호 prefs
-                        ApplicationClass.prefs.setString("phone",binding.etInputPhone.text.toString().replace(" ",""))
-
-                        prevFragment =
-                            activity?.supportFragmentManager?.findFragmentById(R.id.main_fragment)
-
-                        val transaction = activity?.supportFragmentManager?.beginTransaction()?.add(
-                            R.id.main_fragment,
-                            InputPWFragment()
-                        )
-
-                        transaction?.detach(prevFragment!!)
-
-                        transaction?.addToBackStack(null)
-                        transaction?.commit()
-                    }
-                }
+                verifyPhoneNumberWithCode(storedVerificationId, binding.etCertify.text.toString())
             }
-
 
         }
 
@@ -186,6 +150,28 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                 )
             }
         }
+
+        // 버튼 활성화여부
+        binding.etCertify.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(s?.length == 6){ // 버튼활성화
+                    binding.btnNext.isEnabled = true
+                    binding.btnNext.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.btn_main_yellow_fill_rounded)
+                    binding.btnNext.setTextColor(Color.parseColor("#343434"))
+                }else{ // 버튼비활성화
+                    binding.btnNext.isEnabled = false
+                    binding.btnNext.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.btn_disable_yellow_fill_rounded)
+                    binding.btnNext.setTextColor(Color.parseColor("#adadad"))
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+
+        })
 
         var _beforeLength: Int = 0
         var _afterLength: Int = 0
@@ -262,8 +248,6 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
             val getPhoneNum = binding.etInputPhone.text.toString().replace(" ","")
             val inputPhoneNum = "+82 " + getPhoneNum
 
-            showCustomToast(getPhoneNum)
-
             // 인증 메세지 전송하기
             startPhoneNumberVerification(inputPhoneNum)
             // 카운트 다운 시작
@@ -278,6 +262,7 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
             val getPhoneNum = binding.etInputPhone.text.toString().replace(" ","")
             val inputPhoneNum = "+82 " + getPhoneNum
 
+            showCustomToast("인증번호가 재전송되었습니다.")
             // 인증번호 재전송
             resendVerificationCode(inputPhoneNum, resendToken)
         }
@@ -319,7 +304,7 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                 binding.tvCountDown.text = "1:${timer - 60}"
                 timer--
             } else {
-                binding.tvCountDown.text = "${timer}"
+                binding.tvCountDown.text = "0:${timer}"
                 timer--
             }
 
@@ -334,6 +319,7 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 
     // 핸드폰 인증 시작 함수
     private fun startPhoneNumberVerification(phoneNumber: String) {
+        showCustomToast("인증번호가 전송되었습니다.")
         // [START start_phone_auth]
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phoneNumber)       // Phone number to verify
@@ -379,18 +365,20 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
 
-                    val user = task.result?.user
-                    // 계정 생성완료
-                    isCertifyOk = true
-                    showCustomToast("인증 번호 인증 성공/계정 생성 완료")
                     Log.d(TAG,"계정 생성 완료")
+                    task.result?.user
+
+                    showCustomToast("인증 성공")
+                    // 계정 생성완료
+                    mCountDown.cancel()
+
+                    // 파베 계정 삭제 (더미데이터 삭제)
+                    deleteAccount()
 
                 } else {
                     // 계정 생성 실패
                     // Sign in failed, display a message and update the UI
-                    showCustomToast("계정 생성 실패")
-                    Log.d(TAG,"계정 생성 실패")
-                    isCertifyOk = false
+                    showCustomToast("인증 실패")
 
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
@@ -398,21 +386,62 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                     }
                     // Update UI
                 }
+
+
             }
     }
 
     private fun deleteAccount(){
-        FirebaseAuth.getInstance().currentUser?.reauthenticate(credential)?.addOnCompleteListener {
+        val user = Firebase.auth.currentUser!!
+
+        user.delete().addOnCompleteListener{
             if(it.isSuccessful){
-                isDeleteOK = true
-                FirebaseAuth.getInstance().currentUser?.delete() // 유저 정보 삭제
-                Toast.makeText(requireContext(),"계정삭제완료",Toast.LENGTH_LONG).show()
+                // 유저 전화번호 prefs
+                ApplicationClass.prefs.setString("phone",binding.etInputPhone.text.toString().replace(" ",""))
+
+                // 화면 전환
+                prevFragment =
+                    activity?.supportFragmentManager?.findFragmentById(R.id.main_fragment)
+
+                val transaction = activity?.supportFragmentManager?.beginTransaction()?.add(
+                    R.id.main_fragment,
+                    InputPWFragment()
+                )
+
+                transaction?.detach(prevFragment!!)
+
+                transaction?.addToBackStack(null)
+                transaction?.commit()
             }else{
-                isDeleteOK = false
-                Log.w(TAG,"")
                 Toast.makeText(requireContext(),"유저정보 삭제 실패 ",Toast.LENGTH_LONG).show()
             }
         }
+
+//        FirebaseAuth.getInstance().currentUser?.reauthenticate(credential)?.addOnCompleteListener {
+//            if(it.isSuccessful){
+//                FirebaseAuth.getInstance().currentUser?.delete() // 유저 정보 삭제
+//
+//                // 유저 전화번호 prefs
+//                ApplicationClass.prefs.setString("phone",binding.etInputPhone.text.toString().replace(" ",""))
+//
+//                // 화면 전환
+//                prevFragment =
+//                    activity?.supportFragmentManager?.findFragmentById(R.id.main_fragment)
+//
+//                val transaction = activity?.supportFragmentManager?.beginTransaction()?.add(
+//                    R.id.main_fragment,
+//                    InputPWFragment()
+//                )
+//
+//                transaction?.detach(prevFragment!!)
+//
+//                transaction?.addToBackStack(null)
+//                transaction?.commit()
+//
+//            }else{
+//                Toast.makeText(requireContext(),"유저정보 삭제 실패 ",Toast.LENGTH_LONG).show()
+//            }
+//        }
     }
 
 

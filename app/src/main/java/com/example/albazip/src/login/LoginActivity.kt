@@ -11,6 +11,9 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass.Companion.X_ACCESS_TOKEN
+import com.example.albazip.config.ApplicationClass.Companion.loginFlags
+import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityLoginBinding
 import com.example.albazip.src.home.common.HomeActivity
@@ -155,6 +158,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         showCustomToast(response.message)
         when(response.message){
             "로그인 완료" -> {
+
+                // jwt 토큰 header 에 저장
+                prefs.setString(X_ACCESS_TOKEN, response.resultSignIn.token.toString())
+
+                // login 상태 저장
+                prefs.setString(loginFlags,"login")
 
                 // 토큰 등록하기
                 if(response.resultSignIn.positionInfo == null){ // 포지션 설정 안했을 때

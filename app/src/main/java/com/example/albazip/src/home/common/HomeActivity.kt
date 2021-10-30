@@ -6,6 +6,7 @@ import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityHomeBinding
 import com.example.albazip.src.register.manager.RegisterPlaceActivity
 import com.example.albazip.src.register.manager.SearchPlaceActivity
+import com.example.albazip.src.register.worker.RegisterJoinActivity
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
 
@@ -26,8 +27,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
         // 근무자 가입
         binding.clWorker.setOnClickListener {
-            //val nextIntent = Intent(this,SettingActivity::class.java)
-            //startActivity(nextIntent)
+            val nextIntent = Intent(this,RegisterJoinActivity::class.java)
+            startActivity(nextIntent)
         }
 
     }

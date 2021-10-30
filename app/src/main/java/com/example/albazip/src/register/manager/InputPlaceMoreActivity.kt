@@ -5,10 +5,12 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.text.set
 import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityInputPlaceMoreBinding
@@ -44,13 +46,51 @@ class InputPlaceMoreActivity :
         var _beforeLength: Int = 0
         var _afterLength: Int = 0
 
-        // 휴대폰 번호 입력 (자동 띄어씌기)
+        // 영업 시간(시작) 입력 (자동 띄어씌기)
         binding.etStartTime.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 _beforeLength = s!!.length
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+
+                // 올바른 시간 입력 위한 함수(00시간~24시간)
+                if (s!!.isNotEmpty()) {
+
+                    if (!(binding.etStartTime.text[0].toString() == "2" || binding.etStartTime.text[0].toString() == "1" || binding.etStartTime.text[0].toString() == "0")) {
+                        binding.etStartTime.setText("")
+                    }
+                }
+
+                if(s!!.length > 1){
+                    when(binding.etStartTime.text[1].toString()){
+                        "5" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                        "6" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                        "7" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                        "8" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                        "9" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                    }
+                }
+
+                if(s!!.length >2){
+                    when(binding.etStartTime.text[2].toString()){
+                        "6" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                        "7" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                        "8" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                        "9" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                    }
+                }
+
+                if(s!!.length > 3 ){
+                    when(binding.etStartTime.text[3].toString()){
+                        "6" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                        "7" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                        "8" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                        "9" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
+                    }
+                }
+
 
                 // 텍스트 색상 동적 변경
                 if (s!!.isEmpty()) {
@@ -79,7 +119,7 @@ class InputPlaceMoreActivity :
                 }
                 binding.etStartTime.setSelection(binding.etStartTime.length())
 
-                // 휴대폰 번호 입력완료시 전송 버튼 활성화
+                // 영업시간 입력완료시 전송 버튼 활성화
                 if (s.length == 5) { // 활성화
                     //binding.rlClickableCertify.isEnabled = true
                     //binding.tvCertify.setTextColor(Color.parseColor("#343434"))
@@ -89,7 +129,9 @@ class InputPlaceMoreActivity :
                 }
 
             }
-            override fun afterTextChanged(s: Editable?) {}
+
+            override fun afterTextChanged(s: Editable?) {
+            }
         })
 
         // 영업시간 입력(끝)
@@ -103,6 +145,43 @@ class InputPlaceMoreActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                // 올바른 시간 입력 위한 함수(00시간~24시간)
+                if (s!!.isNotEmpty()) {
+
+                    if (!(binding.etEndTime.text[0].toString() == "2" || binding.etEndTime.text[0].toString() == "1" || binding.etEndTime.text[0].toString() == "0")) {
+                        binding.etEndTime.setText("")
+                    }
+                }
+
+                if(s!!.length > 1){
+                    when(binding.etEndTime.text[1].toString()){
+                        "5" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                        "6" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                        "7" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                        "8" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                        "9" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                    }
+                }
+
+                if(s!!.length >2){
+                    when(binding.etEndTime.text[2].toString()){
+                        "6" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                        "7" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                        "8" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                        "9" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                    }
+                }
+
+                if(s!!.length > 3 ){
+                    when(binding.etEndTime.text[3].toString()){
+                        "6" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                        "7" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                        "8" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                        "9" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
+                    }
+                }
+
 
                 // 텍스트 색상 동적 변경
                 if (s!!.isEmpty()) {
@@ -131,7 +210,7 @@ class InputPlaceMoreActivity :
                 }
                 binding.etEndTime.setSelection(binding.etEndTime.length())
 
-                // 휴대폰 번호 입력완료시 전송 버튼 활성화
+                // 영업시간 입력완료시 전송 버튼 활성화
                 if (s.length == 5) { // 활성화
                     //binding.rlClickableCertify.isEnabled = true
                     //binding.tvCertify.setTextColor(Color.parseColor("#343434"))
@@ -141,6 +220,7 @@ class InputPlaceMoreActivity :
                 }
 
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -148,7 +228,7 @@ class InputPlaceMoreActivity :
         binding.etStartTime.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus)
                 binding.rlStartTime.background = ContextCompat.getDrawable(
-                   this,
+                    this,
                     R.drawable.rectagnle_yellow_radius
                 ) else {
                 binding.rlStartTime.background = ContextCompat.getDrawable(

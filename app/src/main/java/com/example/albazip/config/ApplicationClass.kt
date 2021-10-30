@@ -25,7 +25,7 @@ class ApplicationClass: Application()  {
         val X_ACCESS_TOKEN = "X-ACCESS-TOKEN"
 
         // 로그인 여부 체크
-        var loginFlags:Int =  0
+        var loginFlags:String =  ""
     }
 
     override fun onCreate() {

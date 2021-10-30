@@ -206,11 +206,6 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
         dismissLoadingDialog()
         if (response.message == "성공적으로 기본가입이 완료되었습니다.") {
             showCustomToast("회원가입 성공")
-
-            // 여기선 아니당 ㅎ
-            // jwt 토큰 저장하기
-            //prefs.setString(X_ACCESS_TOKEN, response.data.token.toString())
-
             // 메인 화면으로 이동
             val mainIntent = Intent(context, MainActivity::class.java)
             startActivity(mainIntent)

@@ -170,7 +170,7 @@
         android:fontFamily="@font/roboto_medium"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="13sp"
-        android:text="엽업시간"
+        android:text="영업시간"
         android:textColor="#6f6f6f"
         android:textSize="16sp"
         android:textStyle="normal"

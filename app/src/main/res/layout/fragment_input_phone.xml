@@ -113,6 +113,7 @@
             android:layout_marginEnd="56dp"
             android:layout_alignParentStart="true"
             android:background="@null"
+            android:maxLength="6"
             style="@style/EditTextStyle"
             android:hint="인증 번호"
             android:inputType="numberPassword"
