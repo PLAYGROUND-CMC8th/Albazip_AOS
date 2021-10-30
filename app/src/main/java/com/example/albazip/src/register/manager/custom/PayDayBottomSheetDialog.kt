@@ -9,7 +9,7 @@ import android.widget.NumberPicker
 import com.example.albazip.databinding.DialogFragmentAgeBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class PayDayBottomSheetDialog : BottomSheetDialogFragment() {
+class PayDayBottomSheetDialog() : BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogFragmentAgeBinding
     private var selectedDay:Int = 1 // 초기값 설정

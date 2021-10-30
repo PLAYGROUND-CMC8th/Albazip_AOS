@@ -23,7 +23,7 @@
     <FrameLayout
         android:id="@+id/framelayout"
         android:layout_width="0dp"
-        android:layout_height="175dp"
+        android:layout_height="205dp"
         android:layout_marginHorizontal="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_picker_select_radius_10" />
 
@@ -40,8 +40,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginVertical="25dp"
-            android:id="@+id/numberPicker"
-            android:theme="@style/AgePicker"/>
+            android:timePickerMode="spinner"
+            android:id="@+id/timePicker"
+            android:theme="@style/TimePicker"/>
 
     </FrameLayout>
 

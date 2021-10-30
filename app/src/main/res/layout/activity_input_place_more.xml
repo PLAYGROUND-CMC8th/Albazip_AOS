@@ -54,8 +54,8 @@
         android:layout_height="31dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/bg_selector_rest_long"
-        android:textColor="#6f6f6f"
         android:text="연중무휴"
+        android:textColor="#6f6f6f"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/tv_closed"
         app:layout_constraintTop_toBottomOf="@id/tv_closed" />
@@ -76,10 +76,10 @@
             android:id="@+id/btn_mon"
             android:layout_width="31dp"
             android:layout_height="31dp"
-            android:textColor="#6f6f6f"
+            android:layout_marginEnd="2dp"
             android:background="@drawable/bg_selector_rest_oval"
             android:text="월"
-            android:layout_marginEnd="2dp"
+            android:textColor="#6f6f6f"
             android:textSize="12sp" />
 
 
@@ -88,9 +88,9 @@
             android:layout_width="31dp"
             android:layout_height="31dp"
             android:layout_marginEnd="2dp"
-            android:textColor="#6f6f6f"
             android:background="@drawable/bg_selector_rest_oval"
             android:text="화"
+            android:textColor="#6f6f6f"
             android:textSize="12sp" />
 
 
@@ -99,9 +99,9 @@
             android:layout_width="31dp"
             android:layout_height="31dp"
             android:layout_marginEnd="2dp"
-            android:textColor="#6f6f6f"
             android:background="@drawable/bg_selector_rest_oval"
             android:text="수"
+            android:textColor="#6f6f6f"
             android:textSize="12sp" />
 
 
@@ -110,9 +110,9 @@
             android:layout_width="31dp"
             android:layout_height="31dp"
             android:layout_marginEnd="2dp"
-            android:textColor="#6f6f6f"
             android:background="@drawable/bg_selector_rest_oval"
             android:text="목"
+            android:textColor="#6f6f6f"
             android:textSize="12sp" />
 
 
@@ -121,9 +121,9 @@
             android:layout_width="31dp"
             android:layout_height="31dp"
             android:layout_marginEnd="2dp"
-            android:textColor="#6f6f6f"
             android:background="@drawable/bg_selector_rest_oval"
             android:text="금"
+            android:textColor="#6f6f6f"
             android:textSize="12sp" />
 
 
@@ -132,9 +132,9 @@
             android:layout_width="31dp"
             android:layout_height="31dp"
             android:layout_marginEnd="2dp"
-            android:textColor="#6f6f6f"
             android:background="@drawable/bg_selector_rest_oval"
             android:text="토"
+            android:textColor="#6f6f6f"
             android:textSize="12sp" />
 
 
@@ -143,9 +143,9 @@
             android:layout_width="31dp"
             android:layout_height="31dp"
             android:layout_marginEnd="2dp"
-            android:textColor="#6f6f6f"
             android:background="@drawable/bg_selector_rest_oval"
             android:text="일"
+            android:textColor="#6f6f6f"
             android:textSize="12sp" />
 
 
@@ -153,9 +153,9 @@
             android:id="@+id/btn_holiday"
             android:layout_width="55dp"
             android:layout_height="31dp"
-            android:textColor="#6f6f6f"
             android:background="@drawable/bg_selector_rest_long"
             android:text="공휴일"
+            android:textColor="#6f6f6f"
             android:textSize="12sp" />
 
 
@@ -184,7 +184,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="14dp"
         android:letterSpacing="-0.03"
-        android:text="시작시간"
+        android:text="오픈시간"
         android:textColor="#a3a3a3"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -196,7 +196,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:letterSpacing="-0.03"
-        android:text="종료시간"
+        android:text="마감시간"
         android:textColor="#a3a3a3"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/rl_end_time"
@@ -214,24 +214,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_start_time">
 
-        <EditText
-            android:id="@+id/et_start_time"
+        <TextView
+            android:id="@+id/tv_input_start_time"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_centerVertical="true"
-            android:background="@null"
-            android:hint="00:00"
-            android:maxLength="5"
-            android:inputType="number"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="-18sp"
             android:textAlignment="center"
-            android:textColorHint="#ededed"
+            android:gravity="center"
+            android:textColor="#ededed"
             android:textSize="30sp"
-            tools:text="00:00" />
+            android:text="00:00" />
     </RelativeLayout>
 
     <TextView
@@ -278,24 +274,20 @@
         app:layout_constraintStart_toEndOf="@id/tv_wave"
         app:layout_constraintTop_toBottomOf="@id/tv_start_time">
 
-        <EditText
-            android:id="@+id/et_end_time"
+        <TextView
+            android:id="@+id/tv_input_end_time"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_centerVertical="true"
-            android:layout_marginHorizontal="16dp"
-            android:background="@null"
-            android:hint="24:00"
-            android:maxLength="5"
-            android:inputType="number"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="-18sp"
             android:textAlignment="center"
-            android:textColorHint="#ededed"
+            android:gravity="center"
+            android:textColor="#ededed"
             android:textSize="30sp"
-            tools:text="24:00" />
+            android:text="00:00"/>
     </RelativeLayout>
 
     <TextView
@@ -345,12 +337,11 @@
             android:layout_toStartOf="@id/tv_day"
             android:background="@null"
             android:gravity="center|end"
-            android:text="1 - 31"
             android:letterSpacing="-0.03"
+            android:text="1 - 31"
             android:textColor="@color/hintTxtColor"
             android:textSize="16sp"
-            android:textStyle="normal"
-            />
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/tv_day"

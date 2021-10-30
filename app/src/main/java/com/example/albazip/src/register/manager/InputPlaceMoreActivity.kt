@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -16,10 +17,19 @@ import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityInputPlaceMoreBinding
 import com.example.albazip.src.register.common.custom.AgeBottomSheetDialog
 import com.example.albazip.src.register.manager.custom.PayDayBottomSheetDialog
+import com.example.albazip.src.register.manager.custom.TimePickerBottomSheetDialog
+import java.sql.Time
+import java.text.SimpleDateFormat
+import java.util.*
 
 class InputPlaceMoreActivity :
     BaseActivity<ActivityInputPlaceMoreBinding>(ActivityInputPlaceMoreBinding::inflate),
-    View.OnClickListener, PayDayBottomSheetDialog.BottomSheetClickListener {
+    View.OnClickListener, PayDayBottomSheetDialog.BottomSheetClickListener,
+    TimePickerBottomSheetDialog.BottomSheetClickListener {
+
+    // 시간 차 계산을 위한 데이터 포맷 선언
+    val f: SimpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.KOREA)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,212 +52,39 @@ class InputPlaceMoreActivity :
         binding.btnHoliday.setOnClickListener(this) // 공휴일
 
 
-        // 영업시간 입력(시작)
-        var _beforeLength: Int = 0
-        var _afterLength: Int = 0
-
-        // 영업 시간(시작) 입력 (자동 띄어씌기)
-        binding.etStartTime.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                _beforeLength = s!!.length
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-
-                // 올바른 시간 입력 위한 함수(00시간~24시간)
-                if (s!!.isNotEmpty()) {
-
-                    if (!(binding.etStartTime.text[0].toString() == "2" || binding.etStartTime.text[0].toString() == "1" || binding.etStartTime.text[0].toString() == "0")) {
-                        binding.etStartTime.setText("")
-                    }
-                }
-
-                if(s!!.length > 1){
-                    when(binding.etStartTime.text[1].toString()){
-                        "5" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                        "6" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                        "7" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                        "8" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                        "9" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                    }
-                }
-
-                if(s!!.length >2){
-                    when(binding.etStartTime.text[2].toString()){
-                        "6" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                        "7" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                        "8" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                        "9" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                    }
-                }
-
-                if(s!!.length > 3 ){
-                    when(binding.etStartTime.text[3].toString()){
-                        "6" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                        "7" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                        "8" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                        "9" -> { binding.etStartTime.setText(binding.etStartTime.text.toString().substring(0,binding.etStartTime.text.length-1))}
-                    }
-                }
-
-
-                // 텍스트 색상 동적 변경
-                if (s!!.isEmpty()) {
-                    binding.etStartTime.setTextColor(Color.parseColor("#6f6f6f"))
-                } else {
-                    binding.etStartTime.setTextColor(Color.parseColor("#343434"))
-                }
-
-                _afterLength = s.length
-
-                // 삭제중
-                if (_beforeLength > _afterLength) {
-                    // 삭제 중에 마지막에 -는 자동으로 지우기
-                    if (s.toString().endsWith(":")) {
-                        binding.etStartTime.setText(s.toString().substring(0, s.length - 1))
-                    }
-                }
-
-                // 입력중
-                else if (_beforeLength < _afterLength) {
-                    if (_afterLength == 4 && s.toString().indexOf(" ") < 0) {
-                        binding.etStartTime.setText(
-                            s.toString().substring(0, 2) + ":" + s.toString().substring(2, s.length)
-                        )
-                    }
-                }
-                binding.etStartTime.setSelection(binding.etStartTime.length())
-
-                // 영업시간 입력완료시 전송 버튼 활성화
-                if (s.length == 5) { // 활성화
-                    //binding.rlClickableCertify.isEnabled = true
-                    //binding.tvCertify.setTextColor(Color.parseColor("#343434"))
-                } else { // 비활성화
-                    //binding.rlClickableCertify.isEnabled = false
-                    //binding.tvCertify.setTextColor(Color.parseColor("#cecece"))
-                }
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-        })
-
-        // 영업시간 입력(끝)
-        var e_beforeLength: Int = 0
-        var e_afterLength: Int = 0
-
-
-        binding.etEndTime.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                e_beforeLength = s!!.length
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-                // 올바른 시간 입력 위한 함수(00시간~24시간)
-                if (s!!.isNotEmpty()) {
-
-                    if (!(binding.etEndTime.text[0].toString() == "2" || binding.etEndTime.text[0].toString() == "1" || binding.etEndTime.text[0].toString() == "0")) {
-                        binding.etEndTime.setText("")
-                    }
-                }
-
-                if(s!!.length > 1){
-                    when(binding.etEndTime.text[1].toString()){
-                        "5" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                        "6" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                        "7" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                        "8" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                        "9" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                    }
-                }
-
-                if(s!!.length >2){
-                    when(binding.etEndTime.text[2].toString()){
-                        "6" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                        "7" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                        "8" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                        "9" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                    }
-                }
-
-                if(s!!.length > 3 ){
-                    when(binding.etEndTime.text[3].toString()){
-                        "6" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                        "7" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                        "8" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                        "9" -> { binding.etEndTime.setText(binding.etEndTime.text.toString().substring(0,binding.etEndTime.text.length-1))}
-                    }
-                }
-
-
-                // 텍스트 색상 동적 변경
-                if (s!!.isEmpty()) {
-                    binding.etEndTime.setTextColor(Color.parseColor("#6f6f6f"))
-                } else {
-                    binding.etEndTime.setTextColor(Color.parseColor("#343434"))
-                }
-
-                e_afterLength = s.length
-
-                // 삭제중
-                if (e_beforeLength > e_afterLength) {
-                    // 삭제 중에 마지막에 -는 자동으로 지우기
-                    if (s.toString().endsWith(":")) {
-                        binding.etEndTime.setText(s.toString().substring(0, s.length - 1))
-                    }
-                }
-
-                // 입력중
-                else if (e_beforeLength < e_afterLength) {
-                    if (e_afterLength == 4 && s.toString().indexOf(" ") < 0) {
-                        binding.etEndTime.setText(
-                            s.toString().substring(0, 2) + ":" + s.toString().substring(2, s.length)
-                        )
-                    }
-                }
-                binding.etEndTime.setSelection(binding.etEndTime.length())
-
-                // 영업시간 입력완료시 전송 버튼 활성화
-                if (s.length == 5) { // 활성화
-                    //binding.rlClickableCertify.isEnabled = true
-                    //binding.tvCertify.setTextColor(Color.parseColor("#343434"))
-                } else { // 비활성화
-                    //binding.rlClickableCertify.isEnabled = false
-                    //binding.tvCertify.setTextColor(Color.parseColor("#cecece"))
-                }
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
-        // focus 감지
-        binding.etStartTime.setOnFocusChangeListener { v, hasFocus ->
+        binding.rlEndTime.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus)
-                binding.rlStartTime.background = ContextCompat.getDrawable(
+                binding.rlEndTime.background = ContextCompat.getDrawable(
                     this,
                     R.drawable.rectagnle_yellow_radius
                 ) else {
-                binding.rlStartTime.background = ContextCompat.getDrawable(
+                binding.rlEndTime.background = ContextCompat.getDrawable(
                     this,
                     R.drawable.rectangle_custom_white_radius
                 )
             }
         }
-        binding.etEndTime.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus)
-                binding.rlEndTime.background = ContextCompat.getDrawable(
-                    this,
-                    R.drawable.rectagnle_yellow_radius
-                ) else {
-                binding.rlEndTime.background = ContextCompat.getDrawable(
-                    this,
-                    R.drawable.rectangle_custom_white_radius
-                )
-            }
+
+        // 오픈시간 선택
+        binding.tvInputStartTime.setOnClickListener {
+            TimePickerBottomSheetDialog("매장 오픈시간", 0).show(supportFragmentManager, "openpicker")
+
+            // 포커스 설정
+            binding.rlStartTime.background = ContextCompat.getDrawable(
+                this,
+                R.drawable.rectagnle_yellow_radius
+            )
+        }
+
+        // 마감시간 선택
+        binding.tvInputEndTime.setOnClickListener {
+            TimePickerBottomSheetDialog("매장 마감시간", 1).show(supportFragmentManager, "closepicker")
+
+            // 포커스 설정
+            binding.rlEndTime.background = ContextCompat.getDrawable(
+                this,
+                R.drawable.rectagnle_yellow_radius
+            )
         }
 
 
@@ -358,4 +195,95 @@ class InputPlaceMoreActivity :
         binding.tvSelectDay.setTextColor(Color.parseColor("#343434"))
         binding.tvSelectDay.setTypeface(null, Typeface.BOLD)
     }
+
+    override fun onTimeSelected(h: String, m: String, flag: Int) {
+
+        var displayHour = ""
+        var displayMinute = ""
+
+        // ui에 보여지는 시간과 분
+        if (h.length == 1) { // 한자리 숫자일 때는 앞에 "0"을 붙여준다.
+            displayHour = "0$h"
+        } else {
+            displayHour = h
+        }
+
+        if (m.length == 1) {
+            displayMinute = "0$m"
+        } else {
+            displayMinute = m
+        }
+
+
+        if (flag == 0) { // 오픈 값 넣기
+            binding.tvInputStartTime.setText(displayHour + ":" + displayMinute)
+            // 포커스 해제
+            binding.rlStartTime.background = ContextCompat.getDrawable(
+                this,
+                R.drawable.rectangle_fill_white_radius_gray_15
+            )
+            binding.tvInputStartTime.setTextColor(Color.parseColor("#343434"))
+
+            // 운영시간 계산
+            if (binding.tvInputEndTime.currentTextColor == Color.parseColor("#343434")) { // 마감 시간이 활성화 되어 있으면 시간차를 계산해준다.
+                getTimeLag()
+            }
+
+
+        } else { // 마감 값 넣기
+            binding.tvInputEndTime.setText(displayHour + ":" + displayMinute)
+            // 포커스 해제
+            binding.rlEndTime.background = ContextCompat.getDrawable(
+                this,
+                R.drawable.rectangle_fill_white_radius_gray_15
+            )
+            binding.tvInputEndTime.setTextColor(Color.parseColor("#343434"))
+
+            // 운영시간 계산
+            if (binding.tvInputStartTime.currentTextColor == Color.parseColor("#343434")) { // 오픈 시간이 활성화 되어 있으면 시간차를 계산해준다.
+                getTimeLag()
+            }
+
+        }
+
+    }
+
+
+    // 시간차 설정해주는 함수
+    private fun getTimeLag() {
+        var sDate = f.parse(binding.tvInputStartTime.text.toString() + ":00")
+        var eDate = f.parse(binding.tvInputEndTime.text.toString() + ":00")
+        var diff = eDate.time - sDate.time
+
+        var sec = diff / 1000 // 총 시간(초) 받아오기
+
+
+        if (eDate.time >= sDate.time) {
+
+            var showHour = sec / (60 * 60)
+            var showMin = sec / 60 - (showHour * 60)
+
+            if(showMin == 0L){
+                binding.tvWorkHour.setText(showHour.toString() + "시간")
+            }else{
+                binding.tvWorkHour.setText(showHour.toString() + "시간 " + showMin.toString() + "분")
+            }
+
+
+        } else { // 24시간을 더해서 빼준다.
+
+            var sec = diff / 1000 + 86400// 총 시간(초) 받아오기(24시간 더해서)
+
+            var showHour = sec / (60 * 60)
+            var showMin = sec / 60 - (showHour * 60)
+
+            if(showMin == 0L){
+                binding.tvWorkHour.setText(showHour.toString() + "시간")
+            }else{
+                binding.tvWorkHour.setText(showHour.toString() + "시간 " + showMin.toString() + "분")
+            }
+        }
+
+    }
+
 }
