@@ -15,9 +15,10 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Albazip">
-        <activity android:name=".src.main.WorkerMainActivity"></activity>
-        <activity android:name=".src.register.manager.ManagerOnBoardingActivity"></activity>
-        <activity android:name=".src.register.manager.InputPlaceMoreActivity"></activity>
+        <activity android:name=".src.main.ManagerMainActivity"></activity>
+        <activity android:name=".src.main.WorkerMainActivity" />
+        <activity android:name=".src.register.manager.ManagerOnBoardingActivity" />
+        <activity android:name=".src.register.manager.InputPlaceMoreActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -25,12 +26,12 @@
 
         <activity
             android:name=".src.register.manager.SearchPlaceActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".src.register.manager.RegisterPlaceActivity" />
-        <activity android:name=".src.home.common.HomeActivity"></activity>
-        <activity android:name=".src.login.LoginActivity"></activity>
-        <activity android:name=".src.register.common.RegisterActivity"></activity>
-        <activity android:name=".src.splash.SplashActivity"></activity>
+        <activity android:name=".src.home.common.HomeActivity" />
+        <activity android:name=".src.login.LoginActivity" />
+        <activity android:name=".src.register.common.RegisterActivity" />
+        <activity android:name=".src.splash.SplashActivity" />
         <activity android:name=".src.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,9 +39,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".src.register.manager.InputBNumActivity"></activity>
-        <activity android:name=".src.register.worker.RegisterJoinActivity"></activity>
-        <activity android:name=".src.register.worker.WorkerOnBoardingActivity"></activity>
+        <activity android:name=".src.register.manager.InputBNumActivity" />
+        <activity android:name=".src.register.worker.RegisterJoinActivity" />
+        <activity android:name=".src.register.worker.WorkerOnBoardingActivity" />
         <activity android:name=".src.home.common.SettingActivity" />
     </application>
 
