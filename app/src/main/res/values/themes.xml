@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Albazip" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">#cecece</item>
         <item name="colorPrimaryVariant">@color/systembar</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorControlHighlight">#cecece</item>
 
         <!--custom font-family 적용-->
         <item name="android:textViewStyle">@style/customTextViewFontStyle</item>
@@ -22,7 +23,32 @@
 
         <!-- BottomSheet Dialog -->
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+
     </style>
+
+    <!-- Bottom Navi Custom -->
+    <style name="BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/TextAppearance.BottomNavigationView.Active
+        </item>
+        <item name="itemTextAppearanceInactive">
+            @style/TextAppearance.BottomNavigationView.Inactive
+        </item>
+    </style>
+    <style name="TextAppearance" />
+    <style name="TextAppearance.BottomNavigationView" />
+    <!-- inactive tab icon style -->
+    <style name="TextAppearance.BottomNavigationView.Inactive">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- active tab icon style -->
+    <style name="TextAppearance.BottomNavigationView.Active">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
 
     <!-- BottomSheet Dialog Custom -->
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
