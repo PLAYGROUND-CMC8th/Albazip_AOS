@@ -179,6 +179,7 @@
                 app:tabSelectedTextColor="@color/black"
                 android:paddingStart="12dp"
                 app:tabMode="fixed"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
                 app:tabMaxWidth="0dp"
                 app:tabGravity="start"
                 app:tabTextColor="#e2e2e2"

@@ -37,13 +37,13 @@ class MMyPageFragment :
             }
         }
 
+
+        init()
+
+
         // 탭 레이아웃 커스튬
         tabTextStyle()
 
-        // 기본 선택값 = 근무자
-        binding.tabLayout.selectTab(binding.tabLayout.getTabAt(0))
-
-        init()
 
     }
 
