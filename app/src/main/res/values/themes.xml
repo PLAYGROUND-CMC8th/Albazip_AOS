@@ -89,7 +89,7 @@
 
     <style name="Theme.Albazip.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    // edittext 스타일
+    <!-- edittext 스타일 -->
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="colorControlNormal">@color/mainYellow</item>
 
@@ -102,10 +102,7 @@
         <item name="android:textColorHint">@color/hintTxtColor</item>
 
         <item name="android:textColorHighlight">@color/mainYellow</item>
-
     </style>
-
-
 
 </resources>
 

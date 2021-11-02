@@ -24,6 +24,7 @@ class ManagerMainActivity :
 
         supportFragmentManager.beginTransaction().replace(R.id.worker_main_frm, MHomeFragment()).commitAllowingStateLoss()
 
+
         binding.workerMainBtmNav.run {
             setOnItemSelectedListener {
                 when (it.itemId) {
@@ -62,7 +63,6 @@ class ManagerMainActivity :
                 false
             }
         }
-
 
 
     }
