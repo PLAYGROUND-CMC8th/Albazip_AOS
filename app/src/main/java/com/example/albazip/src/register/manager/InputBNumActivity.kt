@@ -34,6 +34,11 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 뒤로가기 버튼
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+
         // 텍스트 굵기 변경
         changeTxtType(binding.etInputBnum)
         changeTxtType(binding.etInputName)

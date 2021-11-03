@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="163dp"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/bg_rv_item_wrote_15">
+
+    <ImageView
+        android:id="@+id/iv_profile"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/img_m_profile_1_24_px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_position"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="1sp"
+        android:textColor="#ff8700"
+        android:textSize="11sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@id/tv_name"
+        app:layout_constraintStart_toEndOf="@id/iv_profile"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="사장님" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="2sp"
+        android:textColor="#333333"
+        android:textSize="11sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@id/tv_position"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="정지연" />
+
+    <ImageButton
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        android:scaleType="center"
+        android:src="@drawable/ic_more_vertical_24_px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="3sp"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/iv_profile"
+        app:layout_constraintTop_toBottomOf="@id/iv_profile"
+        tools:text="오차드별 아이스티 품절" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="5sp"
+        android:textColor="#333333"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_goneMarginTop="8dp"
+        tools:text="오차드별 아이스티 남아있던 거 다 팔았습니다!\n오늘부로 판매 종료입니다~" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_content">
+
+        <ImageView
+            android:id="@+id/iv_comment"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:background="@null"
+            android:src="@drawable/ic_comment_24_px" />
+
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_toEndOf="@id/iv_comment"
+            android:gravity="center"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="1sp"
+            android:text="댓글"
+            android:textColor="#6f6f6f"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tv_comment_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_toEndOf="@id/tv_comment"
+            android:gravity="center"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="1sp"
+            android:text="2"
+            android:textColor="#6f6f6f"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="10sp"
+        android:textColor="#a3a3a3"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="7sp"
+        android:gravity="end"
+        tools:text="2021. 08. 15."
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

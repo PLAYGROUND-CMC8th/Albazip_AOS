@@ -40,6 +40,7 @@
                         android:src="@drawable/img_mypage_manager_default_profile" />
 
                     <ImageButton
+                        android:id="@+id/ibtn_change_profile"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="end|bottom"
@@ -48,7 +49,7 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="51dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="109dp"
                     android:layout_marginBottom="52dp"
                     android:layout_marginStart="7dp"
