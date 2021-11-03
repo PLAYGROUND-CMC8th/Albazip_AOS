@@ -140,7 +140,7 @@
             android:textColor="#6f6f6f"
             android:textSize="14sp"
             android:textStyle="normal"
-            android:text="2:45" />
+            android:text="2:00" />
 
         <RelativeLayout
             android:id="@+id/rl_clickable_resend"

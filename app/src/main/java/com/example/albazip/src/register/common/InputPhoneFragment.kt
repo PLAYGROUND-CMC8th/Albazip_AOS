@@ -48,8 +48,16 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
             // 사용자 UI 입력 대기
             override fun onCodeAutoRetrievalTimeOut(p0: String) {
                 super.onCodeAutoRetrievalTimeOut(p0)
-                showCustomToast(p0 + "이건 뭘까용? ㅎㅎㅎ")
-                Log.d(TAG,p0+"이건 뭘까용?ㅎㅎㅎ")
+
+                // 여기서 타이머 대기
+                showCustomToast("입력시간 초과")
+                Log.d(TAG,"입력시간 초과")
+
+                // 버튼 비활성화
+                binding.btnNext.isEnabled = false
+                binding.btnNext.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.btn_disable_yellow_fill_rounded)
+                binding.btnNext.setTextColor(Color.parseColor("#adadad"))
             }
 
             // 다른 기타 인증이 완료된 상태
@@ -103,7 +111,7 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     var btnEnabled: Boolean = false
 
     // 타이머 설정
-    var timer = 165
+    var timer = 120
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -257,6 +265,7 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 
             // 인증 메세지 전송하기
             startPhoneNumberVerification(inputPhoneNum)
+
             // 카운트 다운 시작
             mCountDown.start()
 
@@ -270,6 +279,12 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
             val inputPhoneNum = "+82 " + getPhoneNum
 
             showCustomToast("인증번호가 재전송되었습니다.")
+
+            // 카운트 다운 재시작
+            mCountDown.cancel()
+            timer = 120
+            mCountDown.start()
+
             // 인증번호 재전송
             resendVerificationCode(inputPhoneNum, resendToken)
         }
@@ -300,29 +315,40 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     }
 
     // 카운트 다운 함수
-    private val mCountDown: CountDownTimer = object : CountDownTimer(99000, 1000) {
-        override fun onTick(millisUntilFinished: Long) {
+    private val mCountDown: CountDownTimer = object : CountDownTimer(120000, 1000) {
+        override fun onTick(p0: Long) {
 
-            // 0초면 버튼활성화
-            if (timer > 119) {
-                binding.tvCountDown.text = "2:${timer - 120}"
+            if(timer == 120){
+                binding.tvCountDown.text = "2:00"
                 timer--
-            } else if (timer > 59) {
+            }else if(timer >= 70){
                 binding.tvCountDown.text = "1:${timer - 60}"
                 timer--
-            } else {
-                binding.tvCountDown.text = "0:${timer}"
+            }
+            else if(timer >59){
+                binding.tvCountDown.text = "1:0${timer - 60}"
                 timer--
             }
+            else if(timer>=10){
+                binding.tvCountDown.text="0:${timer}"
+                timer--
+            }else { // "ui" 적으로 통일성을 맞추기 위함
+                timer--
+                binding.tvCountDown.text = "0:0${timer}"
 
-            if (timer == 0) {
-                onFinish()
+                if (binding.tvCountDown.text == "0:00") {
+                    onFinish()
+                }
             }
-
         }
-
-        override fun onFinish() {}
+        // 타이머가 종료되면 재인증이나 뒤로가기를 대비하기 위해
+        // 타이머 초기화
+        override fun onFinish() {
+            timer = 120
+        }
     }
+
+
 
     // 핸드폰 인증 시작 함수
     private fun startPhoneNumberVerification(phoneNumber: String) {
@@ -376,8 +402,6 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                     task.result?.user
 
                     showCustomToast("인증 성공")
-                    // 계정 생성완료
-                    mCountDown.cancel()
 
                     // 파베 계정 삭제 (더미데이터 삭제)
                     deleteAccount()
@@ -399,6 +423,10 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     }
 
     private fun deleteAccount(){
+
+        // 타이머 정지
+        mCountDown.cancel()
+
         val user = Firebase.auth.currentUser!!
 
         user.delete().addOnCompleteListener{
