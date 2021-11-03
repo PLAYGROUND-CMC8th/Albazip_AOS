@@ -45,6 +45,13 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
         // [START phone_auth_callbacks]
         object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
+            // 사용자 UI 입력 대기
+            override fun onCodeAutoRetrievalTimeOut(p0: String) {
+                super.onCodeAutoRetrievalTimeOut(p0)
+                showCustomToast(p0 + "이건 뭘까용? ㅎㅎㅎ")
+                Log.d(TAG,p0+"이건 뭘까용?ㅎㅎㅎ")
+            }
+
             // 다른 기타 인증이 완료된 상태
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 // This callback will be invoked in two situations:
