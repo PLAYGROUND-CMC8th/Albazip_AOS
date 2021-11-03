@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#f8f8f8"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/first_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="67dp"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="24dp"
+                    android:weightSum="3">
+
+                    <RelativeLayout
+                        android:background="@drawable/rectangle_fill_white_radius_15"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="12dp"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_phone"
+                            android:layout_marginTop="14dp"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center_horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:text="휴대전화" />
+
+                        <TextView
+                            android:textStyle="normal"
+                            android:textSize="11sp"
+                            android:textColor="#6f6f6f"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center_horizontal"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="14dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_phone"
+                            android:text="010-8924-6852" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:background="@drawable/rectangle_fill_white_radius_15"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="12dp"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_age"
+                            android:layout_marginTop="14dp"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center_horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:text="나이" />
+
+                        <TextView
+                            android:textStyle="normal"
+                            android:textSize="11sp"
+                            android:textColor="#6f6f6f"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center_horizontal"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="14dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_age"
+                            android:text="1998년생" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:background="@drawable/rectangle_fill_white_radius_15"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/tv_sex"
+                            android:layout_marginTop="14dp"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center_horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:text="성별" />
+                        <TextView
+                            android:textStyle="normal"
+                            android:textSize="11sp"
+                            android:textColor="#6f6f6f"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center_horizontal"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="14dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_sex"
+                            android:text="여자" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/sec_ll"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/rectangle_fill_white_radius_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:background="@drawable/rectangle_fill_white_radius_top_20"
+                        android:layout_width="match_parent"
+                        android:layout_height="67dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="24dp"
+                            android:text="지각 횟수"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/tv_late"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toStartOf="@id/tv_late_unit"
+                            android:text="0"
+                            android:layout_marginEnd="2dp"
+                            android:textStyle="bold"
+                            android:textSize="24sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/tv_late_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toStartOf="@id/ibtn_more_one"
+                            android:text="회"
+                            android:layout_marginEnd="22dp"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"/>
+
+                        <ImageButton
+                            android:id="@+id/ibtn_more_one"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:background="@null"
+                            android:scaleType="center"
+                            android:layout_marginEnd="23dp"
+                            android:src="@drawable/ic_arrow_more"
+                            />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/customWhite"
+                        android:layout_marginHorizontal="24dp"/>
+
+                    <RelativeLayout
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="67dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="24dp"
+                            android:text="공동업무 참여 횟수"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/tv_together"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toStartOf="@id/tv_together_unit"
+                            android:text="3"
+                            android:layout_marginEnd="2dp"
+                            android:textStyle="bold"
+                            android:textSize="24sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/tv_together_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toStartOf="@id/ibtn_more_two"
+                            android:text="회"
+                            android:layout_marginEnd="22dp"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"/>
+
+                        <ImageButton
+                            android:id="@+id/ibtn_more_two"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:background="@null"
+                            android:scaleType="center"
+                            android:layout_marginEnd="23dp"
+                            android:src="@drawable/ic_arrow_more"
+                            />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/customWhite"
+                        android:layout_marginHorizontal="24dp"/>
+
+                    <RelativeLayout
+                        android:background="@drawable/rectangle_fill_white_radius_bottom_20"
+                        android:layout_width="match_parent"
+                        android:layout_height="67dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="24dp"
+                            android:text="업무완수율"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/tv_success"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toStartOf="@id/tv_success_unit"
+                            android:text="100"
+                            android:layout_marginEnd="2dp"
+                            android:textStyle="bold"
+                            android:textSize="24sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/tv_success_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toStartOf="@id/ibtn_more_three"
+                            android:text="%"
+                            android:layout_marginEnd="22dp"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.03"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"/>
+
+                        <ImageButton
+                            android:id="@+id/ibtn_more_three"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:background="@null"
+                            android:scaleType="center"
+                            android:layout_marginEnd="23dp"
+                            android:src="@drawable/ic_arrow_more"
+                            />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:background="@drawable/rectangle_fill_white_radius_15"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:id="@+id/tv_came"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="24dp"
+                        android:text="합류한 날짜"
+                        android:fontFamily="sans-serif"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#343434"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6sp"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/tv_join_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/tv_came"
+                        android:layout_marginStart="8dp"
+                        android:text="합류한 날짜"
+                        android:textStyle="normal"
+                        android:textSize="14sp"
+                        android:textColor="#6f6f6f"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6sp"
+                        tools:text="20.01.01"
+                        android:layout_centerVertical="true"/>
+
+                    <ImageButton
+                        android:id="@+id/ibtn_exit"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/btn_exit"
+                        android:scaleType="center"
+                        android:background="@null"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

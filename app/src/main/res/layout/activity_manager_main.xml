@@ -7,13 +7,13 @@
     tools:context=".src.main.ManagerMainActivity">
 
     <FrameLayout
-        android:id="@+id/worker_main_frm"
+        android:id="@+id/manager_main_frm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/worker_main_btm_nav"
+        android:id="@+id/manager_main_btm_nav"
         style="@style/BottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

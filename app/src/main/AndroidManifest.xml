@@ -16,13 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Albazip">
         <activity android:name=".src.main.ManagerMainActivity">
+        </activity>
+        <activity android:name=".src.main.WorkerMainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".src.main.WorkerMainActivity" />
         <activity android:name=".src.register.manager.ManagerOnBoardingActivity" />
         <activity android:name=".src.register.manager.InputPlaceMoreActivity" />
 

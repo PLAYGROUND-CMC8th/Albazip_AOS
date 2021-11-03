@@ -1,6 +1,5 @@
 package com.example.albazip.src.mypage.manager
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -10,7 +9,7 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentWroteBinding
 import com.example.albazip.src.mypage.common.BoardData
-import com.example.albazip.src.mypage.common.BoardListAdapter
+import com.example.albazip.src.mypage.manager.adapter.MBoardListAdapter
 import com.example.albazip.src.mypage.manager.adapter.NoticeListAdapter
 import com.example.albazip.src.mypage.manager.data.local.NoticeData
 
@@ -24,7 +23,7 @@ class WroteChildFragment : BaseFragment<ChildFragmentWroteBinding>(
 
     // 게시판 리스트
     private var boardList = ArrayList<BoardData>()
-    private lateinit var bordListAdapter: BoardListAdapter
+    private lateinit var bordListAdapter: MBoardListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,7 +84,7 @@ class WroteChildFragment : BaseFragment<ChildFragmentWroteBinding>(
         val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.rvWritingList.layoutManager = linearLayoutManager
-        bordListAdapter = BoardListAdapter(boardList)
+        bordListAdapter = MBoardListAdapter(boardList,requireContext())
         binding.rvWritingList.adapter = bordListAdapter
     }
 }

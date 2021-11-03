@@ -6,4 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".src.main.WorkerMainActivity">
 
+    <FrameLayout
+        android:id="@+id/worker_main_frm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/worker_main_btm_nav"
+        style="@style/BottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/stroke_btm_navi_top"
+        app:labelVisibilityMode="labeled"
+        app:elevation="16dp"
+        app:itemIconTint="@drawable/btm_nav_item_color"
+        app:itemTextColor="@drawable/btm_nav_item_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_main_btm_nav" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

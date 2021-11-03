@@ -22,24 +22,24 @@ class ManagerMainActivity :
 
         backPressCloseHandler = BackPressCloseHandler(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.worker_main_frm, MHomeFragment()).commitAllowingStateLoss()
+        supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MHomeFragment()).commitAllowingStateLoss()
 
 
-        binding.workerMainBtmNav.run {
+        binding.managerMainBtmNav.run {
             setOnItemSelectedListener {
                 when (it.itemId) {
 
                     // 홈
                     R.id.menu_main_btm_nav_home -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.worker_main_frm, MHomeFragment())
+                            .replace(R.id.manager_main_frm, MHomeFragment())
                             .commitAllowingStateLoss()
                         return@setOnItemSelectedListener true
                     }
                     // 소통창
                     R.id.menu_main_btm_nav_community -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.worker_main_frm, MCommunityFragment())
+                            .replace(R.id.manager_main_frm, MCommunityFragment())
                             .commitAllowingStateLoss()
                         return@setOnItemSelectedListener true
                     }
@@ -47,7 +47,7 @@ class ManagerMainActivity :
                     // 스케줄
                     R.id.menu_main_btm_nav_schedule -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.worker_main_frm, MScheduleFragment())
+                            .replace(R.id.manager_main_frm, MScheduleFragment())
                             .commitAllowingStateLoss()
                         return@setOnItemSelectedListener true
                     }
@@ -55,7 +55,7 @@ class ManagerMainActivity :
                     // 마이페이지
                     R.id.menu_main_btm_nav_mypage -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.worker_main_frm, MMyPageFragment())
+                            .replace(R.id.manager_main_frm, MMyPageFragment())
                             .commitAllowingStateLoss()
                         return@setOnItemSelectedListener true
                     }
@@ -70,11 +70,11 @@ class ManagerMainActivity :
     // 뒤로가기 스택 감지
     override fun onBackPressed() {
 
-        if(binding.workerMainBtmNav.selectedItemId == R.id.menu_main_btm_nav_home){
+        if(binding.managerMainBtmNav.selectedItemId == R.id.menu_main_btm_nav_home){
             //super.onBackPressed()
             backPressCloseHandler.onBackPressed()
         }else{
-            binding.workerMainBtmNav.selectedItemId = R.id.menu_main_btm_nav_home
+            binding.managerMainBtmNav.selectedItemId = R.id.menu_main_btm_nav_home
         }
     }
 }

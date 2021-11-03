@@ -403,6 +403,9 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 
                     showCustomToast("인증 성공")
 
+                    // 타이머 정지
+                    mCountDown.cancel()
+
                     // 파베 계정 삭제 (더미데이터 삭제)
                     deleteAccount()
 
@@ -423,9 +426,6 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     }
 
     private fun deleteAccount(){
-
-        // 타이머 정지
-        mCountDown.cancel()
 
         val user = Firebase.auth.currentUser!!
 

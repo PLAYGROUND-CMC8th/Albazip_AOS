@@ -1,13 +1,20 @@
-package com.example.albazip.src.mypage.common
+package com.example.albazip.src.mypage.manager.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.albazip.R
 import com.example.albazip.databinding.ItemRvBoardListBinding
+import com.example.albazip.src.mypage.common.BoardData
 
-class BoardListAdapter(val itemList:ArrayList<BoardData>): RecyclerView.Adapter<BoardListAdapter.BoardHolder>() {
+class MBoardListAdapter(val itemList:ArrayList<BoardData>,var context:Context): RecyclerView.Adapter<MBoardListAdapter.BoardHolder>() {
 
     private lateinit var binding:ItemRvBoardListBinding
+    var myContext:Context = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardHolder {
         binding =  ItemRvBoardListBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -23,7 +30,15 @@ class BoardListAdapter(val itemList:ArrayList<BoardData>): RecyclerView.Adapter<
 
     inner class BoardHolder(val binding:ItemRvBoardListBinding):RecyclerView.ViewHolder(binding.root){
 
-        fun setBoardList(boardData:BoardData){
+        fun setBoardList(boardData: BoardData){
+
+            // 프로필 설정
+            Glide.with(myContext).load(R.drawable.img_m_profile_1_24_px).circleCrop().into(binding.ivProfile)
+            // 포지션 설정
+            binding.tvPosition.text = "사장님"
+            // 이름 설정
+            binding.tvName.text = "정지연"
+
             binding.tvTitle.text = boardData.title // 글제목
             binding.tvContent.text = boardData.content// 글 내용
             binding.tvDate.text = boardData.date// 글 날짜
