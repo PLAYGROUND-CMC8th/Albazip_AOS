@@ -1,5 +1,6 @@
 package com.example.albazip.src.mypage.manager
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.example.albazip.R
@@ -14,5 +15,9 @@ class NoWorkerListChildFragment : BaseFragment<ChildFragmentNoWorkerListBinding>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnAddWorker.setOnClickListener {
+            val nextIntent = Intent(requireContext(), AddWorkerOneActivity::class.java)
+            startActivity(nextIntent)
+        }
     }
 }

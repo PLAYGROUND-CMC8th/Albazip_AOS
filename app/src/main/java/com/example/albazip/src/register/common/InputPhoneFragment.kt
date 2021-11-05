@@ -68,8 +68,8 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
-                Log.d(TAG, "onVerificationCompleted:$credential")
-                signInWithPhoneAuthCredential(credential)
+                //Log.d(TAG, "onVerificationCompleted:$credential")
+                //signInWithPhoneAuthCredential(credential)
             }
 
             // 번호 인증 실패 상태
@@ -267,8 +267,11 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
             startPhoneNumberVerification(inputPhoneNum)
 
             // 카운트 다운 시작
+            if(timer != 120) { // 재전송 후 전송 클릭 시 동작 버튼
+                mCountDown.cancel()
+                timer = 120
+            }
             mCountDown.start()
-
             // 다음(인증)버튼 활성화
             binding.btnNext.isEnabled = true
         }
@@ -346,6 +349,13 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
         override fun onFinish() {
             timer = 120
         }
+    }
+
+    // 화면 전환 시 타이머 초기화 및 정지
+    override fun onDestroyView() {
+        mCountDown.cancel()
+        timer = 120
+        super.onDestroyView()
     }
 
 

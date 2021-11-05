@@ -16,11 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Albazip">
         <activity android:name=".src.main.ManagerMainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".src.main.WorkerMainActivity" >
 
@@ -42,6 +38,11 @@
         <activity android:name=".src.register.common.RegisterActivity" />
         <activity android:name=".src.splash.SplashActivity" />
         <activity android:name=".src.main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".src.register.manager.InputBNumActivity" />
         <activity android:name=".src.register.worker.RegisterJoinActivity" />
