@@ -19,48 +19,24 @@ import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentMMypageBinding
+import com.example.albazip.src.mypage.manager.custom.MSelectProfileBottomSheetDialog
+import com.example.albazip.src.register.manager.custom.TypeBottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import java.lang.Exception
 
 class MMyPageFragment :
-    BaseFragment<FragmentMMypageBinding>(FragmentMMypageBinding::bind, R.layout.fragment_m_mypage) {
-
-    // 프로필 사진 intent
-    private lateinit var getResult:ActivityResultLauncher<Intent>
+    BaseFragment<FragmentMMypageBinding>(FragmentMMypageBinding::bind, R.layout.fragment_m_mypage),MSelectProfileBottomSheetDialog.BottomSheetClickListener {
 
     private val tabTextList = arrayListOf("근무자", "작성글")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 프로필 결과 반환
-        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            if(it.resultCode == RESULT_OK){
-                try {
-
-                    val uri: Uri? = (it.data)?.data
-                    Glide.with(requireContext()).load(uri).circleCrop().into(binding.profileImg)
-
-                }catch (e:Exception){
-
-                }
-            }else if(it.resultCode == RESULT_CANCELED){
-                showCustomToast("변경 취소")
-            }
-        }
-
-        // 프로필 사진 변경
+        // 프로필 이미지 변경
         binding.ibtnChangeProfile.setOnClickListener {
-            val profileIntent = Intent()
-            profileIntent.setType("image/*")
-            profileIntent.setAction(Intent.ACTION_GET_CONTENT)
-            getResult.launch(profileIntent)
+            MSelectProfileBottomSheetDialog().show(childFragmentManager, "setProfile")
         }
-
-
-
-
 
         // sticky tab layout
         binding.stickyNestedScrollview.run {
@@ -134,6 +110,11 @@ class MMyPageFragment :
                 tv.setTypeface(null, style)
             }
         }
+    }
+
+    // 프로필 이미지 받아오기
+    override fun onItemSelected(uri: Uri?) {
+        Glide.with(requireContext()).load(uri).circleCrop().into(binding.profileImg)
     }
 
 }

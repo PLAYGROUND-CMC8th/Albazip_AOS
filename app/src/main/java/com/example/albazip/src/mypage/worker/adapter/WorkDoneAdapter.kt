@@ -2,6 +2,7 @@ package com.example.albazip.src.mypage.worker.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,18 @@ import com.example.albazip.src.mypage.worker.data.local.WorkListData
 class WorkDoneAdapter(private val itemList:ArrayList<WorkListData>): RecyclerView.Adapter<WorkDoneAdapter.WorkListHolder>() {
 
     private lateinit var binding: ItemRvWorkDoneMonthBinding
+
+    // activity 에서 발생할 클릭이벤트
+    interface OnItemClickListener{
+        fun onItemClick(v : View, position : Int)
+    }
+
+    private var listener : OnItemClickListener?=null
+
+    fun setOnItemClickListener(listener:OnItemClickListener){
+        this.listener=listener
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkDoneAdapter.WorkListHolder {
         binding =  ItemRvWorkDoneMonthBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -39,6 +52,17 @@ class WorkDoneAdapter(private val itemList:ArrayList<WorkListData>): RecyclerVie
             binding.tvDoneCnt.text = workListData.doneCnt.toString()
 
             // 프로그래스바 상태
+            // binding.progressBar.progress = (workListData.doneCnt/workListData.allCnt).toInt()
+
+            val pos = adapterPosition
+            if(pos!= RecyclerView.NO_POSITION)
+            {
+                itemView.setOnClickListener {
+                    listener?.onItemClick(itemView,pos)
+                }
+            }
+
+
         }
     }
 }

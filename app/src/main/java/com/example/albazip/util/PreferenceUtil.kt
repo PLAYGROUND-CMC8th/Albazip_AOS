@@ -12,7 +12,15 @@ class PreferenceUtil(context: Context) {
         return prefs.getString(key, defValue).toString()
     }
 
+    fun getInt(key: String, defValue: Int): Int {
+        return prefs.getInt(key, defValue)
+    }
+
     fun setString(key: String, str: String) {
         prefs.edit().putString(key, str).apply()
+    }
+
+    fun setInt(key: String, defValue: Int) {
+        prefs.edit().putInt(key, defValue).apply()
     }
 }

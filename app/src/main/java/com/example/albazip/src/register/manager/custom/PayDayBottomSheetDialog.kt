@@ -13,7 +13,7 @@ class PayDayBottomSheetDialog() : BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogFragmentAgeBinding
     private var selectedDay:Int = 1 // 초기값 설정
-    lateinit var bottomSheetClickListener:BottomSheetClickListener
+    private lateinit var bottomSheetClickListener:BottomSheetClickListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

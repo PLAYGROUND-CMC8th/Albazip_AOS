@@ -43,7 +43,6 @@ class InputPlaceMoreActivity :
             finish()
         }
 
-
         // 휴일 선택 버튼
         binding.btnNoClosed.setOnClickListener(this) // 연중무휴
         binding.btnMon.setOnClickListener(this) // 월
