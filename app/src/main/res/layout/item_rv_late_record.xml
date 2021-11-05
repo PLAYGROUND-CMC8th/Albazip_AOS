@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="14dp">
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="28sp"
+        android:text="2021.07.03."
+        android:textColor="#6f6f6f"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_go_work"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@id/tv_date"
+        app:layout_constraintTop_toBottomOf="@id/tv_date">
+        <View
+            android:id="@+id/view_go_work"
+            android:layout_width="4dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center_vertical"
+            android:background="#1dbe4e"/>
+        <TextView
+            android:id="@+id/tv_go_to_work"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#1dbe4e"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="-3sp"
+            android:layout_marginStart="10dp"
+            android:text="출근 기록"/>
+        <TextView
+            android:id="@+id/tv_go_work_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#343434"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="-3sp"
+            android:layout_marginStart="10dp"
+            android:text="08:20"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_off_work"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/ll_go_work"
+        app:layout_constraintTop_toBottomOf="@id/ll_go_work">
+        <View
+            android:id="@+id/view_off_work"
+            android:layout_width="4dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center_vertical"
+            android:background="#1dbe4e"/>
+        <TextView
+            android:id="@+id/tv_go_off_work"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#1dbe4e"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="-3sp"
+            android:layout_marginStart="10dp"
+            android:text="퇴근 기록"/>
+        <TextView
+            android:id="@+id/tv_off_work_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#343434"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="-3sp"
+            android:layout_marginStart="10dp"
+            android:text="13:20"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

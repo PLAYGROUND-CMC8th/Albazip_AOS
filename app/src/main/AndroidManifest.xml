@@ -46,6 +46,14 @@
         <activity android:name=".src.register.worker.RegisterJoinActivity" />
         <activity android:name=".src.register.worker.WorkerOnBoardingActivity" />
         <activity android:name=".src.home.common.SettingActivity" />
+
+
+        <activity android:name=".src.mypage.worker.myInfo.LateCheckActivity">
+
+        </activity>
+        <activity android:name=".src.mypage.worker.myInfo.TogetherWorkActivity"/>
+        <activity android:name=".src.mypage.worker.myInfo.DoneWorkActivity"/>
+
     </application>
 
 </manifest>

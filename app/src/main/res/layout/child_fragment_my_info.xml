@@ -142,6 +142,7 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
+                        android:id="@+id/rl_late"
                         android:background="@drawable/rectangle_fill_white_radius_top_20"
                         android:layout_width="match_parent"
                         android:layout_height="67dp">
@@ -206,6 +207,7 @@
                         android:layout_marginHorizontal="24dp"/>
 
                     <RelativeLayout
+                        android:id="@+id/rl_together"
                         android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="67dp">
@@ -270,6 +272,7 @@
                         android:layout_marginHorizontal="24dp"/>
 
                     <RelativeLayout
+                        android:id="@+id/rl_success"
                         android:background="@drawable/rectangle_fill_white_radius_bottom_20"
                         android:layout_width="match_parent"
                         android:layout_height="67dp">
@@ -357,13 +360,12 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/tv_came"
                         android:layout_marginStart="8dp"
-                        android:text="합류한 날짜"
                         android:textStyle="normal"
                         android:textSize="14sp"
                         android:textColor="#6f6f6f"
                         android:letterSpacing="-0.03"
                         android:lineSpacingExtra="6sp"
-                        tools:text="20.01.01"
+                        android:text="20.01.01"
                         android:layout_centerVertical="true"/>
 
                     <ImageButton

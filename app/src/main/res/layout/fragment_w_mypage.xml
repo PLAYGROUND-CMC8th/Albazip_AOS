@@ -81,7 +81,7 @@
                         android:textAlignment="center"
                         android:textColor="#ffb100"
                         android:letterSpacing="-0.03"
-                        android:text="평일 마감" />
+                        android:text="평일마감" />
 
                     <TextView
                         android:id="@+id/tv_manager_name"

@@ -1,12 +1,10 @@
 package com.example.albazip.src.mypage.worker
 
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import androidx.activity.result.ActivityResultLauncher
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -14,9 +12,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentWMypageBinding
-import com.example.albazip.src.mypage.manager.NoWorkerListChildFragment
-import com.example.albazip.src.mypage.manager.WorkerListChildFragment
-import com.example.albazip.src.mypage.manager.WroteChildFragment
+import com.example.albazip.src.mypage.worker.board.BoardChildListFragment
+import com.example.albazip.src.mypage.worker.myInfo.MyInfoChildFragment
+import com.example.albazip.src.mypage.worker.position.PosInfoChildFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -66,9 +64,9 @@ class WMyPageFragment :
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> MyInfoChildFragment()
-                1 -> WroteChildFragment()
+                1 -> PosInfoChildFragment()
                 2 -> BoardChildListFragment()
-                else -> WorkerListChildFragment()
+                else -> MyInfoChildFragment()
             }
         }
     }

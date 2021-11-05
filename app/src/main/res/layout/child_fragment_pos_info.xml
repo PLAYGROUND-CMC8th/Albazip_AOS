@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#f8f8f8"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginStart="24dp"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#333333"
+                    android:letterSpacing="-0.03"
+                    android:text="평일 마감"/>
+
+
+                <LinearLayout
+                    android:id="@+id/sec_ll"
+                    android:layout_marginHorizontal="24dp"
+                    android:paddingHorizontal="24dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/rectangle_fill_white_radius_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:background="@drawable/rectangle_fill_white_radius_top_20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_clock"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@null"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="37dp"
+                            android:src="@drawable/ic_clock"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginVertical="24dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_toEndOf="@id/iv_clock">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="근무 시간"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:textColor="#333333"
+                                android:letterSpacing="-0.03"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="#6f6f6f"
+                                android:letterSpacing="-0.03"
+                                android:lineSpacingExtra="8sp"
+                                android:layout_marginTop="2dp"
+                                android:text="19:00 ~ 23:00 까지 (총 4시간)"
+                                />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textStyle="normal"
+                                android:textSize="14sp"
+                                android:layout_marginTop="2dp"
+                                android:textColor="#6f6f6f"
+                                android:letterSpacing="-0.03"
+                                android:lineSpacingExtra="8sp"
+                                android:text="휴게시간 없음"/>
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/customWhite"
+                        android:layout_marginHorizontal="24dp"/>
+
+                    <RelativeLayout
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_calendar"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@null"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_calendar"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginVertical="24dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_toEndOf="@id/iv_calendar">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="근무 요일"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:textColor="#333333"
+                                android:letterSpacing="-0.03"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="#6f6f6f"
+                                android:letterSpacing="-0.03"
+                                android:lineSpacingExtra="8sp"
+                                android:layout_marginTop="2dp"
+                                android:text="월  화  수  목  금"
+                                />
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/customWhite"
+                        android:layout_marginHorizontal="24dp"/>
+
+                    <RelativeLayout
+                        android:background="@drawable/rectangle_fill_white_radius_bottom_20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_money"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@null"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_calendar"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginVertical="24dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_toEndOf="@id/iv_money">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="급여"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:textColor="#333333"
+                                android:letterSpacing="-0.03"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="#6f6f6f"
+                                android:letterSpacing="-0.03"
+                                android:lineSpacingExtra="8sp"
+                                android:layout_marginTop="2dp"
+                                android:text="시급 8,800원"
+                                />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

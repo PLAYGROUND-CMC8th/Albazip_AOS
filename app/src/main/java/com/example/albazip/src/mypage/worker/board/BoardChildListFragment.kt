@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.worker
+package com.example.albazip.src.mypage.worker.board
 
 import android.os.Bundle
 import android.view.View
