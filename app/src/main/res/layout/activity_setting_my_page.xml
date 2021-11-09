@@ -90,6 +90,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_subscribe_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:paddingHorizontal="24dp"
@@ -168,6 +169,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/rl_manage_myinfo"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:background="@drawable/rectangle_fill_white_radius_bottom_20">
@@ -213,6 +215,7 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/rl_notice"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:background="@drawable/rectangle_fill_white_radius_top_20">
@@ -246,6 +249,7 @@
                 </View>
 
                 <RelativeLayout
+                    android:id="@+id/rl_service"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:background="@color/white">
@@ -368,6 +372,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/rl_withdraw"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:background="@drawable/rectangle_fill_white_radius_bottom_20">

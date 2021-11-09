@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentMMypageBinding
+import com.example.albazip.src.mypage.common.MyPageSettingActivity
 import com.example.albazip.src.mypage.manager.custom.MSelectProfileBottomSheetDialog
 import com.example.albazip.src.register.manager.custom.TypeBottomSheetDialog
 import com.google.android.material.tabs.TabLayout
@@ -50,6 +51,11 @@ class MMyPageFragment :
             }
         }
 
+        // 설정 화면으로 이동
+        binding.tbrIbtnSetting.setOnClickListener {
+            val nextIntent = Intent(requireContext(), MyPageSettingActivity::class.java)
+            startActivity(nextIntent)
+        }
 
         init()
 

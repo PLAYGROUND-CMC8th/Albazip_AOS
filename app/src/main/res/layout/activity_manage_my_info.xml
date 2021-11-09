@@ -74,6 +74,7 @@
         android:letterSpacing="-0.03" />
 
         <TextView
+            android:id="@+id/tv_modify_default_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="수정"
@@ -224,6 +225,7 @@
             android:letterSpacing="-0.03" />
 
         <TextView
+            android:id="@+id/tv_modify_phone_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="변경"

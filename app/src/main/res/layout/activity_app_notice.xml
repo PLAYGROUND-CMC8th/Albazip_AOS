@@ -97,7 +97,7 @@
                 android:textColor="#a3a3a3"
                 android:letterSpacing="-0.02"
                 android:lineSpacingExtra="2sp"
-                tools:text="2020. 10. 31."/>
+                android:text="2020. 10. 31."/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -132,7 +132,7 @@
                 android:textColor="#a3a3a3"
                 android:letterSpacing="-0.02"
                 android:lineSpacingExtra="2sp"
-                tools:text="2020. 08. 02."/>
+                android:text="2020. 08. 02."/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -167,7 +167,7 @@
                 android:textColor="#a3a3a3"
                 android:letterSpacing="-0.02"
                 android:lineSpacingExtra="2sp"
-                tools:text="2020. 08. 10."/>
+                android:text="2020. 08. 10."/>
         </RelativeLayout>
 
 
