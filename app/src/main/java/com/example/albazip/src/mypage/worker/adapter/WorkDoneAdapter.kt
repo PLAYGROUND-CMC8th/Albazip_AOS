@@ -46,13 +46,13 @@ class WorkDoneAdapter(private val itemList:ArrayList<WorkListData>): RecyclerVie
             binding.tvMonth.text = workListData.monthTxt
 
             // 전체 개수
-            binding.tvAllWorkCnt.text = workListData.allCnt.toString()
+            binding.tvAllWorkCnt.text = "/"+workListData.allCnt.toString()
 
             // 완료한 개수
             binding.tvDoneCnt.text = workListData.doneCnt.toString()
 
             // 프로그래스바 상태
-            // binding.progressBar.progress = (workListData.doneCnt/workListData.allCnt).toInt()
+            binding.progressBar.progress = (((workListData.doneCnt).toDouble() / (workListData.allCnt).toDouble()) * 100).toInt()
 
             val pos = adapterPosition
             if(pos!= RecyclerView.NO_POSITION)

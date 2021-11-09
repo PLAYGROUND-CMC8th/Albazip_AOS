@@ -1,11 +1,10 @@
-package com.example.albazip.src.mypage.manager.custom
+package com.example.albazip.src.mypage.worker.custom
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -17,28 +16,27 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.ApplicationClass
 import com.example.albazip.databinding.DialogFragmentMSelectProfileBinding
+import com.example.albazip.databinding.DialogFragmentWSelectProfileBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnClickListener {
+class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnClickListener {
 
     // 프로필 사진 intent
     private lateinit var getResult: ActivityResultLauncher<Intent>
-    private lateinit var binding: DialogFragmentMSelectProfileBinding
+    private lateinit var binding: DialogFragmentWSelectProfileBinding
     private lateinit var bottomSheetClickListener: BottomSheetClickListener
 
     // 프로필 체크 Flags 받아오기
-    val managerProfileFlags = ApplicationClass.prefs.getInt("managerProfileFlags", 2)
-    var runningFlags: Int = managerProfileFlags
+    val workerProfileFlags = ApplicationClass.prefs.getInt("workerProfileFlags", 2)
+    var runningFlags: Int = workerProfileFlags
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -51,34 +49,34 @@ class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogFragmentMSelectProfileBinding.inflate(inflater, container, false)
+        binding = DialogFragmentWSelectProfileBinding.inflate(inflater, container, false)
 
         selectProfileFromGallery()
 
         // 프로필 체크 값 확인
-        if (managerProfileFlags == -1) { // 갤러리 선택 상태
+        if (workerProfileFlags == -1) { // 갤러리 선택 상태
             deselectAllCheck()
         } else { // 기본 프로필이 체크가 되어있는 상태라면
-            when (managerProfileFlags) {
+            when (workerProfileFlags) {
                 1 -> {
                     binding.frameOneIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_1)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_1)
                 }
                 2 -> {
                     binding.frameTwoIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_2)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_2)
                 }
                 3 -> {
                     binding.frameThreeIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_3)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_3)
                 }
                 4 -> {
                     binding.frameFourIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_4)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_4)
                 }
                 5 -> {
                     binding.frameFiveIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_5)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_5)
                 }
             }
         }
@@ -111,7 +109,7 @@ class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
             bottomSheetClickListener.onItemSelected(getUri)
 
             // checkState 저장하기
-            ApplicationClass.prefs.setInt("managerProfileFlags", runningFlags)
+            ApplicationClass.prefs.setInt("workerProfileFlags", runningFlags)
 
             dismiss()
         }
@@ -169,11 +167,11 @@ class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
             binding.frameFiveIv
         ) // 반응하는 UI
         val profileDrawable: ArrayList<Int> = arrayListOf(
-            R.drawable.img_profile_m_128_px_1,
-            R.drawable.img_profile_m_128_px_2,
-            R.drawable.img_profile_m_128_px_3,
-            R.drawable.img_profile_m_128_px_4,
-            R.drawable.img_profile_m_128_px_5
+            R.drawable.img_profile_w_128_px_1,
+            R.drawable.img_profile_w_128_px_2,
+            R.drawable.img_profile_w_128_px_3,
+            R.drawable.img_profile_w_128_px_4,
+            R.drawable.img_profile_w_128_px_5
         )
 
         for (i in 0 until profileList.size) {

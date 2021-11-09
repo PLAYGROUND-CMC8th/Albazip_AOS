@@ -78,6 +78,8 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/frame_one_iv"
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/profile_selected" />
@@ -103,6 +105,8 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/frame_two_iv"
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/profile_selected" />
@@ -128,6 +132,8 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/frame_three_iv"
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/profile_selected" />
@@ -153,6 +159,8 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/frame_four_iv"
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/profile_selected" />
@@ -178,6 +186,8 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/frame_five_iv"
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/profile_selected" />
@@ -201,11 +211,11 @@
         android:stateListAnimator="@null"
         app:layout_constraintTop_toBottomOf="@id/cl_select_photo"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_ok"
+        app:layout_constraintEnd_toStartOf="@id/btn_save"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_ok"
+        android:id="@+id/btn_save"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"

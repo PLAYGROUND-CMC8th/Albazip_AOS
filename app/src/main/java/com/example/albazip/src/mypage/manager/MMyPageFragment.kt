@@ -23,6 +23,7 @@ import com.example.albazip.src.mypage.manager.custom.MSelectProfileBottomSheetDi
 import com.example.albazip.src.register.manager.custom.TypeBottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import java.io.File
 import java.lang.Exception
 
 class MMyPageFragment :
@@ -116,5 +117,9 @@ class MMyPageFragment :
     override fun onItemSelected(uri: Uri?) {
         Glide.with(requireContext()).load(uri).circleCrop().into(binding.profileImg)
     }
+
+
+
+
 
 }

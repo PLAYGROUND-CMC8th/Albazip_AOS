@@ -1,4 +1,4 @@
-package com.example.albazip.src.register.manager.custom
+package com.example.albazip.src.mypage.manager.custom
 
 import android.content.Context
 import android.graphics.Color
@@ -6,19 +6,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
-import android.widget.Toast
-import com.example.albazip.databinding.DialogFragmentAgeBinding
-import com.example.albazip.databinding.DialogFragmentTypeBinding
-import com.example.albazip.src.register.common.custom.AgeBottomSheetDialog
+import com.example.albazip.databinding.DialogFragmentPayUnitBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
+class PayUnitBottomSheetDialog(currentSelect:String) : BottomSheetDialogFragment(), View.OnClickListener {
 
-class TypeBottomSheetDialog : BottomSheetDialogFragment(),View.OnClickListener {
-
-    private lateinit var binding: DialogFragmentTypeBinding
+    private lateinit var binding: DialogFragmentPayUnitBinding
     private lateinit var selectedType:String
     lateinit var bottomSheetClickListener: BottomSheetClickListener
+    val myCurrentSelect = currentSelect
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -32,13 +28,18 @@ class TypeBottomSheetDialog : BottomSheetDialogFragment(),View.OnClickListener {
 
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogFragmentTypeBinding.inflate(inflater, container, false)
+        binding = DialogFragmentPayUnitBinding.inflate(inflater, container, false)
+
+        // 가장 최근에 선택한 배경색 받아오기
+        when(myCurrentSelect){
+            "시급" -> {binding.rlRowOne.setBackgroundColor(Color.parseColor("#fffaea"))}
+            "주급" -> {binding.rlRowTwo.setBackgroundColor(Color.parseColor("#fffaea"))}
+            "월급" -> {binding.rlRowThree.setBackgroundColor(Color.parseColor("#fffaea"))}
+        }
 
         binding.rlRowOne.setOnClickListener(this)
         binding.rlRowTwo.setOnClickListener(this)
         binding.rlRowThree.setOnClickListener(this)
-        binding.rlRowFour.setOnClickListener(this)
-        binding.rlRowFive.setOnClickListener(this)
 
         return binding.root
     }
@@ -47,27 +48,17 @@ class TypeBottomSheetDialog : BottomSheetDialogFragment(),View.OnClickListener {
         binding.apply {
             when (v) {
                 rlRowOne -> {
-                    selectedType = "카페"
+                    selectedType = "시급"
                     selectEvent()
                 }
 
                 rlRowTwo -> {
-                    selectedType = "음식점"
+                    selectedType = "주급"
                     selectEvent()
                 }
 
                 rlRowThree -> {
-                    selectedType = "판매업"
-                    selectEvent()
-                }
-
-                rlRowFour -> {
-                    selectedType = "서비스업"
-                    selectEvent()
-                }
-
-                rlRowFive -> {
-                    selectedType = "기타"
+                    selectedType = "월급"
                     selectEvent()
                 }
             }

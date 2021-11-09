@@ -71,6 +71,8 @@
         android:layout_marginBottom="32dp"
         android:layout_marginTop="23dp"
         android:progress="100"
+        android:background="@null"
+        android:progressDrawable="@drawable/custom_progress_bar_work_list"
         style="@android:style/Widget.ProgressBar.Horizontal"
         app:layout_constraintTop_toBottomOf="@id/iv_calendar"
         app:layout_constraintBottom_toBottomOf="parent"

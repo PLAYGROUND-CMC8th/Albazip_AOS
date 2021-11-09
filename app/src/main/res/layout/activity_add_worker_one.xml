@@ -651,6 +651,7 @@
                             android:layout_centerVertical="true">
 
                             <TextView
+                                android:id="@+id/tv_selected_pay_unit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="시급"
@@ -692,15 +693,18 @@
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:id="@+id/et_payment"
+                            android:background="@null"
+                            android:layout_width="250dp"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:inputType="number"
+                            android:maxLength="15"
                             android:layout_marginEnd="8dp"
                             android:layout_toStartOf="@id/tv_pay_unit"
                             android:gravity="end"
                             android:letterSpacing="-0.03"
-                            android:text="8,720"
                             android:textColor="#343434"
                             android:textSize="18sp"
                             android:textStyle="bold" />

@@ -1,6 +1,8 @@
 package com.example.albazip.src.mypage.worker.myInfo
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivitySelectMonthListBinding
@@ -29,6 +31,15 @@ class SelectMonthListActivity:BaseActivity<ActivitySelectMonthListBinding>(Activ
         workDoneAdapter = WorkDoneAdapter(monthList)
         binding.rvDoneWorkList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         binding.rvDoneWorkList.adapter = workDoneAdapter
+
+        workDoneAdapter.setOnItemClickListener(object : WorkDoneAdapter.OnItemClickListener {
+            override fun onItemClick(v: View, position: Int) {
+                // toolbar 의 타이틀을 넘겨준다.
+                val nextIntent = Intent(this@SelectMonthListActivity, SelectDayListActivity::class.java)
+                nextIntent.putExtra("title", monthList[position].monthTxt)
+                startActivity(nextIntent)
+            }
+        })
 
     }
 }
