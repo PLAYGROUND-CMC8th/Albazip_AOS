@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        app:contentInsetStart="0dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ibtn_close"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_back_arrow"
+                android:background="@android:color/transparent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:letterSpacing="-0.03"
+                android:gravity="center_horizontal"
+                android:fontFamily="@font/roboto_bold"
+                android:text="전화번호 변경"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:textColor="#adadad"
+                android:letterSpacing="-0.03"
+                android:text="완료"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <View
+        android:id="@+id/divider_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/customWhite">
+    </View>
+
+    <RelativeLayout
+        android:id="@+id/rl_phone_input"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="36dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_view">
+
+        <EditText
+            android:id="@+id/et_input_phone"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="56dp"
+            android:background="@null"
+            android:maxLength="13"
+            style="@style/EditTextStyle"
+            android:textColorHint="@color/hintTxtColor"
+            android:inputType="number"
+            android:hint="-없이 번호입력"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:singleLine="true"
+            android:textColor="@color/customBlack"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <RelativeLayout
+            android:id="@+id/rl_clickable_certify"
+            android:layout_width="36dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginVertical="12dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="false"
+            android:background="@drawable/rectangle_fill_light_gray_rounded_5">
+
+            <TextView
+                android:id="@+id/tv_certify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/roboto_bold"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="21sp"
+                android:text="인증"
+                android:textColor="#cecece"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_certify"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="36dp"
+        android:layout_marginTop="24dp"
+        android:visibility="invisible"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_phone_input">
+
+        <EditText
+            android:id="@+id/et_certify"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="56dp"
+            android:layout_alignParentStart="true"
+            android:background="@null"
+            android:maxLength="6"
+            style="@style/EditTextStyle"
+            android:hint="인증 번호"
+            android:inputType="numberPassword"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:singleLine="true"
+            android:textColor="@color/customBlack"
+            android:textColorHint="#c8c8c8"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tv_count_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/rl_clickable_resend"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center_vertical"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="19sp"
+            android:textColor="#6f6f6f"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:text="2:00" />
+
+        <RelativeLayout
+            android:id="@+id/rl_clickable_resend"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginVertical="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_fill_light_gray_rounded_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="5dp"
+                android:fontFamily="@font/roboto_bold"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="21sp"
+                android:text="재전송"
+                android:textColor="@color/customBlack"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

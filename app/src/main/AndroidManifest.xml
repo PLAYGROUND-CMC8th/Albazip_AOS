@@ -17,13 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Albazip">
         <activity android:name=".src.main.ManagerMainActivity">
-        </activity>
-        <activity android:name=".src.main.WorkerMainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".src.main.WorkerMainActivity" >
+
         </activity>
         <activity android:name=".src.register.manager.ManagerOnBoardingActivity" />
         <activity android:name=".src.register.manager.InputPlaceMoreActivity" />
@@ -60,6 +61,23 @@
         </activity>
         <activity android:name=".src.mypage.worker.myInfo.SelectDayListActivity"/>
 
+
+        <!-- setting -->
+        <activity android:name=".src.mypage.common.AlarmSettingActivity">
+
+        </activity>
+
+        <activity android:name=".src.mypage.common.MyPageSettingActivity">
+
+        </activity>
+
+        <activity android:name=".src.mypage.common.ManageMyInfoActivity"/>
+        <activity android:name=".src.mypage.common.AppNoticeActivity"/>
+        <activity android:name=".src.mypage.common.EditMyInfoActivity"/>
+        <activity android:name=".src.mypage.common.EditPhoneNumActivity"/>
+        <activity android:name=".src.mypage.common.ServiceLawActivity"/>
+        <activity android:name=".src.mypage.common.SubScribeActivity"/>
+        <activity android:name=".src.mypage.common.WithDrawMemberActivity"/>
 
     </application>
 
