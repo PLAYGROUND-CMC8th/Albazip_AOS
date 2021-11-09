@@ -4,28 +4,28 @@
 
     <item
         android:id="@+id/menu_main_btm_nav_home"
-        android:icon="@drawable/ic_menu_home"
+        android:icon="@drawable/menu_home_selector"
         app:showAsAction="always"
         android:enabled="true"
         android:checkable="true"
         android:title="홈" />
     <item
         android:id="@+id/menu_main_btm_nav_community"
-        android:icon="@drawable/ic_menu_community"
+        android:icon="@drawable/menu_community_selector"
         app:showAsAction="always"
         android:enabled="true"
         android:checkable="true"
         android:title="소통창" />
     <item
         android:id="@+id/menu_main_btm_nav_schedule"
-        android:icon="@drawable/ic_menu_schedule"
+        android:icon="@drawable/menu_schedule_selector"
         app:showAsAction="always"
         android:enabled="true"
         android:checkable="true"
         android:title="스케줄" />
     <item
         android:id="@+id/menu_main_btm_nav_mypage"
-        android:icon="@drawable/ic_menu_mypage"
+        android:icon="@drawable/menu_mypage_selector"
         app:showAsAction="always"
         android:enabled="true"
         android:checkable="true"
