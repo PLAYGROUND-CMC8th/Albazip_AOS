@@ -107,10 +107,10 @@ class AddWorkerOneActivity :
             when (v) {
                 /// 포지션 선택 버튼(평일/주말)
                 btnWeekday -> {
-                    selectPositionDay(v)
+                    selectPositionDay(v as AppCompatButton)
                 }
                 btnWeekend -> {
-                    selectPositionDay(v)
+                    selectPositionDay(v as AppCompatButton)
                 }
                 btnManager -> {
                     showSnackBar()
@@ -121,22 +121,22 @@ class AddWorkerOneActivity :
 
                 /// 포지션 선택 버튼(오픈/미들/마감)
                 btnOpen -> {
-                    selectPositionTime(v)
+                    selectPositionTime(v as AppCompatButton)
                 }
                 btnMiddle -> {
-                    selectPositionTime(v)
+                    selectPositionTime(v as AppCompatButton)
                 }
                 btnEnd -> {
-                    selectPositionTime(v)
+                    selectPositionTime(v as AppCompatButton)
                 }
 
                 /// 요일 선택 버튼
                 btnMon -> {
-                    selectWorkingDay(v)
+                    selectWorkingDay(v as AppCompatButton)
                     isDayAllUnchecked()
                 }
                 btnTue -> {
-                    selectWorkingDay(v)
+                    selectWorkingDay(v as AppCompatButton)
                     isDayAllUnchecked()
                 }
                 btnWen -> {
@@ -181,13 +181,47 @@ class AddWorkerOneActivity :
     fun selectRank(v: View) {
         if (v.isSelected == true) {
             v.isSelected = false
+
+            // 비활성화 텍스트 색상 변경
+            binding.btnAlba.setTextColor(Color.parseColor("#6f6f6f"))
+
+            // 매니저 & 점장 활성화 색상
+            binding.btnManager.background = ContextCompat.getDrawable(
+                this,
+                R.drawable.rectangle_fill_white_radius_gray_16
+            )
+            binding.btnStoreManager.background = ContextCompat.getDrawable(
+                this,
+                R.drawable.rectangle_fill_white_radius_gray_16
+            )
+            // 교대근무 활성화 색상
+            binding.btnRotate.background = ContextCompat.getDrawable(
+                this@AddWorkerOneActivity,
+                R.drawable.rectangle_fill_white_radius_gray_16
+            )
+
+
         } else {
             v.isSelected = true
+
+            // 활성화 텍스트 색상 변경
+            binding.btnAlba.setTextColor(Color.parseColor("#343434"))
+
+            // 매니저 & 점장 비활성화 색상
+            binding.btnManager.background =
+                ContextCompat.getDrawable(this, R.drawable.rectangle_fill_gray_radius_16)
+            binding.btnStoreManager.background =
+                ContextCompat.getDrawable(this, R.drawable.rectangle_fill_gray_radius_16)
+            // 교대근무 비활성화 색상
+            binding.btnRotate.background = ContextCompat.getDrawable(
+                this@AddWorkerOneActivity,
+                R.drawable.rectangle_fill_gray_radius_16
+            )
         }
     }
 
     // 포지션 선택 버튼(평일/주말)
-    fun selectPositionDay(v: View) {
+    fun selectPositionDay(v: AppCompatButton) {
         val dayList: ArrayList<AppCompatButton> =
             arrayListOf(binding.btnWeekday, binding.btnWeekend)
 
@@ -195,6 +229,10 @@ class AddWorkerOneActivity :
             if (dayList[i] == v) {
                 if (v.isSelected == true) {
                     v.isSelected = false
+
+                    // 텍스트 색상 비활성화
+                    v.setTextColor(Color.parseColor("#6f6f6f"))
+
                     binding.btnManager.background = ContextCompat.getDrawable(
                         this,
                         R.drawable.rectangle_fill_white_radius_gray_16
@@ -205,6 +243,10 @@ class AddWorkerOneActivity :
                     )
                 } else {
                     v.isSelected = true
+
+                    // 활성화 텍스트 색상 변경
+                    v.setTextColor(Color.parseColor("#343434"))
+
                     binding.btnManager.background =
                         ContextCompat.getDrawable(this, R.drawable.rectangle_fill_gray_radius_16)
                     binding.btnStoreManager.background =
@@ -212,12 +254,13 @@ class AddWorkerOneActivity :
                 }
             } else {
                 dayList[i].isSelected = false
+                dayList[i].setTextColor(Color.parseColor("#6f6f6f"))
             }
         }
     }
 
     // 포지션 선택 버튼(오픈/미들/마감)
-    fun selectPositionTime(v: View) {
+    fun selectPositionTime(v: AppCompatButton) {
         val timeList: ArrayList<AppCompatButton> =
             arrayListOf(binding.btnOpen, binding.btnMiddle, binding.btnEnd)
 
@@ -225,11 +268,17 @@ class AddWorkerOneActivity :
             if (v == timeList[i]) {
                 if (timeList[i].isSelected == true) {
                     timeList[i].isSelected = false
+                    // 텍스트 색상 비활성화
+                    v.setTextColor(Color.parseColor("#6f6f6f"))
                 } else {
                     timeList[i].isSelected = true
+                    // 활성화 텍스트 색상 변경
+                    v.setTextColor(Color.parseColor("#343434"))
                 }
             } else {
                 timeList[i].isSelected = false
+                // 텍스트 색상 비활성화
+                timeList[i].setTextColor(Color.parseColor("#6f6f6f"))
             }
         }
     }
@@ -237,7 +286,13 @@ class AddWorkerOneActivity :
     // 요일 선택 버튼
     fun selectWorkingDay(v: View) {
         // 요일을 선택했을 때
-        v.isSelected = v.isSelected != true
+        if(v.isSelected == true){
+            v.isSelected = false
+            (v as AppCompatButton).setTextColor(Color.parseColor("#6f6f6f"))
+        }else{
+            v.isSelected = true
+            (v as AppCompatButton).setTextColor(Color.parseColor("#343434"))
+        }
     }
 
     // 모든 버튼 비활성화 여부 체크
@@ -269,11 +324,14 @@ class AddWorkerOneActivity :
             if (v == restTimeList[i]) {
                 if (restTimeList[i].isSelected == true) {
                     restTimeList[i].isSelected = false
+                    (v as AppCompatButton).setTextColor(Color.parseColor("#6f6f6f"))
                 } else {
                     restTimeList[i].isSelected = true
+                    (v as AppCompatButton).setTextColor(Color.parseColor("#343434"))
                 }
             } else {
                 restTimeList[i].isSelected = false
+                restTimeList[i].setTextColor(Color.parseColor("#6f6f6f"))
             }
         }
     }
