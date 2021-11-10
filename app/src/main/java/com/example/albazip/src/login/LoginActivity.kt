@@ -5,14 +5,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.util.TypedValue
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.albazip.R
 import com.example.albazip.config.ApplicationClass.Companion.X_ACCESS_TOKEN
-import com.example.albazip.config.ApplicationClass.Companion.loginFlags
 import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityLoginBinding
@@ -21,7 +18,8 @@ import com.example.albazip.src.login.data.PostSignInRequest
 import com.example.albazip.src.login.data.SignInResponse
 import com.example.albazip.src.login.network.SignInFragmentView
 import com.example.albazip.src.login.network.SignInService
-import com.example.albazip.src.register.common.network.SignUpService
+import com.example.albazip.src.main.ManagerMainActivity
+import com.example.albazip.src.main.WorkerMainActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate),SignInFragmentView {
 
@@ -155,31 +153,45 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
     override fun onPostSingInSuccess(response: SignInResponse) {
         dismissLoadingDialog()
-        showCustomToast(response.message)
-        when(response.message){
-            "로그인 완료" -> {
+        when(response.code){
+            200 -> { // 로그인 성공
 
                 // jwt 토큰 header 에 저장
-                prefs.setString(X_ACCESS_TOKEN, response.resultSignIn.token.toString())
+                prefs.setString(X_ACCESS_TOKEN, response.data.token.token)
 
                 // login 상태 저장
-                prefs.setString(loginFlags,"login")
+                prefs.setInt("loginFlags",1)
 
+                // job 상태 저장
+                prefs.setInt("jobFlags",response.data.job)
+
+                showCustomToast(response.data.job.toString())
                 // 토큰 등록하기
-                if(response.resultSignIn.positionInfo == null){ // 포지션 설정 안했을 때
+                if(response.data.job == 0){ // 기본 가입만 완료된 상태일 때
                     val nextIntent = Intent(this@LoginActivity,HomeActivity::class.java)
                     startActivity(nextIntent)
-                    finish()
-                }else{
-                    //해당 포지션으로 이동
-
+                    finishAffinity()
+                }else if(response.data.job == 1){ // 관리자 가입이 완료된 상태일 때
+                    val nextIntent = Intent(this@LoginActivity,ManagerMainActivity::class.java)
+                    startActivity(nextIntent)
+                    finishAffinity()
+                }else{ // 근무자 가입이 완료된 상태일 때
+                    val nextIntent = Intent(this@LoginActivity,WorkerMainActivity::class.java)
+                    startActivity(nextIntent)
+                    finishAffinity()
                 }
 
             }
 
-            "존재하지 않는 계정입니다." -> {showCustomToast("존재하지 않는 계정입니다.")}
-
-            "비밀번호가 다릅니다." -> {showCustomToast("비밀번호가 다릅니다.")}
+            202 -> {
+                if(response.message == "존재하지 않는 계정입니다."){
+                    showCustomToast("존재하지 않는 계정입니다.")
+                }else if(response.message == "비밀번호가 다릅니다."){
+                    showCustomToast("비밀번호가 다릅니다.")
+                }else{
+                    showCustomToast("휴대폰번호와 비밀번호를 입력해주세요.")
+                }
+            }
         }
     }
 

@@ -204,16 +204,17 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
     // 회원 가입 통신
     override fun onPostSignUpSuccess(response: SignUpResponse) {
         dismissLoadingDialog()
-        if (response.message == "성공적으로 기본가입이 완료되었습니다.") {
+        if (response.code == 200) {
             showCustomToast("회원가입 성공")
             // 메인 화면으로 이동
-            val mainIntent = Intent(context, MainActivity::class.java)
+            val mainIntent = Intent(requireContext(), MainActivity::class.java)
             startActivity(mainIntent)
             activity?.finish()
         } else {
             // 이미 존재하는 연락처입니다.
-            showCustomToast(response.message)
+            showCustomToast("회원가입 실패")
         }
+        showCustomToast(response.code.toString())
     }
 
     override fun onPostSignUpFailure(message: String) {
