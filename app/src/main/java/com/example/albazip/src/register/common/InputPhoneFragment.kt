@@ -15,6 +15,10 @@ import com.example.albazip.R
 import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentInputPhoneBinding
+import com.example.albazip.src.register.common.data.remote.PhoneCheckResponse
+import com.example.albazip.src.register.common.network.PhoneCheckFragmentView
+import com.example.albazip.src.register.common.network.PhoneCheckService
+import com.example.albazip.src.register.manager.network.BNumService
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
@@ -25,7 +29,7 @@ import java.util.concurrent.TimeUnit
 class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     FragmentInputPhoneBinding::bind,
     R.layout.fragment_input_phone
-) {
+),PhoneCheckFragmentView {
 
     companion object {
         private const val TAG = "PhoneAuthActivity"
@@ -257,23 +261,13 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
         // 인증하기 버튼 클릭 시 (메세지 전송)
         binding.rlClickableCertify.setOnClickListener {
 
-            binding.rlCertify.visibility = View.VISIBLE
-
             // edittext에 있는 번호를 받아온다.
             val getPhoneNum = binding.etInputPhone.text.toString().replace(" ","")
             val inputPhoneNum = "+82 " + getPhoneNum
 
-            // 인증 메세지 전송하기
-            startPhoneNumberVerification(inputPhoneNum)
-
-            // 카운트 다운 시작
-            if(timer != 120) { // 재전송 후 전송 클릭 시 동작 버튼
-                mCountDown.cancel()
-                timer = 120
-            }
-            mCountDown.start()
-            // 다음(인증)버튼 활성화
-            binding.btnNext.isEnabled = true
+            // 휴대폰 번호 중복 체크
+            showLoadingDialog(requireContext())
+            PhoneCheckService(this).tryGetPhoneCheck(getPhoneNum,inputPhoneNum)
         }
 
         // 재전송 버튼
@@ -487,6 +481,44 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 //                Toast.makeText(requireContext(),"유저정보 삭제 실패 ",Toast.LENGTH_LONG).show()
 //            }
 //        }
+    }
+
+    // 중복체크 api
+    override fun onGetCheckSuccess(response: PhoneCheckResponse,serverCheckPhoneNum: String,inputPhoneNum:String) {
+        dismissLoadingDialog()
+
+        // 새로운 휴대폰 번호입니다.
+        if (response.code == 200){
+            binding.tvOverlap.visibility = View.GONE // 경고 텍스트 감추기
+
+            binding.rlCertify.visibility = View.VISIBLE
+
+            // 인증 메세지 전송하기
+            startPhoneNumberVerification(inputPhoneNum)
+
+            // 카운트 다운 시작
+            if(timer != 120) { // 재전송 후 전송 클릭 시 동작 버튼
+                mCountDown.cancel()
+                timer = 120
+            }
+            mCountDown.start()
+            // 다음(인증)버튼 활성화
+            binding.btnNext.isEnabled = true
+
+            // 성공 시
+            // 휴대폰 입력란과 인증버튼 비활성화
+            binding.etInputPhone.isEnabled = false
+            binding.rlClickableCertify.isEnabled = false
+            binding.tvCertify.setTextColor(Color.parseColor("#cecece"))
+
+        }else if(response.code == 202){ // 중복 체크됨
+            binding.tvOverlap.visibility = View.VISIBLE // 경고 텍스트 띄우기
+        }
+    }
+
+    override fun onGetCheckfailure(message: String) {
+        dismissLoadingDialog()
+        Log.d("error",message)
     }
 
 

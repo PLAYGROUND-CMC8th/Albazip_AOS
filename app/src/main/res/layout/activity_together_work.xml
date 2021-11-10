@@ -105,11 +105,16 @@
         android:id="@+id/rv_record"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fadingEdge="horizontal"
+        android:fadingEdgeLength="30dp"
+        android:fillViewport="false"
+        android:requiresFadingEdge="vertical"
         tools:listitem="@layout/item_rv_togehter_list"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/rl_info"
         app:layout_constraintStart_toStartOf="@id/rl_info"
         app:layout_constraintTop_toBottomOf="@id/rl_info" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

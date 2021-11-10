@@ -92,6 +92,22 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/tv_overlap"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rl_phone_input"
+        app:layout_constraintStart_toStartOf="@id/rl_phone_input"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:textColor="#ff3b30"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="17sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="이미 가입된 연락처입니다."/>
+
     <RelativeLayout
         android:id="@+id/rl_certify"
         android:layout_width="0dp"

@@ -24,6 +24,12 @@ class DoneWorkActivity : BaseActivity<ActivityWorkDoneBinding>(ActivityWorkDoneB
         workList.add(WorkListData("21년 9월 업무", 10, 150))
         workList.add(WorkListData("21년 9월 업무", 80, 150))
         workList.add(WorkListData("21년 9월 업무", 46, 150))
+        workList.add(WorkListData("21년 9월 업무", 80, 150))
+        workList.add(WorkListData("21년 9월 업무", 46, 150))
+        workList.add(WorkListData("21년 9월 업무", 80, 150))
+        workList.add(WorkListData("21년 9월 업무", 46, 150))
+        workList.add(WorkListData("21년 9월 업무", 80, 150))
+        workList.add(WorkListData("21년 9월 업무", 46, 150))
 
         workDoneAdapter = WorkDoneAdapter(workList)
         binding.rvDoneWorkList.layoutManager =
