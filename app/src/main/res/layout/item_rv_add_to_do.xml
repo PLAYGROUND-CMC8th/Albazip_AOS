@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="24dp"
     android:orientation="vertical"
     android:layout_marginBottom="12dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,12 +10,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_to_do_name"
         android:layout_width="match_parent"
-        android:layout_height="49dp">
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/et_to_do_name"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:hint="업무명"
             android:paddingVertical="16dp"
             android:layout_marginStart="24dp"
@@ -57,13 +56,12 @@
         android:id="@+id/cl_to_do_explain"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="24dp"
-        android:layout_height="49dp">
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/et_to_do_explain"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:background="@null"
             android:hint="업무 설명을 적어주세요."
             android:letterSpacing="-0.02"

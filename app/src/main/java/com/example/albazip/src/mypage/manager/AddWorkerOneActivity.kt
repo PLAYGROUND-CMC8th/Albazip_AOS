@@ -1,5 +1,6 @@
 package com.example.albazip.src.mypage.manager
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -27,17 +28,97 @@ class AddWorkerOneActivity :
     // 시간 차 계산을 위한 데이터 포맷 선언
     val f: SimpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.KOREA)
 
+    // state flags 구하기
+    // 직급 o
+    var rankFlags = false
+
+    // 포지션(요일) -평일/주말
+    var positionWeekFlags = false
+    // 포지션(시간)
+    var positionTimeFlags = false
+    // 근무요일
+    var workDaysFlags = false
+
+    // 출근시간
+    var startTimeFlags = false
+    // 퇴근시간
+    var endTimeFlags = false
+
+    // 휴식시간
+    var breakTimeFlags = false
+    // 급여
+    var salaryFlags = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // 알바생
         binding.btnAlba.setOnClickListener {
             selectRank(binding.btnAlba)
+            checkingFlags()
         }
 
         // 직원 -> 스낵 바 띄우기
         binding.btnStaff.setOnClickListener {
             showSnackBar()
+        }
+
+        // 다음 버튼
+        binding.tvNext.setOnClickListener{
+
+            // 입력 정보 받아오기
+            val rank = "알바생"
+
+            var titleOne = ""
+            var titleTwo = ""
+            val positionOneList = arrayListOf<AppCompatButton>(binding.btnWeekday,binding.btnWeekend)
+            val positionTwoList = arrayListOf<AppCompatButton>(binding.btnOpen,binding.btnMiddle,binding.btnEnd)
+            for(i in 0 until positionOneList.size){ // 오픈
+                if(positionOneList[i].isSelected == true){
+                    titleOne = positionOneList[i].text.toString()
+                }
+            }
+            for(i in 0 until positionTwoList.size){ // 마감
+                if(positionTwoList[i].isSelected == true){
+                    titleTwo = positionTwoList[i].text.toString()
+                }
+            }
+
+            val title = titleOne+titleTwo
+            val startTime = binding.tvInputStartTime.text.toString().replace(":", "")
+            val endTime = binding.tvInputOffTime.text.toString().replace(":", "")
+
+            val workDays = arrayListOf<String>()
+            binding.apply {
+            var workDayList = arrayListOf<AppCompatButton>(btnMon,btnTue,btnWen,btnThur,btnFri,btnSat,btnSun)
+                for(i in 0 until workDayList.size){ // 오픈
+                    if(workDayList[i].isSelected == true){
+                        workDays.add(workDayList[i].text.toString())
+                    }
+                }
+            }
+
+            // 휴식시간
+            var breakTime = ""
+            val breakList = arrayListOf<AppCompatButton>(binding.btnNoRest,binding.btn30Min,binding.btn60Min,binding.btn90Min)
+            for(i in 0 until breakList.size){ // 오픈
+                if(breakList[i].isSelected == true){
+                    breakTime = breakList[i].text.toString()
+                }
+            }
+
+            val salary = binding.etPayment.text.toString()
+            val salaryType = binding.tvSelectedPayUnit.text.toString()
+
+
+            // 입력 정보 배열에 담기
+            val workerDataList :ArrayList<Any> = arrayListOf(rank,title,startTime,endTime,workDays,breakTime,salary,salaryType)
+
+            // 근무자 추가 두 번째 화면으로 이동
+            val nextIntent = Intent(this,AddWorkerTwoActivity::class.java)
+            nextIntent.putExtra("workerDataList",workerDataList)
+            // 입력정보 넘겨주기
+            startActivity(nextIntent)
         }
 
         /// 포지션 선택 버튼(평일/주말)
@@ -95,6 +176,14 @@ class AddWorkerOneActivity :
                     binding.etPayment.setText(result)
                     binding.etPayment.setSelection(result.length)
                 }
+
+                if(s?.toString()?.isNotEmpty() == true){
+                    salaryFlags = true
+                    activateCheck()
+                }else{
+                    salaryFlags = false
+                    activateCheck()
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -102,15 +191,19 @@ class AddWorkerOneActivity :
 
     }
 
+
+
     override fun onClick(v: View?) {
         binding.apply {
             when (v) {
                 /// 포지션 선택 버튼(평일/주말)
                 btnWeekday -> {
                     selectPositionDay(v as AppCompatButton)
+                    checkingFlags()
                 }
                 btnWeekend -> {
                     selectPositionDay(v as AppCompatButton)
+                    checkingFlags()
                 }
                 btnManager -> {
                     showSnackBar()
@@ -122,42 +215,52 @@ class AddWorkerOneActivity :
                 /// 포지션 선택 버튼(오픈/미들/마감)
                 btnOpen -> {
                     selectPositionTime(v as AppCompatButton)
+                    checkingFlags()
                 }
                 btnMiddle -> {
                     selectPositionTime(v as AppCompatButton)
+                    checkingFlags()
                 }
                 btnEnd -> {
                     selectPositionTime(v as AppCompatButton)
+                    checkingFlags()
                 }
 
                 /// 요일 선택 버튼
                 btnMon -> {
                     selectWorkingDay(v as AppCompatButton)
                     isDayAllUnchecked()
+                    checkingFlags()
                 }
                 btnTue -> {
                     selectWorkingDay(v as AppCompatButton)
                     isDayAllUnchecked()
+                    checkingFlags()
                 }
                 btnWen -> {
                     selectWorkingDay(v)
                     isDayAllUnchecked()
+                    checkingFlags()
                 }
                 btnThur -> {
                     selectWorkingDay(v)
                     isDayAllUnchecked()
+                    checkingFlags()
                 }
                 btnFri -> {
                     selectWorkingDay(v)
                     isDayAllUnchecked()
+                    checkingFlags()
                 }
                 btnSat -> {
                     selectWorkingDay(v)
                     isDayAllUnchecked()
+                    checkingFlags()
                 }
                 btnSun -> {
                     selectWorkingDay(v)
                     isDayAllUnchecked()
+                    checkingFlags()
                 }
                 btnRotate -> {
                     showSnackBar()
@@ -165,12 +268,16 @@ class AddWorkerOneActivity :
 
                 /// 휴게시간 선택 버튼
                 btnNoRest -> { selectRestTime(v)
+                    checkingFlags()
                 }
                 btn30Min -> { selectRestTime(v)
+                    checkingFlags()
                 }
                 btn60Min -> { selectRestTime(v)
+                    checkingFlags()
                 }
                 btn90Min -> { selectRestTime(v)
+                    checkingFlags()
                 }
 
             }
@@ -181,6 +288,7 @@ class AddWorkerOneActivity :
     fun selectRank(v: View) {
         if (v.isSelected == true) {
             v.isSelected = false
+            rankFlags = false
 
             // 비활성화 텍스트 색상 변경
             binding.btnAlba.setTextColor(Color.parseColor("#6f6f6f"))
@@ -203,6 +311,7 @@ class AddWorkerOneActivity :
 
         } else {
             v.isSelected = true
+            rankFlags = true
 
             // 활성화 텍스트 색상 변경
             binding.btnAlba.setTextColor(Color.parseColor("#343434"))
@@ -364,6 +473,8 @@ class AddWorkerOneActivity :
 
         if (flag == 0) { // 오픈 값 넣기
             binding.tvInputStartTime.setText(displayHour + ":" + displayMinute)
+            startTimeFlags = true
+            activateCheck()
             // 포커스 해제
             //removeFocus()
             binding.tvInputStartTime.setTextColor(Color.parseColor("#343434"))
@@ -376,6 +487,8 @@ class AddWorkerOneActivity :
 
         } else { // 마감 값 넣기
             binding.tvInputOffTime.setText(displayHour + ":" + displayMinute)
+            endTimeFlags =true
+            activateCheck()
             // 포커스 해제
             //removeFocus()
             binding.tvInputOffTime.setTextColor(Color.parseColor("#343434"))
@@ -430,5 +543,66 @@ class AddWorkerOneActivity :
         binding.tvSelectedPayUnit.text = text
     }
 
+    // 플래그 상태 체크
+    fun checkingFlags(){
 
+        // 포지션(1) 체크여부
+        val positionOne = arrayListOf<Boolean>(binding.btnWeekend.isSelected,binding.btnWeekday.isSelected)
+        for(i in 0 until positionOne.size){
+            if(positionOne[i] == true){
+                positionWeekFlags = true
+                break
+            }else{
+                positionWeekFlags = false
+            }
+        }
+
+        // 포지션(2)
+        val positionTwo = arrayListOf<Boolean>(binding.btnOpen.isSelected,binding.btnMiddle.isSelected,binding.btnEnd.isSelected)
+        for(i in 0 until positionTwo.size){
+            if(positionTwo[i] == true){
+                positionTimeFlags = true
+                break
+            } else{
+                positionTimeFlags = false
+            }
+        }
+
+        // 근무요일
+        val day = arrayListOf<Boolean>(binding.btnMon.isSelected,binding.btnTue.isSelected,binding.btnWen.isSelected,binding.btnThur.isSelected,binding.btnFri.isSelected,binding.btnSat.isSelected,binding.btnSun.isSelected)
+        for(i in 0 until day.size){
+            if(day[i] == true){
+                workDaysFlags = true
+                break
+            }else{
+                workDaysFlags = false
+            }
+        }
+
+        // 휴식시간
+        val rest = arrayListOf<Boolean>(binding.btn30Min.isSelected,binding.btn60Min.isSelected,binding.btn90Min.isSelected,binding.btnNoRest.isSelected)
+        for(i in 0 until rest.size){
+            if(rest[i] == true){
+                breakTimeFlags = true
+                break
+            }else{
+                breakTimeFlags = false
+            }
+        }
+
+        activateCheck()
+    }
+
+    // 활성화 여부 체크
+    fun activateCheck() {
+
+        if (rankFlags == true && positionWeekFlags==true && positionTimeFlags==true && workDaysFlags==true && startTimeFlags == true
+            && endTimeFlags==true && breakTimeFlags == true && salaryFlags == true) { // 활성화
+            binding.tvNext.isEnabled = true
+            binding.tvNext.setTextColor(Color.parseColor("#ffc400"))
+        } else { // 비활성화
+            binding.tvNext.isEnabled = false
+            binding.tvNext.setTextColor(Color.parseColor("#ADADAD"))
+        }
+    }
 }

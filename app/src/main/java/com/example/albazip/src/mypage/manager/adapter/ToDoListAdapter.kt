@@ -1,0 +1,82 @@
+package com.example.albazip.src.mypage.manager.adapter
+
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import com.example.albazip.databinding.ItemRvAddToDoBinding
+import com.example.albazip.src.mypage.manager.data.local.TodoData
+import okhttp3.internal.notifyAll
+
+
+class ToDoListAdapter(val itemList: ArrayList<TodoData>) :
+    RecyclerView.Adapter<ToDoListAdapter.ToDoHolder>() {
+
+    private lateinit var binding: ItemRvAddToDoBinding
+
+    // 아이템 추가
+    fun addItem(todoData: TodoData) {
+        itemList.add(itemCount, todoData)
+        Log.d("helpme", itemCount.toString())
+        this.notifyItemInserted(itemCount)
+        this.notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoHolder {
+        binding = ItemRvAddToDoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        return ToDoHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ToDoHolder, position: Int) {
+
+        holder.setIsRecyclable(false)
+
+        binding.etToDoName.setText(itemList[position].titleTxt)
+        binding.etToDoName.addTextChangedListener(titleTextWatcher(position))
+
+
+        binding.etToDoExplain.setText(itemList[position].contextTxt)
+        binding.etToDoExplain.addTextChangedListener(contentTextWatcher(position))
+
+
+        holder.binding.ibtnExit.setOnClickListener { // x 버튼 누르면 없애기
+
+            // 텍스트 내용 초기화
+            itemList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyDataSetChanged()
+        }
+
+    }
+
+    override fun getItemCount(): Int = itemList.size
+
+    inner class ToDoHolder(val binding: ItemRvAddToDoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+    }
+
+    inner class titleTextWatcher(var position: Int) : TextWatcher {
+        override fun afterTextChanged(p0: Editable?) {}
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            itemList[position].titleTxt = p0.toString()
+        }
+    }
+
+    inner class contentTextWatcher(var position: Int) : TextWatcher {
+        override fun afterTextChanged(p0: Editable?) {}
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            itemList[position].contextTxt = p0.toString()
+        }
+    }
+
+
+}

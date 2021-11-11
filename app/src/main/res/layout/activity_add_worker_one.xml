@@ -43,6 +43,7 @@
 
             <TextView
                 android:id="@+id/tv_next"
+                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
@@ -106,6 +107,7 @@
                     android:letterSpacing="-0.02"
                     android:lineSpacingExtra="0sp"
                     android:paddingVertical="8dp"
+                    android:stateListAnimator="@null"
                     android:text="알바생"
                     android:textColor="#6f6f6f"
                     android:textSize="12sp"
@@ -558,7 +560,7 @@
                         android:letterSpacing="-0.02"
                         android:lineSpacingExtra="0sp"
                         android:paddingVertical="8dp"
-                        android:text="평일"
+                        android:text="없음"
                         android:textColor="#6f6f6f"
                         android:textSize="12sp" />
 
