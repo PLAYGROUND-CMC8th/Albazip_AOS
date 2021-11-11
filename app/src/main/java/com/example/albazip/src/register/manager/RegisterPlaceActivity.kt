@@ -45,7 +45,7 @@ class RegisterPlaceActivity :
         }
 
         binding.rlPlaceType.setOnClickListener {
-            TypeBottomSheetDialog().show(supportFragmentManager, "typePicker")
+            TypeBottomSheetDialog(binding.tvType.text.toString()).show(supportFragmentManager, "typePicker")
 
             // 모든 포커스 제거
             window.decorView.clearFocus()
@@ -64,7 +64,21 @@ class RegisterPlaceActivity :
 
         // 시업자 정보 입력 화면으로 화면전환
         binding.btnNext.setOnClickListener {
+
+            // 매장명
+            val placeName = binding.etName.text.toString()
+            // 업종명
+            val placeType = binding.tvType.text.toString()
+            // 주소
+            val placeAdress = binding.etLocationMain.text.toString() + " " + binding.etLocationSub.text.toString()
+
+            // 매장 장소 정보 넘기기
+            val registerDataList :ArrayList<String> = arrayListOf(placeName,placeType,placeAdress)
+
             val nextIntent = Intent(this,InputBNumActivity::class.java)
+
+            nextIntent.putExtra("registerDataList",registerDataList)
+
             startActivity(nextIntent)
         }
     }
@@ -126,9 +140,6 @@ class RegisterPlaceActivity :
             override fun afterTextChanged(s: Editable?) {}
         })
     }
-
-    // 입력 감지
-    // 추후에 테두리 색 변경해주세용 ^^ ~
 
 
     private fun checkIntentState() {

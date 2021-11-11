@@ -264,8 +264,18 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
     override fun onGetBNameSuccess(response: BNameResponse) {
         dismissLoadingDialog()
         if(response.message =="사업자등번호가 인증되었습니다."){
+
+            val registerDataList:ArrayList<String> = intent.getSerializableExtra("registerDataList") as ArrayList<String>
+
+            //  사업자 번호
+            registerDataList.add(binding.etInputBnum.text.toString())
+
+            // 사업자 성함
+            registerDataList.add(binding.etInputName.text.toString())
+
             // 화면이동
             val nextIntent = Intent(this,InputPlaceMoreActivity::class.java)
+            nextIntent.putExtra("registerDataList",registerDataList)
             startActivity(nextIntent)
         }else{
             binding.warningNameTv.visibility = View.VISIBLE

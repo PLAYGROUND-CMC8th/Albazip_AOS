@@ -165,7 +165,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
                 // job 상태 저장
                 prefs.setInt("jobFlags",response.data.job)
 
-                showCustomToast(response.data.job.toString())
                 // 토큰 등록하기
                 if(response.data.job == 0){ // 기본 가입만 완료된 상태일 때
                     val nextIntent = Intent(this@LoginActivity,HomeActivity::class.java)

@@ -4,6 +4,9 @@
     <item android:drawable="@drawable/oval_fill_yellow" android:state_selected="true" />
 
     <item android:drawable="@drawable/oval_fill_white_stroke_gray"
-        android:state_enabled="false"/>
+        android:state_selected="false"/>
+
+    <item android:drawable="@drawable/oval_fill_custom_white"
+        android:state_enabled="true"/>
 
 </selector>

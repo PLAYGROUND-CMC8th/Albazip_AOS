@@ -23,7 +23,9 @@
 
         </activity>
         <activity android:name=".src.register.manager.ManagerOnBoardingActivity" />
-        <activity android:name=".src.register.manager.InputPlaceMoreActivity" />
+        <activity android:name=".src.register.manager.InputPlaceMoreActivity" >
+
+        </activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -33,6 +35,7 @@
             android:name=".src.register.manager.SearchPlaceActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".src.register.manager.RegisterPlaceActivity" >
+
         </activity>
         <activity android:name=".src.home.common.HomeActivity" />
         <activity android:name=".src.login.LoginActivity" />

@@ -7,6 +7,7 @@ import android.os.Looper
 import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivitySplashBinding
+import com.example.albazip.src.home.common.HomeActivity
 import com.example.albazip.src.main.MainActivity
 import com.example.albazip.src.main.ManagerMainActivity
 import com.example.albazip.src.main.WorkerMainActivity
@@ -31,7 +32,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
                 when (jobFlags) {
                     // 기본 login -> 포지션 가입 화면으로 이동
                     0 -> {
-                        startActivity(Intent(this, RegisterActivity::class.java))
+                        startActivity(Intent(this, HomeActivity::class.java))
                         finish()
                     }
 

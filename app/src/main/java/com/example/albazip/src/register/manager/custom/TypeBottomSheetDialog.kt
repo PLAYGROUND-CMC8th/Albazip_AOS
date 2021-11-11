@@ -14,11 +14,12 @@ import com.example.albazip.src.register.common.custom.AgeBottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class TypeBottomSheetDialog : BottomSheetDialogFragment(),View.OnClickListener {
+class TypeBottomSheetDialog(currentSelect:String) : BottomSheetDialogFragment(),View.OnClickListener {
 
     private lateinit var binding: DialogFragmentTypeBinding
     private lateinit var selectedType:String
     lateinit var bottomSheetClickListener: BottomSheetClickListener
+    val myCurrentSelect = currentSelect
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -33,6 +34,15 @@ class TypeBottomSheetDialog : BottomSheetDialogFragment(),View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = DialogFragmentTypeBinding.inflate(inflater, container, false)
+
+        // 가장 최근에 선택한 배경색 받아오기
+        when(myCurrentSelect){
+            "카페" -> {binding.rlRowOne.setBackgroundColor(Color.parseColor("#fffaea"))}
+            "음식점" -> {binding.rlRowTwo.setBackgroundColor(Color.parseColor("#fffaea"))}
+            "판매업" -> {binding.rlRowThree.setBackgroundColor(Color.parseColor("#fffaea"))}
+            "서비스업" -> {binding.rlRowFour.setBackgroundColor(Color.parseColor("#fffaea"))}
+            "기타" -> {binding.rlRowFive.setBackgroundColor(Color.parseColor("#fffaea"))}
+        }
 
         binding.rlRowOne.setOnClickListener(this)
         binding.rlRowTwo.setOnClickListener(this)
