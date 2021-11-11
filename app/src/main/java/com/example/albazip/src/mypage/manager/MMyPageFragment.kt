@@ -1,7 +1,5 @@
 package com.example.albazip.src.mypage.manager
 
-import android.app.Activity.RESULT_CANCELED
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
@@ -9,28 +7,28 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bumptech.glide.Glide
 import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentMMypageBinding
 import com.example.albazip.src.mypage.common.MyPageSettingActivity
 import com.example.albazip.src.mypage.manager.custom.MSelectProfileBottomSheetDialog
-import com.example.albazip.src.register.manager.custom.TypeBottomSheetDialog
+import com.example.albazip.src.mypage.manager.workerlist.ui.NoWorkerListChildFragment
+import com.example.albazip.src.mypage.manager.workerlist.ui.WorkerListChildFragment
+import com.example.albazip.src.mypage.manager.board.ui.WroteChildFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import java.io.File
-import java.lang.Exception
 
 class MMyPageFragment :
     BaseFragment<FragmentMMypageBinding>(FragmentMMypageBinding::bind, R.layout.fragment_m_mypage),MSelectProfileBottomSheetDialog.BottomSheetClickListener {
 
     private val tabTextList = arrayListOf("근무자", "작성글")
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,6 +64,10 @@ class MMyPageFragment :
 
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
     private fun init() {
         binding.viewpager.adapter = CustomFragmentStateAdapter(requireActivity())
         TabLayoutMediator(binding.tabLayout, binding.viewpager) {
@@ -83,7 +85,7 @@ class MMyPageFragment :
 
         override fun createFragment(position: Int): Fragment {
             return when(position) {
-                0 -> NoWorkerListChildFragment()
+                0 -> { NoWorkerListChildFragment() }
                 1 -> WroteChildFragment()
                 else -> WorkerListChildFragment()
             }

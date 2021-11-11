@@ -4,14 +4,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.databinding.ItemRvAddToDoBinding
-import com.example.albazip.src.mypage.manager.data.local.TodoData
-import okhttp3.internal.notifyAll
+import com.example.albazip.src.mypage.manager.workerlist.data.local.TodoData
 
 
 class ToDoListAdapter(val itemList: ArrayList<TodoData>) :

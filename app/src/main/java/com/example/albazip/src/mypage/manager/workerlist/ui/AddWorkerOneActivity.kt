@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.manager
+package com.example.albazip.src.mypage.manager.workerlist.ui
 
 import android.content.Intent
 import android.graphics.Color
@@ -13,7 +13,6 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityAddWorkerOneBinding
 import com.example.albazip.src.mypage.manager.custom.PayUnitBottomSheetDialog
-import com.example.albazip.src.register.manager.custom.PayDayBottomSheetDialog
 import com.example.albazip.src.register.manager.custom.TimePickerBottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import java.text.DecimalFormat
@@ -115,10 +114,11 @@ class AddWorkerOneActivity :
             val workerDataList :ArrayList<Any> = arrayListOf(rank,title,startTime,endTime,workDays,breakTime,salary,salaryType)
 
             // 근무자 추가 두 번째 화면으로 이동
-            val nextIntent = Intent(this,AddWorkerTwoActivity::class.java)
+            val nextIntent = Intent(this, AddWorkerTwoActivity::class.java)
             nextIntent.putExtra("workerDataList",workerDataList)
             // 입력정보 넘겨주기
             startActivity(nextIntent)
+            finish()
         }
 
         /// 포지션 선택 버튼(평일/주말)

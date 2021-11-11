@@ -41,7 +41,11 @@
         <activity android:name=".src.login.LoginActivity" />
         <activity android:name=".src.register.common.RegisterActivity" />
         <activity android:name=".src.splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".src.main.MainActivity">
         </activity>
@@ -57,19 +61,15 @@
         <activity android:name=".src.mypage.worker.myInfo.TogetherWorkActivity"/>
         <activity android:name=".src.mypage.worker.myInfo.DoneWorkActivity"/>
         <activity android:name=".src.mypage.worker.myInfo.SelectMonthListActivity"/>
-        <activity android:name=".src.mypage.manager.AddWorkerOneActivity"
+        <activity android:name=".src.mypage.manager.workerlist.ui.AddWorkerOneActivity"
             android:windowSoftInputMode="adjustResize">
 
         </activity>
         <activity android:name=".src.mypage.worker.myInfo.SelectDayListActivity"/>
-        <activity android:name=".src.mypage.manager.AddWorkerTwoActivity"
+        <activity android:name=".src.mypage.manager.workerlist.ui.AddWorkerTwoActivity"
             android:windowSoftInputMode="adjustPan"
             >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- setting -->

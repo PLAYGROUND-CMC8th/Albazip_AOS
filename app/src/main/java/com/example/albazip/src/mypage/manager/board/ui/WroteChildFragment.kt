@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.manager
+package com.example.albazip.src.mypage.manager.board.ui
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -11,7 +11,7 @@ import com.example.albazip.databinding.ChildFragmentWroteBinding
 import com.example.albazip.src.mypage.common.BoardData
 import com.example.albazip.src.mypage.manager.adapter.MBoardListAdapter
 import com.example.albazip.src.mypage.manager.adapter.NoticeListAdapter
-import com.example.albazip.src.mypage.manager.data.local.NoticeData
+import com.example.albazip.src.mypage.manager.board.data.local.NoticeData
 
 class WroteChildFragment : BaseFragment<ChildFragmentWroteBinding>(
     ChildFragmentWroteBinding::bind,

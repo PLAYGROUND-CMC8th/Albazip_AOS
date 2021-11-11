@@ -1,16 +1,10 @@
 package com.example.albazip.src.mypage.manager.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.databinding.ItemRvNoticeListBinding
-import com.example.albazip.src.main.ManagerMainActivity
-import com.example.albazip.src.mypage.manager.data.local.NoticeData
-import okhttp3.internal.notifyAll
+import com.example.albazip.src.mypage.manager.board.data.local.NoticeData
 
 class NoticeListAdapter(val itemList:ArrayList<NoticeData>): RecyclerView.Adapter<NoticeListAdapter.NoticeHolder>() {
 

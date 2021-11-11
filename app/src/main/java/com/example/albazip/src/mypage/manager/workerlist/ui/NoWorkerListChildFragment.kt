@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.manager
+package com.example.albazip.src.mypage.manager.workerlist.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentNoWorkerListBinding
-import com.example.albazip.databinding.ChildFragmentWorkerListBinding
 
 class NoWorkerListChildFragment : BaseFragment<ChildFragmentNoWorkerListBinding>(
     ChildFragmentNoWorkerListBinding::bind,

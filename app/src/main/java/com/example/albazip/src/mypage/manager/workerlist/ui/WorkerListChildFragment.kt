@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.manager
+package com.example.albazip.src.mypage.manager.workerlist.ui
 
 import android.os.Bundle
 import android.os.Handler

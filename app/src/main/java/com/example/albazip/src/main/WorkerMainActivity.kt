@@ -1,13 +1,11 @@
 package com.example.albazip.src.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityWorkerMainBinding
 import com.example.albazip.src.community.manager.MCommunityFragment
 import com.example.albazip.src.home.manager.MHomeFragment
-import com.example.albazip.src.mypage.manager.MMyPageFragment
 import com.example.albazip.src.mypage.worker.WMyPageFragment
 import com.example.albazip.src.schedule.manager.MScheduleFragment
 import com.example.albazip.util.BackPressCloseHandler
