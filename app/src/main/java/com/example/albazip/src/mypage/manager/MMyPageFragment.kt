@@ -149,6 +149,7 @@ class MMyPageFragment :
                 init()
             }else{
                 isWorkerCardExist = true
+                showCustomToast(response.data.toString())
                 init()
             }
         }
