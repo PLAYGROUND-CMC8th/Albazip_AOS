@@ -6,8 +6,9 @@ import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentMyInfoBinding
+import com.example.albazip.src.mypage.worker.init.data.MyInfo
 
-class MyInfoChildFragment : BaseFragment<ChildFragmentMyInfoBinding>(
+class MyInfoChildFragment(val myInfoList:ArrayList<MyInfo>) : BaseFragment<ChildFragmentMyInfoBinding>(
     ChildFragmentMyInfoBinding::bind,
     R.layout.child_fragment_my_info
 ) {

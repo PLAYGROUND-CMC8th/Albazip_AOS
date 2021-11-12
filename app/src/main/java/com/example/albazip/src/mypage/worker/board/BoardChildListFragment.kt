@@ -9,8 +9,9 @@ import com.example.albazip.databinding.ChildFragmentBoardBinding
 import com.example.albazip.src.mypage.common.BoardData
 import com.example.albazip.src.mypage.manager.adapter.MBoardListAdapter
 import com.example.albazip.src.mypage.worker.adapter.WBoardListAdapter
+import com.example.albazip.src.mypage.worker.init.data.WBoardInfo
 
-class BoardChildListFragment:BaseFragment<ChildFragmentBoardBinding>(ChildFragmentBoardBinding::bind,
+class BoardChildListFragment(val boardInfoList:ArrayList<WBoardInfo>):BaseFragment<ChildFragmentBoardBinding>(ChildFragmentBoardBinding::bind,
     R.layout.child_fragment_board) {
 
     // 게시판 리스트

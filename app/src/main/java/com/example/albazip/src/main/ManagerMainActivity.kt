@@ -44,14 +44,6 @@ class ManagerMainActivity :
                         return@setOnItemSelectedListener true
                     }
 
-                    // 스케줄
-                    R.id.menu_main_btm_nav_schedule -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.manager_main_frm, MScheduleFragment())
-                            .commitAllowingStateLoss()
-                        return@setOnItemSelectedListener true
-                    }
-
                     // 마이페이지
                     R.id.menu_main_btm_nav_mypage -> {
                         supportFragmentManager.beginTransaction()

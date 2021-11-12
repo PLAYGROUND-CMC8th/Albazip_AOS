@@ -1,5 +1,6 @@
 package com.example.albazip.src.mypage.worker
 
+import android.content.Context
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -15,18 +16,37 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentWMypageBinding
 import com.example.albazip.src.mypage.manager.custom.MSelectProfileBottomSheetDialog
+import com.example.albazip.src.mypage.manager.init.data.BoardInfo
 import com.example.albazip.src.mypage.worker.board.BoardChildListFragment
 import com.example.albazip.src.mypage.worker.custom.WSelectProfileBottomSheetDialog
+import com.example.albazip.src.mypage.worker.init.data.GetWMyPageInfoResponse
+import com.example.albazip.src.mypage.worker.init.data.MyInfo
+import com.example.albazip.src.mypage.worker.init.data.PositionInfo
+import com.example.albazip.src.mypage.worker.init.data.WBoardInfo
+import com.example.albazip.src.mypage.worker.init.network.WMyPageFragmentView
+import com.example.albazip.src.mypage.worker.init.network.WMyPageService
 import com.example.albazip.src.mypage.worker.myInfo.MyInfoChildFragment
 import com.example.albazip.src.mypage.worker.position.PosInfoChildFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class WMyPageFragment :
-    BaseFragment<FragmentWMypageBinding>(FragmentWMypageBinding::bind, R.layout.fragment_w_mypage), WSelectProfileBottomSheetDialog.BottomSheetClickListener {
-
+    BaseFragment<FragmentWMypageBinding>(FragmentWMypageBinding::bind, R.layout.fragment_w_mypage),
+    WSelectProfileBottomSheetDialog.BottomSheetClickListener,WMyPageFragmentView {
 
     private val tabTextList = arrayListOf("내 정보", "포지션", "작성글")
+
+    private val myInfoList = ArrayList<MyInfo>() // 내정보
+    private val positionInfoList = ArrayList<PositionInfo>() // 포지션
+    private val boardInfoList = ArrayList<WBoardInfo>() // 작성글
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        // 근무자 전체 데이터 받아오기
+        WMyPageService(this).tryGetWMyPage()
+        showLoadingDialog(requireContext())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,9 +66,6 @@ class WMyPageFragment :
                 Log.d("LOGGER_TAG", "freeListener")
             }
         }
-
-
-        init()
 
         // 탭 레이아웃 커스튬
         tabTextStyle()
@@ -71,10 +88,10 @@ class WMyPageFragment :
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> MyInfoChildFragment()
-                1 -> PosInfoChildFragment()
-                2 -> BoardChildListFragment()
-                else -> MyInfoChildFragment()
+                0 -> MyInfoChildFragment(myInfoList)
+                1 -> PosInfoChildFragment(positionInfoList)
+                2 -> BoardChildListFragment(boardInfoList)
+                else -> MyInfoChildFragment(myInfoList)
             }
         }
     }
@@ -110,5 +127,32 @@ class WMyPageFragment :
 
     override fun onItemSelected(uri: Uri?) {
         Glide.with(requireContext()).load(uri).circleCrop().into(binding.profileImg)
+    }
+
+    override fun onWMyPageGetSuccess(response: GetWMyPageInfoResponse) {
+        dismissLoadingDialog()
+        if(response.code == 200){
+
+            /////////////// 내정보 받아오기
+            // 프로필 사진 설정
+            binding.tvShopName.text = response.data.profileInfo.shopName // 가게이름
+            binding.tvPosition.text = response.data.profileInfo.jobTitle // 포지션
+            binding.tvWorkerName.text = response.data.profileInfo.lastName + response.data.profileInfo.firstName // 유저이름
+
+            init()
+        }else{
+            showCustomToast(response.message.toString())
+        }
+
+        showCustomToast(response.message.toString())
+
+
+    }
+
+    override fun onWMyPageGetFailure(message: String) {
+        dismissLoadingDialog()
+
+        Log.d("whywrong",message)
+        showCustomToast(message)
     }
 }

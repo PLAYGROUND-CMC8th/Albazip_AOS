@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class GetMMyPageInfoResponse (
-    @SerializedName("data") val data : MMyPageData,
+    @SerializedName("data") val data : MMyPageData
 ):BaseResponse()
 
 ////////////////////////////// 데이터 ////////////////////////////////////////
