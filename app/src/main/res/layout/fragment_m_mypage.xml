@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/mainYellow"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -68,7 +69,7 @@
                         android:layout_marginBottom="4dp"
                         android:textColor="#333333"
                         android:letterSpacing="-0.03"
-                        android:text="서플라이 첨단점" />
+                        tools:text="서플라이 첨단점" />
 
                     <TextView
                         android:id="@+id/tv_position"
@@ -81,7 +82,7 @@
                         android:textAlignment="center"
                         android:textColor="#ff8700"
                         android:letterSpacing="-0.03"
-                        android:text="사장님" />
+                        tools:text="사장님" />
 
                     <TextView
                         android:id="@+id/tv_manager_name"
@@ -96,7 +97,7 @@
                         android:layout_marginStart="4dp"
                         android:textColor="#333333"
                         android:letterSpacing="-0.03"
-                        android:text="정지연" />
+                        tools:text="정지연" />
 
 
                 </RelativeLayout>

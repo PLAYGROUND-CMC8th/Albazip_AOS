@@ -12,8 +12,10 @@ import com.example.albazip.src.mypage.common.BoardData
 import com.example.albazip.src.mypage.manager.adapter.MBoardListAdapter
 import com.example.albazip.src.mypage.manager.adapter.NoticeListAdapter
 import com.example.albazip.src.mypage.manager.board.data.local.NoticeData
+import com.example.albazip.src.mypage.manager.init.data.NoticeInfo
+import com.example.albazip.src.mypage.manager.init.data.PostInfo
 
-class WroteChildFragment : BaseFragment<ChildFragmentWroteBinding>(
+class WroteChildFragment(val heList:ArrayList<NoticeInfo>, val postList:ArrayList<PostInfo>) : BaseFragment<ChildFragmentWroteBinding>(
     ChildFragmentWroteBinding::bind,
     R.layout.child_fragment_wrote
 ) {
@@ -27,6 +29,8 @@ class WroteChildFragment : BaseFragment<ChildFragmentWroteBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        showCustomToast(heList.toString())
 
         // 공지사항 리스트 불러오기
         loadNoticeList()
@@ -50,7 +54,7 @@ class WroteChildFragment : BaseFragment<ChildFragmentWroteBinding>(
     }
 
     private fun loadNoticeList(){
-        noticeList.add(NoticeData("코로나 매장 관리 공지","2021. 08. 20.",false))
+       /* noticeList.add(NoticeData("코로나 매장 관리 공지","2021. 08. 20.",false))
         noticeList.add(NoticeData("빙수기계 작동법","2021. 08. 22.",false))
         noticeList.add(NoticeData("더치 앰플 판매 관련","2021. 08. 24.",false))
         noticeList.add(NoticeData("코로나 관련 매장 공지","2021. 08. 24.",false))
@@ -58,7 +62,7 @@ class WroteChildFragment : BaseFragment<ChildFragmentWroteBinding>(
         noticeList.add(NoticeData("빙수기계 작동법","2021. 08. 28.",false))
         noticeList.add(NoticeData("빙수기계 작동법","2021. 08. 28.",false))
         noticeList.add(NoticeData("빙수기계 작동법","2021. 08. 28.",false))
-        noticeList.add(NoticeData("빙수기계 작동법","2021. 08. 28.",false))
+        noticeList.add(NoticeData("빙수기계 작동법","2021. 08. 28.",false))*/
 
 
         val linearLayoutManager = LinearLayoutManager(requireContext())
