@@ -21,14 +21,20 @@ import com.example.albazip.src.mypage.manager.custom.MSelectProfileBottomSheetDi
 import com.example.albazip.src.mypage.manager.workerlist.ui.NoWorkerListChildFragment
 import com.example.albazip.src.mypage.manager.workerlist.ui.WorkerListChildFragment
 import com.example.albazip.src.mypage.manager.board.ui.WroteChildFragment
+import com.example.albazip.src.mypage.manager.workerlist.data.remote.GetWorkerListResponse
+import com.example.albazip.src.mypage.manager.workerlist.data.remote.WorkerListData
+import com.example.albazip.src.mypage.manager.workerlist.network.WorkListFragmentView
+import com.example.albazip.src.mypage.manager.workerlist.network.WorkerListService
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MMyPageFragment :
-    BaseFragment<FragmentMMypageBinding>(FragmentMMypageBinding::bind, R.layout.fragment_m_mypage),MSelectProfileBottomSheetDialog.BottomSheetClickListener {
+    BaseFragment<FragmentMMypageBinding>(FragmentMMypageBinding::bind, R.layout.fragment_m_mypage),MSelectProfileBottomSheetDialog.BottomSheetClickListener,
+    WorkListFragmentView {
 
     private val tabTextList = arrayListOf("근무자", "작성글")
 
+    private var isWorkerCardExist = false // 근무자 등록여부 체크 변수
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,12 +61,13 @@ class MMyPageFragment :
             startActivity(nextIntent)
         }
 
-        init()
-
-
         // 탭 레이아웃 커스튬
         tabTextStyle()
 
+
+        // 근무자 등록여부 서버 통신으로 체크
+        WorkerListService(this).tryGetWorkerList()
+        showLoadingDialog(requireContext())
 
     }
 
@@ -85,7 +92,13 @@ class MMyPageFragment :
 
         override fun createFragment(position: Int): Fragment {
             return when(position) {
-                0 -> { NoWorkerListChildFragment() }
+                0 -> {
+                    if(isWorkerCardExist == true){ // 근무자 카드가 존재한다면
+                        WorkerListChildFragment() // 근무자 리스트 화면 띄우기
+                    }else {
+                        NoWorkerListChildFragment() // 근무자 추가 화면 뷰 띄우기
+                    }
+                }
                 1 -> WroteChildFragment()
                 else -> WorkerListChildFragment()
             }
@@ -126,8 +139,24 @@ class MMyPageFragment :
         Glide.with(requireContext()).load(uri).circleCrop().into(binding.profileImg)
     }
 
+    // 근무자 리스트 조회
+    override fun onGetSuccess(response: GetWorkerListResponse) {
+        dismissLoadingDialog()
+        if(response.code == 200) {
+            if(response.data?.isEmpty() == true) {
+                isWorkerCardExist = false
+                showCustomToast("비어있음")
+                init()
+            }else{
+                isWorkerCardExist = true
+                init()
+            }
+        }
+    }
 
-
+    override fun onGetFailure(message: String) {
+        Log.d("getWorkerListError",message)
+    }
 
 
 }

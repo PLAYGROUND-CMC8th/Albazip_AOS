@@ -6,6 +6,10 @@ import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentNoWorkerListBinding
+import com.example.albazip.src.mypage.manager.workerlist.data.remote.GetWorkerListResponse
+import com.example.albazip.src.mypage.manager.workerlist.data.remote.WorkerListData
+import com.example.albazip.src.mypage.manager.workerlist.network.WorkListFragmentView
+import com.example.albazip.src.mypage.manager.workerlist.network.WorkerListService
 
 class NoWorkerListChildFragment : BaseFragment<ChildFragmentNoWorkerListBinding>(
     ChildFragmentNoWorkerListBinding::bind,
@@ -18,5 +22,50 @@ class NoWorkerListChildFragment : BaseFragment<ChildFragmentNoWorkerListBinding>
             val nextIntent = Intent(requireContext(), AddWorkerOneActivity::class.java)
             startActivity(nextIntent)
         }
+
+        // 근무자 리스트 조회
+        //WorkerListService(this).tryGetWorkerList()
+        //showLoadingDialog(requireContext())
+
     }
+
+    // 근무자 존재 여부 체크
+    fun checkExistState(){
+        // 만약 데이터가 있으면
+        // ll 은 View.Gone
+
+
+        // 데이터가 없으면
+        // cl은 View.Gone
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 근무자 추가 activity 를 완료한 후 돌아왔을 때
+        checkExistState()
+    }
+
+
+//    override fun onGetSuccess(response: GetWorkerListResponse) {
+//        dismissLoadingDialog()
+//        if(response.code == 200){
+//
+//            showCustomToast("성공")
+//
+//        }
+//    }
+
+//    override fun onGetSuccess(response: GetWorkerListResponse, workerListData: WorkerListData) {
+//        dismissLoadingDialog()
+//        if(response.code == 200){
+//
+//            showCustomToast("성공")
+//
+//        }
+//    }
+//
+//    override fun onGetFailure(message: String) {
+//       dismissLoadingDialog()
+//    }
 }
+

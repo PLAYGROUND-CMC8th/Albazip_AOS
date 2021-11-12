@@ -2,6 +2,7 @@ package com.example.albazip.src.home.common
 
 import android.content.Intent
 import android.os.Bundle
+import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityHomeBinding
 import com.example.albazip.src.register.manager.RegisterPlaceActivity
@@ -12,6 +13,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 유저 이름 받아오기
+        val userFirstName = prefs.getString("userFirstName","유저")
+        binding.tvWelcome.text = userFirstName + "님 반가워요 :)\n포지션을 선택해주세요!"
 
         // 설정 창 띄우기
         binding.ibtnSetting.setOnClickListener {

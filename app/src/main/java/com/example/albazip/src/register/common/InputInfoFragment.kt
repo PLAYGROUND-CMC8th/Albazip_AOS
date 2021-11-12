@@ -45,8 +45,8 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
             // 데이터 조회
             val phone = ApplicationClass.prefs.getString("phone", null)
             val pwd = ApplicationClass.prefs.getString("pwd", null)
-            val lastName = binding.etName.text.toString()
             val firstName = binding.etFirstName.text.toString()
+            val lastName = binding.etLastName.text.toString()
             val birthyear = binding.tvInputAge.text.toString()
 
             // 성별 받아오기
@@ -78,7 +78,7 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
 
         // 포커스 여부 감지
         binding.apply {
-            etFirstName.setOnFocusChangeListener { v, hasFocus ->
+            etLastName.setOnFocusChangeListener { v, hasFocus ->
                 if (hasFocus)
                     binding.rlFirstName.background = ContextCompat.getDrawable(
                         requireContext(),
@@ -90,7 +90,7 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
                     )
                 }
             }
-            etName.setOnFocusChangeListener { v, hasFocus ->
+            etFirstName.setOnFocusChangeListener { v, hasFocus ->
                 if (hasFocus)
                     binding.rlName.background = ContextCompat.getDrawable(
                         requireContext(),
@@ -105,16 +105,16 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
         }
 
         // 입력감지(first-name)
-        binding.etFirstName.addTextChangedListener(object : TextWatcher {
+        binding.etLastName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if(s?.length!! >= 1){
                     first_name_flags = true
-                    binding.etFirstName.setTypeface(null,Typeface.BOLD)
+                    binding.etLastName.setTypeface(null,Typeface.BOLD)
                 }else{
                     first_name_flags = false
-                    binding.etFirstName.setTypeface(null,Typeface.NORMAL)
+                    binding.etLastName.setTypeface(null,Typeface.NORMAL)
                 }
 
                 checkIntentState()
@@ -124,17 +124,17 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
         })
 
         // 입력감지(last-name)
-        binding.etName.addTextChangedListener(object : TextWatcher {
+        binding.etFirstName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 //last_name_flags = s?.length!! >= 1
                 if(s?.length!! >= 1){
                     last_name_flags = true
-                    binding.etName.setTypeface(null,Typeface.BOLD)
+                    binding.etFirstName.setTypeface(null,Typeface.BOLD)
                 }else{
                     last_name_flags = false
-                    binding.etName.setTypeface(null,Typeface.NORMAL)
+                    binding.etFirstName.setTypeface(null,Typeface.NORMAL)
                 }
 
                 checkIntentState()

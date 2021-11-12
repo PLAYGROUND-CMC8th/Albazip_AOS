@@ -6,6 +6,7 @@
     android:background="#f8f8f8">
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_no_worker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"

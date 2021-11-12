@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     android:background="#f8f8f8">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_exist_worker_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
     <TextView
         android:id="@+id/tv_all"
         android:layout_width="wrap_content"
@@ -34,7 +41,6 @@
         android:textColor="#ff9d00"
         android:letterSpacing="-0.03"/>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_worker_list"
         android:layout_width="match_parent"
@@ -46,5 +52,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_worker_cnt" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

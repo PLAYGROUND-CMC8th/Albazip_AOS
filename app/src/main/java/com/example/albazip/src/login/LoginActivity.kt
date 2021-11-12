@@ -168,6 +168,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
                 // 토큰 등록하기
                 if(response.data.job == 0){ // 기본 가입만 완료된 상태일 때
                     val nextIntent = Intent(this@LoginActivity,HomeActivity::class.java)
+                    prefs.setString("userFirstName",response.data.userFirstName) // 유저이름 받아오기
                     startActivity(nextIntent)
                     finishAffinity()
                 }else if(response.data.job == 1){ // 관리자 가입이 완료된 상태일 때

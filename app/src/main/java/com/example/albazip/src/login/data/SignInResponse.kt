@@ -11,6 +11,7 @@ data class SignInResponse(
 
 data class Token(
     @SerializedName("job") val job: Int,
+    @SerializedName("userFirstName") val userFirstName: String,
     @SerializedName("token") val token: ResultSignIn,
 )
 
