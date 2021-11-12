@@ -2,6 +2,7 @@ package com.example.albazip.src.mypage.manager
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -33,6 +34,8 @@ import com.example.albazip.src.mypage.manager.workerlist.data.remote.GetWorkerLi
 import com.example.albazip.src.mypage.manager.workerlist.data.remote.WorkerListData
 import com.example.albazip.src.mypage.manager.workerlist.network.WorkListFragmentView
 import com.example.albazip.src.mypage.manager.workerlist.network.WorkerListService
+import com.example.albazip.src.mypage.manager.workerlist.ui.AddWorkerOneActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.annotations.SerializedName
@@ -83,10 +86,22 @@ class MMyPageFragment :
             startActivity(nextIntent)
         }
 
-       // init()
-
         // 탭 레이아웃 커스튬
         tabTextStyle()
+
+        // 근무자 추가버튼 클릭 시
+        binding.tbrIbtnPlusWorker.setOnClickListener {
+            // 근무자 카드가 세 개 이상일 때
+            if(workList.size >= 3){
+                // 메세지 띄우기
+                Snackbar.make(binding.root, "더 많은 근무자 등록은 구독 시 사용할 수 있습니다 :)", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(Color.parseColor("#5b5b5b"))
+                    .show()
+            }else{
+                val nextIntent = Intent(requireContext(),AddWorkerOneActivity::class.java)
+                startActivity(nextIntent)
+            }
+        }
     }
 
     // 끄고 다시오면 ㅋㅋ

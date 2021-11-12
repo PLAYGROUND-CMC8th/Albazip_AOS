@@ -1,31 +1,40 @@
 package com.example.albazip.src.mypage.manager.workerlist.ui
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
-import androidx.core.os.bundleOf
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentWorkerListBinding
 import com.example.albazip.src.mypage.manager.init.data.WorkerList
-import com.example.albazip.src.mypage.manager.workerlist.data.remote.GetWorkerListResponse
-import com.example.albazip.src.mypage.manager.workerlist.data.remote.WorkerListData
-import com.example.albazip.src.mypage.manager.workerlist.network.WorkListFragmentView
-import com.example.albazip.src.mypage.manager.workerlist.network.WorkerListService
-import kotlinx.coroutines.withTimeoutOrNull
+import com.example.albazip.src.mypage.manager.workerlist.adapter.WorkerCardAdapter
+import com.example.albazip.src.mypage.manager.workerlist.data.local.CardData
 
-class WorkerListChildFragment(workerList:ArrayList<WorkerList>) : BaseFragment<ChildFragmentWorkerListBinding>(
+class WorkerListChildFragment(serverCardList:ArrayList<WorkerList>) : BaseFragment<ChildFragmentWorkerListBinding>(
     ChildFragmentWorkerListBinding::bind,
     R.layout.child_fragment_worker_list
 ) {
-    val myWorKerList = workerList
+    // 직원카드 배열
+    val getCardList = serverCardList
+    private var cardList = ArrayList<CardData>()
+    private lateinit var workerCardAdapter:WorkerCardAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        showCustomToast(myWorKerList.toString()+"야 여기 찍히냥?ㅎㅎ")
+        // 직원 명 수 띄우기
+        binding.tvWorkerCnt.text = getCardList.size.toString()
+
+        for(i in 0 until getCardList.size){
+            cardList.add(CardData(getCardList[i].status,getCardList[i].rank,getCardList[i].image_path.toString(),getCardList[i].title,getCardList[i].first_name))
+        }
+
+
+        binding.rvWorkerList.layoutManager = GridLayoutManager(context,3)
+        workerCardAdapter = WorkerCardAdapter(cardList,requireContext())
+        binding.rvWorkerList.adapter = workerCardAdapter
+
         // 근무자 리스트 조회
         //WorkerListService(this).tryGetWorkerList()
         //showLoadingDialog(requireContext())
@@ -39,21 +48,11 @@ class WorkerListChildFragment(workerList:ArrayList<WorkerList>) : BaseFragment<C
     }
 
 
+    // 새로고침할 때 써먹어야쥥~ ㅎㅎ
 //    override fun onGetSuccess(response: GetWorkerListResponse) {
 //        dismissLoadingDialog()
 //        if(response.code == 200){
 //            showCustomToast("성공")
 //        }
-//    }
-//
-//    override fun onGetSuccess(response: GetWorkerListResponse, workerListData: WorkerListData) {
-//        dismissLoadingDialog()
-//        if(response.code == 200){
-//            showCustomToast("성공")
-//        }
-//    }
-//
-//    override fun onGetFailure(message: String) {
-//        dismissLoadingDialog()
 //    }
 }

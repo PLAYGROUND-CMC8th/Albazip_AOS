@@ -25,16 +25,16 @@ class BoardChildListFragment:BaseFragment<ChildFragmentBoardBinding>(ChildFragme
     }
 
     private fun loadBoardList(){
-        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
-                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
-        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
-                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
-        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
-                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
-        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
-                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
-        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
-                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
+//        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
+//                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
+//        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
+//                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
+//        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
+//                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
+//        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
+//                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
+//        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
+//                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
 
 
         val linearLayoutManager = LinearLayoutManager(requireContext())

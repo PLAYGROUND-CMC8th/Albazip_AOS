@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="96dp"
     android:layout_height="143dp"
+    android:layout_marginBottom="11dp"
     android:background="@drawable/bg_card_deactive"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -44,6 +45,8 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
+            android:id="@+id/iv_alarm"
+            android:visibility="gone"
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:src="@drawable/new_badge_8_px"

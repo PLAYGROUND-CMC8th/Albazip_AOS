@@ -40,7 +40,7 @@ class WroteChildFragment(val serverNoticeList:ArrayList<NoticeInfo>, val serverP
         }
 
         for(i in 0 until getPostList.size){
-            boardList.add(BoardData(getPostList[i].title,getPostList[i].content,getPostList[i].commentCount.toString(),getNoticeList[i].registerDate.substring(0,10).replace("-",".")+"."))
+            boardList.add(BoardData(getPostList[i].writerName,getPostList[i].title,getPostList[i].content,getPostList[i].commentCount.toString(),getNoticeList[i].registerDate.substring(0,10).replace("-",".")+"."))
         }
 
         // 공지사항 리스트 불러오기
