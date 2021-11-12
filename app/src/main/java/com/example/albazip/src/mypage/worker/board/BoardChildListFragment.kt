@@ -15,6 +15,7 @@ class BoardChildListFragment(val boardInfoList:WBoardInfo):BaseFragment<ChildFra
     R.layout.child_fragment_board) {
 
     // 게시판 리스트
+    private var getBoard = boardInfoList
     private var boardList = ArrayList<BoardData>()
     private lateinit var bordListAdapter: WBoardListAdapter
 
@@ -26,17 +27,12 @@ class BoardChildListFragment(val boardInfoList:WBoardInfo):BaseFragment<ChildFra
     }
 
     private fun loadBoardList(){
-//        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
-//                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
-//        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
-//                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
-//        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
-//                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
-//        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
-//                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
-//        boardList.add(BoardData("오차드별 아이스티 품절","오차드별 아이스티 남아있던 거 다 팔았습니다!\n" +
-//                "오늘부로 판매 종료입니다~","2","2021. 08. 15."))
 
+        for(i in 0 until getBoard.postInfo.size){
+            boardList.add(
+                BoardData(getBoard.postInfo[i].writerName,getBoard.postInfo[i].writerJob,getBoard.postInfo[i].title,getBoard.postInfo[i].content,
+            getBoard.postInfo[i].commentCount.toString(),getBoard.postInfo[i].registerDate.substring(0,10).replace("-",".")+"."))
+        }
 
         val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL

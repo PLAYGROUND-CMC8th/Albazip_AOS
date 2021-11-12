@@ -36,11 +36,9 @@ class WBoardListAdapter(val itemList:ArrayList<BoardData>,var context: Context):
             // 프로필 설정
             Glide.with(myContext).load(R.drawable.img_w_profile_1_24_px).circleCrop().into(binding.ivProfile)
             // 포지션 설정
-            binding.tvPosition.text = "평일마감"
-            binding.tvPosition.setTextColor(Color.parseColor("#ffb100"))
-            // 이름 설정
-            binding.tvName.text = "지연"
-
+            binding.tvPosition.text = boardData.writerJob
+            //binding.tvPosition.setTextColor(Color.parseColor("#ffb100"))
+            binding.tvName.text = boardData.writerName // 이름 설정
             binding.tvTitle.text = boardData.title // 글제목
             binding.tvContent.text = boardData.content// 글 내용
             binding.tvDate.text = boardData.date// 글 날짜

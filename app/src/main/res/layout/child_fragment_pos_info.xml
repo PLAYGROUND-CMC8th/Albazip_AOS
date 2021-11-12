@@ -75,6 +75,7 @@
                                 android:letterSpacing="-0.03"/>
 
                             <TextView
+                                android:id="@+id/tv_work_time"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="14sp"
@@ -82,10 +83,11 @@
                                 android:letterSpacing="-0.03"
                                 android:lineSpacingExtra="8sp"
                                 android:layout_marginTop="2dp"
-                                android:text="19:00 ~ 23:00 까지 (총 4시간)"
+                                tools:text="19:00 ~ 23:00 까지 (총 4시간)"
                                 />
 
                             <TextView
+                                android:id="@+id/tv_rest_time"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textStyle="normal"
@@ -94,7 +96,7 @@
                                 android:textColor="#6f6f6f"
                                 android:letterSpacing="-0.03"
                                 android:lineSpacingExtra="8sp"
-                                android:text="휴게시간 없음"/>
+                                tools:text="휴게시간 없음"/>
 
                         </LinearLayout>
                     </RelativeLayout>
@@ -136,6 +138,7 @@
                                 android:letterSpacing="-0.03"/>
 
                             <TextView
+                                android:id="@+id/tv_working_day"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="14sp"
@@ -143,7 +146,7 @@
                                 android:letterSpacing="-0.03"
                                 android:lineSpacingExtra="8sp"
                                 android:layout_marginTop="2dp"
-                                android:text="월  화  수  목  금"
+                                tools:text="월  화  수  목  금"
                                 />
                         </LinearLayout>
 
@@ -186,6 +189,7 @@
                                 android:letterSpacing="-0.03"/>
 
                             <TextView
+                                android:id="@+id/tv_salary"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="14sp"
@@ -193,7 +197,7 @@
                                 android:letterSpacing="-0.03"
                                 android:lineSpacingExtra="8sp"
                                 android:layout_marginTop="2dp"
-                                android:text="시급 8,800원"
+                                tools:text="시급 8,800원"
                                 />
                         </LinearLayout>
 

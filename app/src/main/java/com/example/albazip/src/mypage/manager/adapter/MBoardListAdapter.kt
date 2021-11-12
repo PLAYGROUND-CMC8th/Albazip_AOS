@@ -34,9 +34,8 @@ class MBoardListAdapter(val itemList:ArrayList<BoardData>,var context:Context): 
 
             // 프로필 설정
             Glide.with(myContext).load(R.drawable.img_m_profile_1_24_px).circleCrop().into(binding.ivProfile)
-            // 포지션 설정
-            binding.tvPosition.text = "사장님"
 
+            binding.tvPosition.text = boardData.writerJob // 포지션 설정
             binding.tvName.text = boardData.writerName // 이름 설정
             binding.tvTitle.text = boardData.title // 글제목
             binding.tvContent.text = boardData.content// 글 내용

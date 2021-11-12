@@ -50,6 +50,7 @@ data class PositionInfo(
     @SerializedName("startTime") val startTime: String,
     @SerializedName("endTime") val endTime: String,
     @SerializedName("workTime") val workTime: String,
+    @SerializedName("workDay") val workDay: String,
     @SerializedName("breakTime") val breakTime: String,
     @SerializedName("salaryType") val salaryType: Int,
     @SerializedName("salary") val salary: Int,
@@ -66,5 +67,6 @@ data class WPostInfo(
     @SerializedName("writerName") val writerName: String,
     @SerializedName("title") val title: String,
     @SerializedName("content") val content: String,
-    @SerializedName("commentCount") val commentCount: Int
+    @SerializedName("commentCount") val commentCount: Int,
+    @SerializedName("registerDate") val registerDate: String
 )
