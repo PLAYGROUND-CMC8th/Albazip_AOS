@@ -50,6 +50,7 @@
                             android:text="휴대전화" />
 
                         <TextView
+                            android:id="@+id/tv_my_num"
                             android:textStyle="normal"
                             android:textSize="11sp"
                             android:textColor="#6f6f6f"
@@ -60,7 +61,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_phone"
-                            android:text="010-8924-6852" />
+                            tools:text="010-8924-6852" />
 
                     </RelativeLayout>
 
@@ -85,6 +86,7 @@
                             android:text="나이" />
 
                         <TextView
+                            android:id="@+id/tv_my_birth"
                             android:textStyle="normal"
                             android:textSize="11sp"
                             android:textColor="#6f6f6f"
@@ -95,7 +97,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_age"
-                            android:text="1998년생" />
+                            tools:text="1998년생" />
 
                     </RelativeLayout>
 
@@ -117,6 +119,7 @@
                             android:layout_alignParentTop="true"
                             android:text="성별" />
                         <TextView
+                            android:id="@+id/tv_my_sex"
                             android:textStyle="normal"
                             android:textSize="11sp"
                             android:textColor="#6f6f6f"
@@ -127,7 +130,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_sex"
-                            android:text="여자" />
+                            tools:text="여자" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -164,7 +167,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_toStartOf="@id/tv_late_unit"
-                            android:text="0"
+                            tools:text="0"
                             android:layout_marginEnd="2dp"
                             android:textStyle="bold"
                             android:textSize="24sp"
@@ -229,7 +232,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_toStartOf="@id/tv_together_unit"
-                            android:text="3"
+                            tools:text="3"
                             android:layout_marginEnd="2dp"
                             android:textStyle="bold"
                             android:textSize="24sp"
@@ -294,7 +297,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_toStartOf="@id/tv_success_unit"
-                            android:text="100"
+                            tools:text="100"
                             android:layout_marginEnd="2dp"
                             android:textStyle="bold"
                             android:textSize="24sp"
@@ -365,7 +368,7 @@
                         android:textColor="#6f6f6f"
                         android:letterSpacing="-0.03"
                         android:lineSpacingExtra="6sp"
-                        android:text="20.01.01"
+                        tools:text="20.01.01"
                         android:layout_centerVertical="true"/>
 
                     <ImageButton

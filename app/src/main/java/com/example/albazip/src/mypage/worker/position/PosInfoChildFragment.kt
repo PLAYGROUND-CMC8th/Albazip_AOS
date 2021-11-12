@@ -8,7 +8,7 @@ import com.example.albazip.databinding.ChildFragmentPosInfoBinding
 import com.example.albazip.src.mypage.worker.init.data.PositionInfo
 
 // 근무자 > 포지션 탭
-class PosInfoChildFragment(val positionInfoList:ArrayList<PositionInfo>) : BaseFragment<ChildFragmentPosInfoBinding>(
+class PosInfoChildFragment(val positionInfoList:PositionInfo) : BaseFragment<ChildFragmentPosInfoBinding>(
     ChildFragmentPosInfoBinding::bind,
     R.layout.child_fragment_pos_info
 ) {

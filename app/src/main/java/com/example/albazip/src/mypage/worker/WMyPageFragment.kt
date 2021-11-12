@@ -36,9 +36,9 @@ class WMyPageFragment :
 
     private val tabTextList = arrayListOf("내 정보", "포지션", "작성글")
 
-    private val myInfoList = ArrayList<MyInfo>() // 내정보
-    private val positionInfoList = ArrayList<PositionInfo>() // 포지션
-    private val boardInfoList = ArrayList<WBoardInfo>() // 작성글
+    private lateinit var myInfo:MyInfo // 내정보
+    private lateinit var positionInfo:PositionInfo // 포지션
+    private lateinit var boardInfo:WBoardInfo  // 작성글
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -88,10 +88,10 @@ class WMyPageFragment :
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> MyInfoChildFragment(myInfoList)
-                1 -> PosInfoChildFragment(positionInfoList)
-                2 -> BoardChildListFragment(boardInfoList)
-                else -> MyInfoChildFragment(myInfoList)
+                0 -> MyInfoChildFragment(myInfo)
+                1 -> PosInfoChildFragment(positionInfo)
+                2 -> BoardChildListFragment(boardInfo)
+                else -> MyInfoChildFragment(myInfo)
             }
         }
     }
@@ -132,27 +132,29 @@ class WMyPageFragment :
     override fun onWMyPageGetSuccess(response: GetWMyPageInfoResponse) {
         dismissLoadingDialog()
         if(response.code == 200){
-
-            /////////////// 내정보 받아오기
+            ////////////// 기본 정보 받아오기
             // 프로필 사진 설정
             binding.tvShopName.text = response.data.profileInfo.shopName // 가게이름
             binding.tvPosition.text = response.data.profileInfo.jobTitle // 포지션
             binding.tvWorkerName.text = response.data.profileInfo.lastName + response.data.profileInfo.firstName // 유저이름
+
+
+            ////////////// 내 정보 받아오기  ///////////////////
+            myInfo = response.data.myInfo
+            //////////////// 포지션 정보 받아오기 ///////////////
+            positionInfo = response.data.positionInfo
+            //////////////// 작성글 정보 받아오기 ///////////////
+            boardInfo = response.data.boardInfo
 
             init()
         }else{
             showCustomToast(response.message.toString())
         }
 
-        showCustomToast(response.message.toString())
-
 
     }
 
     override fun onWMyPageGetFailure(message: String) {
         dismissLoadingDialog()
-
-        Log.d("whywrong",message)
-        showCustomToast(message)
     }
 }

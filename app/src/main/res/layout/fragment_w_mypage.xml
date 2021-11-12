@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/mainYellow"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -68,7 +69,7 @@
                         android:layout_marginBottom="4dp"
                         android:textColor="#333333"
                         android:letterSpacing="-0.03"
-                        android:text="서플라이 첨단점" />
+                        tools:text="서플라이 첨단점" />
 
                     <TextView
                         android:id="@+id/tv_position"
@@ -81,7 +82,7 @@
                         android:textAlignment="center"
                         android:textColor="#ffb100"
                         android:letterSpacing="-0.03"
-                        android:text="평일마감" />
+                        tools:text="평일마감" />
 
                     <TextView
                         android:id="@+id/tv_worker_name"
@@ -96,7 +97,7 @@
                         android:layout_marginStart="4dp"
                         android:textColor="#333333"
                         android:letterSpacing="-0.03"
-                        android:text="지연" />
+                        tools:text="지연" />
 
 
                 </RelativeLayout>
