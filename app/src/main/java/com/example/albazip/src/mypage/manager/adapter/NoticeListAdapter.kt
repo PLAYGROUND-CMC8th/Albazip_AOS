@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.databinding.ItemRvNoticeListBinding
 import com.example.albazip.src.mypage.manager.board.data.local.NoticeData
+import okhttp3.internal.notifyAll
 
 class NoticeListAdapter(val itemList:ArrayList<NoticeData>): RecyclerView.Adapter<NoticeListAdapter.NoticeHolder>() {
 
@@ -28,11 +29,17 @@ class NoticeListAdapter(val itemList:ArrayList<NoticeData>): RecyclerView.Adapte
 
             binding.itemTvTitle.text = noticeData.titleTxt // 글제목
             binding.itemTvDate.text = noticeData.dateTxt // 날짜
-            binding.cbPin.isChecked = noticeData.pinState // 핀 고정 여부
 
-            // 체크 상태를 저장
+            binding.cbPin.isChecked = noticeData.pinState != 0 // 핀 고정 여부
+
+            // 체크 상태를 저장 (여기서 아마 서버 통신)
             binding.cbPin.setOnClickListener {
-                noticeData.pinState = binding.cbPin.isChecked
+                if(noticeData.pinState == 0){
+                    noticeData.pinState = 1
+                }else{
+                    noticeData.pinState = 0
+                }
+                        //noticeData.pinState = binding.cbPin.isChecked
                 notifyItemChanged(adapterPosition)
             }
         }

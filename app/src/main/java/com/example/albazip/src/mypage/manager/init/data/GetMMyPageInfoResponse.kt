@@ -55,4 +55,5 @@ data class PostInfo(
     @SerializedName("title") val title : String,
     @SerializedName("content") val content : String,
     @SerializedName("commentCount") val commentCount : Int,
+    @SerializedName("registerDate") val registerDate : String,
 )

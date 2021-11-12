@@ -49,10 +49,7 @@ class MMyPageFragment :
     var workList = ArrayList<WorkerList>() // 근무자 리스트
     var noticeList = ArrayList<NoticeInfo>() // 공지 리스트
     var postList = ArrayList<PostInfo>() // 게시글 리스트
-
-    //val no_worker_list_child_fragment = NoWorkerListChildFragment() // 근무자리스트 frag (근무자 x)
-    //val wrote_child_fragment = WroteChildFragment() // 게시글 frag
-
+    
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -178,13 +175,11 @@ class MMyPageFragment :
             if(response.data.workerList?.isEmpty() == true) { // 근무자 리스트가 비어있으면
                 isWorkerCardExist = false
                 showCustomToast("비어있음")
-                //init()
             }else{
                 isWorkerCardExist = true // 근무자 리스트가 존재하면
 
                 // -> fragment 에 데이터 전달
                 workList = response.data.workerList!!
-                //init()
             }
 
             // 작성글 리스트 호출(공지)
@@ -198,8 +193,6 @@ class MMyPageFragment :
         }else{
             showCustomToast(response.message.toString())
         }
-
-        //init()
     }
 
     override fun onMMyPageGetFailure(message: String) {
