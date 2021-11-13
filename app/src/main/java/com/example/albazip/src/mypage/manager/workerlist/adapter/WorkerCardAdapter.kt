@@ -3,6 +3,7 @@ package com.example.albazip.src.mypage.manager.workerlist.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -23,6 +24,17 @@ class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): 
 
     override fun onBindViewHolder(holder: CardHolder, position: Int) {
         holder.setCardList(itemList[position])
+
+        // 근무자 카드를 클릭 했을 때
+        holder.itemView.setOnClickListener {
+
+            // 근무자 존재 여부 체크
+            if(itemList[position].status == 0){  // 1. 근무자 부재
+                // 근무자 x fragment를 mypage에 쌓기
+            }else{ // 2. 근무자 존재
+                // 근무자 o fragment를 mypage에 쌓기
+            }
+        }
     }
 
     override fun getItemCount(): Int = itemList.size

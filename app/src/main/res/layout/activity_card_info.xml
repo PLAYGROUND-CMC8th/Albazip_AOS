@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/mainYellow"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="242dp"
+                android:background="@color/white"
+                app:layout_collapseMode="pin">
+
+                <TextView
+                    android:id="@+id/tv_rank"
+                    tools:text="알바생"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="normal"
+                    android:textSize="16sp"
+                    android:textColor="#a3a3a3"
+                    android:letterSpacing="-0.03"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="72dp"/>
+
+                <ImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:src="@drawable/img_profile_48_px_none"
+                    android:background="@null"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_rank"
+                    android:layout_marginTop="8dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_profile"
+                    android:textStyle="normal"
+                    android:textSize="22sp"
+                    android:textColor="#ffb100"
+                    android:letterSpacing="-0.03"
+                    tools:text="평일 오픈"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="16dp"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Toolbar
+                android:id="@+id/order_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentInsetStart="0dp"
+                app:layout_collapseMode="pin">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@color/white">
+
+                    <ImageButton
+                        android:id="@+id/tbr_ibtn_back_btn"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_back_arrow"
+                        android:background="@null"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="근무자"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#000000"
+                        android:letterSpacing="-0.03"
+                        android:gravity="center_horizontal"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/tbr_tv_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="편집"
+                        android:textStyle="normal"
+                        android:textSize="16sp"
+                        android:textColor="#343434"
+                        android:letterSpacing="-0.03"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_setting" />
+                </RelativeLayout>
+            </Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.example.albazip.util.StickyNScrollView
+        android:id="@+id/sticky_nested_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:tabIndicatorColor="@color/black"
+                    app:tabSelectedTextColor="@color/black"
+                    android:paddingStart="12dp"
+                    app:tabMode="fixed"
+                    app:tabTextAppearance="@style/TabLayoutTextStyle"
+                    app:tabMaxWidth="0dp"
+                    app:tabGravity="start"
+                    app:tabTextColor="#e2e2e2"
+                    android:background="@null"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/customWhite"
+                    app:layout_constraintTop_toBottomOf="@id/tab_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </androidx.viewpager2.widget.ViewPager2>
+
+        </LinearLayout>
+    </com.example.albazip.util.StickyNScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

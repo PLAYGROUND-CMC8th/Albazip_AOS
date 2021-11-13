@@ -88,6 +88,8 @@
         <activity android:name=".src.mypage.common.ServiceLawActivity"/>
         <activity android:name=".src.mypage.common.SubScribeActivity"/>
         <activity android:name=".src.mypage.common.WithDrawMemberActivity"/>
+        <activity android:name=".src.mypage.manager.workerlist.cardevent.ui.CardInfoActivity">
+        </activity>
 
     </application>
 
