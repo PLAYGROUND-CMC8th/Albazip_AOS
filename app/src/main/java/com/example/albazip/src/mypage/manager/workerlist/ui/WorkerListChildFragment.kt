@@ -31,7 +31,7 @@ class WorkerListChildFragment(serverCardList:ArrayList<WorkerList>) : BaseFragme
         }
 
 
-        binding.rvWorkerList.layoutManager = GridLayoutManager(context,3)
+        //binding.rvWorkerList.layoutManager = GridLayoutManager(context,3)
         workerCardAdapter = WorkerCardAdapter(cardList,requireContext())
         binding.rvWorkerList.adapter = workerCardAdapter
 

@@ -8,16 +8,21 @@ import com.example.albazip.databinding.ChildFragmentPosInfoBinding
 import com.example.albazip.src.mypage.worker.init.data.PositionInfo
 
 // 근무자 > 포지션 탭
-class PosInfoChildFragment(val positionInfo:PositionInfo) : BaseFragment<ChildFragmentPosInfoBinding>(
+class PosInfoChildFragment(val positionInfo:PositionInfo,val intentPosition:String) : BaseFragment<ChildFragmentPosInfoBinding>(
     ChildFragmentPosInfoBinding::bind,
     R.layout.child_fragment_pos_info
 ) {
 
     // 서버에서 정보 받아오기
     val getPositionInfo = positionInfo
+    val getIntentPositionTxt = intentPosition
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        // 상단 텍스트 포지션 정보 받아오기
+        binding.tvPosition.text = getIntentPositionTxt
 
         // 근무시간 여쭤봐야겠다. ㅎ 월급도 ! ^^
 

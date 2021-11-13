@@ -40,6 +40,8 @@ class WMyPageFragment :
     private lateinit var positionInfo:PositionInfo // 포지션
     private lateinit var boardInfo:WBoardInfo  // 작성글
 
+    private lateinit var intentPosition:String
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -89,7 +91,7 @@ class WMyPageFragment :
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> MyInfoChildFragment(myInfo)
-                1 -> PosInfoChildFragment(positionInfo)
+                1 -> PosInfoChildFragment(positionInfo,intentPosition)
                 2 -> BoardChildListFragment(boardInfo)
                 else -> MyInfoChildFragment(myInfo)
             }
@@ -145,6 +147,8 @@ class WMyPageFragment :
             positionInfo = response.data.positionInfo
             //////////////// 작성글 정보 받아오기 ///////////////
             boardInfo = response.data.boardInfo
+
+            intentPosition = response.data.profileInfo.jobTitle
 
             init()
         }else{
