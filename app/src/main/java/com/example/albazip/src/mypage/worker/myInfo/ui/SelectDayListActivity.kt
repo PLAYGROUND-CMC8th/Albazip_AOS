@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.worker.myInfo
+package com.example.albazip.src.mypage.worker.myInfo.ui
 
 import android.content.Context
 import android.os.Bundle

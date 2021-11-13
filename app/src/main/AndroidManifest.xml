@@ -55,17 +55,17 @@
         <activity android:name=".src.home.common.SettingActivity" />
 
 
-        <activity android:name=".src.mypage.worker.myInfo.LateCheckActivity">
+        <activity android:name=".src.mypage.worker.myInfo.ui.LateCheckActivity">
 
         </activity>
-        <activity android:name=".src.mypage.worker.myInfo.TogetherWorkActivity"/>
-        <activity android:name=".src.mypage.worker.myInfo.DoneWorkActivity"/>
-        <activity android:name=".src.mypage.worker.myInfo.SelectMonthListActivity"/>
+        <activity android:name=".src.mypage.worker.myInfo.ui.TogetherWorkActivity"/>
+        <activity android:name=".src.mypage.worker.myInfo.ui.DoneWorkActivity"/>
+        <activity android:name=".src.mypage.worker.myInfo.ui.SelectMonthListActivity"/>
         <activity android:name=".src.mypage.manager.workerlist.ui.AddWorkerOneActivity"
             android:windowSoftInputMode="adjustResize">
 
         </activity>
-        <activity android:name=".src.mypage.worker.myInfo.SelectDayListActivity"/>
+        <activity android:name=".src.mypage.worker.myInfo.ui.SelectDayListActivity"/>
         <activity android:name=".src.mypage.manager.workerlist.ui.AddWorkerTwoActivity"
             android:windowSoftInputMode="adjustPan"
             >

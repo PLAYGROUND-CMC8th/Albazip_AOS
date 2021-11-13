@@ -138,17 +138,6 @@
                         android:background="@android:color/transparent"
                         android:scaleType="center"
                         android:src="@drawable/ic_setting" />
-
-                    <ImageButton
-                        android:id="@+id/tbr_ibtn_plus_worker"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="14dp"
-                        android:layout_toStartOf="@id/tbr_ibtn_setting"
-                        android:background="@android:color/transparent"
-                        android:scaleType="center"
-                        android:src="@drawable/ic_plus_worker" />
                 </RelativeLayout>
             </Toolbar>
 
