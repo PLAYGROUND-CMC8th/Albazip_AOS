@@ -1,20 +1,33 @@
 package com.example.albazip.src.mypage.manager.workerlist.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.databinding.ItemRvWorkerCardBinding
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.ui.CardInfoFragment
 import com.example.albazip.src.mypage.manager.workerlist.data.local.CardData
 
 class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): RecyclerView.Adapter<WorkerCardAdapter.CardHolder>() {
 
     private lateinit var binding: ItemRvWorkerCardBinding
     private var myContext = context
+
+    interface OnItemClickListener{
+        fun onItemClick(v : View, position : Int)
+    }
+
+    private var listener : OnItemClickListener?=null
+
+    fun setOnItemClickListener(listener:OnItemClickListener){
+        this.listener=listener
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardHolder {
         binding =  ItemRvWorkerCardBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -25,16 +38,19 @@ class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): 
     override fun onBindViewHolder(holder: CardHolder, position: Int) {
         holder.setCardList(itemList[position])
 
+
         // 근무자 카드를 클릭 했을 때
-        holder.itemView.setOnClickListener {
+       // holder.itemView.setOnClickListener {
 
             // 근무자 존재 여부 체크
-            if(itemList[position].status == 0){  // 1. 근무자 부재
+            /*if(itemList[position].status == 0){  // 1. 근무자 부재
+
+
                 // 근무자 x fragment를 mypage에 쌓기
             }else{ // 2. 근무자 존재
                 // 근무자 o fragment를 mypage에 쌓기
-            }
-        }
+            }*/
+       // }
     }
 
     override fun getItemCount(): Int = itemList.size
@@ -42,6 +58,11 @@ class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): 
     inner class CardHolder(val binding: ItemRvWorkerCardBinding): RecyclerView.ViewHolder(binding.root){
 
         fun setCardList(cardData: CardData){
+
+            // 클릭 이벤트 -> 메인으로 값 전달
+            binding.root.setOnClickListener {
+                listener?.onItemClick(binding.root,adapterPosition)
+            }
 
             // 활성화 상태
             // 비활성화 카드면 -> 배경 off , 이미지 기본
@@ -65,6 +86,7 @@ class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): 
 
                 // 타임
                 binding.tvPosition.text = cardData.title
+
             }
 
         }

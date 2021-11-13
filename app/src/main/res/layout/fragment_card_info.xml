@@ -25,7 +25,7 @@
 
                 <TextView
                     android:id="@+id/tv_rank"
-                    tools:text="알바생"
+                    android:text="알바생"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="normal"
@@ -61,7 +61,7 @@
                     android:textSize="22sp"
                     android:textColor="#ffb100"
                     android:letterSpacing="-0.03"
-                    tools:text="평일 오픈"
+                    android:text="평일 오픈"
                     android:gravity="center_horizontal"
                     android:layout_marginTop="16dp"/>
 

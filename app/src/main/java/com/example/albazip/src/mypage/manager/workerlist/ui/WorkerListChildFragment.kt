@@ -2,14 +2,16 @@ package com.example.albazip.src.mypage.manager.workerlist.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.FragmentManager
 import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentWorkerListBinding
 import com.example.albazip.src.mypage.manager.init.data.WorkerList
 import com.example.albazip.src.mypage.manager.workerlist.adapter.WorkerCardAdapter
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.ui.CardInfoFragment
 import com.example.albazip.src.mypage.manager.workerlist.data.local.CardData
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 
 class WorkerListChildFragment(serverCardList:ArrayList<WorkerList>) : BaseFragment<ChildFragmentWorkerListBinding>(
     ChildFragmentWorkerListBinding::bind,
@@ -29,11 +31,24 @@ class WorkerListChildFragment(serverCardList:ArrayList<WorkerList>) : BaseFragme
         for(i in 0 until getCardList.size){
             cardList.add(CardData(getCardList[i].status,getCardList[i].rank,getCardList[i].image_path.toString(),getCardList[i].title,getCardList[i].first_name))
         }
-
-
-        //binding.rvWorkerList.layoutManager = GridLayoutManager(context,3)
         workerCardAdapter = WorkerCardAdapter(cardList,requireContext())
         binding.rvWorkerList.adapter = workerCardAdapter
+
+        // 근무자 카드를 클릭 했을 때
+        workerCardAdapter.setOnItemClickListener(object :WorkerCardAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, position: Int) {
+
+                // 1. 근무자 부재
+                if(cardList[position].status == 0){
+                    showCustomToast("근무자 부재")
+                    parentFragmentManager.beginTransaction().add(R.id.manager_main_frm,CardInfoFragment()).addToBackStack(null).commit()
+                    prefs.setInt("backStackState",1)
+                }else{// 2. 근무자 존재
+
+                }
+            }
+
+        })
 
         // 근무자 리스트 조회
         //WorkerListService(this).tryGetWorkerList()
@@ -43,7 +58,7 @@ class WorkerListChildFragment(serverCardList:ArrayList<WorkerList>) : BaseFragme
 
     override fun onResume() {
         super.onResume()
-        // 근무자 추가 activity 를 완료한 후 돌아왔을 때
+
         //checkExistState()
     }
 

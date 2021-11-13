@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
-import com.example.albazip.databinding.FragmentCardToDoListBinding
+import com.example.albazip.databinding.ChildFragmentCardToDoListBinding
 
-class CardToDoFragment:BaseFragment<FragmentCardToDoListBinding>(FragmentCardToDoListBinding::bind,
-    R.layout.fragment_card_to_do_list) {
+class CardToDoChildFragment:BaseFragment<ChildFragmentCardToDoListBinding>(ChildFragmentCardToDoListBinding::bind,
+    R.layout.child_fragment_card_to_do_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

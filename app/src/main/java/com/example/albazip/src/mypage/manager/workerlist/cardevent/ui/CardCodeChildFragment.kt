@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
-import com.example.albazip.databinding.FragmentCardCodeBinding
+import com.example.albazip.databinding.ChildFragmentCardCodeBinding
 
-class CardCodeFragment:BaseFragment<FragmentCardCodeBinding>(FragmentCardCodeBinding::bind, R.layout.fragment_card_code) {
+class CardCodeChildFragment:BaseFragment<ChildFragmentCardCodeBinding>(ChildFragmentCardCodeBinding::bind, R.layout.child_fragment_card_code) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

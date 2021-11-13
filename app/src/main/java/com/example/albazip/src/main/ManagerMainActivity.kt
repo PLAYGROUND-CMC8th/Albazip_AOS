@@ -2,6 +2,7 @@ package com.example.albazip.src.main
 
 import android.os.Bundle
 import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityManagerMainBinding
 import com.example.albazip.src.community.manager.MCommunityFragment
@@ -22,7 +23,8 @@ class ManagerMainActivity :
 
         backPressCloseHandler = BackPressCloseHandler(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MHomeFragment()).commitAllowingStateLoss()
+        supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MHomeFragment())
+            .commitAllowingStateLoss()
 
 
         binding.managerMainBtmNav.run {
@@ -62,11 +64,16 @@ class ManagerMainActivity :
     // 뒤로가기 스택 감지
     override fun onBackPressed() {
 
-        if(binding.managerMainBtmNav.selectedItemId == R.id.menu_main_btm_nav_home){
+        if (binding.managerMainBtmNav.selectedItemId == R.id.menu_main_btm_nav_home) {
             //super.onBackPressed()
             backPressCloseHandler.onBackPressed()
-        }else{
-            binding.managerMainBtmNav.selectedItemId = R.id.menu_main_btm_nav_home
+        } else {
+            if (prefs.getInt("backStackState", 0) == 1){
+                super.onBackPressed()
+                prefs.setInt("backStackState", 0)
+            }else{
+                binding.managerMainBtmNav.selectedItemId = R.id.menu_main_btm_nav_home
+            }
         }
     }
 }

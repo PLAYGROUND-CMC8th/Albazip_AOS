@@ -1,28 +1,29 @@
 package com.example.albazip.src.mypage.manager.workerlist.cardevent.ui
 
+import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.albazip.config.BaseActivity
-import com.example.albazip.databinding.ActivityCardInfoBinding
-import com.example.albazip.src.mypage.manager.board.ui.WroteChildFragment
-import com.example.albazip.src.mypage.manager.workerlist.ui.NoWorkerListChildFragment
-import com.example.albazip.src.mypage.manager.workerlist.ui.WorkerListChildFragment
+import com.example.albazip.R
+import com.example.albazip.config.BaseFragment
+import com.example.albazip.databinding.FragmentCardInfoBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 // 근무자 카드 클릭 시 뜨는 activity
-class CardInfoActivity:BaseActivity<ActivityCardInfoBinding>(ActivityCardInfoBinding::inflate){
+class CardInfoFragment:BaseFragment<FragmentCardInfoBinding>(FragmentCardInfoBinding::bind, R.layout.fragment_card_info){
 
     private val tabTextList = arrayListOf("근무자 정보", "포지션 정보","업무 리스트")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // sticky tab layout
         binding.stickyNestedScrollview.run {
@@ -42,7 +43,7 @@ class CardInfoActivity:BaseActivity<ActivityCardInfoBinding>(ActivityCardInfoBin
     }
 
     private fun init() {
-        binding.viewpager.adapter = CustomFragmentStateAdapter(this)
+        binding.viewpager.adapter = CustomFragmentStateAdapter(requireActivity())
         TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
             tab.text = tabTextList[position]
         }.attach()
@@ -58,11 +59,11 @@ class CardInfoActivity:BaseActivity<ActivityCardInfoBinding>(ActivityCardInfoBin
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> {  // 근무자 정보 없을 때
-                        CardCodeFragment() // 근무자 정보
+                        CardCodeChildFragment() // 근무자 정보
                     }
-                1 -> CardPositionFragment() // 포지션 정보
-                2 -> CardToDoFragment()// 업무 리스트
-                else -> CardCodeFragment()
+                1 -> CardPositionChildFragment() // 포지션 정보
+                2 -> CardToDoChildFragment()// 업무 리스트
+                else -> CardCodeChildFragment()
             }
         }
     }
@@ -95,5 +96,4 @@ class CardInfoActivity:BaseActivity<ActivityCardInfoBinding>(ActivityCardInfoBin
             }
         }
     }
-
 }
