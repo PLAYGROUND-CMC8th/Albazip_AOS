@@ -37,8 +37,8 @@ data class WorkerList(
 
 /////////////////////////// 공지사항 및 게시판 ///////////////////////////////////
 data class BoardInfo(
-    @SerializedName("noticeInfo") val noticeInfo : ArrayList<NoticeInfo>?,
-    @SerializedName("postInfo") val postInfo : ArrayList<PostInfo>?,
+    @SerializedName("noticeInfo") val noticeInfo : ArrayList<NoticeInfo>,
+    @SerializedName("postInfo") val postInfo : ArrayList<PostInfo>,
 )
 
 data class NoticeInfo(
