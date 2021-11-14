@@ -25,7 +25,7 @@ class CardToDoChildFragment(positionTaskList:ArrayList<PositionTaskList>):BaseFr
         for(i in 0 until getPositionTaskList.size)
         unDoneList.add(DailyUnDoneWorkListData(getPositionTaskList[i].title, getPositionTaskList[i].content,getPositionTaskList[i].writerTitle+" "+getPositionTaskList[i].writerName+" · "+getPositionTaskList[i].registerDate.substring(0,10).replace("-",".")+"." ))
 
-        unDoneListAdapter = DailyUnDoneAdapter(unDoneList)
+        unDoneListAdapter = DailyUnDoneAdapter(unDoneList,requireContext())
         binding.rvToDoList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvToDoList.adapter = unDoneListAdapter

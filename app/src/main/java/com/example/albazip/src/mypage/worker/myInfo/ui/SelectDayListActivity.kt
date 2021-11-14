@@ -53,7 +53,7 @@ class SelectDayListActivity :
         if(unDoneList.isEmpty()){
             binding.rlNoUndoneWork.visibility = View.VISIBLE
         }else{
-            unDoneListAdapter = DailyUnDoneAdapter(unDoneList)
+            unDoneListAdapter = DailyUnDoneAdapter(unDoneList,this@SelectDayListActivity)
             binding.rvUndone.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             binding.rvUndone.adapter = unDoneListAdapter

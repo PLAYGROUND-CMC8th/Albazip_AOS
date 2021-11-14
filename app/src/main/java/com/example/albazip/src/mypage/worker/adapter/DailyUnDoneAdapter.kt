@@ -1,15 +1,19 @@
 package com.example.albazip.src.mypage.worker.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.albazip.R
 import com.example.albazip.databinding.ItemRvUndoneBinding
 import com.example.albazip.src.mypage.worker.data.local.DailyUnDoneWorkListData
 
-class DailyUnDoneAdapter(private val itemList:ArrayList<DailyUnDoneWorkListData>): RecyclerView.Adapter<DailyUnDoneAdapter.UnDoneWorkHolder>() {
+class DailyUnDoneAdapter(private val itemList:ArrayList<DailyUnDoneWorkListData>,private val context:Context): RecyclerView.Adapter<DailyUnDoneAdapter.UnDoneWorkHolder>() {
 
     private lateinit var binding: ItemRvUndoneBinding
+    private var myContext = context
     private var flags = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UnDoneWorkHolder {
@@ -59,6 +63,12 @@ class DailyUnDoneAdapter(private val itemList:ArrayList<DailyUnDoneWorkListData>
         //text max Line 없애기
         holder.binding.tvContents.maxLines = 20
 
+        // 배경 (테두리)설정
+        holder.binding.root.background = ContextCompat.getDrawable(
+            myContext,
+            R.drawable.rectangle_fill_light_yellow_radius_yellow_20
+        )
+
         flags = 1
     }
 
@@ -72,6 +82,11 @@ class DailyUnDoneAdapter(private val itemList:ArrayList<DailyUnDoneWorkListData>
         holder.binding.tvContents.setPadding(0,0,0,0)
         // contents max Line 설정
         holder.binding.tvContents.maxLines = 1
+        // 배경 (테두리)설정
+        holder.binding.root.background = ContextCompat.getDrawable(
+            myContext,
+            R.drawable.rectangle_fill_light_yellow_radius_main_yellow_20
+        )
 
         flags = 0
     }
