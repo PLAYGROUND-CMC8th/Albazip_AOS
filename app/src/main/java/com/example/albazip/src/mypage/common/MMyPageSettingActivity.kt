@@ -11,6 +11,12 @@ class MMyPageSettingActivity:BaseActivity<ActivitySettingMMyPageBinding>(Activit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 알림 설정 화면
+        binding.rlAlarmSettingBtn.setOnClickListener {
+            val nextIntent = Intent(this, AlarmSettingActivity::class.java)
+            startActivity(nextIntent)
+        }
+
         // 구독 신청 화면으로 이동
         binding.rlSubscribeBtn.setOnClickListener {
             val nextIntent = Intent(this, SubScribeActivity::class.java)

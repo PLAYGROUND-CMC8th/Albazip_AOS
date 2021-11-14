@@ -80,6 +80,7 @@
                 android:background="@drawable/retangle_fill_white_rounded_20">
 
                 <RelativeLayout
+                    android:id="@+id/rl_alarm_setting_btn"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:background="@drawable/rectangle_fill_white_radius_top_20">
@@ -87,23 +88,23 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="normal"
-                        android:layout_marginStart="24dp"
-                        android:textSize="16sp"
                         android:layout_centerVertical="true"
-                        android:textColor="#333333"
+                        android:layout_marginStart="24dp"
                         android:letterSpacing="-0.03"
-                        android:text="알림 설정"/>
+                        android:text="알림 설정"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
 
 
                     <ImageView
                         android:layout_width="8dp"
                         android:layout_height="match_parent"
-                        android:background="@null"
-                        android:src="@drawable/ic_arrow_more"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="24dp"/>
+                        android:layout_marginEnd="24dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_arrow_more" />
 
 
                 </RelativeLayout>
