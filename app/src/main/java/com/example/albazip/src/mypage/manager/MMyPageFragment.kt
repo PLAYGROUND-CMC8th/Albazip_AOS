@@ -9,17 +9,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bumptech.glide.Glide
 import com.example.albazip.R
-import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentMMypageBinding
-import com.example.albazip.src.mypage.common.MyPageSettingActivity
+import com.example.albazip.src.mypage.common.MMyPageSettingActivity
 import com.example.albazip.src.mypage.manager.custom.MSelectProfileBottomSheetDialog
 import com.example.albazip.src.mypage.manager.workerlist.ui.NoWorkerListChildFragment
 import com.example.albazip.src.mypage.manager.workerlist.ui.WorkerListChildFragment
@@ -30,15 +28,10 @@ import com.example.albazip.src.mypage.manager.init.data.PostInfo
 import com.example.albazip.src.mypage.manager.init.data.WorkerList
 import com.example.albazip.src.mypage.manager.init.network.MMyPageFragmentView
 import com.example.albazip.src.mypage.manager.init.network.MMyPageService
-import com.example.albazip.src.mypage.manager.workerlist.data.remote.GetWorkerListResponse
-import com.example.albazip.src.mypage.manager.workerlist.data.remote.WorkerListData
-import com.example.albazip.src.mypage.manager.workerlist.network.WorkListFragmentView
-import com.example.albazip.src.mypage.manager.workerlist.network.WorkerListService
 import com.example.albazip.src.mypage.manager.workerlist.ui.AddWorkerOneActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.gson.annotations.SerializedName
 
 class MMyPageFragment :
     BaseFragment<FragmentMMypageBinding>(FragmentMMypageBinding::bind, R.layout.fragment_m_mypage),
@@ -82,7 +75,7 @@ class MMyPageFragment :
 
         // 설정 화면으로 이동
         binding.tbrIbtnSetting.setOnClickListener {
-            val nextIntent = Intent(requireContext(), MyPageSettingActivity::class.java)
+            val nextIntent = Intent(requireContext(), MMyPageSettingActivity::class.java)
             startActivity(nextIntent)
         }
 

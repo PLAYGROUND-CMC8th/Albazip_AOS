@@ -1,10 +1,13 @@
 package com.example.albazip.src.mypage.custom
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.databinding.DialogFragmentLogoutBinding
+import com.example.albazip.src.main.MainActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class LogoutBottomSheetDialog: BottomSheetDialogFragment() {
@@ -26,9 +29,17 @@ class LogoutBottomSheetDialog: BottomSheetDialogFragment() {
 
         // 로그아웃 버튼
         binding.btnLogout.setOnClickListener {
-            // activity에 값 전달
 
-            dismiss()
+            // 로그인 flag 변경(로그아웃)
+            prefs.setInt("loginFlags",0)
+            // token 비우기
+            prefs.setString("X-ACCESS-TOKEN","")
+
+            // 메인 화면으로 이동
+            val mainIntent = Intent(requireContext(),MainActivity::class.java)
+            startActivity(mainIntent)
+            // 이전 엑티비티 모두 종료
+            activity?.finishAffinity()
         }
 
         return binding.root

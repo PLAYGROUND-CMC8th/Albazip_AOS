@@ -1,6 +1,7 @@
 package com.example.albazip.src.mypage.worker
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -15,8 +16,7 @@ import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentWMypageBinding
-import com.example.albazip.src.mypage.manager.custom.MSelectProfileBottomSheetDialog
-import com.example.albazip.src.mypage.manager.init.data.BoardInfo
+import com.example.albazip.src.mypage.common.WMyPageSettingActivity
 import com.example.albazip.src.mypage.worker.board.BoardChildListFragment
 import com.example.albazip.src.mypage.worker.custom.WSelectProfileBottomSheetDialog
 import com.example.albazip.src.mypage.worker.init.data.GetWMyPageInfoResponse
@@ -56,6 +56,12 @@ class WMyPageFragment :
         // 프로필 이미지 변경
         binding.ibtnChangeProfile.setOnClickListener {
             WSelectProfileBottomSheetDialog().show(childFragmentManager, "setProfile")
+        }
+
+        // 설정 창으로 이동
+        binding.tbrIbtnSetting.setOnClickListener {
+            val nextIntent = Intent(requireContext(), WMyPageSettingActivity::class.java)
+            startActivity(nextIntent)
         }
 
         // sticky tab layout

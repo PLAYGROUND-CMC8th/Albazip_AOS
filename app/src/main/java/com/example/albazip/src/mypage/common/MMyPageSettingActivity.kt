@@ -3,10 +3,10 @@ package com.example.albazip.src.mypage.common
 import android.content.Intent
 import android.os.Bundle
 import com.example.albazip.config.BaseActivity
-import com.example.albazip.databinding.ActivitySettingMyPageBinding
+import com.example.albazip.databinding.ActivitySettingMMyPageBinding
 import com.example.albazip.src.mypage.custom.LogoutBottomSheetDialog
 
-class MyPageSettingActivity:BaseActivity<ActivitySettingMyPageBinding>(ActivitySettingMyPageBinding::inflate) {
+class MMyPageSettingActivity:BaseActivity<ActivitySettingMMyPageBinding>(ActivitySettingMMyPageBinding::inflate) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

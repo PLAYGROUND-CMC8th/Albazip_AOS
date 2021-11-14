@@ -87,7 +87,7 @@
 
         </activity>
 
-        <activity android:name=".src.mypage.common.MyPageSettingActivity">
+        <activity android:name=".src.mypage.common.MMyPageSettingActivity">
 
         </activity>
 
@@ -98,6 +98,7 @@
         <activity android:name=".src.mypage.common.ServiceLawActivity"/>
         <activity android:name=".src.mypage.common.SubScribeActivity"/>
         <activity android:name=".src.mypage.common.WithDrawMemberActivity"/>
+        <activity android:name=".src.mypage.common.WMyPageSettingActivity"/>
 
 
     </application>
