@@ -81,6 +81,7 @@
                             tools:text="코드 BZ0134_43D" />
 
                         <RelativeLayout
+                            android:id="@+id/rl_copy_btn"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_alignParentEnd="true"
@@ -91,11 +92,10 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/icon_copy_24_px"
-                                android:background="@null"
-                                android:layout_centerVertical="true"
                                 android:layout_centerHorizontal="true"
-                                />
+                                android:layout_centerVertical="true"
+                                android:background="@null"
+                                android:src="@drawable/icon_copy_24_px" />
 
                         </RelativeLayout>
 

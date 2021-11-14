@@ -1,7 +1,6 @@
 package com.example.albazip.src.mypage.manager.workerlist.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.databinding.ItemRvWorkerCardBinding
-import com.example.albazip.src.mypage.manager.workerlist.cardevent.ui.CardInfoFragment
 import com.example.albazip.src.mypage.manager.workerlist.data.local.CardData
 
 class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): RecyclerView.Adapter<WorkerCardAdapter.CardHolder>() {

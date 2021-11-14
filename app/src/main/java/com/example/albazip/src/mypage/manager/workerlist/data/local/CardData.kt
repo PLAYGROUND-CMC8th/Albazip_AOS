@@ -1,6 +1,6 @@
 package com.example.albazip.src.mypage.manager.workerlist.data.local
 
-data class CardData (val status:Int, val rank:String, val image_path:String, val title:String, val first_name:String)
+data class CardData (val positionId:Int, val status:Int, val rank:String, val image_path:String, val title:String, val first_name:String)
 
 /*
 "status": 1, -> 카드 활성화 상태

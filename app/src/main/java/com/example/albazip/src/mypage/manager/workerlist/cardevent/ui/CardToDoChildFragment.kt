@@ -5,8 +5,9 @@ import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentCardToDoListBinding
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.PositionTaskList
 
-class CardToDoChildFragment(positionTaskList:ArrayList<String>):BaseFragment<ChildFragmentCardToDoListBinding>(ChildFragmentCardToDoListBinding::bind,
+class CardToDoChildFragment(positionTaskList:ArrayList<PositionTaskList>):BaseFragment<ChildFragmentCardToDoListBinding>(ChildFragmentCardToDoListBinding::bind,
     R.layout.child_fragment_card_to_do_list) {
 
     private val getPositionTaskList = positionTaskList

@@ -8,12 +8,12 @@ data class GetWorkerListResponse (
 ):BaseResponse()
 
 data class WorkerListData(
-    @SerializedName("positionId") val positionId : String,
-    @SerializedName("workerId") val workerId : String,
-    @SerializedName("status") val status : String,
-    @SerializedName("imagePath") val imagePath : String?,
+    @SerializedName("positionId") val positionId : Int,
+    @SerializedName("rank") val rank : String,
+    @SerializedName("status") val status : Int,
+    @SerializedName("image_path") val image_path : String?,
     @SerializedName("title") val title : String,
-    @SerializedName("firstName") val firstName : String,
+    @SerializedName("first_name") val first_name : String,
 )
 
 

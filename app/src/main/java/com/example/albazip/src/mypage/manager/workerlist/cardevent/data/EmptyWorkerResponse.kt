@@ -12,7 +12,7 @@ data class EmptyWData(
     @SerializedName("positionProfile") val positionProfile: PositionProfileInfo,
     @SerializedName("workerInfo") val workerInfo: WorkerInfo,
     @SerializedName("positionInfo") val positionInfo: PositionInfo,
-    @SerializedName("positionTaskList") val positionTaskList: ArrayList<String>,
+    @SerializedName("positionTaskList") val positionTaskList: ArrayList<PositionTaskList>,
 )
 
 data class PositionProfileInfo(
