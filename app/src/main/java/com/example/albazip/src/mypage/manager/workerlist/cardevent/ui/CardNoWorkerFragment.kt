@@ -120,7 +120,6 @@ class CardNoWorkerFragment(val positionId:Int):BaseFragment<FragmentCardInfoBind
     override fun onGetSuccess(response: EmptyWorkerResponse) {
         dismissLoadingDialog()
         if(response.code == 200){
-            showCustomToast("서버 통신 성공" + getPositionId.toString())
             // 프로필 추후에 변경
             binding.tvPosition.text = response.data.positionProfile.title // 포지션
             binding.tvFirstName.text = response.data.positionProfile.firstName // 이름

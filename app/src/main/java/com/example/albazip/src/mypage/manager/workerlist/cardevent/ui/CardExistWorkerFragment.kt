@@ -115,7 +115,6 @@ class CardExistWorkerFragment(val positionId:Int):
 
     override fun onGetSuccess(response: ExistWorkerResponse) {
         dismissLoadingDialog()
-        showCustomToast(response.message.toString())
         if(response.code == 200){
             // 프로필 추후에 변경
             binding.tvPosition.text = response.data.positionProfile.title // 포지션
@@ -126,6 +125,7 @@ class CardExistWorkerFragment(val positionId:Int):
 
             workerInfo = response.data.workerInfo
 
+            positionTaskList = response.data.positionTaskList
             //positionTaskList = response.data.positionTaskList.
         }
         init()
