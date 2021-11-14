@@ -14,13 +14,32 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentCardInfoBinding
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.EmptyWorkerResponse
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.PositionProfileInfo
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.WorkerInfo
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.EmptyWorkerFragmentView
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.EmptyWorkerService
+import com.example.albazip.src.mypage.worker.init.data.PositionInfo
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 // 근무자 카드 클릭 시 뜨는 activity
-class CardInfoFragment:BaseFragment<FragmentCardInfoBinding>(FragmentCardInfoBinding::bind, R.layout.fragment_card_info){
+class CardInfoFragment(val flags:Int,val positionId:Int):BaseFragment<FragmentCardInfoBinding>(FragmentCardInfoBinding::bind, R.layout.fragment_card_info),EmptyWorkerFragmentView{
 
     private val tabTextList = arrayListOf("근무자 정보", "포지션 정보","업무 리스트")
+    private val getFlags = flags // 근무자 존재 여부 flag
+    private val getPositionId = positionId // 근무자 고유 id
+
+    // 근무자 부재 데이터
+    private var cardCode:String = "" // 부재시 카드코드
+
+    // 근무자 존재 데이터
+
+    // 공통
+    private lateinit var positionProfileInfo:PositionProfileInfo // 프로필 정보
+    private lateinit var positionInfo: PositionInfo // 포지션 정보
+    private lateinit var positionTaskList: ArrayList<String>  // 얘는 나중에 고쳐야 할듯 ㅎㅎ !
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,7 +58,8 @@ class CardInfoFragment:BaseFragment<FragmentCardInfoBinding>(FragmentCardInfoBin
         // 탭 레이아웃 커스튬
         tabTextStyle()
 
-        init()
+        // 서버통신 시작
+        EmptyWorkerService(this).tryGetEmptyCard(getPositionId)
     }
 
     private fun init() {
@@ -58,12 +78,16 @@ class CardInfoFragment:BaseFragment<FragmentCardInfoBinding>(FragmentCardInfoBin
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> {  // 근무자 정보 없을 때
-                        CardCodeChildFragment() // 근무자 정보
+                0 -> {  
+                        if(getFlags == 0) {
+                            CardCodeChildFragment(cardCode) // 근무자 부재
+                        }else{
+                            CardCodeChildFragment(cardCode) // 근무자 존재
+                        }
                     }
-                1 -> CardPositionChildFragment() // 포지션 정보
-                2 -> CardToDoChildFragment()// 업무 리스트
-                else -> CardCodeChildFragment()
+                1 -> CardPositionChildFragment(positionInfo) // 포지션 정보
+                2 -> CardToDoChildFragment(positionTaskList)// 업무 리스트
+                else -> CardCodeChildFragment(cardCode)
             }
         }
     }
@@ -95,5 +119,29 @@ class CardInfoFragment:BaseFragment<FragmentCardInfoBinding>(FragmentCardInfoBin
                 tv.setTypeface(null, style)
             }
         }
+    }
+
+    // 서버 통신 성공
+    override fun onGetSuccess(response: EmptyWorkerResponse) {
+
+        if(response.code == 200){
+            showCustomToast("서버 통신 성공" + getPositionId.toString())
+            // 프로필 추후에 변경
+            binding.tvPosition.text = response.data.positionProfile.title // 포지션
+            binding.tvFirstName.text = response.data.positionProfile.firstName // 이름
+            binding.tvRank.text = response.data.positionProfile.rank // 직위
+
+            cardCode = response.data.workerInfo.positionInfo.code
+
+            positionInfo = response.data.positionInfo
+
+            positionTaskList = response.data.positionTaskList
+        }
+
+        init()
+    }
+
+    override fun onGetFailure(message: String) {
+        showCustomToast(message)
     }
 }

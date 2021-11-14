@@ -40,11 +40,11 @@ class WorkerListChildFragment(serverCardList:ArrayList<WorkerList>) : BaseFragme
 
                 // 1. 근무자 부재
                 if(cardList[position].status == 0){
-                    showCustomToast("근무자 부재")
-                    parentFragmentManager.beginTransaction().add(R.id.manager_main_frm,CardInfoFragment()).addToBackStack(null).commit()
+                    parentFragmentManager.beginTransaction().add(R.id.manager_main_frm,CardInfoFragment(0,getCardList[position].positionId)).addToBackStack(null).commit()
                     prefs.setInt("backStackState",1)
                 }else{// 2. 근무자 존재
-
+                    parentFragmentManager.beginTransaction().add(R.id.manager_main_frm,CardInfoFragment(1,getCardList[position].positionId)).addToBackStack(null).commit()
+                    prefs.setInt("backStackState",1)
                 }
             }
 

@@ -25,45 +25,61 @@
 
                 <TextView
                     android:id="@+id/tv_rank"
-                    android:text="알바생"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="normal"
-                    android:textSize="16sp"
-                    android:textColor="#a3a3a3"
-                    android:letterSpacing="-0.03"
+                    android:layout_marginTop="72dp"
                     android:gravity="center_horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:letterSpacing="-0.03"
+                    android:text="알바생"
+                    android:textColor="#a3a3a3"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="72dp"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/iv_profile"
                     android:layout_width="84dp"
                     android:layout_height="84dp"
-                    android:src="@drawable/img_profile_48_px_none"
-                    android:background="@null"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_rank"
                     android:layout_marginTop="8dp"
-                    />
+                    android:background="@null"
+                    android:src="@drawable/img_profile_48_px_none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_rank" />
 
                 <TextView
                     android:id="@+id/tv_position"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_profile"
-                    android:textStyle="normal"
-                    android:textSize="22sp"
-                    android:textColor="#ffb100"
-                    android:letterSpacing="-0.03"
-                    android:text="평일 오픈"
+                    android:layout_marginTop="16dp"
                     android:gravity="center_horizontal"
-                    android:layout_marginTop="16dp"/>
+                    android:letterSpacing="-0.03"
+                    tools:text="평일 오픈"
+                    android:textColor="#ffb100"
+                    android:textSize="22sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toStartOf="@id/tv_first_name"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_profile" />
+
+                <TextView
+                    android:id="@+id/tv_first_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_horizontal"
+                    android:letterSpacing="-0.03"
+                    tools:text="지연"
+                    android:textColor="#343434"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_position"
+                    app:layout_constraintTop_toBottomOf="@id/iv_profile" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

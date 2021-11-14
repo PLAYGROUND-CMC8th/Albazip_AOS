@@ -68,18 +68,17 @@
                         android:background="@drawable/rectangle_fill_white_radius_15">
 
                         <TextView
+                            android:id="@+id/tv_card_code"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textColor="#343434"
+                            android:layout_centerInParent="true"
+                            android:gravity="center_horizontal"
                             android:letterSpacing="-0.03"
                             android:lineSpacingExtra="4sp"
-                            android:gravity="center_horizontal"
-                            tools:text="코드 BZ0134_43D"
-                            />
+                            android:textColor="#343434"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:text="코드 BZ0134_43D" />
 
                         <RelativeLayout
                             android:layout_width="24dp"
