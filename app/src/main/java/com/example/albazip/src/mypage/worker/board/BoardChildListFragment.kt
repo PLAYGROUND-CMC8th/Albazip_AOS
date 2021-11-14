@@ -24,6 +24,9 @@ class BoardChildListFragment(val boardInfoList:WBoardInfo):BaseFragment<ChildFra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 작성글 존재여부 체크 -> UI 변경
+        checkBoardEmpty()
+
         // 게시글 리스트 불러오기
         loadBoardList()
 
@@ -33,6 +36,13 @@ class BoardChildListFragment(val boardInfoList:WBoardInfo):BaseFragment<ChildFra
             WorkerBoardService(this).tryGetSingleWorkerList()
         }
     }
+
+    private fun checkBoardEmpty() {
+        if (getBoard.postInfo.size == 0) {
+            binding.clNoWroteList.visibility = View.VISIBLE
+        }
+    }
+
 
     private fun loadBoardList(){
 
@@ -53,6 +63,11 @@ class BoardChildListFragment(val boardInfoList:WBoardInfo):BaseFragment<ChildFra
         binding.swipelayout.isRefreshing = false // 새로고침 로딩 중지
 
         boardList.clear()
+
+         // 새로고침 시 데이터가 0개가 아니면 화면 변경
+        if(response.boardData.postInfo.size !=0)
+            binding.clNoWroteList.visibility = View.GONE
+
         for(i in 0 until  response.boardData.postInfo.size){
             boardList.add(BoardData(response.boardData.postInfo[i].writerName,response.boardData.postInfo[i].writerJob,response.boardData.postInfo[i].title,response.boardData.postInfo[i].content,response.boardData.postInfo[i].commentCount.toString(),
                 response.boardData.postInfo[i].registerDate.substring(0,10).replace("-",".")+"."))
