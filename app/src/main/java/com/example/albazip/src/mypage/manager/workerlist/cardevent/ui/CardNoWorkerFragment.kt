@@ -80,7 +80,7 @@ class CardNoWorkerFragment(val positionId:Int):BaseFragment<FragmentCardInfoBind
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> CardCodeChildFragment(cardCode) // 근무자 부재
-                1 -> CardPositionChildFragment(positionInfo) // 포지션 정보
+                1 -> CardPositionChildFragment(positionInfo,0) // 포지션 정보
                 2 -> CardToDoChildFragment(positionTaskList)// 업무 리스트
                 else -> CardCodeChildFragment(cardCode)
             }
