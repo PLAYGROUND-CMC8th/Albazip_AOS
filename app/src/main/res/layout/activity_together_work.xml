@@ -5,6 +5,47 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_no_list_view"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <ImageView
+            android:id="@+id/iv_alert"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/img_alert_36_px"
+            android:background="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="220dp" />
+
+        <TextView
+            android:id="@+id/tv_alert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_alert"
+            android:layout_marginTop="14dp"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#a3a3a3"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="6sp"
+            android:gravity="center_horizontal"
+            android:text="완료한 공동업무가 없어요." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_late"

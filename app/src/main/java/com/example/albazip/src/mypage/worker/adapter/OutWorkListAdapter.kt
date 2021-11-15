@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.databinding.ItemRvTogehterListBinding
 import com.example.albazip.src.mypage.worker.data.local.OutWorkListData
 
-class OutWorkListAdapter(val context: Context, private val itemList:ArrayList<OutWorkListData>): RecyclerView.Adapter<OutWorkListAdapter.OutWorkListHolder>() {
+class OutWorkListAdapter(val context: Context, private val itemList:List<OutWorkListData>): RecyclerView.Adapter<OutWorkListAdapter.OutWorkListHolder>() {
 
     private var myContext:Context = context
     private lateinit var binding: ItemRvTogehterListBinding
