@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:gravity="center_horizontal"
-            android:text="작성한 글이 없어요."
+            android:text="추가된 업무가 없어요."
             android:textColor="#a3a3a3"
             android:textSize="14sp"
             android:textStyle="normal"

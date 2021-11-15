@@ -6,6 +6,9 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivitySelectMonthListBinding
+import com.example.albazip.src.mypage.common.workerdata.taskinfo.data.GetTaskRateResponse
+import com.example.albazip.src.mypage.common.workerdata.taskinfo.network.TaskRateFragmentView
+import com.example.albazip.src.mypage.common.workerdata.taskinfo.network.TaskRateService
 import com.example.albazip.src.mypage.worker.adapter.WorkDoneAdapter
 import com.example.albazip.src.mypage.worker.data.local.WorkListData
 
@@ -42,4 +45,5 @@ class SelectMonthListActivity:BaseActivity<ActivitySelectMonthListBinding>(Activ
         })
 
     }
+
 }

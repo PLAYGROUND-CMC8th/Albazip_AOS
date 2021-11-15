@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.common
+package com.example.albazip.src.mypage.common.setting
 
 import android.content.Intent
 import android.os.Bundle

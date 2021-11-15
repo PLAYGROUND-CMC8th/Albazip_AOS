@@ -1,18 +1,15 @@
 package com.example.albazip.src.mypage.worker.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.databinding.ItemRvBoardListBinding
-import com.example.albazip.src.mypage.common.BoardData
+import com.example.albazip.src.mypage.common.setting.BoardData
 
-class WBoardListAdapter(val itemList:ArrayList<BoardData>,var context: Context): RecyclerView.Adapter<WBoardListAdapter.BoardHolder>() {
+class WBoardListAdapter(val itemList:ArrayList<BoardData>, var context: Context): RecyclerView.Adapter<WBoardListAdapter.BoardHolder>() {
 
     private lateinit var binding: ItemRvBoardListBinding
     var myContext:Context = context

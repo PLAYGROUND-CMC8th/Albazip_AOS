@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentBoardBinding
-import com.example.albazip.src.mypage.common.BoardData
+import com.example.albazip.src.mypage.common.setting.BoardData
 import com.example.albazip.src.mypage.worker.adapter.WBoardListAdapter
 import com.example.albazip.src.mypage.worker.board.data.GetWorkerBoardResponse
 import com.example.albazip.src.mypage.worker.board.network.WorkBoardFragmentView
@@ -49,7 +49,8 @@ class BoardChildListFragment(val boardInfoList:WBoardInfo):BaseFragment<ChildFra
         for(i in 0 until getBoard.postInfo.size){
             boardList.add(
                 BoardData(getBoard.postInfo[i].writerName,getBoard.postInfo[i].writerJob,getBoard.postInfo[i].title,getBoard.postInfo[i].content,
-            getBoard.postInfo[i].commentCount.toString(),getBoard.postInfo[i].registerDate.substring(0,10).replace("-",".")+"."))
+            getBoard.postInfo[i].commentCount.toString(),getBoard.postInfo[i].registerDate.substring(0,10).replace("-",".")+".")
+            )
         }
 
         val linearLayoutManager = LinearLayoutManager(requireContext())
@@ -69,8 +70,10 @@ class BoardChildListFragment(val boardInfoList:WBoardInfo):BaseFragment<ChildFra
             binding.clNoWroteList.visibility = View.GONE
 
         for(i in 0 until  response.boardData.postInfo.size){
-            boardList.add(BoardData(response.boardData.postInfo[i].writerName,response.boardData.postInfo[i].writerJob,response.boardData.postInfo[i].title,response.boardData.postInfo[i].content,response.boardData.postInfo[i].commentCount.toString(),
-                response.boardData.postInfo[i].registerDate.substring(0,10).replace("-",".")+"."))
+            boardList.add(
+                BoardData(response.boardData.postInfo[i].writerName,response.boardData.postInfo[i].writerJob,response.boardData.postInfo[i].title,response.boardData.postInfo[i].content,response.boardData.postInfo[i].commentCount.toString(),
+                response.boardData.postInfo[i].registerDate.substring(0,10).replace("-",".")+".")
+            )
         }
 
         bordListAdapter = WBoardListAdapter(boardList,requireContext())

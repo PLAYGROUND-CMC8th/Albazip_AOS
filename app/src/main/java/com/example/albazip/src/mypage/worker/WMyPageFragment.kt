@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentWMypageBinding
-import com.example.albazip.src.mypage.common.WMyPageSettingActivity
+import com.example.albazip.src.mypage.common.setting.WMyPageSettingActivity
 import com.example.albazip.src.mypage.worker.board.BoardChildListFragment
 import com.example.albazip.src.mypage.worker.custom.WSelectProfileBottomSheetDialog
 import com.example.albazip.src.mypage.worker.init.data.GetWMyPageInfoResponse

@@ -21,6 +21,9 @@ class CardToDoChildFragment(positionTaskList:ArrayList<PositionTaskList>):BaseFr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 작성글 존재여부 체크 -> UI 변경
+        checkBoardEmpty()
+
         // 미완료 업무 리스트
         for(i in 0 until getPositionTaskList.size)
         unDoneList.add(DailyUnDoneWorkListData(getPositionTaskList[i].title, getPositionTaskList[i].content,getPositionTaskList[i].writerTitle+" "+getPositionTaskList[i].writerName+" · "+getPositionTaskList[i].registerDate.substring(0,10).replace("-",".")+"." ))
@@ -30,4 +33,11 @@ class CardToDoChildFragment(positionTaskList:ArrayList<PositionTaskList>):BaseFr
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvToDoList.adapter = unDoneListAdapter
     }
+
+    private fun checkBoardEmpty() {
+        if (getPositionTaskList.size == 0) {
+            binding.clNoWroteList.visibility = View.VISIBLE
+        }
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.common
+package com.example.albazip.src.mypage.common.setting
 
 import android.graphics.Color
 import android.os.Bundle

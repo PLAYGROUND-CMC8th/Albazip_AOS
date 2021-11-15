@@ -12,6 +12,7 @@ import com.example.albazip.src.mypage.worker.adapter.WBoardListAdapter
 import com.example.albazip.src.mypage.worker.adapter.WLateRecordAdapter
 import com.example.albazip.src.mypage.worker.data.local.WLateRecordData
 
+// 지각(출석) 체크
 class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheckBinding::inflate) {
 
     private lateinit var lateRecordAdapter:WLateRecordAdapter

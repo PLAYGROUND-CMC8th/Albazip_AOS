@@ -83,22 +83,22 @@
         </activity>
 
         <!-- setting -->
-        <activity android:name=".src.mypage.common.AlarmSettingActivity">
+        <activity android:name=".src.mypage.common.setting.AlarmSettingActivity">
 
         </activity>
 
-        <activity android:name=".src.mypage.common.MMyPageSettingActivity">
+        <activity android:name=".src.mypage.common.setting.MMyPageSettingActivity">
 
         </activity>
 
-        <activity android:name=".src.mypage.common.ManageMyInfoActivity"/>
-        <activity android:name=".src.mypage.common.AppNoticeActivity"/>
-        <activity android:name=".src.mypage.common.EditMyInfoActivity"/>
-        <activity android:name=".src.mypage.common.EditPhoneNumActivity"/>
-        <activity android:name=".src.mypage.common.ServiceLawActivity"/>
-        <activity android:name=".src.mypage.common.SubScribeActivity"/>
-        <activity android:name=".src.mypage.common.WithDrawMemberActivity"/>
-        <activity android:name=".src.mypage.common.WMyPageSettingActivity"/>
+        <activity android:name=".src.mypage.common.setting.ManageMyInfoActivity"/>
+        <activity android:name=".src.mypage.common.setting.AppNoticeActivity"/>
+        <activity android:name=".src.mypage.common.setting.EditMyInfoActivity"/>
+        <activity android:name=".src.mypage.common.setting.EditPhoneNumActivity"/>
+        <activity android:name=".src.mypage.common.setting.ServiceLawActivity"/>
+        <activity android:name=".src.mypage.common.setting.SubScribeActivity"/>
+        <activity android:name=".src.mypage.common.setting.WithDrawMemberActivity"/>
+        <activity android:name=".src.mypage.common.setting.WMyPageSettingActivity"/>
 
 
     </application>

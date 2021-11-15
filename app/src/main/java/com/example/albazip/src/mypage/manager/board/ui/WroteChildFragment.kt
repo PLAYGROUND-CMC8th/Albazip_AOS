@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentWroteBinding
-import com.example.albazip.src.mypage.common.BoardData
+import com.example.albazip.src.mypage.common.setting.BoardData
 import com.example.albazip.src.mypage.manager.adapter.MBoardListAdapter
 import com.example.albazip.src.mypage.manager.adapter.NoticeListAdapter
 import com.example.albazip.src.mypage.manager.board.data.local.NoticeData
