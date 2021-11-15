@@ -32,12 +32,6 @@ class SelectMonthListActivity:BaseActivity<ActivitySelectMonthListBinding>(Activ
             MonthRateService(this).tryGetTaskRate(year,month)
             showLoadingDialog(this)
         }
-
-        /*monthList.add(WorkListData("9/23 목요일 업무",4,7))
-        monthList.add(WorkListData("9/22 수요일 업무",7,7))
-        monthList.add(WorkListData("9/21 화요일 업무",7,7))
-        monthList.add(WorkListData("9/20 월요일 업무",7,7))*/
-
     }
 
     override fun onMonthRateGetSuccess(response: GetMonthTaskRateResponse) {
@@ -50,11 +44,15 @@ class SelectMonthListActivity:BaseActivity<ActivitySelectMonthListBinding>(Activ
         binding.rvDoneWorkList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         binding.rvDoneWorkList.adapter = workDoneAdapter
 
+
+
         workDoneAdapter.setOnItemClickListener(object : WorkDoneAdapter.OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
                 // toolbar 의 타이틀을 넘겨준다.
                 val nextIntent = Intent(this@SelectMonthListActivity, SelectDayListActivity::class.java)
                 nextIntent.putExtra("title", monthList[position].monthTxt)
+                val year =  "20"+binding.tvMonthTitle.text.substring(0,2)
+                nextIntent.putExtra("year",year)
                 startActivity(nextIntent)
             }
         })

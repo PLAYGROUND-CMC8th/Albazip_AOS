@@ -6,6 +6,9 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivitySelectDayListBinding
+import com.example.albazip.src.mypage.common.workerdata.taskinfo.data.GetDayTaskResponse
+import com.example.albazip.src.mypage.common.workerdata.taskinfo.network.DayTaskFragmentView
+import com.example.albazip.src.mypage.common.workerdata.taskinfo.network.DayTaskService
 import com.example.albazip.src.mypage.worker.adapter.DailyDoneAdapter
 import com.example.albazip.src.mypage.worker.adapter.DailyUnDoneAdapter
 import com.example.albazip.src.mypage.worker.adapter.WorkDoneAdapter
@@ -13,7 +16,7 @@ import com.example.albazip.src.mypage.worker.data.local.DailyDoneWorkListData
 import com.example.albazip.src.mypage.worker.data.local.DailyUnDoneWorkListData
 
 class SelectDayListActivity :
-    BaseActivity<ActivitySelectDayListBinding>(ActivitySelectDayListBinding::inflate) {
+    BaseActivity<ActivitySelectDayListBinding>(ActivitySelectDayListBinding::inflate),DayTaskFragmentView {
 
     private val unDoneList = ArrayList<DailyUnDoneWorkListData>()
     private val doneList = ArrayList<DailyDoneWorkListData>()
@@ -27,28 +30,45 @@ class SelectDayListActivity :
         // 이전 액티비티에서 title 받아오기
         if (intent.hasExtra("title")) {
             binding.tvWeekTitle.text = intent.getStringExtra("title")
+            val year = intent.getStringExtra("year")
+            val month = binding.tvWeekTitle.text.substring(0,2)
+            val date = binding.tvWeekTitle.text.substring(3,5)
+
+            DayTaskService(this).tryGetDayTask(year!!,month,date)
+            showLoadingDialog(this)
         }
 
         // 미완료 업무 리스트
-        unDoneList.add(DailyUnDoneWorkListData("간판 안으로 들여놓기", "문 뒤에 들여놓으세요.","사장님 김형준 · 2021.10.21."))
-        unDoneList.add(DailyUnDoneWorkListData("홀 쓸고, 닦기", "닦기는 오픈 때 하면되니 시간없으면 메모 남겨주시면 됩니다~","사장님 김형준 · 2021.10.21."))
-        unDoneList.add(DailyUnDoneWorkListData("원두, 커피머신 쇼케이스 전원끄기", "원두는 1번과 3번 동시에 누르면 되고 커피머신은 가운데를 살포시 눌러주세용용용용용용용용용.","사장님 김형준 · 2021.10.21."))
-        unDoneList.add(DailyUnDoneWorkListData("원두, 커피머신 쇼케이스 전원끄기", "원두는 1번과 3번 동시에 누르면 되고 커피머신은 가운데를 살포시 눌러주세용용용용용용용용용.","사장님 김형준 · 2021.10.21."))
-        unDoneList.add(DailyUnDoneWorkListData("원두, 커피머신 쇼케이스 전원끄기", "원두는 1번과 3번 동시에 누르면 되고 커피머신은 가운데를 살포시 눌러주세용용용용용용용용용.","사장님 김형준 · 2021.10.21."))
+        //unDoneList.add(DailyUnDoneWorkListData("간판 안으로 들여놓기", "문 뒤에 들여놓으세요.","사장님 김형준 · 2021.10.21."))
 
         // 완료 업무 리스트
-        doneList.add(DailyDoneWorkListData("에어콘 끄기", "완료 22:04"))
-        doneList.add(DailyDoneWorkListData("실내등 조명 끄기", "완료 21:04"))
-        doneList.add(DailyDoneWorkListData("에어콘 끄기", "완료 22:04"))
-        doneList.add(DailyDoneWorkListData("에어콘 끄기", "완료 22:04"))
-        doneList.add(DailyDoneWorkListData("에어콘 끄기", "완료 22:04"))
-        doneList.add(DailyDoneWorkListData("에어콘 끄기", "완료 22:04"))
-        doneList.add(DailyDoneWorkListData("에어콘 끄기", "완료 22:04"))
+        //doneList.add(DailyDoneWorkListData("에어콘 끄기", "완료 22:04"))
+
+    }
+
+    override fun onDayTaskGetSuccess(response: GetDayTaskResponse) {
+        dismissLoadingDialog()
+
+        // 미완료 업무 리스트 호출
+        for (i in 0 until response.data.nonCompleteTaskData.size)
+            unDoneList.add(DailyUnDoneWorkListData(response.data.nonCompleteTaskData[i].title, response.data.nonCompleteTaskData[i].content,"사장님 김형준 · 2021.10.21."))
+
+        // 완료 업무 리스트 호출
+        for (i in 0 until response.data.completeTaskData.size)
+            doneList.add(DailyDoneWorkListData(response.data.completeTaskData[i].title,"완료 " +response.data.completeTaskData[i].complete_date.substring(11,16)))
 
         // 미완료/완료 업무리스트 갯수 count
         binding.tvUndoneCnt.text = unDoneList.size.toString()
         binding.tvDoneCnt.text = doneList.size.toString()
 
+        isListEmpty()
+    }
+
+    override fun onDayTaskGetFailure(message: String) {
+        dismissLoadingDialog()
+    }
+
+    fun isListEmpty(){
         /////////////////////////////// 미완료 업무 리스트 연결 ////////////////////////////////////
         if(unDoneList.isEmpty()){
             binding.rlNoUndoneWork.visibility = View.VISIBLE
