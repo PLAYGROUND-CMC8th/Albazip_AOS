@@ -6,13 +6,16 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivitySelectMonthListBinding
+import com.example.albazip.src.mypage.common.workerdata.taskinfo.data.GetMonthTaskRateResponse
 import com.example.albazip.src.mypage.common.workerdata.taskinfo.data.GetTaskRateResponse
+import com.example.albazip.src.mypage.common.workerdata.taskinfo.network.MonthRateFragmentView
+import com.example.albazip.src.mypage.common.workerdata.taskinfo.network.MonthRateService
 import com.example.albazip.src.mypage.common.workerdata.taskinfo.network.TaskRateFragmentView
 import com.example.albazip.src.mypage.common.workerdata.taskinfo.network.TaskRateService
 import com.example.albazip.src.mypage.worker.adapter.WorkDoneAdapter
 import com.example.albazip.src.mypage.worker.data.local.WorkListData
 
-class SelectMonthListActivity:BaseActivity<ActivitySelectMonthListBinding>(ActivitySelectMonthListBinding::inflate) {
+class SelectMonthListActivity:BaseActivity<ActivitySelectMonthListBinding>(ActivitySelectMonthListBinding::inflate),MonthRateFragmentView {
 
     private lateinit var workDoneAdapter: WorkDoneAdapter
     private val monthList = ArrayList<WorkListData>()
@@ -23,13 +26,25 @@ class SelectMonthListActivity:BaseActivity<ActivitySelectMonthListBinding>(Activ
         // 이전 액티비티에서 title 받아오기
         if(intent.hasExtra("title")) {
             binding.tvMonthTitle.text = intent.getStringExtra("title")
+
+            val year = "20"+binding.tvMonthTitle.text.substring(0,2)
+            val month = binding.tvMonthTitle.text.substring(4,6)
+            MonthRateService(this).tryGetTaskRate(year,month)
+            showLoadingDialog(this)
         }
 
-        monthList.add(WorkListData("9/23 목요일 업무",4,7))
+        /*monthList.add(WorkListData("9/23 목요일 업무",4,7))
         monthList.add(WorkListData("9/22 수요일 업무",7,7))
         monthList.add(WorkListData("9/21 화요일 업무",7,7))
-        monthList.add(WorkListData("9/20 월요일 업무",7,7))
+        monthList.add(WorkListData("9/20 월요일 업무",7,7))*/
 
+    }
+
+    override fun onMonthRateGetSuccess(response: GetMonthTaskRateResponse) {
+      dismissLoadingDialog()
+
+      for(i in 0 until response.data.size)
+          monthList.add(WorkListData(response.data[i].month+"/"+response.data[i].day+" 요일 업무",response.data[i].completeCount,response.data[i].totalCount))
 
         workDoneAdapter = WorkDoneAdapter(monthList)
         binding.rvDoneWorkList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
@@ -43,7 +58,10 @@ class SelectMonthListActivity:BaseActivity<ActivitySelectMonthListBinding>(Activ
                 startActivity(nextIntent)
             }
         })
+    }
 
+    override fun onMonthRateGetFailure(message: String) {
+        dismissLoadingDialog()
     }
 
 }
