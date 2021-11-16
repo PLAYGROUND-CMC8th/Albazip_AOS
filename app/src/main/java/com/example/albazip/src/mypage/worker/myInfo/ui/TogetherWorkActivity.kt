@@ -1,6 +1,7 @@
 package com.example.albazip.src.mypage.worker.myInfo.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.config.BaseActivity
@@ -79,21 +80,58 @@ class TogetherWorkActivity:BaseActivity<ActivityTogetherWorkBinding>(ActivityTog
             val pureDateList = dateList.distinct()
 
             val innerRv = ArrayList<InWorkListData>()
+            val outterRv = ArrayList<ArrayList<InWorkListData>>()
 
+            //for (j in 0 until dateList.size){
+            //    for(i in 0 until response.data.size){
+            //        if(response.data[i].complete_date.substring(0,10) == dateList[j]){
+            //            innerRv.add(InWorkListData(response.data[i].complete_date.substring(0,10),response.data[i].content,"완료 "+response.data[i].complete_date.substring(11,16)))
+           //         }
+           //     }
+           // }
+
+            // 서버에 있는 공동업무 리스트 데이터 모두 받아오기
             for(i in 0 until response.data.size){
-                for(j in 0 until pureDateList.size){
-                    if(pureDateList[j] == response.data[i].complete_date.substring(0,10)){
-                        innerRv.add(InWorkListData(response.data[i].content,"완료 "+response.data[i].complete_date.substring(11,16)))
-                        outWorkList.add(OutWorkListData(pureDateList[j].replace("-",".")+".",innerRv))
-                    }
-
-                   //  innerRv.clear()
-                }
-
+                innerRv.add(InWorkListData(response.data[i].complete_date.substring(0,10),response.data[i].content,"완료 "+response.data[i].complete_date.substring(11,16)))
             }
 
+            // 날짜 데이터에
+            for(j in 0 until innerRv.size){
+                for(k in 0 until pureDateList.size)
+                if(innerRv[j].getDate == pureDateList[k]){
+                }
+            }
+
+            outterRv.add(innerRv)
+
+            Log.d("testing",innerRv.toString())
+            Log.d("innerRv[0].getDate",innerRv[0].getDate)
+            Log.d("innerRv[1].getDate",innerRv[1].getDate)
+            Log.d("innerRv[2].getDate",innerRv[2].getDate)
+
+
+//            for(i in 0 until response.data.size){
+//                for(j in 0 until pureDateList.size){
+//                    if(response.data[i].complete_date.substring(0,10) == pureDateList[j]){
+//                        innerRv.add(InWorkListData(response.data[i].complete_date.substring(0,10),response.data[i].content,"완료 "+response.data[i].complete_date.substring(11,16)))
+//                        Log.d("innerRv",innerRv.toString())
+//                        if(innerRv[i].getDate == pureDateList[j]) {
+//                            outterRv.add(ArrayList(innerRv))
+//                        }
+//                        //outterRv.add(ArrayList<InWorkListData>.add(InWorkListData(response.data[i].complete_date.substring(0,10),response.data[i].content,"완료 "+response.data[i].complete_date.substring(11,16))))
+//                        //outWorkList.add(OutWorkListData(pureDateList[j].replace("-",".")+".",innerRv))
+//                    }
+//                }
+//            }
+
+            Log.d("Please",outterRv.toString())
+
+           // for (i in 0 until pureDateList.size){
+           //     outWorkList.add(OutWorkListData(pureDateList[i].replace("-",".")+".",outterRv[i]))
+           // }
+
             // out rv의 adapter 객체 생성 후 데이터 전달
-            outWorkListAdapter = OutWorkListAdapter(this,outWorkList.distinct())
+            outWorkListAdapter = OutWorkListAdapter(this,outWorkList)
 
             // out rv의 레이아웃 설정
             binding.rvRecord.layoutManager = LinearLayoutManager(this,

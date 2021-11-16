@@ -8,7 +8,6 @@ import com.example.albazip.databinding.ActivityManagerMainBinding
 import com.example.albazip.src.community.manager.MCommunityFragment
 import com.example.albazip.src.home.manager.MHomeFragment
 import com.example.albazip.src.mypage.manager.MMyPageFragment
-import com.example.albazip.src.schedule.manager.MScheduleFragment
 import com.example.albazip.util.BackPressCloseHandler
 
 // 관리자 시작화면

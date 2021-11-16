@@ -7,7 +7,6 @@ import com.example.albazip.databinding.ActivityWorkerMainBinding
 import com.example.albazip.src.community.manager.MCommunityFragment
 import com.example.albazip.src.home.manager.MHomeFragment
 import com.example.albazip.src.mypage.worker.WMyPageFragment
-import com.example.albazip.src.schedule.manager.MScheduleFragment
 import com.example.albazip.util.BackPressCloseHandler
 
 // 근무자 시작 화면
