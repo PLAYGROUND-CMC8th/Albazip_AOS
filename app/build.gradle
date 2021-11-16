@@ -68,7 +68,7 @@ dependencies {
     // https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
-    // firebase
+    // firebase sms 인증
     implementation platform('com.google.firebase:firebase-bom:28.4.2')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
@@ -80,10 +80,12 @@ dependencies {
     // swipe refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
-
+    // 파이어베이스 푸쉬알림
     implementation 'com.google.firebase:firebase-messaging-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
+    // viewpager2 indicator
+    implementation 'com.tbuonomo:dotsindicator:4.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

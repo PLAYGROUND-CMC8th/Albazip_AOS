@@ -71,7 +71,6 @@
                 android:background="@null"
                 android:src="@drawable/onboarding_indicator" />
 
-
         </LinearLayout>
 
         <TextView
