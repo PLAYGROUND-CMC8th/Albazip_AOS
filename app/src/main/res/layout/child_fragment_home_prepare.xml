@@ -49,7 +49,7 @@
                 android:id="@+id/ibtn_qr_scan"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_w_qr_scan"
+                android:src="@drawable/ic_m_qr_code"
                 android:background="@null"
                 android:layout_marginEnd="14dp"
                 android:layout_toStartOf="@id/ibtn_bell"

@@ -2,20 +2,13 @@ package com.example.albazip.src.home.manager
 
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentMHomeBinding
 import com.example.albazip.src.home.common.data.HomeCommuData
 import com.example.albazip.src.home.manager.adapter.HomeVPAdapter
-import com.example.albazip.src.home.manager.closed.HomeClosedChildFragment
-import com.example.albazip.src.home.manager.closed.HomePreParingChildFragment
 import com.example.albazip.src.home.manager.closed.HomeRestChildFragment
-import com.example.albazip.src.home.manager.opened.HomeOpenedChildFragment
-import com.example.albazip.src.register.common.adapter.OnBoardingVPAdapter
-import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+
 
 class MHomeFragment :
     BaseFragment<FragmentMHomeBinding>(FragmentMHomeBinding::bind, R.layout.fragment_m_home) {
