@@ -1,6 +1,5 @@
 package com.example.albazip.src.home.manager.opened
 
-import android.graphics.Color
 import android.os.Bundle
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityQrShowingBinding

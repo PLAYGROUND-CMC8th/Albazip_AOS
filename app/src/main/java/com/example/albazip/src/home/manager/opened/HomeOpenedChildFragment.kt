@@ -6,6 +6,7 @@ import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentHomeOpenedBinding
+import com.example.albazip.src.home.common.HomeAlarmActivity
 
 class HomeOpenedChildFragment: BaseFragment<ChildFragmentHomeOpenedBinding>(
     ChildFragmentHomeOpenedBinding::bind,
@@ -17,6 +18,12 @@ class HomeOpenedChildFragment: BaseFragment<ChildFragmentHomeOpenedBinding>(
         // qr 조회 화면으로 이동
         binding.ibtnQrScan.setOnClickListener {
             val nextIntent = Intent(requireContext(),QRShowingActivity::class.java)
+            startActivity(nextIntent)
+        }
+
+        // 알림 화면으로 이동
+        binding.ibtnBell.setOnClickListener {
+            val nextIntent = Intent(requireContext(), HomeAlarmActivity::class.java)
             startActivity(nextIntent)
         }
     }

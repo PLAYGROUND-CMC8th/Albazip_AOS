@@ -101,6 +101,7 @@
         <activity android:name=".src.mypage.common.setting.WMyPageSettingActivity"/>
 
         <activity android:name=".src.home.manager.opened.QRShowingActivity"/>
+        <activity android:name=".src.home.common.HomeAlarmActivity"/>
 
 
     </application>
