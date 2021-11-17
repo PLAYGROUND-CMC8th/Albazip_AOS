@@ -1,4 +1,4 @@
-package com.example.albazip.src.home.manager
+package com.example.albazip.src.home.worker
 
 import android.os.Bundle
 import android.view.View
@@ -9,8 +9,7 @@ import com.example.albazip.src.home.common.data.HomeCommuData
 import com.example.albazip.src.home.manager.adapter.HomeVPAdapter
 import com.example.albazip.src.home.manager.closed.HomePreParingChildFragment
 
-
-class MHomeFragment :
+class WHomeFragment :
     BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind, R.layout.fragment_home) {
 
     //private lateinit var noticeList:ArrayList<HomeCommuData>

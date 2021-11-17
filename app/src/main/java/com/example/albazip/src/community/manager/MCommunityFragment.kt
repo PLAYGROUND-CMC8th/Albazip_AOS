@@ -5,7 +5,6 @@ import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentMCommunityBinding
-import com.example.albazip.databinding.FragmentMHomeBinding
 
 class MCommunityFragment :
     BaseFragment<FragmentMCommunityBinding>(FragmentMCommunityBinding::bind, R.layout.fragment_m_community) {

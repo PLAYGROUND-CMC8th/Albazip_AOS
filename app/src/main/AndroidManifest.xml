@@ -100,7 +100,7 @@
         <activity android:name=".src.home.common.HomeAlarmActivity"/>
         <activity android:name=".src.home.manager.opened.ui.TodaysWorkerListActivity"/>
 
-        <activity android:name=".src.home.manager.worklist.ui.HomeTodayToDoListActivity">
+        <activity android:name=".src.home.manager.worklist.ui.HomeMTodayToDoListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

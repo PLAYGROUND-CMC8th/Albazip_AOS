@@ -1,22 +1,20 @@
-package com.example.albazip.src.home.manager.worklist.ui
+package com.example.albazip.src.home.worker.opened.worklist.ui
 
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import android.view.View
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.children
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityHomeTodayTodoListBinding
 import com.example.albazip.src.home.manager.adapter.PagerFragmentStateAdapter
+import com.example.albazip.src.home.manager.worklist.ui.ChildFragmentPersonal
+import com.example.albazip.src.home.manager.worklist.ui.ChildFragmentTogether
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
+class HomeWTodayToDoListActivity:BaseActivity<ActivityHomeTodayTodoListBinding>(ActivityHomeTodayTodoListBinding::inflate) {
 
-class HomeTodayToDoListActivity:BaseActivity<ActivityHomeTodayTodoListBinding>(ActivityHomeTodayTodoListBinding::inflate) {
-
-    private val tabTextList = arrayListOf("공동업무", "개인업무")
+   private val tabTextList = arrayListOf("공동업무", "평일마감 업무")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
