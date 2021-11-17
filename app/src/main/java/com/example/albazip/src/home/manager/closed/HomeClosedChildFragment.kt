@@ -6,9 +6,8 @@ import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentHomeClosedBinding
-import com.example.albazip.databinding.ChildFragmentHomeRestBinding
 import com.example.albazip.src.home.common.HomeAlarmActivity
-import com.example.albazip.src.home.manager.opened.QRShowingActivity
+import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
 
 class HomeClosedChildFragment: BaseFragment<ChildFragmentHomeClosedBinding>(
     ChildFragmentHomeClosedBinding::bind,

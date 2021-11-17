@@ -7,7 +7,8 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentHomePrepareBinding
 import com.example.albazip.src.home.common.HomeAlarmActivity
-import com.example.albazip.src.home.manager.opened.QRShowingActivity
+import com.example.albazip.src.home.manager.custom.AddWorkBottomSheetDialog
+import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
 
 class HomePreParingChildFragment:BaseFragment<ChildFragmentHomePrepareBinding>(ChildFragmentHomePrepareBinding::bind,
     R.layout.child_fragment_home_prepare) {
@@ -25,6 +26,12 @@ class HomePreParingChildFragment:BaseFragment<ChildFragmentHomePrepareBinding>(C
         binding.ibtnBell.setOnClickListener {
             val nextIntent = Intent(requireContext(), HomeAlarmActivity::class.java)
             startActivity(nextIntent)
+        }
+
+        // 업무추가 다이얼로그
+        // 업무 추가
+        binding.btnAddWork.setOnClickListener {
+            AddWorkBottomSheetDialog().show(parentFragmentManager, "addwork")
         }
     }
 }

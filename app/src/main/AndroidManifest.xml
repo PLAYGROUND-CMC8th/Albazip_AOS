@@ -51,11 +51,7 @@
         <activity android:name=".src.login.LoginActivity" />
         <activity android:name=".src.register.common.RegisterActivity" />
         <activity android:name=".src.splash.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".src.main.MainActivity">
         </activity>
@@ -100,8 +96,17 @@
         <activity android:name=".src.mypage.common.setting.WithDrawMemberActivity"/>
         <activity android:name=".src.mypage.common.setting.WMyPageSettingActivity"/>
 
-        <activity android:name=".src.home.manager.opened.QRShowingActivity"/>
+        <activity android:name=".src.home.manager.opened.ui.QRShowingActivity"/>
         <activity android:name=".src.home.common.HomeAlarmActivity"/>
+        <activity android:name=".src.home.manager.opened.ui.TodaysWorkerListActivity"/>
+
+        <activity android:name=".src.home.manager.worklist.ui.HomeTodayToDoListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
     </application>

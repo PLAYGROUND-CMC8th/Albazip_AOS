@@ -1,4 +1,4 @@
-package com.example.albazip.src.home.manager.opened
+package com.example.albazip.src.home.manager.opened.ui
 
 import android.os.Bundle
 import com.example.albazip.config.BaseActivity

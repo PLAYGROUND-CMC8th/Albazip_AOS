@@ -67,6 +67,8 @@
         <ImageView
             android:id="@+id/iv_prepare"
             android:layout_gravity="center"
+            android:src="@drawable/img_preparing"
+            android:background="@null"
             android:layout_width="68dp"
             android:layout_height="68dp"/>
 

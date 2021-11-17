@@ -97,7 +97,7 @@ class MMyPageFragment :
         }
     }
 
-    // 끄고 다시오면 ㅋㅋ
+    // 끄고 다시오면 ㄱㄱ
     override fun onResume() {
         super.onResume()
 
