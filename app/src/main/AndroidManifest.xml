@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.albazip">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/Theme.Albazip">
 
         <service
@@ -51,7 +53,11 @@
         <activity android:name=".src.login.LoginActivity" />
         <activity android:name=".src.register.common.RegisterActivity" />
         <activity android:name=".src.splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".src.main.MainActivity">
         </activity>
@@ -101,12 +107,14 @@
         <activity android:name=".src.home.manager.opened.ui.TodaysWorkerListActivity"/>
 
         <activity android:name=".src.home.manager.worklist.ui.HomeMTodayToDoListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
+        <activity android:name=".src.home.worker.opened.QRScanningActivity"/>
+
+        <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation"/>
 
 
     </application>

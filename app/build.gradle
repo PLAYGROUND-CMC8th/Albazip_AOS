@@ -86,6 +86,10 @@ dependencies {
 
     // viewpager2 indicator
     implementation 'com.tbuonomo:dotsindicator:4.2'
+
+    // qr 코드 스캔
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

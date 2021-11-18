@@ -6,6 +6,7 @@ import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityWorkerMainBinding
 import com.example.albazip.src.community.manager.MCommunityFragment
 import com.example.albazip.src.home.manager.MHomeFragment
+import com.example.albazip.src.home.worker.WHomeFragment
 import com.example.albazip.src.mypage.worker.WMyPageFragment
 import com.example.albazip.util.BackPressCloseHandler
 
@@ -20,7 +21,7 @@ class WorkerMainActivity :
 
         backPressCloseHandler = BackPressCloseHandler(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.worker_main_frm, MHomeFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.worker_main_frm, WHomeFragment())
             .commitAllowingStateLoss()
 
 
@@ -31,7 +32,7 @@ class WorkerMainActivity :
                     // 홈
                     R.id.menu_main_btm_nav_home -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.worker_main_frm, MHomeFragment())
+                            .replace(R.id.worker_main_frm, WHomeFragment())
                             .commitAllowingStateLoss()
                         return@setOnItemSelectedListener true
                     }

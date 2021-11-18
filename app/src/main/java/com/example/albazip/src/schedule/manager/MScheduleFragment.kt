@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
-import com.example.albazip.databinding.FragmentMHomeBinding
 import com.example.albazip.databinding.FragmentMScheduleBinding
 
 class MScheduleFragment :

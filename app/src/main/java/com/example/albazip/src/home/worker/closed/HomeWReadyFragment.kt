@@ -3,11 +3,16 @@ package com.example.albazip.src.home.worker.closed
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentHomeWReadyBinding
 import com.example.albazip.src.home.common.HomeAlarmActivity
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
+import com.example.albazip.src.home.worker.opened.QRScanningActivity
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 
 class HomeWReadyFragment: BaseFragment<ChildFragmentHomeWReadyBinding>(
     ChildFragmentHomeWReadyBinding::bind,
@@ -28,5 +33,29 @@ class HomeWReadyFragment: BaseFragment<ChildFragmentHomeWReadyBinding>(
             startActivity(nextIntent)
         }
 
+        // qr 스캔 화면으로 이동
+        binding.ibtnQrScan.setOnClickListener {
+            val options = ScanOptions()
+            options.setDesiredBarcodeFormats(ScanOptions.ONE_D_CODE_TYPES)
+            options.setPrompt("Scan a barcode")
+            options.setCameraId(0) // Use a specific camera of the device
+            options.captureActivity = QRScanningActivity::class.java
+            options.setBeepEnabled(false)
+            options.setBarcodeImageEnabled(true)
+            barcodeLauncher.launch(options)
+        }
+
     }
+
+    private val barcodeLauncher = registerForActivityResult(
+        ScanContract()
+    ) { result: ScanIntentResult ->
+        if (result.contents == null) {
+            Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(requireContext(), "Scanned: " + result.contents, Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
 }

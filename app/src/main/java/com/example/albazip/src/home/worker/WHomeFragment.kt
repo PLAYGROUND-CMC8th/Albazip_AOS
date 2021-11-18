@@ -8,6 +8,7 @@ import com.example.albazip.databinding.FragmentHomeBinding
 import com.example.albazip.src.home.common.data.HomeCommuData
 import com.example.albazip.src.home.manager.adapter.HomeVPAdapter
 import com.example.albazip.src.home.manager.closed.HomePreParingChildFragment
+import com.example.albazip.src.home.worker.closed.HomeWReadyFragment
 
 class WHomeFragment :
     BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind, R.layout.fragment_home) {
@@ -20,7 +21,7 @@ class WHomeFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        childFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomePreParingChildFragment())
+        childFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomeWReadyFragment())
             .commitAllowingStateLoss()
 
         var noticeList = ArrayList<HomeCommuData>()
