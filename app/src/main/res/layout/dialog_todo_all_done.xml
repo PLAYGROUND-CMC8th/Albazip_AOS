@@ -20,6 +20,8 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginTop="24dp"
+            android:background="@null"
+            android:src="@drawable/ic_all_done_check"
             android:layout_gravity="center"/>
 
         <TextView

@@ -11,6 +11,7 @@ import com.example.albazip.src.home.common.data.HomeCommuData
 import com.example.albazip.src.home.manager.adapter.HomeVPAdapter
 import com.example.albazip.src.home.manager.closed.HomePreParingChildFragment
 import com.example.albazip.src.home.worker.closed.HomeWReadyFragment
+import com.example.albazip.src.home.worker.opened.HomeWOpenedFragment
 import com.google.zxing.integration.android.IntentIntegrator
 
 class WHomeFragment :

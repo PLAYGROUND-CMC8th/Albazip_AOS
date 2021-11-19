@@ -58,11 +58,13 @@
 
     <TextView
         android:id="@+id/tv_writer_and_date"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:text="사장님 김형준 · 2021.10.21."
         android:layout_marginEnd="16dp"
+        android:gravity="end"
+        android:paddingEnd="13dp"
         android:textStyle="normal"
         android:textSize="11sp"
         android:textColor="#a3a3a3"

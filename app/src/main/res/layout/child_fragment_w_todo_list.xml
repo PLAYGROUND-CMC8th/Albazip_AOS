@@ -58,22 +58,6 @@
                     app:layout_constraintStart_toEndOf="@id/tv_undone"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_edit"
-                    android:text="편집"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="46dp"
-                    android:textStyle="normal"
-                    android:textSize="14sp"
-                    android:textColor="#6f6f6f"
-                    android:letterSpacing="-0.02"
-                    android:lineSpacingExtra="28sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
-
                 <RelativeLayout
                     android:id="@+id/rl_no_undone_work"
                     android:layout_width="match_parent"
@@ -111,6 +95,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="36dp"
                     android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_rv_undone_check"
                     app:layout_constraintBottom_toBottomOf="@id/cl_top"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -220,11 +205,69 @@
                     android:layout_marginHorizontal="24dp"
                     android:overScrollMode="never"
                     android:layout_marginTop="11dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rl_done_person_cnt" />
+
+                <!-- 인원수 확인 클릭 시 -->
+                <FrameLayout
+                    android:id="@+id/frame_layout_cnt_done_worker"
+                    android:visibility="gone"
+                    android:layout_width="137dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/bg_done_cnt_pop_up"
+                    app:layout_constraintEnd_toEndOf="@id/rl_done_person_cnt"
+                    app:layout_constraintTop_toBottomOf="@id/rl_done_person_cnt">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_pop_up"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:textColor="#343434"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="-1sp"
+                            android:text="완료한 인원"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginStart="16dp"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_done_worker_list"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            tools:listitem="@layout/item_rv_worker_cnt_pop_up"
+                            android:layout_marginBottom="16dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintStart_toStartOf="@id/tv_pop_up"
+                            app:layout_constraintTop_toBottomOf="@id/tv_pop_up"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                         />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+               <!-- 인원 수 체크 레이아웃 -->
+                </FrameLayout>
+
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

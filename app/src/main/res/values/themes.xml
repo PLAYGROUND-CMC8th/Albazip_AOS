@@ -122,5 +122,11 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <!-- 다이얼로그 배경 커스튬 -->
+    <style name="MyDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>
 

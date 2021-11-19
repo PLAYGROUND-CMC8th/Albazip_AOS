@@ -117,6 +117,10 @@
             android:screenOrientation="portrait"
             tools:replace="screenOrientation"/>
 
+        <activity android:name=".src.home.common.HomeShopListActivity"/>
+
+        <activity android:name=".src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity"/>
+
 
     </application>
 

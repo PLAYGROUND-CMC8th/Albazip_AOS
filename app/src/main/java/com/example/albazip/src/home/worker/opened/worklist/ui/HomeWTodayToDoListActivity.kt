@@ -7,22 +7,21 @@ import androidx.core.view.children
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityHomeTodayTodoListBinding
 import com.example.albazip.src.home.manager.adapter.PagerFragmentStateAdapter
-import com.example.albazip.src.home.manager.worklist.ui.ChildFragmentPersonal
-import com.example.albazip.src.home.manager.worklist.ui.ChildFragmentTogether
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class HomeWTodayToDoListActivity:BaseActivity<ActivityHomeTodayTodoListBinding>(ActivityHomeTodayTodoListBinding::inflate) {
+class HomeWTodayToDoListActivity:
+    BaseActivity<ActivityHomeTodayTodoListBinding>(ActivityHomeTodayTodoListBinding::inflate) {
 
-   private val tabTextList = arrayListOf("공동업무", "평일마감 업무")
+    private val tabTextList = arrayListOf("공동업무", "평일마감 업무")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // ViewPager 와 fragment 연결
         val pagerAdapter =  PagerFragmentStateAdapter(this)
-        pagerAdapter.addFragment(ChildFragmentTogether())
-        pagerAdapter.addFragment(ChildFragmentPersonal())
+        pagerAdapter.addFragment(ChildFragmentWTogether())
+        pagerAdapter.addFragment(ChildFragmentWPersonal())
 
         binding.vpTodayTodo.adapter = pagerAdapter
 
@@ -30,11 +29,18 @@ class HomeWTodayToDoListActivity:BaseActivity<ActivityHomeTodayTodoListBinding>(
             tab.text = tabTextList[position]
         }.attach()
 
+        // 공동업무 or 개인업무인지 받아오기
+        if(intent.hasExtra("tabFlags")) {
+            val tabFlags = intent.getIntExtra("tabFlags",0)
+            if(tabFlags == 1) {
+                binding.tabLayout.selectTab(binding.tabLayout.getTabAt(1))
+            }
+        }
         // 탭 레이아웃 커스튬
         // 초기화 시 position 0 의 텍스트 Bold 로 만들기
-        binding.tabLayout.getTabAt(0)?.view?.children?.find { it is TextView }?.let { tv ->
+        binding.tabLayout.getTabAt(1)?.view?.children?.find { it is TextView }?.let { tv ->
             (tv as TextView).post {
-                if(tv.text.toString() == "공동업무") {
+                if(tv.text.toString() == "평일마감 업무") {
                     tv.setTypeface(null, Typeface.BOLD)
                 }
             }
