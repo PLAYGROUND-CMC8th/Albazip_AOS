@@ -1,7 +1,9 @@
 package com.example.albazip.src.home.worker
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentHomeBinding
@@ -9,6 +11,7 @@ import com.example.albazip.src.home.common.data.HomeCommuData
 import com.example.albazip.src.home.manager.adapter.HomeVPAdapter
 import com.example.albazip.src.home.manager.closed.HomePreParingChildFragment
 import com.example.albazip.src.home.worker.closed.HomeWReadyFragment
+import com.google.zxing.integration.android.IntentIntegrator
 
 class WHomeFragment :
     BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind, R.layout.fragment_home) {
@@ -38,7 +41,6 @@ class WHomeFragment :
         binding.vpHomeCommunicate.adapter = homeVPAdapter
 
         binding.dotsIndicator.setViewPager2(binding.vpHomeCommunicate)
-
-
     }
+
 }

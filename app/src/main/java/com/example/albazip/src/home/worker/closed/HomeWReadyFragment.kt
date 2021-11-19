@@ -10,9 +10,13 @@ import com.example.albazip.databinding.ChildFragmentHomeWReadyBinding
 import com.example.albazip.src.home.common.HomeAlarmActivity
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
 import com.example.albazip.src.home.worker.opened.QRScanningActivity
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.client.android.Intents
+import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+
 
 class HomeWReadyFragment: BaseFragment<ChildFragmentHomeWReadyBinding>(
     ChildFragmentHomeWReadyBinding::bind,
@@ -36,7 +40,10 @@ class HomeWReadyFragment: BaseFragment<ChildFragmentHomeWReadyBinding>(
         // qr 스캔 화면으로 이동
         binding.ibtnQrScan.setOnClickListener {
             val options = ScanOptions()
-            options.setDesiredBarcodeFormats(ScanOptions.ONE_D_CODE_TYPES)
+
+            // qr 스캔을 위한 코드 (= code for QR Scanning)
+            options.setDesiredBarcodeFormats(ScanOptions.QR_CODE)
+
             options.setPrompt("Scan a barcode")
             options.setCameraId(0) // Use a specific camera of the device
             options.captureActivity = QRScanningActivity::class.java

@@ -110,7 +110,8 @@
 
         </activity>
 
-        <activity android:name=".src.home.worker.opened.QRScanningActivity"/>
+        <activity android:name=".src.home.worker.opened.QRScanningActivity"
+            android:theme="@style/Theme.Transparent"/>
 
         <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"

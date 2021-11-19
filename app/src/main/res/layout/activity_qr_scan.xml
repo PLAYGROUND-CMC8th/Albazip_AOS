@@ -1,22 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="QR 코드 스캐너"/>
-
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/barcodeScanner"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_commute_date"
         app:zxing_scanner_layout="@layout/custom_barcode_scanner"/>
-</LinearLayout>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_commute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <ImageButton
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:background="@null"
+                android:scaleType="center"
+                android:src="@drawable/ic_delete_whie_real_24" />
+
+            <TextView
+                android:id="@+id/tv_week_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_horizontal"
+                android:letterSpacing="-0.03"
+                android:text="매장 QR코드 스캔"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    
+    <RelativeLayout
+        android:id="@+id/rl_commute_date"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:background="@drawable/rectangle_fill_yellow_radius_15"
+        android:layout_marginHorizontal="89dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_commute"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="64dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#343434"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="12sp"
+            android:gravity="center_horizontal"
+            android:text="21. 09. 29 수요일" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="288dp"
+        android:layout_height="304dp"
+        android:background="@drawable/qr_scan_area"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_commute_date">
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
