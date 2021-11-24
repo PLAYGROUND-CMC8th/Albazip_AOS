@@ -92,6 +92,9 @@ dependencies {
 
     // 플로팅 버튼
     implementation 'com.github.clans:fab:1.6.4'
+
+    // 모서리 둥근 이미지 뷰
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.3'
 }
 
 apply plugin: 'com.google.gms.google-services'

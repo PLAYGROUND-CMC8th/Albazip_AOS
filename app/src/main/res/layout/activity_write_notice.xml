@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_top_bar"
@@ -211,9 +212,22 @@
             app:layout_constraintTop_toBottomOf="@id/iv_add"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_photo_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:listitem="@layout/item_rv_community_photo"
+        android:layout_marginStart="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="2"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@id/cl_select_photo_area"
+        app:layout_constraintTop_toTopOf="@id/cl_select_photo_area"
+        app:layout_constraintBottom_toBottomOf="@id/cl_select_photo_area"
+        app:layout_constraintEnd_toEndOf="@id/cl_contents"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
