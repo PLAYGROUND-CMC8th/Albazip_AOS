@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="68dp"
+        android:fontFamily="@font/roboto_bold"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="9sp"
+        android:text="비밀번호 재설정"
+        android:textColor="@color/customBlack"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/rl_phone_input"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="36dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+        <EditText
+            android:id="@+id/et_input_phone"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="56dp"
+            android:background="@null"
+            android:maxLength="13"
+            style="@style/EditTextStyle"
+            android:textColorHint="@color/hintTxtColor"
+            android:inputType="number"
+            android:hint="-없이 번호입력"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:singleLine="true"
+            android:textColor="@color/customBlack"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <RelativeLayout
+            android:id="@+id/rl_clickable_certify"
+            android:layout_width="36dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginVertical="12dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="false"
+            android:background="@drawable/rectangle_fill_light_gray_rounded_5">
+
+            <TextView
+                android:id="@+id/tv_certify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/roboto_bold"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="21sp"
+                android:text="인증"
+                android:textColor="#cecece"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_overlap"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rl_phone_input"
+        app:layout_constraintStart_toStartOf="@id/rl_phone_input"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:textColor="#ff3b30"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="17sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="이미 가입된 연락처입니다."/>
+
+    <RelativeLayout
+        android:id="@+id/rl_certify"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="36dp"
+        android:layout_marginTop="24dp"
+        android:visibility="invisible"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_phone_input">
+
+        <EditText
+            android:id="@+id/et_certify"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="56dp"
+            android:layout_alignParentStart="true"
+            android:background="@null"
+            android:maxLength="6"
+            style="@style/EditTextStyle"
+            android:hint="인증 번호"
+            android:inputType="numberPassword"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:singleLine="true"
+            android:textColor="@color/customBlack"
+            android:textColorHint="#c8c8c8"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tv_count_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/rl_clickable_resend"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center_vertical"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="19sp"
+            android:textColor="#6f6f6f"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:text="2:00" />
+
+        <RelativeLayout
+            android:id="@+id/rl_clickable_resend"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginVertical="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_fill_light_gray_rounded_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="5dp"
+                android:fontFamily="@font/roboto_bold"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="21sp"
+                android:text="재전송"
+                android:textColor="@color/customBlack"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/btn_disable_yellow_fill_rounded"
+        android:fontFamily="@font/roboto_bold"
+        android:stateListAnimator="@null"
+        android:text="변경하기"
+        android:enabled="false"
+        android:textColor="@color/disableTxtColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

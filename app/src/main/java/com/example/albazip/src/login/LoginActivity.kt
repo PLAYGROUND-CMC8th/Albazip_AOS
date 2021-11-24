@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.albazip.R
@@ -118,7 +119,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
         }
 
-
+        // 비밀번호 변경
+        binding.tvChangePw.setOnClickListener {
+          val nextIntent = Intent(this,ReInputPhoneActivity::class.java)
+          startActivity(nextIntent)
+        }
     }
 
     // focus 감지

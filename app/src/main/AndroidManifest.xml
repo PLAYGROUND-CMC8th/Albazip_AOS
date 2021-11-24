@@ -122,6 +122,8 @@
         <activity android:name=".src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity"/>
         <activity android:name=".src.withdraw.ui.DefaultWithDrawActivity"/>
 
+        <activity android:name=".src.login.ReInputPhoneActivity"/>
+        <activity android:name=".src.login.RePWActivity"/>
 
     </application>
 
