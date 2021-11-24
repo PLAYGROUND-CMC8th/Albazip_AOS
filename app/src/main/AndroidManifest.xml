@@ -120,6 +120,7 @@
         <activity android:name=".src.home.common.HomeShopListActivity"/>
 
         <activity android:name=".src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity"/>
+        <activity android:name=".src.withdraw.ui.DefaultWithDrawActivity"/>
 
 
     </application>

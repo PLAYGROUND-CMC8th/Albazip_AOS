@@ -214,7 +214,6 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
             // 이미 존재하는 연락처입니다.
             showCustomToast("회원가입 실패")
         }
-        showCustomToast(response.code.toString())
     }
 
     override fun onPostSignUpFailure(message: String) {
