@@ -77,8 +77,10 @@ class HomeWReadyFragment: BaseFragment<ChildFragmentHomeWReadyBinding>(
         if (result.contents == null) { // 출근 취소
             Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_LONG).show()
         } else { // 출근 완료
-            Toast.makeText(requireContext(), "Scanned: " + result.contents, Toast.LENGTH_LONG)
-                .show()
+            //Toast.makeText(requireContext(), "Scanned: " + result.contents, Toast.LENGTH_LONG)
+            //    .show()
+
+            showCustomToast("16:56에 출근이 기록되었습니다.")
 
             // 화면 변경(근무중 fragment로 교체)
             parentFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomeWOpenedFragment())

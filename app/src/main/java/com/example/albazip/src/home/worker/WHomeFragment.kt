@@ -35,7 +35,6 @@ class WHomeFragment :
         noticeList.add(HomeCommuData(1,"휴가 관련 공지"))
         noticeList.add(HomeCommuData(0,"중요 공지"))
 
-
         // indicator 연결
         homeVPAdapter = HomeVPAdapter(requireContext(),noticeList)
 

@@ -36,7 +36,6 @@ class HomeWOpenedFragment:BaseFragment<ChildFragmentHomeWOpenedBinding>(ChildFra
             callQRActivity()
         }
 
-
         // 매장 선택화면으로 이동
         binding.rlChooseShop.setOnClickListener {
             val nextIntent = Intent(requireContext(), HomeShopListActivity::class.java)

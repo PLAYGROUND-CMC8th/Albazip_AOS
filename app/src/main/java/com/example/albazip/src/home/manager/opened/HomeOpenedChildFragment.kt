@@ -7,6 +7,7 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentHomeOpenedBinding
 import com.example.albazip.src.home.common.HomeAlarmActivity
+import com.example.albazip.src.home.common.HomeShopListActivity
 import com.example.albazip.src.home.manager.custom.AddWorkBottomSheetDialog
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
 import com.example.albazip.src.home.manager.opened.ui.TodaysWorkerListActivity
@@ -46,6 +47,11 @@ class HomeOpenedChildFragment: BaseFragment<ChildFragmentHomeOpenedBinding>(
             AddWorkBottomSheetDialog().show(parentFragmentManager, "addwork")
         }
 
+        // 매장 선택화면으로 이동
+        binding.rlChooseShop.setOnClickListener {
+            val nextIntent = Intent(requireContext(), HomeShopListActivity::class.java)
+            startActivity(nextIntent)
+        }
 
     }
 }
