@@ -177,7 +177,9 @@ class MMyPageFragment :
             binding.tvShopName.text = response.data.profileInfo.shopName // 매장이름
             binding.tvPosition.text = response.data.profileInfo.jobTitle // 포지션 정보 (ex.사장님)
             binding.tvManagerName.text = response.data.profileInfo.lastName + response.data.profileInfo.firstName // 이름
-            //@SerializedName("imagePath") val imagePath : String, -> 프로필 이미지는 추후에 ^^ ㅎㅎ
+            if(response.data.profileInfo.imagePath != null) { // 프로필이 존재하지 않는다면
+               Glide.with(requireContext()).load(response.data.profileInfo.imagePath).into(binding.profileImg)
+            }
 
             // 근무자 리스트 호출
             if(response.data.workerList?.isEmpty() == true) { // 근무자 리스트가 비어있으면

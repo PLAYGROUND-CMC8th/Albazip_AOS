@@ -142,6 +142,10 @@ class WMyPageFragment :
         if(response.code == 200){
             ////////////// 기본 정보 받아오기
             // 프로필 사진 설정
+            if(response.data.profileInfo.imagePath != null) { // 프로필이 존재하지 않는다면
+                Glide.with(requireContext()).load(response.data.profileInfo.imagePath)
+                    .into(binding.profileImg)
+            }
             binding.tvShopName.text = response.data.profileInfo.shopName // 가게이름
             binding.tvPosition.text = response.data.profileInfo.jobTitle // 포지션
             binding.tvWorkerName.text = response.data.profileInfo.lastName + response.data.profileInfo.firstName // 유저이름

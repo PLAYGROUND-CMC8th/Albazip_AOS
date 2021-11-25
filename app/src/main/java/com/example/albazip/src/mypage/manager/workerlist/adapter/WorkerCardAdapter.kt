@@ -74,7 +74,7 @@ class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): 
                 )
 
                 // 프로필 이미지 불러오기
-                Glide.with(myContext).load(R.drawable.img_w_profile_1_24_px).circleCrop().into(binding.ivProfile)
+                Glide.with(myContext).load(cardData.image_path).into(binding.ivProfile)
 
                 // 직급
                 binding.tvTitle.text = cardData.rank
