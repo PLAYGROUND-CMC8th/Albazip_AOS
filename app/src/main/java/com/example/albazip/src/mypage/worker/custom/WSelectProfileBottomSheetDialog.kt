@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,15 +20,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.ApplicationClass
+import com.example.albazip.config.BaseResponse
 import com.example.albazip.databinding.DialogFragmentMSelectProfileBinding
 import com.example.albazip.databinding.DialogFragmentWSelectProfileBinding
+import com.example.albazip.src.mypage.worker.profile.data.DefaultImgRequest
+import com.example.albazip.src.mypage.worker.profile.network.DefaultImgFragmentView
+import com.example.albazip.src.mypage.worker.profile.network.DefaultImgService
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
-class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnClickListener {
+class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnClickListener,DefaultImgFragmentView {
 
     // 프로필 사진 intent
     private lateinit var getResult: ActivityResultLauncher<Intent>
@@ -101,12 +106,21 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
         binding.btnSave.setOnClickListener {
             // activity에 값 전달
 
-            val getIvDrawable = binding.ivCurrentProfile.drawable
-            val getIvBitmap = (getIvDrawable as BitmapDrawable).bitmap
+            // 기본 이미지를 선택했을 때
+            if(runningFlags != -1){
+                // 기본이미지 저장 서버통신 시작
+                val postRequest = DefaultImgRequest("w$runningFlags")
+                DefaultImgService(this).tryPostNewPW(postRequest)
+            }else{
+                // 갤러리 선택 이미지 서버통신 시작
+            }
 
-            val getUri = getImageUri(context, getIvBitmap)
+           // val getIvDrawable = binding.ivCurrentProfile.drawable
+           // val getIvBitmap = (getIvDrawable as BitmapDrawable).bitmap
 
-            bottomSheetClickListener.onItemSelected(getUri)
+           // val getUri = getImageUri(context, getIvBitmap)
+
+          //  bottomSheetClickListener.onItemSelected(getUri)
 
             // checkState 저장하기
             ApplicationClass.prefs.setInt("workerProfileFlags", runningFlags)
@@ -229,6 +243,16 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
         binding.frameThreeIv.visibility = View.INVISIBLE
         binding.frameFourIv.visibility = View.INVISIBLE
         binding.frameFiveIv.visibility = View.INVISIBLE
+    }
+
+    // 기본 이미지 등록 성공(근무자)
+    override fun onDefaultImgPostSuccess(response: BaseResponse) {
+        Log.d("hellotest",response.message.toString())
+    }
+
+    // 기본 이미지 등록 실패(근무자)
+    override fun onDefaultImgFailure(message: String) {
+        Log.d("byetest",message)
     }
 
 }

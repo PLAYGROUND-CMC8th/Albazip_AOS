@@ -49,7 +49,7 @@ class MyInfoChildFragment(val myInfo: MyInfo) : BaseFragment<ChildFragmentMyInfo
         // 공동업무 참여 횟수
         binding.tvTogether.text = myInfo.workInfo.coTaskCount.toString()
         // 업무완수율
-        binding.tvSuccess.text = myInfo.workInfo.completeTaskCount.toString()
+        binding.tvSuccess.text = (((myInfo.workInfo.completeTaskCount).toDouble() / (myInfo.workInfo.totalTaskCount).toDouble()) * 100).toInt().toString()
 
         // 합류 날짜
         binding.tvJoinDate.text = myInfo.joinDate.substring(2, 10).replace("-", ".") + "."
@@ -98,8 +98,7 @@ class MyInfoChildFragment(val myInfo: MyInfo) : BaseFragment<ChildFragmentMyInfo
             // 공동업무 참여 횟수
             binding.tvTogether.text = response.data.workInfo.coTaskCount.toString()
             // 업무완수율
-            binding.tvSuccess.text = response.data.workInfo.completeTaskCount.toString()
-
+            binding.tvSuccess.text =  (((response.data.workInfo.completeTaskCount).toDouble() / (response.data.workInfo.totalTaskCount).toDouble()) * 100).toInt().toString()
             // 합류 날짜
             binding.tvJoinDate.text = response.data.joinDate.substring(2, 10).replace("-", ".") + "."
 
