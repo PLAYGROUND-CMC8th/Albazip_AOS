@@ -9,6 +9,7 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentCardInfoBinding
@@ -31,14 +32,12 @@ class CardExistWorkerFragment(val positionId:Int):
     private lateinit var workerInfo: ExistWorkerInfo
 
     // 공통
-    private lateinit var positionProfileInfo: PositionProfileInfo // 프로필 정보
     private lateinit var positionInfo: PositionInfo // 포지션 정보
-    private lateinit var positionTaskList: ArrayList<PositionTaskList>  // 얘는 나중에 고쳐야 할듯 ㅎㅎ !
+    private lateinit var positionTaskList: ArrayList<PositionTaskList>  // ????
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         // sticky tab layout
         binding.stickyNestedScrollview.run {
@@ -116,7 +115,14 @@ class CardExistWorkerFragment(val positionId:Int):
     override fun onGetSuccess(response: ExistWorkerResponse) {
         dismissLoadingDialog()
         if(response.code == 200){
-            // 프로필 추후에 변경
+
+            // 프로필 설정
+            if(response.data.positionProfile.imagePath != "null") {
+                Glide.with(requireContext()).load(response.data.positionProfile.imagePath).circleCrop().into(binding.ivProfile)
+            }else{ // null 이면 기본이미지 보여주기
+                Glide.with(requireContext()).load(R.drawable.img_profile_w_58_px_2).circleCrop().into(binding.ivProfile)
+            }
+
             binding.tvPosition.text = response.data.positionProfile.title // 포지션
             binding.tvFirstName.text = response.data.positionProfile.firstName // 이름
             binding.tvRank.text = response.data.positionProfile.rank // 직위
