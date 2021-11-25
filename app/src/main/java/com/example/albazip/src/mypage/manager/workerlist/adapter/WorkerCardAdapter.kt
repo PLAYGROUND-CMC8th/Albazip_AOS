@@ -74,7 +74,7 @@ class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): 
                 )
 
                 // 프로필 이미지 불러오기
-                if(cardData.image_path != null) {
+                if(cardData.image_path != "null") {
                     Glide.with(myContext).load(cardData.image_path).into(binding.ivProfile)
                 }else{ // null 이면 기본이미지 보여주기
                     Glide.with(myContext).load(R.drawable.img_profile_w_58_px_2).into(binding.ivProfile)

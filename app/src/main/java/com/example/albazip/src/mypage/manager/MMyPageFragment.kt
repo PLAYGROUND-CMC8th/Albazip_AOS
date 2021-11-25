@@ -59,7 +59,7 @@ class MMyPageFragment :
 
         // 프로필 이미지 변경
         binding.ibtnChangeProfile.setOnClickListener {
-            MSelectProfileBottomSheetDialog().show(childFragmentManager, "setProfile")
+            MSelectProfileBottomSheetDialog(requireContext()).show(childFragmentManager, "setProfile")
         }
 
         // sticky tab layout
@@ -178,7 +178,7 @@ class MMyPageFragment :
             binding.tvPosition.text = response.data.profileInfo.jobTitle // 포지션 정보 (ex.사장님)
             binding.tvManagerName.text = response.data.profileInfo.lastName + response.data.profileInfo.firstName // 이름
             if(response.data.profileInfo.imagePath != null) { // 프로필이 존재하지 않는다면
-               Glide.with(requireContext()).load(response.data.profileInfo.imagePath).into(binding.profileImg)
+               Glide.with(requireContext()).load(response.data.profileInfo.imagePath).circleCrop().into(binding.profileImg)
             }
 
             // 근무자 리스트 호출

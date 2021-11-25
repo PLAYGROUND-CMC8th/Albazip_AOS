@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -21,11 +20,10 @@ import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseResponse
-import com.example.albazip.databinding.DialogFragmentMSelectProfileBinding
 import com.example.albazip.databinding.DialogFragmentWSelectProfileBinding
-import com.example.albazip.src.mypage.worker.profile.data.DefaultImgRequest
-import com.example.albazip.src.mypage.worker.profile.network.DefaultImgFragmentView
-import com.example.albazip.src.mypage.worker.profile.network.DefaultImgService
+import com.example.albazip.src.mypage.common.profile.data.DefaultImgRequest
+import com.example.albazip.src.mypage.common.profile.network.DefaultImgFragmentView
+import com.example.albazip.src.mypage.common.profile.network.DefaultImgService
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
@@ -65,11 +63,11 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
             when (workerProfileFlags) {
                 1 -> {
                     binding.frameOneIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_1)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_2)
                 }
                 2 -> {
                     binding.frameTwoIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_2)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_1)
                 }
                 3 -> {
                     binding.frameThreeIv.visibility = View.VISIBLE
@@ -77,11 +75,11 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
                 }
                 4 -> {
                     binding.frameFourIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_4)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_5)
                 }
                 5 -> {
                     binding.frameFiveIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_5)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_w_128_px_4)
                 }
             }
         }

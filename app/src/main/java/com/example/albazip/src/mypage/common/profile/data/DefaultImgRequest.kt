@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.worker.profile.data
+package com.example.albazip.src.mypage.common.profile.data
 
 import com.google.gson.annotations.SerializedName
 

@@ -70,7 +70,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/img_profile_m_58_px_1" />
+                android:src="@drawable/img_profile_m_58_px_3" />
 
             <FrameLayout
                 android:id="@+id/frame_one"
@@ -124,7 +124,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/img_profile_m_58_px_3" />
+                android:src="@drawable/img_profile_m_58_px_1" />
 
             <FrameLayout
                 android:id="@+id/frame_three"
@@ -151,7 +151,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/img_profile_m_58_px_4" />
+                android:src="@drawable/img_profile_m_58_px_5" />
 
             <FrameLayout
                 android:id="@+id/frame_four"
@@ -178,7 +178,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/img_profile_m_58_px_5" />
+                android:src="@drawable/img_profile_m_58_px_4" />
 
             <FrameLayout
                 android:id="@+id/frame_five"

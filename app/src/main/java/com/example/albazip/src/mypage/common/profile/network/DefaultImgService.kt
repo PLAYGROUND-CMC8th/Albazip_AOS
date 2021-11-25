@@ -1,12 +1,8 @@
-package com.example.albazip.src.mypage.worker.profile.network
+package com.example.albazip.src.mypage.common.profile.network
 
 import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseResponse
-import com.example.albazip.src.mypage.worker.profile.data.DefaultImgRequest
-import com.example.albazip.src.register.common.data.remote.PositionRegisterResponse
-import com.example.albazip.src.register.worker.data.PostSignInWorkerRequest
-import com.example.albazip.src.register.worker.network.WSignUpFragmentView
-import com.example.albazip.src.register.worker.network.WSignUpRetrofitInterface
+import com.example.albazip.src.mypage.common.profile.data.DefaultImgRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

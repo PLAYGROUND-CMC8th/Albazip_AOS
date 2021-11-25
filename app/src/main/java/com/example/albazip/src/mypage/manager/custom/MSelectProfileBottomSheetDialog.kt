@@ -4,11 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,19 +17,31 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.ApplicationClass
+import com.example.albazip.config.BaseResponse
 import com.example.albazip.databinding.DialogFragmentMSelectProfileBinding
+import com.example.albazip.src.mypage.common.profile.data.DefaultImgRequest
+import com.example.albazip.src.mypage.common.profile.network.DefaultImgFragmentView
+import com.example.albazip.src.mypage.common.profile.network.DefaultImgService
+import com.example.albazip.src.mypage.common.profile.network.GalleryImgFragmentView
+import com.example.albazip.src.mypage.common.profile.network.GalleryImgService
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
-import java.lang.Exception
+import java.io.File
+import java.io.InputStream
 import java.util.*
-import kotlin.collections.ArrayList
 
-class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnClickListener {
+
+class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragment(), View.OnClickListener,DefaultImgFragmentView,GalleryImgFragmentView {
+
+    private val mycontext = context
 
     // 프로필 사진 intent
     private lateinit var getResult: ActivityResultLauncher<Intent>
@@ -39,6 +51,9 @@ class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
     // 프로필 체크 Flags 받아오기
     val managerProfileFlags = ApplicationClass.prefs.getInt("managerProfileFlags", 2)
     var runningFlags: Int = managerProfileFlags
+
+    // 갤러리에서 받아온 이미지 uri
+    private var galleryUri:Uri? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -62,7 +77,7 @@ class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
             when (managerProfileFlags) {
                 1 -> {
                     binding.frameOneIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_1)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_3)
                 }
                 2 -> {
                     binding.frameTwoIv.visibility = View.VISIBLE
@@ -70,15 +85,15 @@ class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
                 }
                 3 -> {
                     binding.frameThreeIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_3)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_1)
                 }
                 4 -> {
                     binding.frameFourIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_4)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_5)
                 }
                 5 -> {
                     binding.frameFiveIv.visibility = View.VISIBLE
-                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_5)
+                    binding.ivCurrentProfile.setImageResource(R.drawable.img_profile_m_128_px_4)
                 }
             }
         }
@@ -103,12 +118,22 @@ class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
         binding.btnSave.setOnClickListener {
             // activity에 값 전달
 
-            val getIvDrawable = binding.ivCurrentProfile.drawable
-            val getIvBitmap = (getIvDrawable as BitmapDrawable).bitmap
+//            val getIvDrawable = binding.ivCurrentProfile.drawable
+//            val getIvBitmap = (getIvDrawable as BitmapDrawable).bitmap
+//
+//            val getUri = getImageUri(context, getIvBitmap)
+//
+//            bottomSheetClickListener.onItemSelected(getUri)
 
-            val getUri = getImageUri(context, getIvBitmap)
-
-            bottomSheetClickListener.onItemSelected(getUri)
+            // 기본 이미지를 선택했을 때
+            if(runningFlags != -1){
+                // 기본이미지 저장 서버통신 시작
+                val postRequest = DefaultImgRequest("m$runningFlags")
+                DefaultImgService(this).tryPostNewPW(postRequest)
+            }else{
+                // 갤러리 선택 이미지 서버통신 시작
+                uriToFilePath(galleryUri)
+            }
 
             // checkState 저장하기
             ApplicationClass.prefs.setInt("managerProfileFlags", runningFlags)
@@ -135,6 +160,9 @@ class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
                     Glide.with(requireContext()).load(uri).circleCrop()
                         .into(binding.ivCurrentProfile)
 
+                    galleryUri = uri
+                    Log.d("galleryUri",galleryUri.toString())
+
                     // 플래그 저장 및 기존 Check 전부 비활성화
                     deselectAllCheck()
                     runningFlags = -1
@@ -146,6 +174,29 @@ class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
                 Toast.makeText(requireContext(), "선택 취소", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun uriToFilePath(uri: Uri?) {
+        val options = BitmapFactory.Options()
+        val inputStream: InputStream =
+            requireNotNull(mycontext.contentResolver.openInputStream(uri!!))
+        val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+        val fileBody = byteArrayOutputStream.toByteArray()
+            .toRequestBody(
+                "image/jpeg".toMediaTypeOrNull(),
+                0
+            )
+
+        val part = MultipartBody.Part.createFormData(
+            "uploadImage",
+            File(uri.toString()).name,
+            fileBody
+        )
+
+        // 제발요...
+        GalleryImgService(this).tryPostGalleryImg(part)
     }
 
     interface BottomSheetClickListener {
@@ -231,6 +282,24 @@ class MSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
         binding.frameThreeIv.visibility = View.INVISIBLE
         binding.frameFourIv.visibility = View.INVISIBLE
         binding.frameFiveIv.visibility = View.INVISIBLE
+    }
+
+    // 기본 이미지 업로드
+    override fun onDefaultImgPostSuccess(response: BaseResponse) {
+        Log.d("hellotest",response.message.toString())
+    }
+
+    override fun onDefaultImgFailure(message: String) {
+        Log.d("byetest",message)
+    }
+
+    // 갤러리 이미지 업로드
+    override fun onGalleryImgPostSuccess(response: BaseResponse) {
+        Log.d("hellotest",response.message.toString())
+    }
+
+    override fun onGalleryImgFailure(message: String) {
+        Log.d("byetest",message)
     }
 
 }
