@@ -62,6 +62,7 @@
             android:background="@color/white">
 
             <ImageButton
+                android:id="@+id/btn_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
@@ -136,7 +137,7 @@
             android:layout_toStartOf="@id/tv_late_unit"
             android:gravity="center"
             android:letterSpacing="-0.03"
-            android:text="100"
+            tools:text="100"
             android:textColor="#343434"
             android:textSize="24sp"
             android:textStyle="bold" />

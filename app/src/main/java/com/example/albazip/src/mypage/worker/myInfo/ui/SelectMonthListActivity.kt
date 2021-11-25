@@ -32,6 +32,11 @@ class SelectMonthListActivity:BaseActivity<ActivitySelectMonthListBinding>(Activ
             MonthRateService(this).tryGetTaskRate(year,month)
             showLoadingDialog(this)
         }
+
+        // 뒤로가기 버튼
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onMonthRateGetSuccess(response: GetMonthTaskRateResponse) {

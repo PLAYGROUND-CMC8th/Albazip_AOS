@@ -38,6 +38,11 @@ class SelectDayListActivity :
             showLoadingDialog(this)
         }
 
+        // 뒤로가기 버튼
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+
         // 미완료 업무 리스트
         //unDoneList.add(DailyUnDoneWorkListData("간판 안으로 들여놓기", "문 뒤에 들여놓으세요.","사장님 김형준 · 2021.10.21."))
 

@@ -19,6 +19,7 @@
             android:background="@color/white">
 
             <ImageButton
+                android:id="@+id/btn_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
@@ -34,7 +35,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="center_horizontal"
                 android:letterSpacing="-0.03"
-                android:text="21년 9월 업무"
+                tools:text="21년 9월 업무"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />

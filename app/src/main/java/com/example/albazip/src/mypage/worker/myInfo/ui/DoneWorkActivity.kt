@@ -24,6 +24,11 @@ class DoneWorkActivity : BaseActivity<ActivityWorkDoneBinding>(ActivityWorkDoneB
 
         TaskRateService(this).tryGetTaskRate()
         showLoadingDialog(this)
+
+        // 뒤로가기 버튼
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onTaskRateGetSuccess(response: GetTaskRateResponse) {
