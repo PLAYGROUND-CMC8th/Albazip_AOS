@@ -20,6 +20,7 @@
             android:background="@color/white">
 
             <ImageButton
+                android:id="@+id/btn_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
@@ -124,17 +125,17 @@
             android:layout_height="wrap_content"/>
 
         <ImageButton
-            android:id="@+id/ibtn_left"
+            android:id="@+id/ibtn_prev_month"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="14dp"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/ibtn_right"
+            android:layout_toStartOf="@id/ibtn_next_month"
             android:src="@drawable/ic_chevron_left_24_px"
             android:background="@null"/>
 
         <ImageButton
-            android:id="@+id/ibtn_right"
+            android:id="@+id/ibtn_next_month"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_centerVertical="true"
@@ -143,6 +144,24 @@
             android:background="@null"/>
     </RelativeLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_record"
+        android:overScrollMode="never"
+        android:background="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fadingEdge="horizontal"
+        android:fadingEdgeLength="30dp"
+        android:fillViewport="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:requiresFadingEdge="vertical"
+        tools:listitem="@layout/item_rv_late_record"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rl_title"
+        app:layout_constraintStart_toStartOf="@id/rl_title"
+        app:layout_constraintTop_toBottomOf="@id/rl_title" />
+
     <LinearLayout
         android:id="@+id/ll_no_data"
         android:layout_width="0dp"
@@ -150,6 +169,7 @@
         android:layout_marginBottom="24dp"
         android:orientation="vertical"
         android:gravity="center"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/rl_title"
         app:layout_constraintStart_toStartOf="@id/rl_title"
@@ -173,23 +193,5 @@
             android:text="출퇴근 기록이 없어요."/>
 
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_record"
-        android:overScrollMode="never"
-        android:background="@color/white"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fadingEdge="horizontal"
-        android:fadingEdgeLength="30dp"
-        android:fillViewport="false"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:requiresFadingEdge="vertical"
-        tools:listitem="@layout/item_rv_late_record"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/rl_title"
-        app:layout_constraintStart_toStartOf="@id/rl_title"
-        app:layout_constraintTop_toBottomOf="@id/rl_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
