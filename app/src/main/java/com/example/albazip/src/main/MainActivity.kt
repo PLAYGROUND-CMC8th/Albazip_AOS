@@ -1,6 +1,7 @@
 package com.example.albazip.src.main
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import com.example.albazip.config.BaseActivity
@@ -13,11 +14,17 @@ import com.google.android.gms.tasks.OnCompleteListener
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        // 시스템바 색상 변경
+        window.statusBarColor = Color.parseColor("#ffffff")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // 전체화면으로 만들기 (상태바 제거)
-        ScreenToFull().fullScreen(this)
+        // ScreenToFull().fullScreen(this)
 
         // 회원가입 화면으로 이동
         binding.btnRegister.setOnClickListener {

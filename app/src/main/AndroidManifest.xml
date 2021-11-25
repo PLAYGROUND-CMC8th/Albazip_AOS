@@ -62,8 +62,8 @@
         <activity android:name=".src.main.MainActivity">
         </activity>
         <activity android:name=".src.register.manager.InputBNumActivity" />
-        <activity android:name=".src.register.worker.RegisterJoinActivity" />
-        <activity android:name=".src.register.worker.WorkerOnBoardingActivity" />
+        <activity android:name=".src.register.worker.ui.RegisterJoinActivity" />
+        <activity android:name=".src.register.worker.ui.WorkerOnBoardingActivity" />
         <activity android:name=".src.home.common.SettingActivity" />
 
 

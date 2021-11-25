@@ -1,12 +1,16 @@
 package com.example.albazip.src.register.manager
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityOnBoardingBinding
+import com.example.albazip.src.main.MainActivity
+import com.example.albazip.src.main.ManagerMainActivity
 import com.example.albazip.src.register.common.adapter.OnBoardingVPAdapter
 import com.example.albazip.src.register.common.data.local.OnBoardData
 import kotlin.collections.ArrayList
@@ -22,6 +26,15 @@ class ManagerOnBoardingActivity :
         super.onCreate(savedInstanceState)
 
         var boardList = ArrayList<OnBoardData>()
+
+        // 관리자 메인화면으로 이동
+        binding.btnStart.setOnClickListener {
+            // flag 값 변경후 화면 이동
+            ApplicationClass.prefs.setInt("mBoardingFlags",1)
+            val nextIntent = Intent(this,ManagerMainActivity::class.java)
+            startActivity(nextIntent)
+            finishAffinity()
+        }
 
         // viewpager 리스트
         boardList.add(

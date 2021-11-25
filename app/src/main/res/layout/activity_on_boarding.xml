@@ -104,6 +104,7 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_start"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:text="시작하기"

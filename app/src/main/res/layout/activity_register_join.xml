@@ -60,7 +60,7 @@
     </RelativeLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_next"
+        android:id="@+id/btn_worker_register"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginHorizontal="24dp"

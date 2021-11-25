@@ -15,12 +15,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.set
 import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.config.BaseResponse
 import com.example.albazip.databinding.ActivityInputPlaceMoreBinding
 import com.example.albazip.src.main.ManagerMainActivity
 import com.example.albazip.src.register.common.custom.AgeBottomSheetDialog
+import com.example.albazip.src.register.common.data.remote.PositionRegisterResponse
 import com.example.albazip.src.register.common.data.remote.PostSignUpRequest
 import com.example.albazip.src.register.common.network.SignUpService
 import com.example.albazip.src.register.manager.custom.PayDayBottomSheetDialog
@@ -504,18 +506,17 @@ class InputPlaceMoreActivity :
     }
 
     // 서버통신 성공
-    override fun onPostMSignUpSuccess(response: BaseResponse) {
+    override fun onPostMSignUpSuccess(response: PositionRegisterResponse) {
         dismissLoadingDialog()
         showCustomToast(response.message.toString())
         if (response.code == 200) {
             showCustomToast("관리자 가입 완료")
 
             val mBoardingFlags = prefs.getInt("mBoardingFlags",0)
+            ApplicationClass.prefs.setString(ApplicationClass.X_ACCESS_TOKEN, response.tokenData.token)
 
             // 저장된 Flag값이 0이면 온보딩
             if(mBoardingFlags == 0){
-                // flag 값 변경후 화면 이동
-                prefs.setInt("mBoardingFlags",1)
                 prefs.setInt("jobFlags",1)
                 val nextIntent = Intent(this,ManagerOnBoardingActivity::class.java)
                 startActivity(nextIntent)

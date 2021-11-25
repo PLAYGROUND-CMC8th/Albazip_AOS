@@ -1,12 +1,16 @@
-package com.example.albazip.src.register.worker
+package com.example.albazip.src.register.worker.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityOnBoardingBinding
+import com.example.albazip.src.main.ManagerMainActivity
+import com.example.albazip.src.main.WorkerMainActivity
 import com.example.albazip.src.register.common.adapter.OnBoardingVPAdapter
 import com.example.albazip.src.register.common.data.local.OnBoardData
 
@@ -21,6 +25,15 @@ class WorkerOnBoardingActivity :
         super.onCreate(savedInstanceState)
 
         var boardList = ArrayList<OnBoardData>()
+
+        // 근무자 메인화면으로 이동
+        binding.btnStart.setOnClickListener {
+            // flag 값 변경후 화면 이동
+            ApplicationClass.prefs.setInt("wBoardingFlags",1)
+            val nextIntent = Intent(this, WorkerMainActivity::class.java)
+            startActivity(nextIntent)
+            finishAffinity()
+        }
 
         // viewpager 리스트
         boardList.add(

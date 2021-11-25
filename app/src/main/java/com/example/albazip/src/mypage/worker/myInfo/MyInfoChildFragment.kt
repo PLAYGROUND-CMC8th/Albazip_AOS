@@ -39,9 +39,9 @@ class MyInfoChildFragment(val myInfo: MyInfo) : BaseFragment<ChildFragmentMyInfo
         binding.tvMyBirth.text = myInfo.userInfo.birthyear + "년생"
         // 성별
         if (myInfo.userInfo.gender == 0) {
-            binding.tvMySex.text = "여자"
-        } else {
             binding.tvMySex.text = "남자"
+        } else {
+            binding.tvMySex.text = "여자"
         }
 
         // 지각횟수
