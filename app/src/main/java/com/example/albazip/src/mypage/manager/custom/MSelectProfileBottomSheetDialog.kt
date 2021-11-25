@@ -116,15 +116,6 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
 
         // 사진 저장하기(추후 서버통신도 여기서 진행!)
         binding.btnSave.setOnClickListener {
-            // activity에 값 전달
-
-//            val getIvDrawable = binding.ivCurrentProfile.drawable
-//            val getIvBitmap = (getIvDrawable as BitmapDrawable).bitmap
-//
-//            val getUri = getImageUri(context, getIvBitmap)
-//
-//            bottomSheetClickListener.onItemSelected(getUri)
-
             // 기본 이미지를 선택했을 때
             if(runningFlags != -1){
                 // 기본이미지 저장 서버통신 시작
@@ -137,6 +128,9 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
 
             // checkState 저장하기
             ApplicationClass.prefs.setInt("managerProfileFlags", runningFlags)
+
+            // 이전 액티비티에 값 전달
+            bottomSheetClickListener.onItemSelected(binding.ivCurrentProfile)
 
             dismiss()
         }
@@ -195,12 +189,12 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
             fileBody
         )
 
-        // 제발요...
+        // 갤러리 업로드 서버통신
         GalleryImgService(this).tryPostGalleryImg(part)
     }
 
     interface BottomSheetClickListener {
-        fun onItemSelected(uri: Uri?)
+        fun onItemSelected(iv: ImageView)
     }
 
     fun selectProfileFromDefault(v: View?) {
@@ -220,11 +214,11 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
             binding.frameFiveIv
         ) // 반응하는 UI
         val profileDrawable: ArrayList<Int> = arrayListOf(
-            R.drawable.img_profile_m_128_px_1,
-            R.drawable.img_profile_m_128_px_2,
             R.drawable.img_profile_m_128_px_3,
-            R.drawable.img_profile_m_128_px_4,
-            R.drawable.img_profile_m_128_px_5
+            R.drawable.img_profile_m_128_px_2,
+            R.drawable.img_profile_m_128_px_1,
+            R.drawable.img_profile_m_128_px_5,
+            R.drawable.img_profile_m_128_px_4
         )
 
         for (i in 0 until profileList.size) {
@@ -237,20 +231,6 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
             }
         }
 
-    }
-
-    fun getImageUri(inContext: Context?, inImage: Bitmap?): Uri? {
-        val bytes = ByteArrayOutputStream()
-        if (inImage != null) {
-            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        }
-        val path = MediaStore.Images.Media.insertImage(
-            inContext?.contentResolver,
-            inImage,
-            "Title" + " - " + Calendar.getInstance().getTime(),
-            null
-        )
-        return Uri.parse(path)
     }
 
     override fun onClick(v: View?) {

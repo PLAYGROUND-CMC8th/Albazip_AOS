@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -165,8 +166,8 @@ class MMyPageFragment :
     }
 
     // 프로필 이미지 받아오기
-    override fun onItemSelected(uri: Uri?) {
-        Glide.with(requireContext()).load(uri).circleCrop().into(binding.profileImg)
+    override fun onItemSelected(iv: ImageView) {
+        Glide.with(requireContext()).load(iv.drawable).circleCrop().into(binding.profileImg)
     }
 
     override fun onMMyPageGetSuccess(response: GetMMyPageInfoResponse) {

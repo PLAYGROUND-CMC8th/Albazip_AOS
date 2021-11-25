@@ -38,7 +38,7 @@
                         android:id="@+id/profile_img"
                         android:layout_width="84dp"
                         android:layout_height="84dp"
-                        android:src="@drawable/img_profile_m_58_px_2" />
+                        tools:src="@drawable/img_profile_m_58_px_2" />
 
                     <ImageButton
                         android:id="@+id/ibtn_change_profile"
