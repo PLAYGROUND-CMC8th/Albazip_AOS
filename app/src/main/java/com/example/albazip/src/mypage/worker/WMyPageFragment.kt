@@ -3,10 +3,10 @@ package com.example.albazip.src.mypage.worker
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -55,7 +55,7 @@ class WMyPageFragment :
 
         // 프로필 이미지 변경
         binding.ibtnChangeProfile.setOnClickListener {
-            WSelectProfileBottomSheetDialog().show(childFragmentManager, "setProfile")
+            WSelectProfileBottomSheetDialog(requireContext()).show(childFragmentManager, "setProfile")
         }
 
         // 설정 창으로 이동
@@ -133,8 +133,8 @@ class WMyPageFragment :
         }
     }
 
-    override fun onItemSelected(uri: Uri?) {
-        Glide.with(requireContext()).load(uri).circleCrop().into(binding.profileImg)
+    override fun onItemSelected(iv: ImageView) {
+        Glide.with(requireContext()).load(iv.drawable).circleCrop().into(binding.profileImg)
     }
 
     override fun onWMyPageGetSuccess(response: GetWMyPageInfoResponse) {
@@ -143,7 +143,7 @@ class WMyPageFragment :
             ////////////// 기본 정보 받아오기
             // 프로필 사진 설정
             if(response.data.profileInfo.imagePath != null) { // 프로필이 존재하지 않는다면
-                Glide.with(requireContext()).load(response.data.profileInfo.imagePath)
+                Glide.with(requireContext()).load(response.data.profileInfo.imagePath).circleCrop()
                     .into(binding.profileImg)
             }
             binding.tvShopName.text = response.data.profileInfo.shopName // 가게이름

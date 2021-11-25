@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -24,13 +25,22 @@ import com.example.albazip.databinding.DialogFragmentWSelectProfileBinding
 import com.example.albazip.src.mypage.common.profile.data.DefaultImgRequest
 import com.example.albazip.src.mypage.common.profile.network.DefaultImgFragmentView
 import com.example.albazip.src.mypage.common.profile.network.DefaultImgService
+import com.example.albazip.src.mypage.common.profile.network.GalleryImgFragmentView
+import com.example.albazip.src.mypage.common.profile.network.GalleryImgService
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.InputStream
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
-class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnClickListener,DefaultImgFragmentView {
+class WSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragment(), View.OnClickListener,DefaultImgFragmentView,GalleryImgFragmentView {
+
+    private val mycontext = context
 
     // 프로필 사진 intent
     private lateinit var getResult: ActivityResultLauncher<Intent>
@@ -40,6 +50,9 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
     // 프로필 체크 Flags 받아오기
     val workerProfileFlags = ApplicationClass.prefs.getInt("workerProfileFlags", 2)
     var runningFlags: Int = workerProfileFlags
+
+    // 갤러리에서 받아온 이미지 uri
+    private var galleryUri:Uri? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -84,7 +97,6 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
             }
         }
 
-
         // 프로필 사진 변경(갤러리)
         binding.tvSelectFromGallery.setOnClickListener {
             val profileIntent = Intent()
@@ -111,17 +123,14 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
                 DefaultImgService(this).tryPostNewPW(postRequest)
             }else{
                 // 갤러리 선택 이미지 서버통신 시작
+                uriToFilePath(galleryUri)
             }
-
-           // val getIvDrawable = binding.ivCurrentProfile.drawable
-           // val getIvBitmap = (getIvDrawable as BitmapDrawable).bitmap
-
-           // val getUri = getImageUri(context, getIvBitmap)
-
-          //  bottomSheetClickListener.onItemSelected(getUri)
 
             // checkState 저장하기
             ApplicationClass.prefs.setInt("workerProfileFlags", runningFlags)
+
+            // 이전 액티비티에 값 전달
+            bottomSheetClickListener.onItemSelected(binding.ivCurrentProfile)
 
             dismiss()
         }
@@ -134,6 +143,29 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
         return binding.root
     }
 
+    fun uriToFilePath(uri: Uri?) {
+        val options = BitmapFactory.Options()
+        val inputStream: InputStream =
+            requireNotNull(mycontext.contentResolver.openInputStream(uri!!))
+        val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+        val fileBody = byteArrayOutputStream.toByteArray()
+            .toRequestBody(
+                "image/jpeg".toMediaTypeOrNull(),
+                0
+            )
+
+        val part = MultipartBody.Part.createFormData(
+            "uploadImage",
+            File(uri.toString()).name,
+            fileBody
+        )
+
+        // 갤러리 업로드 서버통신
+        GalleryImgService(this).tryPostGalleryImg(part)
+    }
+
     // 프로필 결과 반환
     fun selectProfileFromGallery() {
         // 프로필 결과 반환
@@ -144,6 +176,8 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
                     val uri: Uri? = (it.data)?.data
                     Glide.with(requireContext()).load(uri).circleCrop()
                         .into(binding.ivCurrentProfile)
+
+                    galleryUri = uri
 
                     // 플래그 저장 및 기존 Check 전부 비활성화
                     deselectAllCheck()
@@ -159,7 +193,7 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
     }
 
     interface BottomSheetClickListener {
-        fun onItemSelected(uri: Uri?)
+        fun onItemSelected(iv: ImageView)
     }
 
     fun selectProfileFromDefault(v: View?) {
@@ -179,11 +213,11 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
             binding.frameFiveIv
         ) // 반응하는 UI
         val profileDrawable: ArrayList<Int> = arrayListOf(
-            R.drawable.img_profile_w_128_px_1,
             R.drawable.img_profile_w_128_px_2,
+            R.drawable.img_profile_w_128_px_1,
             R.drawable.img_profile_w_128_px_3,
-            R.drawable.img_profile_w_128_px_4,
-            R.drawable.img_profile_w_128_px_5
+            R.drawable.img_profile_w_128_px_5,
+            R.drawable.img_profile_w_128_px_4
         )
 
         for (i in 0 until profileList.size) {
@@ -198,19 +232,7 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
 
     }
 
-    fun getImageUri(inContext: Context?, inImage: Bitmap?): Uri? {
-        val bytes = ByteArrayOutputStream()
-        if (inImage != null) {
-            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        }
-        val path = MediaStore.Images.Media.insertImage(
-            inContext?.contentResolver,
-            inImage,
-            "Title" + " - " + Calendar.getInstance().getTime(),
-            null
-        )
-        return Uri.parse(path)
-    }
+
 
     override fun onClick(v: View?) {
         binding.apply {
@@ -250,6 +272,14 @@ class WSelectProfileBottomSheetDialog() : BottomSheetDialogFragment(), View.OnCl
 
     // 기본 이미지 등록 실패(근무자)
     override fun onDefaultImgFailure(message: String) {
+        Log.d("byetest",message)
+    }
+
+    override fun onGalleryImgPostSuccess(response: BaseResponse) {
+        Log.d("hellotest",response.message.toString())
+    }
+
+    override fun onGalleryImgFailure(message: String) {
         Log.d("byetest",message)
     }
 

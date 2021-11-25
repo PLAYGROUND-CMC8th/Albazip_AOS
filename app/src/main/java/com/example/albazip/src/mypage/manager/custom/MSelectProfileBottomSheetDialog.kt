@@ -155,7 +155,6 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
                         .into(binding.ivCurrentProfile)
 
                     galleryUri = uri
-                    Log.d("galleryUri",galleryUri.toString())
 
                     // 플래그 저장 및 기존 Check 전부 비활성화
                     deselectAllCheck()
