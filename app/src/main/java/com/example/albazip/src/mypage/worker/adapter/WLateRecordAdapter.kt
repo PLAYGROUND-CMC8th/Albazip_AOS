@@ -26,11 +26,17 @@ class WLateRecordAdapter(private val itemList:ArrayList<WLateRecordData>):Recycl
 
         fun setRecordList(recordData: WLateRecordData){
             // 날짜
-            binding.tvDate.text = recordData.dateTxt
+            binding.tvDate.text = recordData.year+"."+recordData.month+"."+recordData.day+"."
             // 출근시간
-            binding.tvGoWorkTime.text = recordData.goTxt
+            binding.tvGoWorkTime.text = recordData.start_time.substring(0,2) + ":" + recordData.start_time.substring(2,4)
             // 퇴근 시간
-            binding.tvOffWorkTime.text = recordData.offTxt
+            binding.tvOffWorkTime.text = recordData.end_time.substring(0,2) + ":" + recordData.end_time.substring(2,4)
+
+            // 지각체크
+
+            // 출근
+
+            // 퇴근
         }
     }
 }

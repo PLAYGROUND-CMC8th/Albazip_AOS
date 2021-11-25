@@ -119,7 +119,7 @@
             android:textColor="#343434"
             android:letterSpacing="0.02"
             android:lineSpacingExtra="-2sp"
-            android:text="7월"
+            tools:text="7월"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -143,13 +143,47 @@
             android:background="@null"/>
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_no_data"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rl_title"
+        app:layout_constraintStart_toStartOf="@id/rl_title"
+        app:layout_constraintTop_toBottomOf="@id/rl_title">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_alert_36_px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#a3a3a3"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="6sp"
+            android:gravity="center_horizontal"
+            android:text="출퇴근 기록이 없어요."/>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_record"
+        android:overScrollMode="never"
+        android:background="@color/white"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fadingEdge="horizontal"
         android:fadingEdgeLength="30dp"
         android:fillViewport="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:requiresFadingEdge="vertical"
         tools:listitem="@layout/item_rv_late_record"
         android:layout_marginBottom="24dp"

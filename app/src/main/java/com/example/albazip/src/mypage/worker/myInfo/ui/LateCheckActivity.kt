@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityLateCheckBinding
+import com.example.albazip.src.mypage.common.workerdata.commute.data.GetCommuteInfoResponse
 import com.example.albazip.src.mypage.worker.adapter.WBoardListAdapter
 import com.example.albazip.src.mypage.worker.adapter.WLateRecordAdapter
 import com.example.albazip.src.mypage.worker.data.local.WLateRecordData
+import com.example.albazip.src.mypage.worker.myInfo.network.RecentCommuteFragmentView
+import com.example.albazip.src.mypage.worker.myInfo.network.RecentCommuteInfoService
 
 // 지각(출석) 체크
-class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheckBinding::inflate) {
+class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheckBinding::inflate),RecentCommuteFragmentView {
 
     private lateinit var lateRecordAdapter:WLateRecordAdapter
     private val lateRecordList = ArrayList<WLateRecordData>()
@@ -21,19 +24,22 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        RecentCommuteInfoService(this).tryGetRecentCommuteInfo()
+        showLoadingDialog(this)
+    }
 
-        lateRecordList.add(WLateRecordData("2021.07.03.","08:20","13:30"))
-        lateRecordList.add(WLateRecordData("2021.07.03.","08:20","13:30"))
-        lateRecordList.add(WLateRecordData("2021.07.03.","08:20","13:30"))
-        lateRecordList.add(WLateRecordData("2021.07.03.","08:20","13:30"))
-        lateRecordList.add(WLateRecordData("2021.07.03.","08:20","13:30"))
-        lateRecordList.add(WLateRecordData("2021.07.03.","08:20","13:30"))
-        lateRecordList.add(WLateRecordData("2021.07.03.","08:20","13:30"))
+    override fun onRecentCommuteInfoGetSuccess(response: GetCommuteInfoResponse) {
+        dismissLoadingDialog()
 
+        binding.tvMonth.text = response.data.month + "월"
 
-        val linearLayoutManager = LinearLayoutManager(this)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        binding.rvRecord.layoutManager = linearLayoutManager
+        showCustomToast(response.message.toString())
+        for (i in 0 until response.data.commuteData.size){
+            lateRecordList.add(
+                WLateRecordData(response.data.commuteData[i].year,response.data.commuteData[i].month,response.data.commuteData[i].day,response.data.commuteData[i].start_time,response.data.commuteData[i].end_time,
+                    response.data.commuteData[i].is_late)
+            )
+        }
 
         // divider custom
         val dividerItemDecoration = DividerItemDecoration(this,1)
@@ -44,6 +50,10 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
 
         lateRecordAdapter = WLateRecordAdapter(lateRecordList)
         binding.rvRecord.adapter = lateRecordAdapter
+    }
 
+    override fun onRecentCommuteInfoGetFailure(message: String) {
+        dismissLoadingDialog()
+        showCustomToast(message)
     }
 }
