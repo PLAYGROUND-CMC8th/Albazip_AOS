@@ -1,19 +1,24 @@
 package com.example.albazip.src.mypage.manager.adapter
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.albazip.R
 import com.example.albazip.databinding.ItemRvAddToDoBinding
 import com.example.albazip.src.mypage.manager.workerlist.data.local.TodoData
 
 
-class ToDoListAdapter(val itemList: ArrayList<TodoData>) :
+class ToDoListAdapter(val itemList: ArrayList<TodoData>,val context:Context) :
     RecyclerView.Adapter<ToDoListAdapter.ToDoHolder>() {
 
     private lateinit var binding: ItemRvAddToDoBinding
+
+    private val myContext = context
 
     // 아이템 추가
     fun addItem(todoData: TodoData) {
@@ -47,6 +52,34 @@ class ToDoListAdapter(val itemList: ArrayList<TodoData>) :
             itemList.removeAt(position)
             notifyItemRemoved(position)
             notifyDataSetChanged()
+        }
+
+        // 텍스트 입력 여부 감지
+        // focus 감지
+        holder.binding.etToDoName.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus)
+                binding.llRoot.background = ContextCompat.getDrawable(
+                    myContext,
+                    R.drawable.bg_to_do_rv_active
+                ) else {
+                binding.llRoot.background = ContextCompat.getDrawable(
+                    myContext,
+                    R.drawable.bg_to_do_rv
+                )
+            }
+        }
+
+        holder.binding.etToDoExplain.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus)
+                binding.llRoot.background = ContextCompat.getDrawable(
+                    myContext,
+                    R.drawable.bg_to_do_rv_active
+                ) else {
+                binding.llRoot.background = ContextCompat.getDrawable(
+                    myContext,
+                    R.drawable.bg_to_do_rv
+                )
+            }
         }
 
     }

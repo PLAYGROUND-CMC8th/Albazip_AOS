@@ -27,7 +27,7 @@ class AddWorkerTwoActivity:BaseActivity<ActivityAddWorkerTwoBinding>(ActivityAdd
         super.onCreate(savedInstanceState)
 
         // recyclerview 연결
-        todoAdapter = ToDoListAdapter(toDoList)
+        todoAdapter = ToDoListAdapter(toDoList,this@AddWorkerTwoActivity)
 
         // 리사이클러 뷰 타입 설정
         // 만든 어댑터 recyclerview에 연결
