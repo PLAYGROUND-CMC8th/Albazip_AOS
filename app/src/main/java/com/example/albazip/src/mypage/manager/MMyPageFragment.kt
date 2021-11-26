@@ -98,15 +98,6 @@ class MMyPageFragment :
         }
     }
 
-    // 끄고 다시오면 ㄱㄱ
-    override fun onResume() {
-        super.onResume()
-
-        // 그쪽에서 오는 거면
-        // 데이터 받아와용 ㅇㅋ
-
-    }
-
     private fun init() {
         binding.viewpager.adapter = CustomFragmentStateAdapter(requireActivity())
         TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->

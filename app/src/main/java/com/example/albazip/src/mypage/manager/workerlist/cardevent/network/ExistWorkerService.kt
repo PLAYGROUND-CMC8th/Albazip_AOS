@@ -1,8 +1,13 @@
 package com.example.albazip.src.mypage.manager.workerlist.cardevent.network
 
 import com.example.albazip.config.ApplicationClass
+import com.example.albazip.config.BaseResponse
+import com.example.albazip.src.mypage.manager.init.data.BoardInfo
+import com.example.albazip.src.mypage.manager.init.data.ProfileInfo
+import com.example.albazip.src.mypage.manager.init.data.WorkerList
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.EmptyWorkerResponse
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.ExistWorkerResponse
+import com.google.gson.annotations.SerializedName
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,3 +48,5 @@ interface ExistWorkerFragmentView {
 
     fun onGetFailure(message: String)
 }
+
+
