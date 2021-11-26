@@ -9,13 +9,15 @@ import com.example.albazip.databinding.ChildFragmentMyInfoBinding
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.ExistWorkerInfo
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute.DetailLateCheckActivity
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailDoneWorkActivity
+import com.example.albazip.src.mypage.manager.workerlist.outworker.custom.ResponseRealOutBottomSheetDialog
 
 
-class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo,val positionId:Int):BaseFragment<ChildFragmentMyInfoBinding>(ChildFragmentMyInfoBinding::bind,
+class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo,val positionId:Int,val name:String):BaseFragment<ChildFragmentMyInfoBinding>(ChildFragmentMyInfoBinding::bind,
     R.layout.child_fragment_my_info) {
 
     val getWorkerInfo = existWorkerInfo
     private val getPositionId = positionId // 근무자 고유 id
+    private val worker_name = name
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,6 +34,11 @@ class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo,val positionI
             binding.tvMySex.text = "여자"
         } else {
             binding.tvMySex.text = "남자"
+        }
+
+        // 퇴사시키기
+        binding.ibtnExit.setOnClickListener {
+            ResponseRealOutBottomSheetDialog(getPositionId,worker_name).show(requireActivity().supportFragmentManager,"real_response_out")
         }
 
         // 지각횟수

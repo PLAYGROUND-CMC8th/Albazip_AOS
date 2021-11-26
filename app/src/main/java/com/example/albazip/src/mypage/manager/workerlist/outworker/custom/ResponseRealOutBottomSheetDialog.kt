@@ -44,14 +44,12 @@ class ResponseRealOutBottomSheetDialog(val positionId:Int,val name:String): Bott
     }
 
     override fun onWorkOutDelSuccess(response: BaseResponse) {
-        Log.d("helpme",response.message.toString())
         dismiss()
         requireActivity().supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MMyPageFragment()).commitNow()
         ApplicationClass.prefs.setInt("backStackState",0) // 백스택 관리
     }
 
     override fun onWorkOutDelFailure(message: String) {
-        Log.d("helpme",message)
     }
 
 
