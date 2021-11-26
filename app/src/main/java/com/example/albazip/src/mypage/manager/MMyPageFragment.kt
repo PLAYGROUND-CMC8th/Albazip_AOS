@@ -19,6 +19,7 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentMMypageBinding
 import com.example.albazip.src.mypage.common.setting.MMyPageSettingActivity
+import com.example.albazip.src.mypage.manager.board.ui.BUWroteChildFragment
 import com.example.albazip.src.mypage.manager.custom.MSelectProfileBottomSheetDialog
 import com.example.albazip.src.mypage.manager.workerlist.ui.NoWorkerListChildFragment
 import com.example.albazip.src.mypage.manager.workerlist.ui.WorkerListChildFragment
@@ -121,7 +122,8 @@ class MMyPageFragment :
                         NoWorkerListChildFragment() // 근무자 추가 화면 뷰 띄우기
                     }
                 }
-                1 -> WroteChildFragment(noticeList,postList)
+                1 -> BUWroteChildFragment(noticeList,postList)
+                //1 -> WroteChildFragment(noticeList,postList)
                 else -> WorkerListChildFragment(workList)
             }
         }

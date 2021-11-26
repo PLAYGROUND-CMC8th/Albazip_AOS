@@ -34,7 +34,8 @@ class WMyPageFragment :
     BaseFragment<FragmentWMypageBinding>(FragmentWMypageBinding::bind, R.layout.fragment_w_mypage),
     WSelectProfileBottomSheetDialog.BottomSheetClickListener,WMyPageFragmentView {
 
-    private val tabTextList = arrayListOf("내 정보", "포지션", "작성글")
+    //private val tabTextList = arrayListOf("내 정보", "포지션", "작성글")
+    private val tabTextList = arrayListOf("내 정보", "포지션")
 
     private lateinit var myInfo:MyInfo // 내정보
     private lateinit var positionInfo:PositionInfo // 포지션
@@ -91,14 +92,14 @@ class WMyPageFragment :
     inner class CustomFragmentStateAdapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity) {
         override fun getItemCount(): Int {
-            return 3
+            return 2
         }
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> MyInfoChildFragment(myInfo)
                 1 -> PosInfoChildFragment(positionInfo,intentPosition)
-                2 -> BoardChildListFragment(boardInfo)
+                //2 -> BoardChildListFragment(boardInfo)
                 else -> MyInfoChildFragment(myInfo)
             }
         }
