@@ -22,5 +22,6 @@ data class CommuteData(
     @SerializedName("end_time") val end_time:String,
     @SerializedName("real_start_time") val real_start_time:String,
     @SerializedName("real_end_time") val real_end_time:String,
-    @SerializedName("is_late") val is_late:Int,
+    @SerializedName("start_late") val start_late:Int,
+    @SerializedName("end_late") val end_late:Int,
 )

@@ -30,6 +30,8 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.tvLateCnt.text = intent.getStringExtra("lateCnt")
+
         // 이전화면으로 돌아가기
         binding.btnBack.setOnClickListener {
             finish()
@@ -78,7 +80,7 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
             for (i in 0 until response.data.commuteData.size){
                 lateRecordList.add(
                     WLateRecordData(response.data.commuteData[i].year,response.data.commuteData[i].month,response.data.commuteData[i].day,response.data.commuteData[i].start_time,response.data.commuteData[i].end_time,
-                        response.data.commuteData[i].is_late)
+                        response.data.commuteData[i].start_late,response.data.commuteData[i].end_late)
                 )
             }
 
@@ -118,7 +120,7 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
             for (i in 0 until response.data.commuteData.size){
                 lateRecordList.add(
                     WLateRecordData(response.data.commuteData[i].year,response.data.commuteData[i].month,response.data.commuteData[i].day,response.data.commuteData[i].start_time,response.data.commuteData[i].end_time,
-                        response.data.commuteData[i].is_late)
+                        response.data.commuteData[i].start_late,response.data.commuteData[i].end_late)
                 )
             }
             lateRecordAdapter = WLateRecordAdapter(lateRecordList)

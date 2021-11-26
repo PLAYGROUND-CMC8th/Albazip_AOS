@@ -65,6 +65,7 @@ class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo,val positionI
         // 지각횟수
         binding.rlLate.setOnClickListener {
             val nextIntent = Intent(requireContext(), DetailLateCheckActivity::class.java)
+            nextIntent.putExtra("lateCnt",binding.tvLate.text.toString())
             nextIntent.putExtra("positionId",getPositionId)
             startActivity(nextIntent)
         }

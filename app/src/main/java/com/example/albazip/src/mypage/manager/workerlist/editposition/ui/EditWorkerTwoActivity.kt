@@ -163,7 +163,6 @@ class EditWorkerTwoActivity:BaseActivity<ActivityEditWorkerTwoBinding>(ActivityE
     // 근무자 편집 성공
     override fun onPostPositionInfoSuccess(response: BaseResponse) {
         dismissLoadingDialog()
-        showCustomToast(response.message.toString())
         finish()
     }
 

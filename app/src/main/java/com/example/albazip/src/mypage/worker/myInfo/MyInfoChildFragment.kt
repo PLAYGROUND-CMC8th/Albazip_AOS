@@ -64,6 +64,7 @@ class MyInfoChildFragment(val myInfo: MyInfo) : BaseFragment<ChildFragmentMyInfo
         // 지각 횟수 확인
         binding.rlLate.setOnClickListener {
             val nextIntent = Intent(requireContext(), LateCheckActivity::class.java)
+            nextIntent.putExtra("lateCnt",binding.tvLate.text.toString())
             startActivity(nextIntent)
         }
 

@@ -1,5 +1,6 @@
 package com.example.albazip.src.mypage.worker.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -33,10 +34,15 @@ class WLateRecordAdapter(private val itemList:ArrayList<WLateRecordData>):Recycl
             binding.tvOffWorkTime.text = recordData.end_time.substring(0,2) + ":" + recordData.end_time.substring(2,4)
 
             // 지각체크
+            if(recordData.start_late == 1){ // 출근 지각
+                binding.viewGoWork.setBackgroundColor(Color.parseColor("#fb3a00"))
+                binding.tvGoToWork.setTextColor(Color.parseColor("#fb3a00"))
+            }
 
-            // 출근
-
-            // 퇴근
+            if(recordData.end_late == 1){ // 퇴근 지각
+                binding.viewOffWork.setBackgroundColor(Color.parseColor("#fb3a00"))
+                binding.tvGoOffWork.setTextColor(Color.parseColor("#fb3a00"))
+            }
         }
     }
 }
