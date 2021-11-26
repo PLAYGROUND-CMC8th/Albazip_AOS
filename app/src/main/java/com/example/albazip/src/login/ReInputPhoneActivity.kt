@@ -128,13 +128,14 @@ class ReInputPhoneActivity : BaseActivity<ActivityReInputPhoneBinding>(
         // [END initialize_auth]
 
 
-        // 기본 정보 입력 화면으로 이동
+        // 서버통신시작
         binding.btnNext.setOnClickListener {
 
             // 인증번호 입력
             if (binding.etCertify.text.toString().isNotEmpty()) {
 
                 verifyPhoneNumberWithCode(storedVerificationId, binding.etCertify.text.toString())
+
             }
 
         }

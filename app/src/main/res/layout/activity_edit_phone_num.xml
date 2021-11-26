@@ -43,6 +43,7 @@
                 android:text="전화번호 변경"/>
 
             <TextView
+                android:id="@+id/tv_done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="normal"
