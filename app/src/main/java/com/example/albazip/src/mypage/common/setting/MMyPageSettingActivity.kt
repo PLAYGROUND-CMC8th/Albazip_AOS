@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivitySettingMMyPageBinding
+import com.example.albazip.src.mypage.common.setting.editinfo.ManageMyInfoActivity
 import com.example.albazip.src.mypage.custom.LogoutBottomSheetDialog
 
 class MMyPageSettingActivity:BaseActivity<ActivitySettingMMyPageBinding>(ActivitySettingMMyPageBinding::inflate) {

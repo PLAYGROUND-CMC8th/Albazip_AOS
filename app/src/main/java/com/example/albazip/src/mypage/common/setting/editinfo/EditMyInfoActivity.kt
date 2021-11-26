@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.common.setting
+package com.example.albazip.src.mypage.common.setting.editinfo
 
 import android.content.Intent
 import android.os.Bundle

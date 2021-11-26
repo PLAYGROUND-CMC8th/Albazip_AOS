@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.common.setting
+package com.example.albazip.src.mypage.common.setting.editinfo
 
 import android.os.Bundle
 import com.example.albazip.config.BaseActivity

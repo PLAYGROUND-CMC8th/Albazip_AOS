@@ -95,8 +95,8 @@
 
         <activity android:name=".src.mypage.common.setting.ManageMyInfoActivity"/>
         <activity android:name=".src.mypage.common.setting.AppNoticeActivity"/>
-        <activity android:name=".src.mypage.common.setting.EditMyInfoActivity"/>
-        <activity android:name=".src.mypage.common.setting.EditPhoneNumActivity"/>
+        <activity android:name=".src.mypage.common.setting.editinfo.EditMyInfoActivity"/>
+        <activity android:name=".src.mypage.common.setting.editinfo.EditPhoneNumActivity"/>
         <activity android:name=".src.mypage.common.setting.ServiceLawActivity"/>
         <activity android:name=".src.mypage.common.setting.SubScribeActivity"/>
         <activity android:name=".src.mypage.common.setting.WithDrawMemberActivity"/>
@@ -124,6 +124,7 @@
 
         <activity android:name=".src.login.ReInputPhoneActivity"/>
         <activity android:name=".src.login.RePWActivity"/>
+        <activity android:name=".src.mypage.common.setting.editinfo.ManageMyInfoActivity"/>
 
     </application>
 

@@ -117,7 +117,7 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="배희영"
+            tools:text="배희영"
             android:textStyle="normal"
             android:textSize="16sp"
             android:textColor="#6f6f6f"
@@ -155,7 +155,7 @@
             android:id="@+id/tv_age"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="1998"
+            tools:text="1998"
             android:textStyle="normal"
             android:textSize="16sp"
             android:textColor="#6f6f6f"
@@ -193,7 +193,7 @@
                 android:id="@+id/tv_sex"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="여자"
+                tools:text="여자"
                 android:textStyle="normal"
                 android:textSize="16sp"
                 android:textColor="#6f6f6f"
@@ -248,6 +248,7 @@
         app:layout_constraintEnd_toEndOf="@id/rl_bottom_text">
 
         <TextView
+            android:id="@+id/tv_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="normal"
@@ -257,7 +258,7 @@
             android:textSize="16sp"
             android:textColor="#333333"
             android:letterSpacing="-0.03"
-            android:text="010-0000-0000" />
+            tools:text="010-0000-0000" />
 
     </RelativeLayout>
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivitySettingWMyPageBinding
+import com.example.albazip.src.mypage.common.setting.editinfo.ManageMyInfoActivity
 import com.example.albazip.src.mypage.custom.LogoutBottomSheetDialog
 
 class WMyPageSettingActivity:BaseActivity<ActivitySettingWMyPageBinding>(ActivitySettingWMyPageBinding::inflate){
@@ -20,6 +21,12 @@ class WMyPageSettingActivity:BaseActivity<ActivitySettingWMyPageBinding>(Activit
         // 로그아웃 다이얼로그
         binding.rlLogout.setOnClickListener {
             LogoutBottomSheetDialog().show(supportFragmentManager, "logoutAlert")
+        }
+
+        // 내정보관리 화면
+        binding.rlManageMyinfo.setOnClickListener {
+            val nextIntent = Intent(this, ManageMyInfoActivity::class.java)
+            startActivity(nextIntent)
         }
     }
 }
