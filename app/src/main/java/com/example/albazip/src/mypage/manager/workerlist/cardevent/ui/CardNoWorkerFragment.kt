@@ -93,7 +93,7 @@ class CardNoWorkerFragment(val positionId: Int) : BaseFragment<FragmentCardInfoB
             return when (position) {
                 0 -> CardCodeChildFragment(cardCode) // 근무자 부재
                 1 -> CardPositionChildFragment(positionInfo, 0, positionId) // 포지션 정보
-                2 -> CardToDoChildFragment(positionTaskList)// 업무 리스트
+                2 -> CardToDoChildFragment(positionTaskList,positionId)// 업무 리스트
                 else -> CardCodeChildFragment(cardCode)
             }
         }

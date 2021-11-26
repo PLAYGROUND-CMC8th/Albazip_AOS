@@ -91,7 +91,7 @@ class CardExistWorkerFragment(val positionId:Int,val outStatus:Int):
             return when (position) {
                 0 -> CardWorkerInfoChildFragment(workerInfo,getPositionId,worker_first_name) // 근무자 존재
                 1 -> CardPositionChildFragment(positionInfo,1,positionId) // 포지션 정보
-                2 -> CardToDoChildFragment(positionTaskList)// 업무 리스트
+                2 -> CardToDoChildFragment(positionTaskList,positionId)// 업무 리스트
                 else -> CardWorkerInfoChildFragment(workerInfo,getPositionId,worker_first_name)
             }
         }
