@@ -5,9 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseFragment
+import com.example.albazip.config.BaseResponse
 import com.example.albazip.databinding.ChildFragmentMyInfoBinding
+import com.example.albazip.src.mypage.manager.MMyPageFragment
+import com.example.albazip.src.mypage.worker.WMyPageFragment
+import com.example.albazip.src.mypage.worker.custom.RequestWorkOutBottomSheetDialog
 import com.example.albazip.src.mypage.worker.init.data.MyInfo
+import com.example.albazip.src.mypage.worker.myInfo.network.RequestWorkOutFragmentView
+import com.example.albazip.src.mypage.worker.myInfo.network.RequestWorkOutService
 import com.example.albazip.src.mypage.worker.myInfo.network.WorkerInfoFragmentView
 import com.example.albazip.src.mypage.worker.myInfo.network.WorkerMyInfoService
 import com.example.albazip.src.mypage.worker.myInfo.ui.DoneWorkActivity
@@ -17,7 +24,7 @@ import com.example.albazip.src.mypage.worker.myInfo.ui.TogetherWorkActivity
 class MyInfoChildFragment(val myInfo: MyInfo) : BaseFragment<ChildFragmentMyInfoBinding>(
     ChildFragmentMyInfoBinding::bind,
     R.layout.child_fragment_my_info
-), WorkerInfoFragmentView {
+), WorkerInfoFragmentView,RequestWorkOutBottomSheetDialog.BottomSheetClickListener,RequestWorkOutFragmentView {
     // 서버에서 정보 받아오기
     val getMyInfo = myInfo
 
@@ -72,6 +79,11 @@ class MyInfoChildFragment(val myInfo: MyInfo) : BaseFragment<ChildFragmentMyInfo
             startActivity(nextIntent)
         }
 
+        // 퇴사요청 버튼
+        binding.ibtnExit.setOnClickListener {
+            RequestWorkOutBottomSheetDialog().show(childFragmentManager, "request_work_out")
+        }
+
     }
 
     // 서버 통신 성공 (새로고침)
@@ -110,5 +122,25 @@ class MyInfoChildFragment(val myInfo: MyInfo) : BaseFragment<ChildFragmentMyInfo
     override fun onMyInfoGetFailure(message: String) {
         binding.swipelayout.isRefreshing = false // 새로고침 끝
         showCustomToast("새로고침 실패")
+    }
+
+    override fun onItemSelected(isDeleteClicked: Boolean) {
+        if(isDeleteClicked == true){ // 퇴사요청하기
+            RequestWorkOutService(this).tryPutWorkOut()
+            showLoadingDialog(requireContext())
+        }
+    }
+
+    // 퇴사요청 성공
+    override fun onWorkOutPutSuccess(response: BaseResponse) {
+        dismissLoadingDialog()
+        showCustomToast(response.message.toString())
+        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.worker_main_frm, WMyPageFragment()).commitNow()
+        ApplicationClass.prefs.setInt("backStackState",0) // 백스택 관리
+    }
+
+    // 퇴사요청 실패
+    override fun onWorkOutPutFailure(message: String) {
+        dismissLoadingDialog()
     }
 }

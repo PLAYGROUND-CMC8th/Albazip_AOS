@@ -151,6 +151,5 @@ class CardNoWorkerFragment(val positionId: Int) : BaseFragment<FragmentCardInfoB
 
     override fun onGetFailure(message: String) {
         dismissLoadingDialog()
-        showCustomToast(message)
     }
 }

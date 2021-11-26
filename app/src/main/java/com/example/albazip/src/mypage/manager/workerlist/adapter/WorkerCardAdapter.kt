@@ -88,6 +88,11 @@ class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): 
                 // 타임
                 binding.tvPosition.text = cardData.title
 
+                // 퇴사요청 알람
+                if(cardData.status == 2){
+                    binding.ivAlarm.visibility = View.VISIBLE
+                }
+
             }
 
         }
