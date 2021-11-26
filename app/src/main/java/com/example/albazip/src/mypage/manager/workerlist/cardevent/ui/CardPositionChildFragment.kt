@@ -6,16 +6,22 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.albazip.R
+import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseFragment
+import com.example.albazip.config.BaseResponse
 import com.example.albazip.databinding.ChildFragmentCardPositionInfoBinding
+import com.example.albazip.src.home.manager.MHomeFragment
+import com.example.albazip.src.mypage.manager.MMyPageFragment
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.WorkerInfo
 import com.example.albazip.src.mypage.manager.workerlist.custom.DelPositionBottomSheetDialog
+import com.example.albazip.src.mypage.manager.workerlist.network.DelPositionFragmentView
+import com.example.albazip.src.mypage.manager.workerlist.network.DelPositionService
 import com.example.albazip.src.mypage.worker.init.data.PositionInfo
 import com.google.android.material.snackbar.Snackbar
 import java.text.DecimalFormat
 
 class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:Int): BaseFragment<ChildFragmentCardPositionInfoBinding>(ChildFragmentCardPositionInfoBinding::bind,
-    R.layout.child_fragment_card_position_info) {
+    R.layout.child_fragment_card_position_info),DelPositionBottomSheetDialog.BottomSheetClickListener,DelPositionFragmentView {
 
     private val getPositionId = positionId
     private val getPositionInfo = positionInfo
@@ -27,7 +33,7 @@ class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:
         // 삭제 버튼 이벤트
         if (getFlags == 0){ // 근무자 부재
             binding.rlDeleteBtn.setOnClickListener {
-                DelPositionBottomSheetDialog(getPositionId).show(childFragmentManager,"del_position")
+                DelPositionBottomSheetDialog().show(childFragmentManager,"del_position")
             }
         }else{ // 근무자 존재
             binding.rlDeleteBtn.background = ContextCompat.getDrawable(
@@ -84,5 +90,27 @@ class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:
         // 급여
         binding.tvSalary.text = salaryType + " " + salary + "원"
 
+    }
+
+    override fun onItemSelected(isDeleteClicked: Boolean) {
+        // 바텀시트에서 포지션 삭제버튼 클릭 했을 때
+        if(isDeleteClicked == true){
+
+            // 포지션 삭제 서버 통신
+            DelPositionService(this).tryDelWorkerPosition(getPositionId)
+            showLoadingDialog(requireContext())
+        }
+    }
+
+    // 포지션 삭제 성공
+    override fun onPositionDelSuccess(response: BaseResponse) {
+        dismissLoadingDialog()
+        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MMyPageFragment()).commitNow()
+        ApplicationClass.prefs.setInt("backStackState",0) // 백스택 관리
+    }
+
+    // 포지션 삭제 실패
+    override fun onPositionDelFailure(message: String) {
+        dismissLoadingDialog()
     }
 }

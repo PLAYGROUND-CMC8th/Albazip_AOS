@@ -41,7 +41,6 @@ class WorkerListChildFragment(serverCardList:ArrayList<WorkerList>) : BaseFragme
         // 근무자 카드 새로고침
         binding.swipelayout.setOnRefreshListener {
             WorkerListService(this).tryGetWorkerList()
-
         }
 
         // 근무자 리스트 조회

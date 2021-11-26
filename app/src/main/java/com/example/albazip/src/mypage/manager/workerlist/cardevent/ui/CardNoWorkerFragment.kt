@@ -21,6 +21,7 @@ import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.Position
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.WorkerInfo
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.EmptyWorkerFragmentView
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.EmptyWorkerService
+import com.example.albazip.src.mypage.manager.workerlist.custom.DelPositionBottomSheetDialog
 import com.example.albazip.src.mypage.worker.init.data.PositionInfo
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -62,7 +63,7 @@ class CardNoWorkerFragment(val positionId: Int) : BaseFragment<FragmentCardInfoB
         // 뒤로가기
         binding.tbrIbtnBackBtn.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.hide(this)
+            transaction.detach(this)
             transaction.commit()
         }
 

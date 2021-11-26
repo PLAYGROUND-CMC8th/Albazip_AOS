@@ -56,7 +56,7 @@ class CardExistWorkerFragment(val positionId:Int):
         // 뒤로가기
         binding.tbrIbtnBackBtn.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.hide(this)
+            transaction.detach(this)
             transaction.commit()
         }
 
