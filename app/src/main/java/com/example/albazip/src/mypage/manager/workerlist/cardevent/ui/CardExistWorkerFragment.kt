@@ -75,10 +75,10 @@ class CardExistWorkerFragment(val positionId:Int):
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> CardWorkerInfoChildFragment(workerInfo) // 근무자 존재
+                0 -> CardWorkerInfoChildFragment(workerInfo,getPositionId) // 근무자 존재
                 1 -> CardPositionChildFragment(positionInfo,1) // 포지션 정보
                 2 -> CardToDoChildFragment(positionTaskList)// 업무 리스트
-                else -> CardWorkerInfoChildFragment(workerInfo)
+                else -> CardWorkerInfoChildFragment(workerInfo,getPositionId)
             }
         }
     }

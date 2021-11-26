@@ -93,7 +93,6 @@
 
         </activity>
 
-        <activity android:name=".src.mypage.common.setting.ManageMyInfoActivity"/>
         <activity android:name=".src.mypage.common.setting.AppNoticeActivity"/>
         <activity android:name=".src.mypage.common.setting.editinfo.EditMyInfoActivity"/>
         <activity android:name=".src.mypage.common.setting.editinfo.EditPhoneNumActivity"/>
@@ -125,6 +124,8 @@
         <activity android:name=".src.login.ReInputPhoneActivity"/>
         <activity android:name=".src.login.RePWActivity"/>
         <activity android:name=".src.mypage.common.setting.editinfo.ManageMyInfoActivity"/>
+
+        <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.DetailLateCheckActivity"/>
 
     </application>
 

@@ -1,27 +1,22 @@
-package com.example.albazip.src.mypage.worker.myInfo.ui
+package com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityLateCheckBinding
 import com.example.albazip.src.mypage.common.workerdata.commute.data.GetCommuteInfoResponse
-import com.example.albazip.src.mypage.common.workerdata.commute.network.CommuteFragmentView
-import com.example.albazip.src.mypage.common.workerdata.commute.network.CommuteService
-import com.example.albazip.src.mypage.worker.adapter.WBoardListAdapter
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.network.DetailCommuteFragmentView
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.network.DetailCommuteService
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.network.DetailReCommuteFragmentView
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.network.DetailReCommuteService
 import com.example.albazip.src.mypage.worker.adapter.WLateRecordAdapter
 import com.example.albazip.src.mypage.worker.data.local.WLateRecordData
-import com.example.albazip.src.mypage.worker.myInfo.network.RecentCommuteFragmentView
-import com.example.albazip.src.mypage.worker.myInfo.network.RecentCommuteInfoService
 
-// 지각(출석) 체크
-class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheckBinding::inflate),RecentCommuteFragmentView,CommuteFragmentView {
+class DetailLateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheckBinding::inflate),DetailCommuteFragmentView,DetailReCommuteFragmentView {
 
-    private lateinit var lateRecordAdapter:WLateRecordAdapter
+    private lateinit var lateRecordAdapter: WLateRecordAdapter
     private val lateRecordList = ArrayList<WLateRecordData>()
 
     private var currentYear:String? = null // 최근 년도
@@ -29,6 +24,8 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val positionId = intent.getIntExtra("positionId",0)
 
         // 이전화면으로 돌아가기
         binding.btnBack.setOnClickListener {
@@ -42,7 +39,7 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
                 currentMonth = 12
             }
 
-            CommuteService(this).tryGetCommuteInfo(currentYear!!,currentMonth.toString())
+            DetailCommuteService(this).tryDetailGetCommuteInfo(positionId,currentYear!!,currentMonth.toString())
         }
 
         // 다음 달 데이터 불러오기
@@ -51,15 +48,14 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
             if(currentMonth!! > 12){
                 currentMonth = 1
             }
-            CommuteService(this).tryGetCommuteInfo(currentYear!!,currentMonth.toString())
+            DetailCommuteService(this).tryDetailGetCommuteInfo(positionId,currentYear!!,currentMonth.toString())
         }
 
-        RecentCommuteInfoService(this).tryGetRecentCommuteInfo()
+        DetailReCommuteService(this).tryDetailReGetCommuteInfo(positionId)
         showLoadingDialog(this)
     }
 
-    // 최근 근무 달의 정보 불러오기 - 성공
-    override fun onRecentCommuteInfoGetSuccess(response: GetCommuteInfoResponse) {
+    override fun onReCommuteGetSuccess(response: GetCommuteInfoResponse) {
         dismissLoadingDialog()
 
         // 최근년도
@@ -95,17 +91,17 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
 
     }
 
-    override fun onRecentCommuteInfoGetFailure(message: String) {
+    override fun onReCommuteGetFailure(message: String) {
         dismissLoadingDialog()
     }
 
-    // 달별 정보 불러오기 - 성공
+    // 달별 정보 불러오기
     override fun onCommuteGetSuccess(response: GetCommuteInfoResponse) {
         dismissLoadingDialog()
 
         binding.tvMonth.text = response.data.month + "월"
 
-        if(lateRecordList.size != 0) { // 이전 데이터 제거
+        if(lateRecordList.size != 0) {
             lateRecordList.clear()
             binding.rvRecord.recycledViewPool.clear()
             lateRecordAdapter.notifyDataSetChanged()
@@ -124,10 +120,10 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
             lateRecordAdapter = WLateRecordAdapter(lateRecordList)
             binding.rvRecord.adapter = lateRecordAdapter
         }
-
     }
 
     override fun onCommuteGetFailure(message: String) {
         dismissLoadingDialog()
     }
+
 }

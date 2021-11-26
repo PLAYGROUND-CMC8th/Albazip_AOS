@@ -1,17 +1,20 @@
 package com.example.albazip.src.mypage.manager.workerlist.cardevent.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentMyInfoBinding
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.ExistWorkerInfo
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.DetailLateCheckActivity
 
 
-class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo):BaseFragment<ChildFragmentMyInfoBinding>(ChildFragmentMyInfoBinding::bind,
+class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo,val positionId:Int):BaseFragment<ChildFragmentMyInfoBinding>(ChildFragmentMyInfoBinding::bind,
     R.layout.child_fragment_my_info) {
 
     val getWorkerInfo = existWorkerInfo
+    private val getPositionId = positionId // 근무자 고유 id
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,6 +42,24 @@ class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo):BaseFragment
 
         // 합류 날짜
         binding.tvJoinDate.text = getWorkerInfo.joinDate.substring(2, 10).replace("-", ".") + "."
+
+        // *********** 상세정보 조회 **********
+        // 지각횟수
+        binding.rlLate.setOnClickListener {
+            val nextIntent = Intent(requireContext(),DetailLateCheckActivity::class.java)
+            nextIntent.putExtra("positionId",getPositionId)
+            startActivity(nextIntent)
+        }
+
+        // 공동업무 참여횟수
+        binding.rlTogether.setOnClickListener {
+
+        }
+
+        // 업무 완수율
+        binding.rlSuccess.setOnClickListener {
+
+        }
 
     }
 }
