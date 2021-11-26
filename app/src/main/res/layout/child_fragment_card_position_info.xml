@@ -6,6 +6,10 @@
     android:background="#f8f8f8"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -213,6 +217,6 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

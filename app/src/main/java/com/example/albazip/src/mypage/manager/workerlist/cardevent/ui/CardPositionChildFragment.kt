@@ -13,6 +13,10 @@ import com.example.albazip.databinding.ChildFragmentCardPositionInfoBinding
 import com.example.albazip.src.home.manager.MHomeFragment
 import com.example.albazip.src.mypage.manager.MMyPageFragment
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.WorkerInfo
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.GetPPositionInfoResponse
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.PMyInfoService
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.PPositionInfoFragmentView
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.PPositionInfoService
 import com.example.albazip.src.mypage.manager.workerlist.custom.DelPositionBottomSheetDialog
 import com.example.albazip.src.mypage.manager.workerlist.network.DelPositionFragmentView
 import com.example.albazip.src.mypage.manager.workerlist.network.DelPositionService
@@ -21,7 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 import java.text.DecimalFormat
 
 class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:Int): BaseFragment<ChildFragmentCardPositionInfoBinding>(ChildFragmentCardPositionInfoBinding::bind,
-    R.layout.child_fragment_card_position_info),DelPositionBottomSheetDialog.BottomSheetClickListener,DelPositionFragmentView {
+    R.layout.child_fragment_card_position_info),DelPositionBottomSheetDialog.BottomSheetClickListener,DelPositionFragmentView,PPositionInfoFragmentView {
 
     private val getPositionId = positionId
     private val getPositionInfo = positionInfo
@@ -29,6 +33,12 @@ class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 새로고침 기능 달아주기
+        binding.swipelayout.setOnRefreshListener {
+            // 서버 통신 시도
+            PPositionInfoService(this).tryGetPositionInfo(getPositionId)
+        }
 
         // 삭제 버튼 이벤트
         if (getFlags == 0){ // 근무자 부재
@@ -112,5 +122,57 @@ class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:
     // 포지션 삭제 실패
     override fun onPositionDelFailure(message: String) {
         dismissLoadingDialog()
+    }
+
+    // 포지션 정보 새로고침 성공
+    override fun onGetPositionInfoSuccess(response: GetPPositionInfoResponse) {
+        binding.swipelayout.isRefreshing = false
+
+        // 월급 타입
+        var salaryType = ""
+        when(response.data.salaryType){
+            0 -> { salaryType = "시급"}
+            1 -> {salaryType = "주급"}
+            2 -> {salaryType = "월급"}
+        }
+
+        // 총 근무시간
+        var workTime = ""
+        if(response.data.workTime.substring(0,1) == "0"){ // 0100, 0130
+            if(response.data.workTime.substring(2,4) == "00"){ // 1시간
+                workTime = response.data.workTime.substring(1,2) + "시간)"
+            }else{ // 1시간 30분
+                workTime = response.data.workTime.substring(1,2) + "시간 " + response.data.workTime.substring(3,4)+"분)"
+            }
+        }else{ // 1030, 1000
+            if(response.data.workTime.substring(2,4) == "00"){ // 10시간
+                workTime = response.data.workTime.substring(0,2) + "시간)"
+            }else{ // 10시간 30분
+                workTime = response.data.workTime.substring(0,2) + "시간 " + response.data.workTime.substring(3,4)+"분)"
+            }
+        }
+
+        // 급여 단위 표시
+        //DecimalFormat 객체 선언 실시 (소수점 표시 안함)
+        val t_dec_up = DecimalFormat("#,###")
+        var salary = t_dec_up.format(response.data.salary)
+
+        // 근무시간
+        binding.tvWorkTime.text = response.data.startTime.substring(0,2) + ":" + response.data.startTime.substring(2,4) + " ~ " + response.data.endTime.substring(0,2) +
+                ":"+response.data.endTime.substring(2,4) + " 까지 (총 " + workTime
+
+        // 휴게시간
+        binding.tvRestTime.text = "휴게시간 " + response.data.breakTime
+
+        // 근무요일
+        binding.tvWorkingDay.text = response.data.workDay
+
+        // 급여
+        binding.tvSalary.text = salaryType + " " + salary + "원"
+
+    }
+
+    override fun onGetPositionInfoFailure(message: String) {
+        binding.swipelayout.isRefreshing = false
     }
 }
