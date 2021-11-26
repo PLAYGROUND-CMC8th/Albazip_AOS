@@ -9,13 +9,15 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentCardPositionInfoBinding
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.WorkerInfo
+import com.example.albazip.src.mypage.manager.workerlist.custom.DelPositionBottomSheetDialog
 import com.example.albazip.src.mypage.worker.init.data.PositionInfo
 import com.google.android.material.snackbar.Snackbar
 import java.text.DecimalFormat
 
-class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int): BaseFragment<ChildFragmentCardPositionInfoBinding>(ChildFragmentCardPositionInfoBinding::bind,
+class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:Int): BaseFragment<ChildFragmentCardPositionInfoBinding>(ChildFragmentCardPositionInfoBinding::bind,
     R.layout.child_fragment_card_position_info) {
 
+    private val getPositionId = positionId
     private val getPositionInfo = positionInfo
     private val getFlags = flags
 
@@ -25,7 +27,7 @@ class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int): BaseFragm
         // 삭제 버튼 이벤트
         if (getFlags == 0){ // 근무자 부재
             binding.rlDeleteBtn.setOnClickListener {
-
+                DelPositionBottomSheetDialog(getPositionId).show(childFragmentManager,"del_position")
             }
         }else{ // 근무자 존재
             binding.rlDeleteBtn.background = ContextCompat.getDrawable(

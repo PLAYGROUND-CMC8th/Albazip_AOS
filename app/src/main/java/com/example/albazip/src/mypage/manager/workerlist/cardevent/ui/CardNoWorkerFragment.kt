@@ -11,6 +11,7 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentCardInfoBinding
@@ -25,18 +26,21 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 // 근무자 카드 클릭 시 뜨는 activity
-class CardNoWorkerFragment(val positionId:Int):BaseFragment<FragmentCardInfoBinding>(FragmentCardInfoBinding::bind, R.layout.fragment_card_info),EmptyWorkerFragmentView{
+class CardNoWorkerFragment(val positionId: Int) : BaseFragment<FragmentCardInfoBinding>(
+    FragmentCardInfoBinding::bind,
+    R.layout.fragment_card_info
+), EmptyWorkerFragmentView {
 
-    private val tabTextList = arrayListOf("근무자 정보", "포지션 정보","업무 리스트")
+    private val tabTextList = arrayListOf("근무자 정보", "포지션 정보", "업무 리스트")
     private val getPositionId = positionId // 근무자 고유 id
 
     // 근무자 부재 데이터
-    private var cardCode:String = "" // 부재시 카드코드
+    private var cardCode: String = "" // 부재시 카드코드
 
     // 근무자 존재 데이터
 
     // 공통
-    private lateinit var positionProfileInfo:PositionProfileInfo // 프로필 정보
+    private lateinit var positionProfileInfo: PositionProfileInfo // 프로필 정보
     private lateinit var positionInfo: PositionInfo // 포지션 정보
     private lateinit var positionTaskList: ArrayList<PositionTaskList>  // 얘는 나중에 고쳐야 할듯 ㅎㅎ !
 
@@ -53,6 +57,13 @@ class CardNoWorkerFragment(val positionId:Int):BaseFragment<FragmentCardInfoBind
             freeListener = { _ ->
                 Log.d("LOGGER_TAG", "freeListener")
             }
+        }
+
+        // 뒤로가기
+        binding.tbrIbtnBackBtn.setOnClickListener {
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.hide(this)
+            transaction.commit()
         }
 
         // 탭 레이아웃 커스튬
@@ -80,7 +91,7 @@ class CardNoWorkerFragment(val positionId:Int):BaseFragment<FragmentCardInfoBind
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> CardCodeChildFragment(cardCode) // 근무자 부재
-                1 -> CardPositionChildFragment(positionInfo,0) // 포지션 정보
+                1 -> CardPositionChildFragment(positionInfo, 0, positionId) // 포지션 정보
                 2 -> CardToDoChildFragment(positionTaskList)// 업무 리스트
                 else -> CardCodeChildFragment(cardCode)
             }
@@ -119,8 +130,10 @@ class CardNoWorkerFragment(val positionId:Int):BaseFragment<FragmentCardInfoBind
     // 서버 통신 성공
     override fun onGetSuccess(response: EmptyWorkerResponse) {
         dismissLoadingDialog()
-        if(response.code == 200){
-            // 프로필 추후에 변경
+        if (response.code == 200) {
+            // 프로필 설정
+            Glide.with(requireContext()).load(R.drawable.img_profile_48_px_none).circleCrop()
+                .into(binding.ivProfile)
             binding.tvPosition.text = response.data.positionProfile.title // 포지션
             binding.tvFirstName.text = response.data.positionProfile.firstName // 이름
             binding.tvRank.text = response.data.positionProfile.rank // 직위
