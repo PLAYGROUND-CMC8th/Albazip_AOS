@@ -2,6 +2,7 @@ package com.example.albazip.src.mypage.manager.workerlist.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -122,11 +123,7 @@ class AddWorkerTwoActivity:BaseActivity<ActivityAddWorkerTwoBinding>(ActivityAdd
         dismissLoadingDialog()
         if(response.code == 200){ // 근무자 추가 완료(=포지션 등록완료)
             // activity 종료
-            showCustomToast("근무자 등록 성공")
-
-            // fragment 화면 근무자로 교체
             finish()
-
         }else{
             showCustomToast(response.message.toString())
         }

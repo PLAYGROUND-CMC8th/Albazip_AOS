@@ -10,19 +10,19 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.R
 import com.example.albazip.databinding.ItemRvAddToDoBinding
-import com.example.albazip.src.mypage.manager.workerlist.data.local.TodoData
+import com.example.albazip.src.mypage.manager.workerlist.data.local.EditTodoData
 
-
-class ToDoListAdapter(val itemList: ArrayList<TodoData>,val context:Context) :
-    RecyclerView.Adapter<ToDoListAdapter.ToDoHolder>() {
+class EditTodoListAdapter(val itemList: ArrayList<EditTodoData>, val context: Context) :
+    RecyclerView.Adapter<EditTodoListAdapter.ToDoHolder>() {
 
     private lateinit var binding: ItemRvAddToDoBinding
 
     private val myContext = context
 
     // 아이템 추가
-    fun addItem(todoData: TodoData) {
+    fun addItem(todoData: EditTodoData) {
         itemList.add(itemCount, todoData)
+        Log.d("helpme", itemCount.toString())
         this.notifyItemInserted(itemCount)
         this.notifyDataSetChanged()
     }
@@ -79,6 +79,7 @@ class ToDoListAdapter(val itemList: ArrayList<TodoData>,val context:Context) :
                     R.drawable.bg_to_do_rv
                 )
             }
+
         }
 
     }

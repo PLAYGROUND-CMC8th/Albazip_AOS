@@ -129,7 +129,8 @@
         <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailDoneWorkActivity"/>
         <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailSelectMonthListActivity"/>
         <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailSelectDayListActivity"/>
-        <activity android:name=".src.mypage.common.setting.editinfo.EditPhoneNumActivity"/>
+        <activity android:name=".src.mypage.manager.workerlist.editposition.ui.EditWorkerOneActivity"/>
+        <activity android:name=".src.mypage.manager.workerlist.editposition.ui.EditWorkerTwoActivity"/>
 
     </application>
 

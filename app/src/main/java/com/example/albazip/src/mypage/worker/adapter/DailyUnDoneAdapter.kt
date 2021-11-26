@@ -45,7 +45,7 @@ class DailyUnDoneAdapter(private val itemList:ArrayList<DailyUnDoneWorkListData>
             binding.tvTitle.text = unDoneData.titleTxt
 
             // 내용
-            if(unDoneData.contentTxt == ""){ // 내용없음
+            if(unDoneData.contentTxt == "" || unDoneData.contentTxt == null){ // 내용없음
                 binding.tvContents.text = "내용없음"
             }else{ // 내용존재
                 binding.tvContents.text = unDoneData.contentTxt

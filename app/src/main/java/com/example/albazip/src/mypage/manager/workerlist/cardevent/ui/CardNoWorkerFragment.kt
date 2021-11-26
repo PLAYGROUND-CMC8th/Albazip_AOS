@@ -1,6 +1,7 @@
 package com.example.albazip.src.mypage.manager.workerlist.cardevent.ui
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,7 @@ import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.WorkerIn
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.EmptyWorkerFragmentView
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.EmptyWorkerService
 import com.example.albazip.src.mypage.manager.workerlist.custom.DelPositionBottomSheetDialog
+import com.example.albazip.src.mypage.manager.workerlist.editposition.ui.EditWorkerOneActivity
 import com.example.albazip.src.mypage.worker.init.data.PositionInfo
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -58,6 +60,13 @@ class CardNoWorkerFragment(val positionId: Int) : BaseFragment<FragmentCardInfoB
             freeListener = { _ ->
                 Log.d("LOGGER_TAG", "freeListener")
             }
+        }
+
+        // 근무자 편집
+        binding.tbrTvEdit.setOnClickListener {
+            val nextIntent = Intent(requireContext(), EditWorkerOneActivity::class.java)
+            nextIntent.putExtra("positionId",positionId)
+            startActivity(nextIntent)
         }
 
         // 뒤로가기

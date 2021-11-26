@@ -56,7 +56,7 @@ class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo,val positionI
         // 공동업무 참여 횟수
         binding.tvTogether.text = getWorkerInfo.workInfo.coTaskCount.toString()
         // 업무완수율
-        binding.tvSuccess.text = getWorkerInfo.workInfo.completeTaskCount.toString()
+        binding.tvSuccess.text = (((getWorkerInfo.workInfo.completeTaskCount).toDouble() / (getWorkerInfo.workInfo.totalTaskCount).toDouble()) * 100).toInt().toString()
 
         // 합류 날짜
         binding.tvJoinDate.text = getWorkerInfo.joinDate.substring(2, 10).replace("-", ".") + "."
