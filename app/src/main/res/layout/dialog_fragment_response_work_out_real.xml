@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_warning"
         android:layout_marginTop="24dp"
-        tools:text="OO님이 퇴사 요청을 보냈어요."
+        tools:text="정말 OO님을 퇴사시키겠어요?"
         />
 
     <TextView
@@ -47,18 +47,18 @@
         android:layout_marginTop="14dp"
         android:gravity="center_horizontal"
         android:layout_marginHorizontal="43dp"
-        android:text="퇴사 요청을 수락하면 근무자가 삭제되며, 포지션\n 데이터는 그대로 남습니다. 요청을 수락하시겠어요?"
+        android:text="현재 근무자를 삭제해도 해당 포지션 데이터는\n 남아있습니다. 작업을 계속 진행할까요?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_no"
+        android:id="@+id/btn_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:text="거절하기"
+        android:text="취소"
         android:textStyle="bold"
         android:textColor="@color/customBlack"
         android:background="@drawable/btn_custom_white_cancel"
@@ -68,15 +68,15 @@
         android:stateListAnimator="@null"
         app:layout_constraintTop_toBottomOf="@id/tv_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_yes"
+        app:layout_constraintEnd_toStartOf="@id/btn_get_out"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_yes"
+        android:id="@+id/btn_get_out"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:text="수락하기"
+        android:text="퇴사시키기"
         android:textStyle="bold"
         android:stateListAnimator="@null"
         android:textColor="@color/white"
@@ -87,6 +87,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_no" />
+        app:layout_constraintStart_toEndOf="@id/btn_cancel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

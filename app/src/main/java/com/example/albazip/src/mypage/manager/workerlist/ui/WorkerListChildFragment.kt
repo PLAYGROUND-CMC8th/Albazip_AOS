@@ -58,15 +58,21 @@ class WorkerListChildFragment(serverCardList:ArrayList<WorkerList>) : BaseFragme
     fun cardClickEvent(){
         // 근무자 카드를 클릭 했을 때
         workerCardAdapter.setOnItemClickListener(object :WorkerCardAdapter.OnItemClickListener{
-            override fun onItemClick(v: View, position: Int) {
+            override fun onItemClick(v: View, position: Int,outStatus:Int) {
 
                 // 1. 근무자 부재
                 if(cardList[position].status == 0){
                     parentFragmentManager.beginTransaction().add(R.id.manager_main_frm,CardNoWorkerFragment(cardList[position].positionId)).addToBackStack(null).commit()
                     prefs.setInt("backStackState",1)
                 }else{// 2. 근무자 존재
-                    parentFragmentManager.beginTransaction().add(R.id.manager_main_frm,CardExistWorkerFragment(cardList[position].positionId)).addToBackStack(null).commit()
-                    prefs.setInt("backStackState",1)
+
+                    if(outStatus == 1){ // 일반 근무자(status == 1)
+                        parentFragmentManager.beginTransaction().add(R.id.manager_main_frm,CardExistWorkerFragment(cardList[position].positionId,1)).addToBackStack(null).commit()
+                    }else{  // 퇴사요청 상태의 근무자 (status == 2)
+                        parentFragmentManager.beginTransaction().add(R.id.manager_main_frm,CardExistWorkerFragment(cardList[position].positionId,2)).addToBackStack(null).commit()
+                    }
+                        prefs.setInt("backStackState",1)
+
                 }
             }
 

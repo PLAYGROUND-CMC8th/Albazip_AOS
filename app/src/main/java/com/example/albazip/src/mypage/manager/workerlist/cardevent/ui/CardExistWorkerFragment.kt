@@ -17,13 +17,17 @@ import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.*
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.EmptyWorkerService
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.ExistWorkerFragmentView
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.ExistWorkerService
+import com.example.albazip.src.mypage.manager.workerlist.outworker.custom.ResponseWorkerOutBottomSheetDialog
 import com.example.albazip.src.mypage.worker.init.data.PositionInfo
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 // 카드에 근무자 존재
-class CardExistWorkerFragment(val positionId:Int):
+class CardExistWorkerFragment(val positionId:Int,val outStatus:Int):
     BaseFragment<FragmentCardInfoBinding>(FragmentCardInfoBinding::bind, R.layout.fragment_card_info),ExistWorkerFragmentView {
+
+    // 퇴사 요청 여부 체크
+    private val getOutStatus = outStatus
 
     private val tabTextList = arrayListOf("근무자 정보", "포지션 정보", "업무 리스트")
     private val getPositionId = positionId // 근무자 고유 id
@@ -35,8 +39,10 @@ class CardExistWorkerFragment(val positionId:Int):
     private lateinit var positionInfo: PositionInfo // 포지션 정보
     private lateinit var positionTaskList: ArrayList<PositionTaskList>  // ????
 
+    // dialog에 전달할 이름
+    var worker_first_name = ""
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // sticky tab layout
@@ -63,6 +69,7 @@ class CardExistWorkerFragment(val positionId:Int):
         // 서버통신 시작
         ExistWorkerService(this).tryGetExistCard(getPositionId)
         showLoadingDialog(requireContext())
+
 
     }
 
@@ -131,7 +138,10 @@ class CardExistWorkerFragment(val positionId:Int):
             }
 
             binding.tvPosition.text = response.data.positionProfile.title // 포지션
+
             binding.tvFirstName.text = response.data.positionProfile.firstName // 이름
+            worker_first_name = response.data.positionProfile.firstName
+
             binding.tvRank.text = response.data.positionProfile.rank // 직위
 
             positionInfo = response.data.positionInfo
@@ -142,6 +152,11 @@ class CardExistWorkerFragment(val positionId:Int):
             //positionTaskList = response.data.positionTaskList.
         }
         init()
+
+        // 퇴사요청한 근무자를 클릭하고 들어왔을 때
+        if(getOutStatus == 2){
+            ResponseWorkerOutBottomSheetDialog(getPositionId,worker_first_name).show(childFragmentManager,"response_out")
+        }
     }
 
     override fun onGetFailure(message: String) {
