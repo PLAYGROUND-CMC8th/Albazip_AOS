@@ -83,7 +83,7 @@ class AddWorkerOneActivity :
                 }
             }
 
-            val title = titleOne+titleTwo
+            val title = titleOne+" "+titleTwo
             val startTime = binding.tvInputStartTime.text.toString().replace(":", "")
             val endTime = binding.tvInputOffTime.text.toString().replace(":", "")
 

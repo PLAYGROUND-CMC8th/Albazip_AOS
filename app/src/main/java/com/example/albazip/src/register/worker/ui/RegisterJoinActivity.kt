@@ -118,8 +118,6 @@ class RegisterJoinActivity:BaseActivity<ActivityRegisterJoinBinding>(ActivityReg
                 startActivity(nextIntent)
                 finishAffinity()
             }
-
-            showCustomToast("근무자 가입 성공")
         }
     }
 

@@ -51,7 +51,8 @@ class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): 
             // 활성화 상태
             // 비활성화 카드면 -> 배경 off , 이미지 기본
             if(cardData.status == 0){
-
+                // 타임
+                binding.tvPosition.text = cardData.title
             }else{
                 // 활성화 카드면 -> 배경 on
                 binding.clParent.background =  ContextCompat.getDrawable(

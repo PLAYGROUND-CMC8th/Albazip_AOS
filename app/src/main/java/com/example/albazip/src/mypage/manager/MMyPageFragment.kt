@@ -185,7 +185,6 @@ class MMyPageFragment :
             // 근무자 리스트 호출
             if(response.data.workerList?.isEmpty() == true) { // 근무자 리스트가 비어있으면
                 isWorkerCardExist = false
-                showCustomToast("비어있음")
             }else{
                 isWorkerCardExist = true // 근무자 리스트가 존재하면
 
