@@ -1,22 +1,19 @@
-package com.example.albazip.src.mypage.worker.myInfo.ui
+package com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivitySelectDayListBinding
 import com.example.albazip.src.mypage.common.workerdata.taskinfo.data.GetDayTaskResponse
-import com.example.albazip.src.mypage.common.workerdata.taskinfo.network.DayTaskFragmentView
-import com.example.albazip.src.mypage.common.workerdata.taskinfo.network.DayTaskService
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.network.DetailDayTaskFragmentView
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.network.DetailDayTaskService
 import com.example.albazip.src.mypage.worker.adapter.DailyDoneAdapter
 import com.example.albazip.src.mypage.worker.adapter.DailyUnDoneAdapter
-import com.example.albazip.src.mypage.worker.adapter.WorkDoneAdapter
 import com.example.albazip.src.mypage.worker.data.local.DailyDoneWorkListData
 import com.example.albazip.src.mypage.worker.data.local.DailyUnDoneWorkListData
 
-class SelectDayListActivity :
-    BaseActivity<ActivitySelectDayListBinding>(ActivitySelectDayListBinding::inflate),DayTaskFragmentView {
+class DetailSelectDayListActivity:BaseActivity<ActivitySelectDayListBinding>(ActivitySelectDayListBinding::inflate),DetailDayTaskFragmentView {
 
     private val unDoneList = ArrayList<DailyUnDoneWorkListData>()
     private val doneList = ArrayList<DailyDoneWorkListData>()
@@ -27,6 +24,8 @@ class SelectDayListActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val positionId = intent.getIntExtra("positionId",0)
+
         // 이전 액티비티에서 title 받아오기
         if (intent.hasExtra("title")) {
             binding.tvWeekTitle.text = intent.getStringExtra("title")
@@ -34,7 +33,7 @@ class SelectDayListActivity :
             val month = binding.tvWeekTitle.text.substring(0,2)
             val date = binding.tvWeekTitle.text.substring(3,5)
 
-            DayTaskService(this).tryGetDayTask(year!!,month,date)
+            DetailDayTaskService(this).tryGetDayTask(positionId,year!!,month,date)
             showLoadingDialog(this)
         }
 
@@ -42,16 +41,9 @@ class SelectDayListActivity :
         binding.btnBack.setOnClickListener {
             finish()
         }
-
-        // 미완료 업무 리스트
-        //unDoneList.add(DailyUnDoneWorkListData("간판 안으로 들여놓기", "문 뒤에 들여놓으세요.","사장님 김형준 · 2021.10.21."))
-
-        // 완료 업무 리스트
-        //doneList.add(DailyDoneWorkListData("에어콘 끄기", "완료 22:04"))
-
     }
 
-    override fun onDayTaskGetSuccess(response: GetDayTaskResponse) {
+    override fun onDetailDayTaskGetSuccess(response: GetDayTaskResponse) {
         dismissLoadingDialog()
 
         // 미완료 업무 리스트 호출
@@ -70,7 +62,7 @@ class SelectDayListActivity :
         isListEmpty()
     }
 
-    override fun onDayTaskGetFailure(message: String) {
+    override fun onDetailDayTaskGetFailure(message: String) {
         dismissLoadingDialog()
     }
 
@@ -79,7 +71,7 @@ class SelectDayListActivity :
         if(unDoneList.isEmpty()){
             binding.rlNoUndoneWork.visibility = View.VISIBLE
         }else{
-            unDoneListAdapter = DailyUnDoneAdapter(unDoneList,this@SelectDayListActivity)
+            unDoneListAdapter = DailyUnDoneAdapter(unDoneList,this@DetailSelectDayListActivity)
             binding.rvUndone.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             binding.rvUndone.adapter = unDoneListAdapter
@@ -91,10 +83,11 @@ class SelectDayListActivity :
             binding.rlNoDoneWork.visibility = View.VISIBLE
         } else {
             // 업무리스트가 존재하면 -> rv 연결 o
-            doneListAdapter = DailyDoneAdapter(this@SelectDayListActivity, doneList)
+            doneListAdapter = DailyDoneAdapter(this@DetailSelectDayListActivity, doneList)
             binding.rvDone.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             binding.rvDone.adapter = doneListAdapter
         }
     }
+
 }

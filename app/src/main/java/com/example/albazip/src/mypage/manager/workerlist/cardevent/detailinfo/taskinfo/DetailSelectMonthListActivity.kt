@@ -59,10 +59,11 @@ class DetailSelectMonthListActivity:BaseActivity<ActivitySelectMonthListBinding>
         workDoneAdapter.setOnItemClickListener(object : WorkDoneAdapter.OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
                 // toolbar 의 타이틀을 넘겨준다.
-                val nextIntent = Intent(this@DetailSelectMonthListActivity, SelectDayListActivity::class.java)
+                val nextIntent = Intent(this@DetailSelectMonthListActivity, DetailSelectDayListActivity::class.java)
                 nextIntent.putExtra("title", monthList[position].monthTxt)
                 val year =  "20"+binding.tvMonthTitle.text.substring(0,2)
                 nextIntent.putExtra("year",year)
+                nextIntent.putExtra("positionId",setPositionId)
                 startActivity(nextIntent)
             }
         })

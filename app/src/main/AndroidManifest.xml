@@ -128,6 +128,7 @@
         <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.commute.DetailLateCheckActivity"/>
         <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailDoneWorkActivity"/>
         <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailSelectMonthListActivity"/>
+        <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailSelectDayListActivity"/>
 
     </application>
 

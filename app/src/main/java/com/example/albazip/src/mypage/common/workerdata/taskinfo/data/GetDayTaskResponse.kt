@@ -16,6 +16,9 @@ data class DayTaskResult(
 data class NonCompleteTaskData(
     @SerializedName("title")val title:String,
     @SerializedName("content")val content:String,
+    @SerializedName("writer_name")val writer_name:String,
+    @SerializedName("writer_position")val writer_position:String,
+    @SerializedName("register_date")val register_date:String,
 )
 
 data class CompleteTaskData(
