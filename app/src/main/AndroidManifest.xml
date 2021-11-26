@@ -125,7 +125,9 @@
         <activity android:name=".src.login.RePWActivity"/>
         <activity android:name=".src.mypage.common.setting.editinfo.ManageMyInfoActivity"/>
 
-        <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.DetailLateCheckActivity"/>
+        <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.commute.DetailLateCheckActivity"/>
+        <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailDoneWorkActivity"/>
+        <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailSelectMonthListActivity"/>
 
     </application>
 

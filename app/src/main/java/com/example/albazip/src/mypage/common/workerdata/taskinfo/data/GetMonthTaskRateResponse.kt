@@ -10,6 +10,7 @@ data class GetMonthTaskRateResponse (
 data class MonthTaskResult(
     @SerializedName("month")val month:String,
     @SerializedName("day")val day:String,
+    @SerializedName("week_day")val week_day:String,
     @SerializedName("totalCount")val totalCount:Int,
     @SerializedName("completeCount")val completeCount:Int
 )

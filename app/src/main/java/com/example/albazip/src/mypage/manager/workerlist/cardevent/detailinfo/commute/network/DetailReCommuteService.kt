@@ -1,9 +1,7 @@
-package com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.network
+package com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute.network
 
 import com.example.albazip.config.ApplicationClass
 import com.example.albazip.src.mypage.common.workerdata.commute.data.GetCommuteInfoResponse
-import com.example.albazip.src.mypage.common.workerdata.commute.network.CommuteFragmentView
-import com.example.albazip.src.mypage.common.workerdata.commute.network.CommuteRetrofitInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

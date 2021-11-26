@@ -7,7 +7,8 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentMyInfoBinding
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.ExistWorkerInfo
-import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.DetailLateCheckActivity
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute.DetailLateCheckActivity
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailDoneWorkActivity
 
 
 class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo,val positionId:Int):BaseFragment<ChildFragmentMyInfoBinding>(ChildFragmentMyInfoBinding::bind,
@@ -46,7 +47,7 @@ class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo,val positionI
         // *********** 상세정보 조회 **********
         // 지각횟수
         binding.rlLate.setOnClickListener {
-            val nextIntent = Intent(requireContext(),DetailLateCheckActivity::class.java)
+            val nextIntent = Intent(requireContext(), DetailLateCheckActivity::class.java)
             nextIntent.putExtra("positionId",getPositionId)
             startActivity(nextIntent)
         }
@@ -58,7 +59,9 @@ class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo,val positionI
 
         // 업무 완수율
         binding.rlSuccess.setOnClickListener {
-
+            val nextIntent = Intent(requireContext(), DetailDoneWorkActivity::class.java)
+            nextIntent.putExtra("positionId",getPositionId)
+            startActivity(nextIntent)
         }
 
     }

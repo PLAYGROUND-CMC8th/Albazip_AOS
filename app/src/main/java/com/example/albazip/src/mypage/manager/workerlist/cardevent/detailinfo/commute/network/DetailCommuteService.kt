@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.network
+package com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute.network
 
 import com.example.albazip.config.ApplicationClass
 import com.example.albazip.src.mypage.common.workerdata.commute.data.GetCommuteInfoResponse

@@ -1,4 +1,4 @@
-package com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo
+package com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute
 
 import android.os.Bundle
 import android.view.View
@@ -7,10 +7,10 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityLateCheckBinding
 import com.example.albazip.src.mypage.common.workerdata.commute.data.GetCommuteInfoResponse
-import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.network.DetailCommuteFragmentView
-import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.network.DetailCommuteService
-import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.network.DetailReCommuteFragmentView
-import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.network.DetailReCommuteService
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute.network.DetailCommuteFragmentView
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute.network.DetailCommuteService
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute.network.DetailReCommuteFragmentView
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute.network.DetailReCommuteService
 import com.example.albazip.src.mypage.worker.adapter.WLateRecordAdapter
 import com.example.albazip.src.mypage.worker.data.local.WLateRecordData
 
