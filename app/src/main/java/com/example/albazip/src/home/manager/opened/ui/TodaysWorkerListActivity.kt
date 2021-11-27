@@ -6,29 +6,44 @@ import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityTodayWorkerListBinding
 import com.example.albazip.src.home.manager.opened.adapter.TodaysWorkerAdapter
 import com.example.albazip.src.home.manager.opened.data.TodayWorkerData
+import com.example.albazip.src.home.manager.opened.network.GetTodayWorkerFragmentView
+import com.example.albazip.src.home.manager.opened.network.GetTodayWorkerResponse
+import com.example.albazip.src.home.manager.opened.network.GetTodaysWorkerService
 
-class TodaysWorkerListActivity:BaseActivity<ActivityTodayWorkerListBinding>(ActivityTodayWorkerListBinding::inflate) {
+class TodaysWorkerListActivity:BaseActivity<ActivityTodayWorkerListBinding>(ActivityTodayWorkerListBinding::inflate),GetTodayWorkerFragmentView {
 
-    private lateinit var workerList:ArrayList<TodayWorkerData>
+    private var workerList = ArrayList<TodayWorkerData>()
     private lateinit var todaysWorkerAdapter:TodaysWorkerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        workerList = ArrayList<TodayWorkerData>()
+        GetTodaysWorkerService(this).tryGetTodayWorkers()
+        showLoadingDialog(this)
 
-        workerList.add(TodayWorkerData("","평일마감","주연"))
-        workerList.add(TodayWorkerData("","평일미들","수빈"))
-        workerList.add(TodayWorkerData("","평일마감","히영"))
-        workerList.add(TodayWorkerData("","평일마감","지연"))
+        // 뒤로가기
+        binding.ibtnBack.setOnClickListener {
+            finish()
+        }
 
-        todaysWorkerAdapter = TodaysWorkerAdapter(workerList)
+    }
 
-        binding.rvTodayWorkers.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    // 오늘의 근무자 불러오기 성공
+    override fun onGetTodayWorkersSuccess(response: GetTodayWorkerResponse) {
+        dismissLoadingDialog()
+
+        for(i in 0 until response.data.size)
+        {
+            workerList.add(TodayWorkerData(response.data[i].workerImage,response.data[i].workerTitle,response.data[i].workerName))
+        }
+
+        todaysWorkerAdapter = TodaysWorkerAdapter(workerList,this)
 
         binding.rvTodayWorkers.adapter = todaysWorkerAdapter
 
+    }
 
+    override fun onGetTodayWorkersFailure(message: String) {
+        dismissLoadingDialog()
     }
 }
