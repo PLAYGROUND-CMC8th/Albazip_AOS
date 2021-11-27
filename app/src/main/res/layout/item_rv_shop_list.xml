@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/root_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp">
+
+        <ImageView
+            android:id="@+id/iv_store"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_store_24_px"
+            android:layout_marginStart="24dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_store_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_toEndOf="@id/iv_store"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="17dp"
+            android:textColor="#343434"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="3sp"
+            android:text="서플라이 첨단점"/>
+
+        <ImageButton
+            android:id="@+id/ibtn_trash"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="center"
+            android:background="@null"
+            android:src="@drawable/ic_trash_24_px"
+            android:layout_marginEnd="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+        <ImageButton
+            android:id="@+id/ibtn_edit"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="center"
+            android:background="@null"
+            android:src="@drawable/ic_edit_24_px"
+            android:layout_marginEnd="14dp"
+            android:layout_toStartOf="@id/ibtn_trash"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#1a000000" />
+
+</LinearLayout>
