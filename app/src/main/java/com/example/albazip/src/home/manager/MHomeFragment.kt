@@ -71,8 +71,8 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         dismissLoadingDialog()
 
         // 영업상태
-        var status = response.data.shopInfo.status
-
+        //var status = response.data.shopInfo.status
+        var status = 1
         // 영업상태 체크
         if(status == 0){ // 영업전
             childFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomePreParingChildFragment(response.data))
@@ -90,11 +90,19 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
         var noticeList = ArrayList<HomeCommuData>()
 
+
         for (i in 0 until response.data.boardInfo.size){
             if(response.data.boardInfo[i].status == 0){
                 noticeList.add(HomeCommuData(0,response.data.boardInfo[i].title))
                 if (noticeList.size > 3) break // 홈화면에서는 4개까지만 보여주기
             }
+        }
+
+        // 작성된 공지글이 없을 때
+        if(noticeList.size == 0){
+            binding.rlNoWriteList.visibility =View.VISIBLE
+        }else{
+            binding.rlNoWriteList.visibility = View.GONE
         }
 
         // viewpager 데이터 받기

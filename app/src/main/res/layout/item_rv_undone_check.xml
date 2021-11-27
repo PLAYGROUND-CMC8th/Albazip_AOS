@@ -23,6 +23,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/ibtn_work_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="24dp"
+        android:background="@null"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ic_yellow_x"
+        app:layout_constraintBottom_toBottomOf="@id/tv_title" />
+
     <View
         android:id="@+id/divider"
         android:visibility="gone"

@@ -84,6 +84,13 @@ class WHomeFragment :
             }
         }
 
+        // 작성된 공지글이 없을 때
+        if(noticeList.size == 0){
+            binding.rlNoWriteList.visibility =View.VISIBLE
+        }else{
+            binding.rlNoWriteList.visibility = View.GONE
+        }
+
         // indicator 연결
         homeVPAdapter = HomeVPAdapter(requireContext(),noticeList)
 

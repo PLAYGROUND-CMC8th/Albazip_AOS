@@ -871,6 +871,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_personal_work_bg"
         android:layout_width="match_parent"
         android:layout_height="117dp"
         android:background="@drawable/rectangle_fill_white_radius_20"

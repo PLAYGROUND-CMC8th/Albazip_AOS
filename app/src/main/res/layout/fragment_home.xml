@@ -73,11 +73,36 @@
                     android:layout_height="49dp"
                     android:layout_marginTop="16dp">
 
+
+                    <RelativeLayout
+                        android:id="@+id/rl_no_write_list"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="24dp"
+                        android:background="@drawable/retangle_fill_ligth_gray_radius_19">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:textColor="#a3a3a3"
+                            android:paddingStart="16dp"
+                            android:gravity="center_vertical"
+                            android:text="작성된 공지사항이 없어요."
+                            />
+
+                    </RelativeLayout>
+
+
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/vp_home_communicate"
                         android:clipToPadding="false"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
+
+
                 </RelativeLayout>
 
                 <com.tbuonomo.viewpagerdotsindicator.DotsIndicator

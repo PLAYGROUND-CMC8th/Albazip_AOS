@@ -12,6 +12,8 @@ import com.example.albazip.src.home.manager.custom.AddWorkBottomSheetDialog
 import com.example.albazip.src.home.manager.data.AllHomeMResult
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
 import com.example.albazip.src.home.manager.opened.ui.TodaysWorkerListActivity
+import com.example.albazip.src.home.manager.worklist.ui.HomeMTodayToDoListActivity
+import com.example.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity
 
 class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragmentHomeOpenedBinding>(
     ChildFragmentHomeOpenedBinding::bind,
@@ -92,6 +94,20 @@ class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragment
         // 매장 선택화면으로 이동
         binding.rlChooseShop.setOnClickListener {
             val nextIntent = Intent(requireContext(), HomeShopListActivity::class.java)
+            startActivity(nextIntent)
+        }
+
+        // 공동업무 리스트
+        binding.rlTogetherBg.setOnClickListener {
+            val nextIntent = Intent(requireContext(), HomeMTodayToDoListActivity::class.java)
+            nextIntent.putExtra("tabFlags", 0)
+            startActivity(nextIntent)
+        }
+
+        // 개인업무 리스트
+        binding.rlPersonalWorkBg.setOnClickListener {
+            val nextIntent = Intent(requireContext(), HomeMTodayToDoListActivity::class.java)
+            nextIntent.putExtra("tabFlags", 1)
             startActivity(nextIntent)
         }
 

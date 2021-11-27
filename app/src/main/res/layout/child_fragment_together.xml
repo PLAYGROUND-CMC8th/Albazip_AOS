@@ -94,6 +94,7 @@
                     android:layout_marginHorizontal="24dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="36dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:overScrollMode="never"
                     app:layout_constraintBottom_toBottomOf="@id/cl_top"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -198,6 +199,7 @@
                     android:layout_height="wrap_content"
                     tools:listitem="@layout/item_rv_done_check"
                     android:layout_marginHorizontal="24dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:overScrollMode="never"
                     android:layout_marginTop="11dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -254,5 +256,29 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/cl_no_both_work"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/img_alert_36_px"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#a3a3a3"
+            android:layout_marginTop="14dp"
+            android:gravity="center_horizontal"
+            android:text="추가된 업무가 없어요."/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

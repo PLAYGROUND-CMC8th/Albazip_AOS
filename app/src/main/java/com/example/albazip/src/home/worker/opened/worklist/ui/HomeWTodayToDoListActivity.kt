@@ -18,6 +18,11 @@ class HomeWTodayToDoListActivity:
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 뒤로가기 버튼
+        binding.ibtnBack.setOnClickListener {
+            finish()
+        }
+
         // ViewPager 와 fragment 연결
         val pagerAdapter =  PagerFragmentStateAdapter(this)
         pagerAdapter.addFragment(ChildFragmentWTogether())

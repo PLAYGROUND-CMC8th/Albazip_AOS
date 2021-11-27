@@ -98,6 +98,9 @@ class HUnDoneAdapter(
             R.drawable.rectangle_fill_light_yellow_radius_yellow_20
         )
 
+        // 삭제버튼 보이기
+        holder.binding.ibtnWorkCancel.visibility = View.VISIBLE
+
         flags = 1
     }
 
@@ -120,6 +123,8 @@ class HUnDoneAdapter(
             myContext,
             R.drawable.rectangle_fill_light_yellow_radius_main_yellow_20
         )
+        // 삭제버튼 숨기기
+        holder.binding.ibtnWorkCancel.visibility = View.GONE
 
         flags = 0
     }
