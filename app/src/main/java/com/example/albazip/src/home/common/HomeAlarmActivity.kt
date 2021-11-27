@@ -8,5 +8,9 @@ class HomeAlarmActivity:BaseActivity<ActivityHomeAlarmBinding>(ActivityHomeAlarm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding.ibtnClose.setOnClickListener {
+            finish()
+        }
     }
 }
