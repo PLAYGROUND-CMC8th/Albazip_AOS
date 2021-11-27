@@ -9,9 +9,10 @@ import com.example.albazip.databinding.ChildFragmentHomePrepareBinding
 import com.example.albazip.src.home.common.HomeAlarmActivity
 import com.example.albazip.src.home.common.HomeShopListActivity
 import com.example.albazip.src.home.manager.custom.AddWorkBottomSheetDialog
+import com.example.albazip.src.home.manager.data.AllHomeMResult
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
 
-class HomePreParingChildFragment:BaseFragment<ChildFragmentHomePrepareBinding>(ChildFragmentHomePrepareBinding::bind,
+class HomePreParingChildFragment(data: AllHomeMResult):BaseFragment<ChildFragmentHomePrepareBinding>(ChildFragmentHomePrepareBinding::bind,
     R.layout.child_fragment_home_prepare) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

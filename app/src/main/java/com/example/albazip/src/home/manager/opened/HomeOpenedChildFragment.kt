@@ -9,20 +9,38 @@ import com.example.albazip.databinding.ChildFragmentHomeOpenedBinding
 import com.example.albazip.src.home.common.HomeAlarmActivity
 import com.example.albazip.src.home.common.HomeShopListActivity
 import com.example.albazip.src.home.manager.custom.AddWorkBottomSheetDialog
+import com.example.albazip.src.home.manager.data.AllHomeMResult
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
 import com.example.albazip.src.home.manager.opened.ui.TodaysWorkerListActivity
-import com.example.albazip.src.register.manager.custom.TimePickerBottomSheetDialog
 
-class HomeOpenedChildFragment: BaseFragment<ChildFragmentHomeOpenedBinding>(
+class HomeOpenedChildFragment(data:AllHomeMResult): BaseFragment<ChildFragmentHomeOpenedBinding>(
     ChildFragmentHomeOpenedBinding::bind,
     R.layout.child_fragment_home_opened) {
+
+    val resultData = data
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 화면 정보 받아오기
+        binding.tvShopName.text = resultData.shopInfo.name // 매장명
+        binding.tvDay.text = resultData.todayInfo.month.toString() + "/" + resultData.todayInfo.date.toString() +" "+ resultData.todayInfo.day+"요일" // 오늘 날짜
+
+        // 공동업무 완료
+        binding.tvDoneCntTogether.text = resultData.taskInfo.coTask.completeCount.toString()
+        binding.tvTotalCntTogehter.text = "/ " + resultData.taskInfo.coTask.totalCount.toString()
+        binding.progressBarTogether.progress = (((resultData.taskInfo.coTask.completeCount).toDouble() / (resultData.taskInfo.coTask.totalCount).toDouble()) * 100).toInt()
+
+        // 개인업무 완료
+        binding.tvDoneCntAlone.text = resultData.taskInfo.perTask.completeCount.toString()
+        binding.tvTotalCntAlone.text = "/ "+ resultData.taskInfo.perTask.totalCount.toString()
+        binding.progressBarAlone.progress = (((resultData.taskInfo.perTask.completeCount).toDouble() / (resultData.taskInfo.perTask.totalCount).toDouble()) * 100).toInt()
+
+
         // qr 조회 화면으로 이동
         binding.ibtnQrScan.setOnClickListener {
             val nextIntent = Intent(requireContext(), QRShowingActivity::class.java)
+            nextIntent.putExtra("shop_name",binding.tvShopName.text)
             startActivity(nextIntent)
         }
 

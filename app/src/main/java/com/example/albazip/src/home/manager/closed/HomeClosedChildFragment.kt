@@ -8,9 +8,10 @@ import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentHomeClosedBinding
 import com.example.albazip.src.home.common.HomeAlarmActivity
 import com.example.albazip.src.home.common.HomeShopListActivity
+import com.example.albazip.src.home.manager.data.AllHomeMResult
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
 
-class HomeClosedChildFragment: BaseFragment<ChildFragmentHomeClosedBinding>(
+class HomeClosedChildFragment(data: AllHomeMResult): BaseFragment<ChildFragmentHomeClosedBinding>(
     ChildFragmentHomeClosedBinding::bind,
     R.layout.child_fragment_home_closed) {
 

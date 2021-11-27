@@ -34,6 +34,8 @@ class QRShowingActivity:BaseActivity<ActivityQrShowingBinding>(ActivityQrShowing
 
         requestPermission()
 
+        binding.tvShopName.text = intent.getStringExtra("shop_name")
+
         // 다운받기 버튼 클릭
         binding.btnDownload.setOnClickListener {
             saveImageFile(newFileName(),"image/jpeg",imgBitmap!!)

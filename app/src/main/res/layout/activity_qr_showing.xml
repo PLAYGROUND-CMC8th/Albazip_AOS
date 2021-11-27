@@ -58,7 +58,7 @@
         android:textColor="#343434"
         android:letterSpacing="-0.02"
         android:lineSpacingExtra="13sp"
-        android:text="서플라이 첨단점"
+        tools:text="서플라이 첨단점"
         app:layout_constraintTop_toBottomOf="@id/tb_late"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +94,6 @@
 
         <ImageView
             android:id="@+id/iv_qr_img"
-            android:background="@color/black"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="23dp"
