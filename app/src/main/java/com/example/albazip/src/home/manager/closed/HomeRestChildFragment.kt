@@ -15,12 +15,20 @@ class HomeRestChildFragment(data:AllHomeMResult): BaseFragment<ChildFragmentHome
     ChildFragmentHomeRestBinding::bind,
     R.layout.child_fragment_home_rest) {
 
+    var resultData = data
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 매장이름
+        binding.tvShopName.text =  resultData.shopInfo.name
+        // 요일
+        binding.tvCurrentDay.text = resultData.todayInfo.month.toString() + "/" + resultData.todayInfo.date.toString() +" "+ resultData.todayInfo.day+"요일" // 오늘 날짜
 
         // qr 조회 화면으로 이동
         binding.ibtnQrScan.setOnClickListener {
             val nextIntent = Intent(requireContext(), QRShowingActivity::class.java)
+            nextIntent.putExtra("shop_name",binding.tvShopName.text)
             startActivity(nextIntent)
         }
 
