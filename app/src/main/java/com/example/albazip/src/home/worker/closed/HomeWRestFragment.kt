@@ -10,17 +10,25 @@ import com.example.albazip.databinding.ChildFragmentHomeWRestBinding
 import com.example.albazip.src.home.common.HomeAlarmActivity
 import com.example.albazip.src.home.common.HomeShopListActivity
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
+import com.example.albazip.src.home.worker.data.AllHomeWResult
 import com.example.albazip.src.home.worker.opened.QRScanningActivity
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 
-class HomeWRestFragment: BaseFragment<ChildFragmentHomeWRestBinding>(
+class HomeWRestFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWRestBinding>(
     ChildFragmentHomeWRestBinding::bind,
     R.layout.child_fragment_home_w_rest) {
 
+    private var resultData = data
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 매장이름
+        binding.tvShopName.text =  resultData.shopInfo.name
+        // 요일
+        binding.tvCurrentDay.text = resultData.todayInfo.month.toString() + "/" + resultData.todayInfo.date.toString() +" "+ resultData.todayInfo.day+"요일" // 오늘 날짜
 
         // 알림 화면으로 이동
         binding.ibtnBell.setOnClickListener {

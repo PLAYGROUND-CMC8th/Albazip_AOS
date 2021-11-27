@@ -71,8 +71,7 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         dismissLoadingDialog()
 
         // 영업상태
-        //var status = response.data.shopInfo.status
-        var status = 1
+        var status = response.data.shopInfo.status
 
         // 영업상태 체크
         if(status == 0){ // 영업전

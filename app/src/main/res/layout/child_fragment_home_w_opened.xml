@@ -125,6 +125,7 @@
         android:layout_marginHorizontal="24dp">
         <RelativeLayout
             android:id="@+id/rl_alarm"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:background="@drawable/bg_commute_alarm">

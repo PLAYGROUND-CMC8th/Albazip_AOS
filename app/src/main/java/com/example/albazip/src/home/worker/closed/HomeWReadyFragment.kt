@@ -10,6 +10,7 @@ import com.example.albazip.databinding.ChildFragmentHomeWReadyBinding
 import com.example.albazip.src.home.common.HomeAlarmActivity
 import com.example.albazip.src.home.common.HomeShopListActivity
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
+import com.example.albazip.src.home.worker.data.AllHomeWResult
 import com.example.albazip.src.home.worker.opened.HomeWOpenedFragment
 import com.example.albazip.src.home.worker.opened.QRScanningActivity
 import com.google.zxing.BarcodeFormat
@@ -20,18 +21,19 @@ import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 
 
-class HomeWReadyFragment: BaseFragment<ChildFragmentHomeWReadyBinding>(
+class HomeWReadyFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWReadyBinding>(
     ChildFragmentHomeWReadyBinding::bind,
     R.layout.child_fragment_home_w_ready) {
+
+    var resultData = data
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // qr 조회 화면으로 이동
-       // binding.ibtnQrScan.setOnClickListener {
-       //     val nextIntent = Intent(requireContext(), QRShowingActivity::class.java)
-       //     startActivity(nextIntent)
-        //}
+        // 매장이름
+        binding.tvShopName.text =  resultData.shopInfo.name
+        // 요일
+        binding.tvCurrentDay.text = resultData.todayInfo.month.toString() + "/" + resultData.todayInfo.date.toString() +" "+ resultData.todayInfo.day+"요일" // 오늘 날짜
 
         // 알림 화면으로 이동
         binding.ibtnBell.setOnClickListener {
@@ -75,7 +77,7 @@ class HomeWReadyFragment: BaseFragment<ChildFragmentHomeWReadyBinding>(
         ScanContract()
     ) { result: ScanIntentResult ->
         if (result.contents == null) { // 출근 취소
-            Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_LONG).show()
+            // Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_LONG).show()
         } else { // 출근 완료
             //Toast.makeText(requireContext(), "Scanned: " + result.contents, Toast.LENGTH_LONG)
             //    .show()
@@ -83,7 +85,7 @@ class HomeWReadyFragment: BaseFragment<ChildFragmentHomeWReadyBinding>(
             showCustomToast("16:56에 출근이 기록되었습니다.")
 
             // 화면 변경(근무중 fragment로 교체)
-            parentFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomeWOpenedFragment())
+            parentFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomeWOpenedFragment(resultData))
                 .commitAllowingStateLoss()
         }
     }
