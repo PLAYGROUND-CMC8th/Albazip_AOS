@@ -49,7 +49,6 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
         binding.tvWorkerPosition.text = resultData.scheduleInfo.positionTitle
 
         val positionTime = resultData.scheduleInfo.positionTitle.substring(2, 5).replace(" ","")
-        showCustomToast(positionTime)
         when (positionTime) {
             "오픈" -> {  Glide.with(requireContext()).load(R.drawable.ic_dot_open_position).into(binding.ivPositionIcon) }
             "미들" -> { Glide.with(requireContext()).load(R.drawable.ic_dot_middle_position).into(binding.ivPositionIcon)}

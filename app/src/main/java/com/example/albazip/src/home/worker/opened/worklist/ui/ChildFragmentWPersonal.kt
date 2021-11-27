@@ -1,13 +1,10 @@
 package com.example.albazip.src.home.worker.opened.worklist.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
-import com.example.albazip.databinding.ChildFragmentPersonalBinding
 import com.example.albazip.databinding.ChildFragmentWTodoListBinding
 import com.example.albazip.databinding.DialogTodoAllDoneBinding
 import com.example.albazip.src.home.common.adapter.DoneWorkerCntAdapter
@@ -16,10 +13,13 @@ import com.example.albazip.src.home.worker.opened.worklist.adapter.HDoneAdapter
 import com.example.albazip.src.home.worker.opened.worklist.adapter.HUnDoneAdapter
 import com.example.albazip.src.home.worker.opened.worklist.data.HDoneWorkListData
 import com.example.albazip.src.home.worker.opened.worklist.data.HUnDoneWorkListData
+import com.example.albazip.src.home.worker.opened.worklist.network.WTodayTaskResult
 
-class ChildFragmentWPersonal: BaseFragment<ChildFragmentWTodoListBinding>(
+class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmentWTodoListBinding>(
     ChildFragmentWTodoListBinding::bind,
     R.layout.child_fragment_w_todo_list) {
+
+    private var ResultData = data
 
     // 미완료 리스트
     private var unDoneList = ArrayList<HUnDoneWorkListData>()
@@ -37,36 +37,66 @@ class ChildFragmentWPersonal: BaseFragment<ChildFragmentWTodoListBinding>(
     private var doneWorkerCntList = ArrayList<DoneWorkerCntData>()
     private lateinit var doneWorkerCntAdapter:DoneWorkerCntAdapter
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         dialogBinding = DialogTodoAllDoneBinding.inflate(layoutInflater)
 
-        // 미완료 리스트가 없으면 (배열 개수 0)
+        if(ResultData?.perTask?.nonComPerTask?.size != null){
+            for(i in 0 until ResultData!!.perTask.nonComPerTask.size){
+                var content = ResultData!!.perTask.nonComPerTask[i].taskContent
+                if (content == "null" || content.isEmpty()){
+                    content = "내용없음"
+                }
 
-        unDoneList.add(HUnDoneWorkListData(0,"제목1","내용1","작성 날짜 및 작성자"))
-        unDoneList.add(HUnDoneWorkListData(0,"제목2","내용2","작성 날짜 및 작성자"))
-        unDoneList.add(HUnDoneWorkListData(1,"제목3","내용3","작성 날짜 및 작성자"))
-        unDoneList.add(HUnDoneWorkListData(1,"제목4","내용4","작성 날짜 및 작성자"))
+                var writerAndDay = ResultData!!.perTask.nonComPerTask[i].writerTitle + " · " + ResultData!!.perTask.nonComPerTask[i].writerName + ResultData!!.perTask.nonComPerTask[i].registerDate.substring(0,9)
 
+                unDoneList.add(HUnDoneWorkListData(0,ResultData!!.perTask.nonComPerTask[i].takTitle,content,writerAndDay))
+            }
+        }
         unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
-
-     //   val linearLayoutManager = LinearLayoutManager(requireContext())
-     //   linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-
-     //   binding.rvUndone.layoutManager = linearLayoutManager
         binding.rvUndone.adapter = unDoneAdapter
 
-        // 완료 리스트가 없으면 (배열 개수 0)
-        doneList.add(HDoneWorkListData(0,"제목1","시간"))
-        doneList.add(HDoneWorkListData(1,"제목2","시간"))
-        doneList.add(HDoneWorkListData(1,"제목3","시간"))
-        doneList.add(HDoneWorkListData(0,"제목4","시간"))
+        // 미완료 cnt
+        binding.tvUndoneCnt.text = unDoneList.size.toString()
 
+        if(ResultData?.perTask?.compPerTask?.size !=null){
+            for(i in 0 until ResultData!!.perTask.compPerTask.size){
+                doneList.add(HDoneWorkListData(0,ResultData!!.perTask.compPerTask[i].takTitle,"완료 "+ResultData!!.perTask.compPerTask[i].completeTime))
+            }
+        }
         doneAdpater = HDoneAdapter(requireContext(),doneList)
-     //   binding.rvDone.layoutManager = linearLayoutManager
         binding.rvDone.adapter = doneAdpater
+
+        // 완료 cnt
+        binding.tvDoneCnt.text = doneList.size.toString()
+
+        if (unDoneList.size == 0 && doneList.size == 0){    //없무 없음
+            binding.clNoBothWork.visibility = View.VISIBLE
+        }else{ // 없무존재
+            binding.clNoBothWork.visibility = View.GONE
+        }
+
+
+        if(unDoneList.size == 0 && doneList.size !=0){ // 모든 업무 완료
+            binding.rlNoUndoneWork.visibility = View.VISIBLE
+        }else{
+            binding.rlNoUndoneWork.visibility = View.GONE
+        }
+
+        if(unDoneList.size !=0 && doneList.size ==0){ // 완료된 업무가 없어요
+            binding.rlNoDoneWork.visibility = View.VISIBLE
+        }else{
+            binding.rlNoUndoneWork.visibility = View.GONE
+        }
+
+
+
+
+
+
+
+
 
 
         doneWorkerCntList.add(DoneWorkerCntData("","평일마감","지연",1))

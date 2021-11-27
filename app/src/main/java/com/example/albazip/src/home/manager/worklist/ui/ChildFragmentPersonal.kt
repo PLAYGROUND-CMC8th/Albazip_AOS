@@ -35,6 +35,5 @@ class ChildFragmentPersonal(data: MTodayTaskResult?):BaseFragment<ChildFragmentP
         }else{
             binding.clNoBothWork.visibility = View.GONE
         }
-
     }
 }
