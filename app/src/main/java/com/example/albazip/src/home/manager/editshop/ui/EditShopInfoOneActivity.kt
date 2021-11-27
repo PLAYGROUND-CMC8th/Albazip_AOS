@@ -88,6 +88,7 @@ class EditShopInfoOneActivity :
 
             nextIntent.putExtra("registerDataList", registerDataList)
             nextIntent.putExtra("holiday",holiday)
+            nextIntent.putExtra("positionId",positionId)
 
             startActivity(nextIntent)
         }

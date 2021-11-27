@@ -256,7 +256,7 @@
             android:lineSpacingExtra="-18sp"
             android:textAlignment="center"
             android:gravity="center"
-            android:textColor="#ededed"
+            android:textColor="@color/customBlack"
             android:textSize="30sp"
             android:text="00:00" />
     </RelativeLayout>
@@ -316,7 +316,7 @@
             android:lineSpacingExtra="-18sp"
             android:textAlignment="center"
             android:gravity="center"
-            android:textColor="#ededed"
+            android:textColor="@color/customBlack"
             android:textSize="30sp"
             android:text="00:00"/>
     </RelativeLayout>
@@ -370,7 +370,7 @@
             android:gravity="center|end"
             android:letterSpacing="-0.03"
             android:text="1 - 31"
-            android:textColor="@color/hintTxtColor"
+            android:textColor="@color/customBlack"
             android:textSize="16sp"
             android:textStyle="normal" />
 
@@ -390,21 +390,5 @@
 
     </RelativeLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_next"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/btn_disable_yellow_fill_rounded"
-        android:fontFamily="@font/roboto_bold"
-        android:stateListAnimator="@null"
-        android:text="매장 등록하기"
-        android:textColor="@color/disableTxtColor"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

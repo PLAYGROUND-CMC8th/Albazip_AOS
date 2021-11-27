@@ -55,6 +55,10 @@ class InputPlaceMoreActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 뒤로가기 버튼
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
         // 관리자 화면 or 온보딩으로 이동
         binding.btnNext.setOnClickListener {

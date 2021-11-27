@@ -12,6 +12,11 @@ class MMyPageSettingActivity:BaseActivity<ActivitySettingMMyPageBinding>(Activit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 뒤로가기 화면
+        binding.ibtnClose.setOnClickListener {
+            finish()
+        }
+
         // 알림 설정 화면
         binding.rlAlarmSettingBtn.setOnClickListener {
             val nextIntent = Intent(this, AlarmSettingActivity::class.java)

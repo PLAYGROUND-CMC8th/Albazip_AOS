@@ -121,12 +121,12 @@
                 android:fontFamily="sans-serif-medium"
                 android:textStyle="normal"
                 android:textSize="16sp"
-                android:textColor="#ffc400"
+                android:textColor="#a3a3a3"
                 android:letterSpacing="-0.03"
                 android:layout_toEndOf="@id/tv_alarm"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="4dp"
-                android:text="ON"/>
+                android:text="OFF"/>
 
             <Switch
                 android:id="@+id/switch_alarm"

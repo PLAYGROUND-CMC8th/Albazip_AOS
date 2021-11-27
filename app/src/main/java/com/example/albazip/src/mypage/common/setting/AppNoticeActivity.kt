@@ -8,5 +8,10 @@ class AppNoticeActivity:BaseActivity<ActivityAppNoticeBinding>(ActivityAppNotice
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 뒤로가기
+        binding.ibtnClose.setOnClickListener {
+            finish()
+        }
     }
 }

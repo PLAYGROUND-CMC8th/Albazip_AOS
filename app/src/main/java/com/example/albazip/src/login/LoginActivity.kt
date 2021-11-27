@@ -27,6 +27,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 뒤로가기 버튼
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+
         // focus 감지
         onFocus()
 

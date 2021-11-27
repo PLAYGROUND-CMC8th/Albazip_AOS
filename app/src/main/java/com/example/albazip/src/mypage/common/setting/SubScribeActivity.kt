@@ -8,5 +8,9 @@ class SubScribeActivity:BaseActivity<ActivitySubscribeBinding>(ActivitySubscribe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding.ibtnBack.setOnClickListener {
+            finish()
+        }
     }
 }

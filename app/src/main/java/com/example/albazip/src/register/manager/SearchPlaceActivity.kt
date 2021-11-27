@@ -43,6 +43,11 @@ class SearchPlaceActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 뒤로가기 버튼
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
+
         // 뷰페이저 설정
         /* 여백, 너비에 대한 정의 */
         val pagerWidth = resources.getDimensionPixelOffset(R.dimen.pageWidth)
