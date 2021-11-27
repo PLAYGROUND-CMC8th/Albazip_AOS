@@ -8,8 +8,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_centerVertical="true"
-        android:layout_marginStart="24dp"
-        android:background="@color/black" />
+        android:layout_marginStart="24dp"/>
 
     <TextView
         android:id="@+id/tv_position"

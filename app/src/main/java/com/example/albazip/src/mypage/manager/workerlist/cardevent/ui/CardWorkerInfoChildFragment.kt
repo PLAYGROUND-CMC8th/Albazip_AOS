@@ -8,6 +8,7 @@ import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentMyInfoBinding
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.data.ExistWorkerInfo
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute.DetailLateCheckActivity
+import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.cotask.DetailTogetherWorkActivity
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailDoneWorkActivity
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.PMyInfoFragmentView
 import com.example.albazip.src.mypage.manager.workerlist.cardevent.network.PMyInfoResponse
@@ -72,7 +73,9 @@ class CardWorkerInfoChildFragment(existWorkerInfo: ExistWorkerInfo,val positionI
 
         // 공동업무 참여횟수
         binding.rlTogether.setOnClickListener {
-
+            val nextIntent = Intent(requireContext(), DetailTogetherWorkActivity::class.java)
+            nextIntent.putExtra("positionId",getPositionId)
+            startActivity(nextIntent)
         }
 
         // 업무 완수율
