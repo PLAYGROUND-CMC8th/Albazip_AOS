@@ -93,8 +93,6 @@ class WorkerListChildFragment(serverCardList:ArrayList<WorkerList>) : BaseFragme
             binding.rvWorkerList.adapter = workerCardAdapter
 
             cardClickEvent()
-
-            showCustomToast("새로고침 성공")
         }
 
     }

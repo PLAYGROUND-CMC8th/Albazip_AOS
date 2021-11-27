@@ -508,7 +508,7 @@ class InputPlaceMoreActivity :
     // 서버통신 성공
     override fun onPostMSignUpSuccess(response: PositionRegisterResponse) {
         dismissLoadingDialog()
-        showCustomToast(response.message.toString())
+
         if (response.code == 200) {
             showCustomToast("관리자 가입 완료")
 

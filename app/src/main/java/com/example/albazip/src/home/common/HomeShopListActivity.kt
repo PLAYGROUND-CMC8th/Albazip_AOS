@@ -47,7 +47,7 @@ class HomeShopListActivity:BaseActivity<ActivityHomeShopListBinding>(ActivityHom
 
         Log.d("testing",shopList.toString())
 
-        shopListAdapter = ShopListAdapter(shopList)
+        shopListAdapter = ShopListAdapter(shopList,this@HomeShopListActivity)
         binding.rvShopList.adapter = shopListAdapter
     }
 

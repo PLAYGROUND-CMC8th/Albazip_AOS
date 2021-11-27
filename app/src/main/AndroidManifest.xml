@@ -133,6 +133,9 @@
         <activity android:name=".src.mypage.manager.workerlist.editposition.ui.EditWorkerOneActivity"/>
         <activity android:name=".src.mypage.manager.workerlist.editposition.ui.EditWorkerTwoActivity"/>
 
+        <activity android:name=".src.home.manager.editshop.ui.EditShopInfoOneActivity"/>
+        <activity android:name=".src.home.manager.editshop.ui.EditShopInfoTwoActivity"/>
+
     </application>
 
 

@@ -1,16 +1,21 @@
 package com.example.albazip.src.home.common.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.databinding.ItemRvShopListBinding
 import com.example.albazip.src.home.common.data.ShopListData
+import com.example.albazip.src.home.manager.editshop.ui.EditShopInfoOneActivity
 
-class ShopListAdapter(private val itemList:ArrayList<ShopListData>): RecyclerView.Adapter<ShopListAdapter.ShopListHolder>() {
+class ShopListAdapter(private val itemList:ArrayList<ShopListData>,context:Context): RecyclerView.Adapter<ShopListAdapter.ShopListHolder>() {
 
     private lateinit var binding: ItemRvShopListBinding
+    var myContext = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopListAdapter.ShopListHolder {
         binding =  ItemRvShopListBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -43,7 +48,17 @@ class ShopListAdapter(private val itemList:ArrayList<ShopListData>): RecyclerVie
                 binding.ibtnTrash.visibility = View.GONE
             }
 
+            // 매장 편집하기
+            binding.ibtnEdit.setOnClickListener {
+                val nexIntent = Intent(myContext,EditShopInfoOneActivity::class.java)
+                nexIntent.putExtra("positionId",shopData.manger_id)
+                myContext.startActivity(nexIntent)
+            }
 
+            // 매장 삭제하기
+            binding.ibtnTrash.setOnClickListener {
+
+            }
         }
     }
 }
