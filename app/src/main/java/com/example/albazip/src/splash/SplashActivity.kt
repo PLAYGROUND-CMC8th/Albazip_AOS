@@ -56,7 +56,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         Handler(Looper.getMainLooper()).postDelayed({
             // 자동로그인
             if (loginFlags == 1) {
-
                 when (jobFlags) {
                     // 기본 login -> 포지션 가입 화면으로 이동
                     0 -> {
