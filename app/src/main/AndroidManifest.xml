@@ -136,6 +136,8 @@
         <activity android:name=".src.home.manager.editshop.ui.EditShopInfoOneActivity"/>
         <activity android:name=".src.home.manager.editshop.ui.EditShopInfoTwoActivity"/>
 
+        <activity android:name=".src.home.manager.editshop.ui.DelShopActivity"/>
+
     </application>
 
 

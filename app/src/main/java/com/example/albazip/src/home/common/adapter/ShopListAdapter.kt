@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.databinding.ItemRvShopListBinding
 import com.example.albazip.src.home.common.data.ShopListData
+import com.example.albazip.src.home.manager.editshop.ui.DelShopActivity
 import com.example.albazip.src.home.manager.editshop.ui.EditShopInfoOneActivity
 
 class ShopListAdapter(private val itemList:ArrayList<ShopListData>,context:Context): RecyclerView.Adapter<ShopListAdapter.ShopListHolder>() {
@@ -57,7 +58,9 @@ class ShopListAdapter(private val itemList:ArrayList<ShopListData>,context:Conte
 
             // 매장 삭제하기
             binding.ibtnTrash.setOnClickListener {
-
+                val nextIntet = Intent(myContext,DelShopActivity::class.java)
+                nextIntet.putExtra("positionId",shopData.manger_id)
+                myContext.startActivity(nextIntet)
             }
         }
     }

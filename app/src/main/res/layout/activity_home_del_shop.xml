@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/ibtn_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_back_arrow"
+        android:background="@null"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_withdraw_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="매장 삭제 약관"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:textColor="#343434"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="9sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ibtn_back"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="36dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_withdraw_title"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="9sp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_text_header"
+                android:background="@null"
+                android:textColor="#6f6f6f"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="9sp"
+                android:text="현재 운영중인 매장을 삭제하면 지금까지 입력된 모든 데이터가 삭제됩니다."
+                android:textColor="#6f6f6f"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="9sp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_text_header"
+                android:background="@null"
+                android:textColor="#6f6f6f"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="9sp"
+                android:text="삭제된 정보는 복원할 수 없습니다."
+                android:textColor="#6f6f6f"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="9sp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_text_header"
+                android:background="@null"
+                android:textColor="#6f6f6f"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="9sp"
+                android:text="매장은 다시 등록할 수 있습니다."
+                android:textColor="#6f6f6f"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp">
+
+            <CheckBox
+                android:id="@+id/cb_agree"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:button="@android:color/transparent"
+                android:background="@drawable/ic_check_box_state"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#343434"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="19sp"
+                app:layout_constraintStart_toEndOf="@id/cb_agree"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="위 내용을 이해했으며, 약관에 동의합니다."
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cl_buttons"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="정말 OO를 삭제하시겠습니까?"
+            android:layout_gravity="start"
+            android:textStyle="normal"
+            android:textSize="18sp"
+            android:textColor="#343434"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="7sp"
+            />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:layout_marginHorizontal="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rectangle_fill_light_gray_rounded_15"
+            android:gravity="center"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="3sp"
+            android:text="취소"
+            android:textColor="#343434"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_del_shop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_del_shop"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rectagnle_fill_del_deactive_15"
+            android:gravity="center"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="3sp"
+            android:text="삭제하기"
+            android:enabled="false"
+            app:layout_constraintStart_toEndOf="@id/btn_cancel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
