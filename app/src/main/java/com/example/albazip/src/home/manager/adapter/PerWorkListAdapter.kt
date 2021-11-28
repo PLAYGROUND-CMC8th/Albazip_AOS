@@ -1,6 +1,7 @@
 package com.example.albazip.src.home.manager.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.databinding.ItemRvPersonalWorkListBinding
 import com.example.albazip.src.home.manager.data.HomePerWorkData
+import com.example.albazip.src.home.manager.worklist.ui.HomePersonalPositionActivity
 
 class PerWorkListAdapter(val itemList:ArrayList<HomePerWorkData>, var context: Context): RecyclerView.Adapter<PerWorkListAdapter.PerWorkHolder>() {
 
@@ -53,6 +55,15 @@ class PerWorkListAdapter(val itemList:ArrayList<HomePerWorkData>, var context: C
             }else if(progress >=90){
                 Glide.with(myContext).load(R.drawable.img_honey_90).into(binding.ivHoneyProgress)
             }
+
+            // 포지션 별 업무 조회 화면으로 이동
+            binding.clRoot.setOnClickListener {
+                val nextIntent = Intent(myContext,HomePersonalPositionActivity::class.java)
+                nextIntent.putExtra("workId",perWorkData.workId)
+                nextIntent.putExtra("title",perWorkData.workTitle)
+                myContext.startActivity(nextIntent)
+            }
+
 
         }
     }

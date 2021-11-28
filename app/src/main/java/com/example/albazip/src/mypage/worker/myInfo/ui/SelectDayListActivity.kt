@@ -55,13 +55,31 @@ class SelectDayListActivity :
         dismissLoadingDialog()
 
         // 미완료 업무 리스트 호출
-        for (i in 0 until response.data.nonCompleteTaskData.size)
-            unDoneList.add(DailyUnDoneWorkListData(response.data.nonCompleteTaskData[i].title, response.data.nonCompleteTaskData[i].content,response.data.nonCompleteTaskData[i].writer_position+" "
-                    +response.data.nonCompleteTaskData[i].writer_name+" · "+response.data.nonCompleteTaskData[i].register_date.substring(0,10).replace("-",".")+"."))
+        if(response.data.nonCompleteTaskData.size != 0) {
+            for (i in 0 until response.data.nonCompleteTaskData.size)
+                unDoneList.add(
+                    DailyUnDoneWorkListData(
+                        response.data.nonCompleteTaskData[i].title,
+                        response.data.nonCompleteTaskData[i].content,
+                        response.data.nonCompleteTaskData[i].writer_position + " "
+                                + response.data.nonCompleteTaskData[i].writer_name + " · " + response.data.nonCompleteTaskData[i].register_date.substring(
+                            0,
+                            10
+                        ).replace("-", ".") + "."
+                    )
+                )
+        }
 
         // 완료 업무 리스트 호출
-        for (i in 0 until response.data.completeTaskData.size)
-            doneList.add(DailyDoneWorkListData(response.data.completeTaskData[i].title,"완료 " +response.data.completeTaskData[i].complete_date.substring(11,16)))
+        if(response.data.completeTaskData.size != 0) {
+            for (i in 0 until response.data.completeTaskData.size)
+                doneList.add(
+                    DailyDoneWorkListData(
+                        response.data.completeTaskData[i].title,
+                        "완료 " + response.data.completeTaskData[i].complete_date.substring(11, 16)
+                    )
+                )
+        }
 
         // 미완료/완료 업무리스트 갯수 count
         binding.tvUndoneCnt.text = unDoneList.size.toString()
