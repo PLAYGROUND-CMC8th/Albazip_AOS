@@ -40,7 +40,7 @@ class HTogetherDoneAdapter(private val fm:FragmentManager,private val context: C
 
         // 막힌 화면 눌렀을 때
         holder.binding.frameDisable.setOnClickListener {
-            showCancelBottomSheetDialog(holder.binding.checkboxFinish,holder.binding.frameDisable)  // 다이얼로그 띄우고
+            showCancelBottomSheetDialog(holder.binding.checkboxFinish,holder.binding.frameDisable,itemList[holder.adapterPosition].taskId)  // 다이얼로그 띄우고
         }
 
         holder.setItemList(itemList[position])
@@ -71,8 +71,8 @@ class HTogetherDoneAdapter(private val fm:FragmentManager,private val context: C
         }
     }
 
-    fun showCancelBottomSheetDialog(cb:CheckBox,delView:View){
-        DoneCancelBottomSheetDialog(cb,delView).show(fm, "cancel")
+    fun showCancelBottomSheetDialog(cb:CheckBox,delView:View,taskId:Int){
+        DoneCancelBottomSheetDialog(cb,delView,taskId).show(fm, "cancel")
     }
 
 }

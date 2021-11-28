@@ -57,7 +57,7 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
 
         if(ResultData?.coTask?.comCoTask?.size != null){
             for(i in 0 until ResultData?.coTask?.comCoTask!!.size){
-                doneList.add(HDoneWorkListData(0,ResultData!!.coTask.comCoTask[i].takTitle,"완료 "+ResultData!!.coTask.comCoTask[i].completeTime.substring(11, 16)))
+                doneList.add(HDoneWorkListData(ResultData!!.coTask.comCoTask[i].taskId,1,ResultData!!.coTask.comCoTask[i].takTitle,"완료 "+ResultData!!.coTask.comCoTask[i].completeTime.substring(11, 16)))
             }
         }
         // 완료 리스트가 없으면 (배열 개수 0)
@@ -145,7 +145,7 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
         }
         if(response.data.comCoTask.size != 0){
             for(i in 0 until response.data.comCoTask.size){
-                doneList.add(HDoneWorkListData(0,response.data.comCoTask[i].takTitle,"완료 "+response.data.comCoTask[i].completeTime.substring(11, 16)))
+                doneList.add(HDoneWorkListData(response.data.comCoTask[i].taskId,1,response.data.comCoTask[i].takTitle,"완료 "+response.data.comCoTask[i].completeTime.substring(11, 16)))
             }
         }else{
             doneList.clear()

@@ -65,7 +65,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
 
         if(ResultData?.perTask?.compPerTask?.size !=null){
             for(i in 0 until ResultData!!.perTask.compPerTask.size){
-                doneList.add(HDoneWorkListData(0,ResultData!!.perTask.compPerTask[i].takTitle,"완료 "+ResultData!!.perTask.compPerTask[i].completeTime))
+                doneList.add(HDoneWorkListData(ResultData!!.perTask.compPerTask[i].taskId,1,ResultData!!.perTask.compPerTask[i].takTitle,"완료 "+ResultData!!.perTask.compPerTask[i].completeTime))
             }
         }
         doneAdpater = HDoneAdapter(requireContext(),doneList)
@@ -182,7 +182,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
         }
         if(response.data.compPerTask.size != 0){
             for(i in 0 until response.data.compPerTask.size){
-                doneList.add(HDoneWorkListData(0,response.data.compPerTask[i].takTitle,"완료 "+response.data.compPerTask[i].completeTime.substring(11, 16)))
+                doneList.add(HDoneWorkListData(response.data.compPerTask[i].taskId,1,response.data.compPerTask[i].takTitle,"완료 "+response.data.compPerTask[i].completeTime.substring(11, 16)))
             }
         }else{
             doneList.clear()
