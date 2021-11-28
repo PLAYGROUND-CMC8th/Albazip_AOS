@@ -97,13 +97,12 @@ class HomePersonalPositionActivity :
                         "완료 " + response.data.compPerTask[i].completeTime.substring(11, 16)
                     )
                 )
-
-            // 미완료/완료 업무리스트 갯수 count
-            binding.tvUndoneCnt.text = unDoneList.size.toString()
-            binding.tvDoneCnt.text = doneList.size.toString()
-
         }
         isListEmpty()
+
+        // 미완료/완료 업무리스트 갯수 count
+        binding.tvUndoneCnt.text = unDoneList.size.toString()
+        binding.tvDoneCnt.text = doneList.size.toString()
     }
 
     override fun onGetMTaskFailure(message: String) {
