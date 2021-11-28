@@ -116,18 +116,22 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
             unDoneAdapter.notifyDataSetChanged()
         }
 
-        if(ResultData?.coTask?.nonComCoTask?.size != null){
-            for(i in 0 until ResultData?.coTask?.nonComCoTask!!.size){
+        if(response.data.nonComCoTask.size != 0){
+            for(i in 0 until response.data.comCoTask.size){
 
-                var content = ResultData!!.coTask.nonComCoTask[i].taskContent
+                var content = response.data.nonComCoTask[i].taskContent
                 if (content == "null" || content.isEmpty()){
                     content = "내용없음"
                 }
 
-                var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + " · " + ResultData!!.coTask.nonComCoTask[i].writerName + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0,9)
+                var writerAndDay = response.data.nonComCoTask[i].writerTitle + " · " + response.data.nonComCoTask[i].writerName + response.data.nonComCoTask[i].registerDate.substring(0,9)
 
-                unDoneList.add(HUnDoneWorkListData(0,ResultData!!.coTask.nonComCoTask[i].takTitle,content,writerAndDay))
+                unDoneList.add(HUnDoneWorkListData(0,response.data.nonComCoTask[i].takTitle,content,writerAndDay))
             }
+        }else{
+            unDoneList.clear()
+            binding.rvUndone.recycledViewPool.clear()
+            unDoneAdapter.notifyDataSetChanged()
         }
         unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
         binding.rvUndone.adapter = unDoneAdapter
@@ -140,10 +144,14 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
             binding.rvDone.recycledViewPool.clear()
             doneAdpater.notifyDataSetChanged()
         }
-        if(ResultData?.coTask?.comCoTask?.size != null){
-            for(i in 0 until ResultData?.coTask?.comCoTask!!.size){
-                doneList.add(HDoneWorkListData(0,ResultData!!.coTask.comCoTask[i].takTitle,"완료 "+ResultData!!.coTask.comCoTask[i].completeTime))
+        if(response.data.comCoTask.size != 0){
+            for(i in 0 until response.data.comCoTask.size){
+                doneList.add(HDoneWorkListData(0,response.data.comCoTask[i].takTitle,"완료 "+response.data.comCoTask[i].completeTime))
             }
+        }else{
+            doneList.clear()
+            binding.rvDone.recycledViewPool.clear()
+            doneAdpater.notifyDataSetChanged()
         }
         doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
         binding.rvDone.adapter = doneAdpater

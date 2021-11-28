@@ -32,6 +32,11 @@ class ChildFragmentPersonal(data: MTodayTaskResult?):BaseFragment<ChildFragmentP
             binding.rvPersonalWork.adapter = perListAdapter
         }
 
+        checkingUI()
+    }
+
+    // UI 체크
+    fun checkingUI(){
         // 등록된 업무가 없을 때
         if (perWorkList.size == 0){
             binding.clNoBothWork.visibility = View.VISIBLE
@@ -49,11 +54,30 @@ class ChildFragmentPersonal(data: MTodayTaskResult?):BaseFragment<ChildFragmentP
 
     override fun onGetMPerWorkSuccess(response: HomeMPerWorkResponse) {
        dismissLoadingDialog()
-        showCustomToast(response.message.toString())
+
+        // 기존 데이터 비우기
+        if(perWorkList.size != 0) {
+            perWorkList.clear()
+            binding.rvPersonalWork.recycledViewPool.clear()
+            perListAdapter.notifyDataSetChanged()
+        }
+
+        if (response.data.size != 0) {
+            for(i in 0 until response.data.size){
+                perWorkList.add(HomePerWorkData(response.data[i].workerId,response.data[i].workerTitle,response.data[i].completeCount,response.data[i].totalCount))
+            }
+        }else{
+            perWorkList.clear()
+            binding.rvPersonalWork.recycledViewPool.clear()
+            perListAdapter.notifyDataSetChanged()
+        }
+
+        perListAdapter = PerWorkListAdapter(perWorkList,requireContext())
+        binding.rvPersonalWork.adapter = perListAdapter
     }
 
     override fun onGetMPerWorkFailure(message: String) {
         dismissLoadingDialog()
-        showCustomToast(message)
+
     }
 }
