@@ -75,7 +75,7 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
         // 영업상태
         //var status = response.data.shopInfo.status
-        var status = 1
+        var status = response.data.shopInfo.status
         // 영업상태 체크
         if(status == 0){ // 영업전
             childFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomePreParingChildFragment(response.data))
