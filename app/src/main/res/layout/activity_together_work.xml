@@ -158,5 +158,36 @@
         app:layout_constraintStart_toStartOf="@id/rl_info"
         app:layout_constraintTop_toBottomOf="@id/rl_info" />
 
+    <LinearLayout
+        android:id="@+id/ll_no_work_list"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_alert_36_px"
+            android:background="@null"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#a3a3a3"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="6sp"
+            android:layout_marginTop="14dp"
+            android:gravity="center_horizontal"
+            android:text="완료한 공동업무가 없어요."/>
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

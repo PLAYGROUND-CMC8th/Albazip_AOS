@@ -140,6 +140,7 @@
         <activity android:name=".src.home.manager.worklist.ui.HomePersonalPositionActivity"/>
 
         <activity android:name=".src.home.manager.worklist.ui.AddTogetherWorkListActivity"/>
+        <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.cotask.DetailTogetherWorkActivity"/>
 
     </application>
 
