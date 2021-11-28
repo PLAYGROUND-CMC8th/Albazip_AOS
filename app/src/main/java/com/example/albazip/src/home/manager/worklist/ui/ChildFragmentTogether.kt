@@ -117,7 +117,7 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
         }
 
         if(response.data.nonComCoTask.size != 0){
-            for(i in 0 until response.data.comCoTask.size){
+            for(i in 0 until response.data.nonComCoTask.size){
 
                 var content = response.data.nonComCoTask[i].taskContent
                 if (content == "null" || content.isEmpty()){

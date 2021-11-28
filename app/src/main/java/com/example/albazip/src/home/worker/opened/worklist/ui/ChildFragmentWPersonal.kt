@@ -10,14 +10,18 @@ import com.example.albazip.databinding.DialogTodoAllDoneBinding
 import com.example.albazip.src.home.common.adapter.DoneWorkerCntAdapter
 import com.example.albazip.src.home.common.data.DoneWorkerCntData
 import com.example.albazip.src.home.worker.opened.worklist.adapter.HDoneAdapter
+import com.example.albazip.src.home.worker.opened.worklist.adapter.HTogetherDoneAdapter
 import com.example.albazip.src.home.worker.opened.worklist.adapter.HUnDoneAdapter
 import com.example.albazip.src.home.worker.opened.worklist.data.HDoneWorkListData
 import com.example.albazip.src.home.worker.opened.worklist.data.HUnDoneWorkListData
+import com.example.albazip.src.home.worker.opened.worklist.network.GetWPerTaskFragmentView
+import com.example.albazip.src.home.worker.opened.worklist.network.GetWPerTaskResponse
+import com.example.albazip.src.home.worker.opened.worklist.network.GetWPerTaskService
 import com.example.albazip.src.home.worker.opened.worklist.network.WTodayTaskResult
 
 class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmentWTodoListBinding>(
     ChildFragmentWTodoListBinding::bind,
-    R.layout.child_fragment_w_todo_list) {
+    R.layout.child_fragment_w_todo_list),GetWPerTaskFragmentView {
 
     private var ResultData = data
 
@@ -57,8 +61,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
         unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
         binding.rvUndone.adapter = unDoneAdapter
 
-        // 미완료 cnt
-        binding.tvUndoneCnt.text = unDoneList.size.toString()
+
 
         if(ResultData?.perTask?.compPerTask?.size !=null){
             for(i in 0 until ResultData!!.perTask.compPerTask.size){
@@ -68,34 +71,8 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
         doneAdpater = HDoneAdapter(requireContext(),doneList)
         binding.rvDone.adapter = doneAdpater
 
-        // 완료 cnt
-        binding.tvDoneCnt.text = doneList.size.toString()
-
-        if (unDoneList.size == 0 && doneList.size == 0){    //없무 없음
-            binding.clNoBothWork.visibility = View.VISIBLE
-        }else{ // 없무존재
-            binding.clNoBothWork.visibility = View.GONE
-        }
-
-
-        if(unDoneList.size == 0 && doneList.size !=0){ // 모든 업무 완료
-            binding.rlNoUndoneWork.visibility = View.VISIBLE
-        }else{
-            binding.rlNoUndoneWork.visibility = View.GONE
-        }
-
-        if(unDoneList.size !=0 && doneList.size ==0){ // 완료된 업무가 없어요
-            binding.rlNoDoneWork.visibility = View.VISIBLE
-        }else{
-            binding.rlNoUndoneWork.visibility = View.GONE
-        }
-
-
-
-
-
-
-
+        // ui 체크
+        checkingUI()
 
 
 
@@ -130,6 +107,97 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
         }
     }
 
+    fun checkingUI(){
+        // 미완료 cnt
+        binding.tvUndoneCnt.text = unDoneList.size.toString()
+        // 완료 cnt
+        binding.tvDoneCnt.text = doneList.size.toString()
+
+        if (unDoneList.size == 0 && doneList.size == 0){    //없무 없음
+            binding.clNoBothWork.visibility = View.VISIBLE
+        }else{ // 없무존재
+            binding.clNoBothWork.visibility = View.GONE
+        }
+
+
+        if(unDoneList.size == 0 && doneList.size !=0){ // 모든 업무 완료
+            binding.rlNoUndoneWork.visibility = View.VISIBLE
+        }else{
+            binding.rlNoUndoneWork.visibility = View.GONE
+        }
+
+        if(unDoneList.size !=0 && doneList.size ==0){ // 완료된 업무가 없어요
+            binding.rlNoDoneWork.visibility = View.VISIBLE
+        }else{
+            binding.rlNoUndoneWork.visibility = View.GONE
+        }
+    }
+
+    // 화면 갱신
+    override fun onResume() {
+        super.onResume()
+        GetWPerTaskService(this).tryGetPerTask()
+        showLoadingDialog(requireContext())
+    }
+
+    // 개인업무 조회 성공
+    override fun onGetWPerTaskSuccess(response: GetWPerTaskResponse) {
+        dismissLoadingDialog()
+
+        // 미완료 리스트 조회
+        // 기존 데이터 비우기
+        if(unDoneList.size != 0) {
+            unDoneList.clear()
+            binding.rvUndone.recycledViewPool.clear()
+            unDoneAdapter.notifyDataSetChanged()
+        }
+
+        if(response.data.nonComPerTask.size != 0){
+            for(i in 0 until response.data.nonComPerTask.size){
+
+                var content = response.data.nonComPerTask[i].taskContent
+                if (content == "null" || content.isEmpty()){
+                    content = "내용없음"
+                }
+
+                var writerAndDay = response.data.nonComPerTask[i].writerTitle + " · " + response.data.nonComPerTask[i].writerName + response.data.nonComPerTask[i].registerDate.substring(0,9)
+
+                unDoneList.add(HUnDoneWorkListData(0,response.data.nonComPerTask[i].takTitle,content,writerAndDay))
+            }
+        }else{
+            unDoneList.clear()
+            binding.rvUndone.recycledViewPool.clear()
+            unDoneAdapter.notifyDataSetChanged()
+        }
+        unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
+        binding.rvUndone.adapter = unDoneAdapter
+
+
+        // 완료 리스트 조회
+        // 기존 리스트 지우기
+        if(doneList.size != 0) {
+            doneList.clear()
+            binding.rvDone.recycledViewPool.clear()
+            doneAdpater.notifyDataSetChanged()
+        }
+        if(response.data.compPerTask.size != 0){
+            for(i in 0 until response.data.compPerTask.size){
+                doneList.add(HDoneWorkListData(0,response.data.compPerTask[i].takTitle,"완료 "+response.data.compPerTask[i].completeTime))
+            }
+        }else{
+            doneList.clear()
+            binding.rvDone.recycledViewPool.clear()
+            doneAdpater.notifyDataSetChanged()
+        }
+        doneAdpater = HDoneAdapter(requireContext(),doneList)
+        binding.rvDone.adapter = doneAdpater
+
+        checkingUI()
+    }
+
+    override fun onGetWPerTaskFailure(message: String) {
+        dismissLoadingDialog()
+    }
 
 
 }
