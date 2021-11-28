@@ -4,13 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentHomeWOpenedBinding
-import com.example.albazip.src.home.common.HomeAlarmActivity
-import com.example.albazip.src.home.common.HomeShopListActivity
+import com.example.albazip.src.home.common.ui.HomeAlarmActivity
+import com.example.albazip.src.home.common.ui.HomeShopListActivity
 import com.example.albazip.src.home.worker.data.AllHomeWResult
 import com.example.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity
 import com.journeyapps.barcodescanner.ScanContract

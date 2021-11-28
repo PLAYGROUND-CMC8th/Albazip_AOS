@@ -1,4 +1,4 @@
-package com.example.albazip.src.home.common
+package com.example.albazip.src.home.common.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,7 +19,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
         // 설정 창 띄우기
         binding.ibtnSetting.setOnClickListener {
-            val nextIntent = Intent(this,SettingActivity::class.java)
+            val nextIntent = Intent(this, SettingActivity::class.java)
             startActivity(nextIntent)
         }
 

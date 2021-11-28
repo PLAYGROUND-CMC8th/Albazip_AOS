@@ -6,8 +6,8 @@ import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentHomeClosedBinding
-import com.example.albazip.src.home.common.HomeAlarmActivity
-import com.example.albazip.src.home.common.HomeShopListActivity
+import com.example.albazip.src.home.common.ui.HomeAlarmActivity
+import com.example.albazip.src.home.common.ui.HomeShopListActivity
 import com.example.albazip.src.home.manager.data.AllHomeMResult
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
 

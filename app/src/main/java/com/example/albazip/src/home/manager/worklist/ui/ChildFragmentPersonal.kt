@@ -6,11 +6,14 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentPersonalBinding
 import com.example.albazip.src.home.manager.adapter.PerWorkListAdapter
+import com.example.albazip.src.home.manager.data.HomeMPerWorkResponse
 import com.example.albazip.src.home.manager.data.HomePerWorkData
+import com.example.albazip.src.home.manager.network.GetHomeMPerService
+import com.example.albazip.src.home.manager.network.GetHomeMPerServiceFragmentView
 import com.example.albazip.src.home.manager.worklist.network.MTodayTaskResult
 
 class ChildFragmentPersonal(data: MTodayTaskResult?):BaseFragment<ChildFragmentPersonalBinding>(ChildFragmentPersonalBinding::bind,
-    R.layout.child_fragment_personal) {
+    R.layout.child_fragment_personal),GetHomeMPerServiceFragmentView {
 
     private var perWorkList = ArrayList<HomePerWorkData>()
     private lateinit var perListAdapter:PerWorkListAdapter
@@ -35,5 +38,22 @@ class ChildFragmentPersonal(data: MTodayTaskResult?):BaseFragment<ChildFragmentP
         }else{
             binding.clNoBothWork.visibility = View.GONE
         }
+    }
+
+    // 화면 갱신시 재조회
+    override fun onResume() {
+        super.onResume()
+        GetHomeMPerService(this).tryGetHomeMPer()
+        showLoadingDialog(requireContext())
+    }
+
+    override fun onGetMPerWorkSuccess(response: HomeMPerWorkResponse) {
+       dismissLoadingDialog()
+        showCustomToast(response.message.toString())
+    }
+
+    override fun onGetMPerWorkFailure(message: String) {
+        dismissLoadingDialog()
+        showCustomToast(message)
     }
 }

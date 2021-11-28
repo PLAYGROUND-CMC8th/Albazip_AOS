@@ -6,6 +6,9 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentWTodoListBinding
 import com.example.albazip.databinding.DialogTodoAllDoneBinding
+import com.example.albazip.src.home.common.data.HomeCoWorkResponse
+import com.example.albazip.src.home.common.network.GetHomeCoWorkFragmentView
+import com.example.albazip.src.home.common.network.GetHomeCoWorkService
 import com.example.albazip.src.home.worker.opened.worklist.adapter.HTogetherDoneAdapter
 import com.example.albazip.src.home.worker.opened.worklist.adapter.HUnDoneAdapter
 import com.example.albazip.src.home.worker.opened.worklist.data.HDoneWorkListData
@@ -14,7 +17,7 @@ import com.example.albazip.src.home.worker.opened.worklist.network.WTodayTaskRes
 
 class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragmentWTodoListBinding>(
     ChildFragmentWTodoListBinding::bind,
-    R.layout.child_fragment_w_todo_list) {
+    R.layout.child_fragment_w_todo_list), GetHomeCoWorkFragmentView {
 
     private var ResultData = data
 
@@ -52,9 +55,6 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
         unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
         binding.rvUndone.adapter = unDoneAdapter
 
-        // 미완료 cnt
-        binding.tvUndoneCnt.text = unDoneList.size.toString()
-
         if(ResultData?.coTask?.comCoTask?.size != null){
             for(i in 0 until ResultData?.coTask?.comCoTask!!.size){
                 doneList.add(HDoneWorkListData(0,ResultData!!.coTask.comCoTask[i].takTitle,"완료 "+ResultData!!.coTask.comCoTask[i].completeTime))
@@ -65,6 +65,14 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
         doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
         binding.rvDone.adapter = doneAdpater
 
+        checkingUI()
+    }
+
+    // 비어있는 화면 및 업무 갯수 체크
+    fun checkingUI(){
+
+        // 미완료 cnt
+        binding.tvUndoneCnt.text = unDoneList.size.toString()
         // 완료 cnt
         binding.tvDoneCnt.text = doneList.size.toString()
 
@@ -85,6 +93,65 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
         }else{
             binding.rlNoUndoneWork.visibility = View.GONE
         }
-
     }
+
+
+    // 화면 갱신시 재 조회
+    override fun onResume() {
+        super.onResume()
+        GetHomeCoWorkService(this).tryGetHomeCoWork()
+        showLoadingDialog(requireContext())
+    }
+
+    // 공동 업무 조회(공동 업무 탭 클릭)
+    override fun onGetHomeCoWorkSuccess(response: HomeCoWorkResponse) {
+        dismissLoadingDialog()
+
+        // 미완료 리스트 조회
+        // 기존 데이터 비우기
+        if(unDoneList.size != 0) {
+            unDoneList.clear()
+            binding.rvUndone.recycledViewPool.clear()
+            unDoneAdapter.notifyDataSetChanged()
+        }
+
+        if(ResultData?.coTask?.nonComCoTask?.size != null){
+            for(i in 0 until ResultData?.coTask?.nonComCoTask!!.size){
+
+                var content = ResultData!!.coTask.nonComCoTask[i].taskContent
+                if (content == "null" || content.isEmpty()){
+                    content = "내용없음"
+                }
+
+                var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + " · " + ResultData!!.coTask.nonComCoTask[i].writerName + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0,9)
+
+                unDoneList.add(HUnDoneWorkListData(0,ResultData!!.coTask.nonComCoTask[i].takTitle,content,writerAndDay))
+            }
+        }
+        unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
+        binding.rvUndone.adapter = unDoneAdapter
+
+
+        // 완료 리스트 조회
+        // 기존 리스트 지우기
+        if(doneList.size != 0) {
+            doneList.clear()
+            binding.rvDone.recycledViewPool.clear()
+            doneAdpater.notifyDataSetChanged()
+        }
+        if(ResultData?.coTask?.comCoTask?.size != null){
+            for(i in 0 until ResultData?.coTask?.comCoTask!!.size){
+                doneList.add(HDoneWorkListData(0,ResultData!!.coTask.comCoTask[i].takTitle,"완료 "+ResultData!!.coTask.comCoTask[i].completeTime))
+            }
+        }
+        doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        binding.rvDone.adapter = doneAdpater
+
+        checkingUI()
+    }
+
+    override fun onGetHomeCoWorkFailure(message: String) {
+        dismissLoadingDialog()
+    }
+
 }

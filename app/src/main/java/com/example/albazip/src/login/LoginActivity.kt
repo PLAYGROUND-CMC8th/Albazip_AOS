@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.albazip.R
@@ -14,7 +13,7 @@ import com.example.albazip.config.ApplicationClass.Companion.X_ACCESS_TOKEN
 import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityLoginBinding
-import com.example.albazip.src.home.common.HomeActivity
+import com.example.albazip.src.home.common.ui.HomeActivity
 import com.example.albazip.src.login.data.PostSignInRequest
 import com.example.albazip.src.login.data.SignInResponse
 import com.example.albazip.src.login.network.SignInFragmentView
@@ -177,7 +176,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
                 // 토큰 등록하기
                 if(response.data.job == 0){ // 기본 가입만 완료된 상태일 때
-                    val nextIntent = Intent(this@LoginActivity,HomeActivity::class.java)
+                    val nextIntent = Intent(this@LoginActivity, HomeActivity::class.java)
                     prefs.setString("userFirstName",response.data.userFirstName) // 유저이름 받아오기
                     startActivity(nextIntent)
                     finishAffinity()

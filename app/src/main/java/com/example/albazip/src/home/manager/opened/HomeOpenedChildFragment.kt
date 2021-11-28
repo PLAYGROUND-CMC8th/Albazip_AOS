@@ -1,19 +1,19 @@
 package com.example.albazip.src.home.manager.opened
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentHomeOpenedBinding
-import com.example.albazip.src.home.common.HomeAlarmActivity
-import com.example.albazip.src.home.common.HomeShopListActivity
+import com.example.albazip.src.home.common.ui.HomeAlarmActivity
+import com.example.albazip.src.home.common.ui.HomeShopListActivity
 import com.example.albazip.src.home.manager.custom.AddWorkBottomSheetDialog
 import com.example.albazip.src.home.manager.data.AllHomeMResult
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
 import com.example.albazip.src.home.manager.opened.ui.TodaysWorkerListActivity
 import com.example.albazip.src.home.manager.worklist.ui.HomeMTodayToDoListActivity
-import com.example.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity
 
 class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragmentHomeOpenedBinding>(
     ChildFragmentHomeOpenedBinding::bind,
@@ -110,7 +110,6 @@ class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragment
             nextIntent.putExtra("tabFlags", 1)
             startActivity(nextIntent)
         }
-
     }
 
     // 포지션 별 인원수 카운트

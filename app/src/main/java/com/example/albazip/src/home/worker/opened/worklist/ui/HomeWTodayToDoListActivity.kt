@@ -16,8 +16,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 class HomeWTodayToDoListActivity:
     BaseActivity<ActivityHomeTodayTodoListBinding>(ActivityHomeTodayTodoListBinding::inflate),GetWTodayTaskFragmentView {
 
-    private val tabTextList = arrayListOf("공동업무", "")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,41 +24,10 @@ class HomeWTodayToDoListActivity:
             finish()
         }
 
-        // ViewPager 와 fragment 연결
-        val pagerAdapter =  PagerFragmentStateAdapter(this)
-        pagerAdapter.addFragment(ChildFragmentWTogether(null))
-        pagerAdapter.addFragment(ChildFragmentWPersonal(null))
-
-        binding.vpTodayTodo.adapter = pagerAdapter
-
-        TabLayoutMediator(binding.tabLayout, binding.vpTodayTodo) { tab, position ->
-            tab.text = tabTextList[position]
-        }.attach()
-
-        // 공동업무 or 개인업무인지 받아오기
-        if(intent.hasExtra("tabFlags")) {
-            val tabFlags = intent.getIntExtra("tabFlags",0)
-            if(tabFlags == 1) {
-                binding.tabLayout.selectTab(binding.tabLayout.getTabAt(1))
-            }
-        }
-        // 탭 레이아웃 커스튬
-        // 초기화 시 position 0 의 텍스트 Bold 로 만들기
-        binding.tabLayout.getTabAt(1)?.view?.children?.find { it is TextView }?.let { tv ->
-            (tv as TextView).post {
-                if(tv.text.toString() == "평일마감 업무") {
-                    tv.setTypeface(null, Typeface.BOLD)
-                }
-            }
-        }
-
-        tabTextStyle()
-
-        // 근무자 오늘의 할 일 전체저회
+        // 근무자 오늘의 할 일 전체조회
         GetWTodayTaskService(this).tryGetWTodayTask()
         showLoadingDialog(this)
     }
-
 
     private fun tabTextStyle() {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -95,18 +62,37 @@ class HomeWTodayToDoListActivity:
     override fun onGetWTaskSuccess(response: GetWTodayTaskResponse) {
         dismissLoadingDialog()
 
-        // 탭 타이틀 재설정
-        val tabTextList = arrayListOf("공동업무", response.data.perTask.positionTitle)
-        TabLayoutMediator(binding.tabLayout, binding.vpTodayTodo) { tab, position ->
-            tab.text = tabTextList[position]
-        }.attach()
-
         // ViewPager 와 fragment 연결
         val pagerAdapter =  PagerFragmentStateAdapter(this)
         pagerAdapter.addFragment(ChildFragmentWTogether(response.data))
         pagerAdapter.addFragment(ChildFragmentWPersonal(response.data))
 
         binding.vpTodayTodo.adapter = pagerAdapter
+
+        // 탭 타이틀 재설정
+        val tabTextList = arrayListOf("공동업무", response.data.perTask.positionTitle)
+        TabLayoutMediator(binding.tabLayout, binding.vpTodayTodo) { tab, position ->
+            tab.text = tabTextList[position]
+        }.attach()
+
+        // 공동업무 or 개인업무인지 받아오기
+        if(intent.hasExtra("tabFlags")) {
+            val tabFlags = intent.getIntExtra("tabFlags",0)
+            if(tabFlags == 1) {
+                binding.tabLayout.selectTab(binding.tabLayout.getTabAt(1))
+            }
+        }
+        // 탭 레이아웃 커스튬
+        // 초기화 시 position 0 의 텍스트 Bold 로 만들기
+        binding.tabLayout.getTabAt(1)?.view?.children?.find { it is TextView }?.let { tv ->
+            (tv as TextView).post {
+                if(tv.text.toString() == "평일마감 업무") {
+                    tv.setTypeface(null, Typeface.BOLD)
+                }
+            }
+        }
+
+        tabTextStyle()
     }
 
     override fun onGetWTaskFailure(message: String) {

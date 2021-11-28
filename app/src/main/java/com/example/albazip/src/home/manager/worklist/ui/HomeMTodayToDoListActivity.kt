@@ -6,6 +6,9 @@ import android.widget.TextView
 import androidx.core.view.children
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityHomeTodayTodoListBinding
+import com.example.albazip.src.home.common.data.HomeCoWorkResponse
+import com.example.albazip.src.home.common.network.GetHomeCoWorkFragmentView
+import com.example.albazip.src.home.common.network.GetHomeCoWorkService
 import com.example.albazip.src.home.manager.adapter.PagerFragmentStateAdapter
 import com.example.albazip.src.home.manager.worklist.network.GetMTodayTaskFragmentView
 import com.example.albazip.src.home.manager.worklist.network.GetMTodayTaskResponse
@@ -28,38 +31,7 @@ class HomeMTodayToDoListActivity :
             finish()
         }
 
-        // ViewPager 와 fragment 연결
-        val pagerAdapter = PagerFragmentStateAdapter(this)
-        pagerAdapter.addFragment(ChildFragmentTogether(null))
-        pagerAdapter.addFragment(ChildFragmentPersonal(null))
-
-        binding.vpTodayTodo.adapter = pagerAdapter
-
-
-        TabLayoutMediator(binding.tabLayout, binding.vpTodayTodo) { tab, position ->
-            tab.text = tabTextList[position]
-        }.attach()
-
-        // 공동업무 or 개인업무인지 받아오기
-        if (intent.hasExtra("tabFlags")) {
-            val tabFlags = intent.getIntExtra("tabFlags", 0)
-            if (tabFlags == 1) {
-                binding.tabLayout.selectTab(binding.tabLayout.getTabAt(1))
-            }
-        }
-
-        // 탭 레이아웃 커스튬
-        // 초기화 시 position 0 의 텍스트 Bold 로 만들기
-        binding.tabLayout.getTabAt(0)?.view?.children?.find { it is TextView }?.let { tv ->
-            (tv as TextView).post {
-                if (tv.text.toString() == "공동업무") {
-                    tv.setTypeface(null, Typeface.BOLD)
-                }
-            }
-        }
-
-        tabTextStyle()
-
+        // 관리자 오늘의 할 일 전체조회
         GetMTodayTaskService(this).tryGetAllWHomeInfo()
         showLoadingDialog(this)
     }
@@ -102,10 +74,33 @@ class HomeMTodayToDoListActivity :
         pagerAdapter.addFragment(ChildFragmentPersonal(response.data))
 
         binding.vpTodayTodo.adapter = pagerAdapter
+
+        TabLayoutMediator(binding.tabLayout, binding.vpTodayTodo) { tab, position ->
+            tab.text = tabTextList[position]
+        }.attach()
+
+        // 공동업무 or 개인업무인지 받아오기
+        if (intent.hasExtra("tabFlags")) {
+            val tabFlags = intent.getIntExtra("tabFlags", 0)
+            if (tabFlags == 1) {
+                binding.tabLayout.selectTab(binding.tabLayout.getTabAt(1))
+            }
+        }
+
+        // 탭 레이아웃 커스튬
+        // 초기화 시 position 0 의 텍스트 Bold 로 만들기
+        binding.tabLayout.getTabAt(0)?.view?.children?.find { it is TextView }?.let { tv ->
+            (tv as TextView).post {
+                if (tv.text.toString() == "공동업무") {
+                    tv.setTypeface(null, Typeface.BOLD)
+                }
+            }
+        }
+
+        tabTextStyle()
     }
 
     override fun onGetMTaskFailure(message: String) {
         dismissLoadingDialog()
-        showCustomToast(message)
     }
 }
