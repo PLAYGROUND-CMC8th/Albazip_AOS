@@ -56,6 +56,9 @@ class WHomeFragment :
     override fun onGetAllWHomeSuccess(response: GetAllWHomeResponse) {
         dismissLoadingDialog()
 
+        // 매장명 받아오기
+        ApplicationClass.prefs.setString("login_shop_name",response.data.shopInfo.name)
+
         // 영업상태
         //var status = response.data.shopInfo.status
         var status = 1

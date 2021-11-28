@@ -45,8 +45,6 @@ class HomeShopListActivity:BaseActivity<ActivityHomeShopListBinding>(ActivityHom
             shopList.add(ShopListData(response.data[i].managerId,response.data[i].workerId,response.data[i].shop_name,response.data[i].status))
         }
 
-        Log.d("testing",shopList.toString())
-
         shopListAdapter = ShopListAdapter(shopList,this@HomeShopListActivity)
         binding.rvShopList.adapter = shopListAdapter
     }

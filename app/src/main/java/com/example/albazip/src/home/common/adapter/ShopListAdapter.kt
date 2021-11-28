@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.databinding.ItemRvShopListBinding
 import com.example.albazip.src.home.common.data.ShopListData
 import com.example.albazip.src.home.manager.editshop.ui.DelShopActivity
@@ -36,7 +37,7 @@ class ShopListAdapter(private val itemList:ArrayList<ShopListData>,context:Conte
         fun setItemList(shopData: ShopListData){
 
             // 활성화 여부
-            if(shopData.status == 1){
+            if(shopData.shop_name == prefs.getString("login_shop_name","")){
                 binding.rootLl.setBackgroundColor(Color.parseColor("#fffaea"))
             }
 
@@ -60,6 +61,7 @@ class ShopListAdapter(private val itemList:ArrayList<ShopListData>,context:Conte
             binding.ibtnTrash.setOnClickListener {
                 val nextIntet = Intent(myContext,DelShopActivity::class.java)
                 nextIntet.putExtra("positionId",shopData.manger_id)
+                nextIntet.putExtra("shop_name",shopData.shop_name)
                 myContext.startActivity(nextIntet)
             }
         }

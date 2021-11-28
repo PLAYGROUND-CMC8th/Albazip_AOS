@@ -168,6 +168,7 @@
         android:layout_marginStart="24dp">
 
         <TextView
+            android:id="@+id/tv_bottom_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="정말 OO를 삭제하시겠습니까?"

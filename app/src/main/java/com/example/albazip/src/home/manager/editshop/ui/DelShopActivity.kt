@@ -18,6 +18,8 @@ class DelShopActivity:BaseActivity<ActivityHomeDelShopBinding>(ActivityHomeDelSh
 
         val positionId = intent.getIntExtra("positionId",0)
 
+        binding.tvBottomTitle.text = "정말 " + intent.getStringExtra("shop_name") + "를 삭제하시겠습니까?"
+
         // 뒤로가기 버튼
         binding.ibtnBack.setOnClickListener {
             finish()

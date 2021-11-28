@@ -47,12 +47,22 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
         // 포지션
         binding.tvWorkerPosition.text = resultData.scheduleInfo.positionTitle
 
-        val positionTime = resultData.scheduleInfo.positionTitle.substring(2, 5).replace(" ","")
-        when (positionTime) {
+        val positionTime = resultData.scheduleInfo.positionTitle
+
+        if(positionTime.contains("오픈")){
+            Glide.with(requireContext()).load(R.drawable.ic_dot_open_position).into(binding.ivPositionIcon)
+        }else if(positionTime.contains("미들")){
+            Glide.with(requireContext()).load(R.drawable.ic_dot_middle_position).into(binding.ivPositionIcon)
+        }else{
+            Glide.with(requireContext()).load(R.drawable.ic_dot_end_position).into(binding.ivPositionIcon)
+        }
+
+        //val positionTime = resultData.scheduleInfo.positionTitle.substring(2, 5).replace(" ","")
+       /* when (positionTime) {
             "오픈" -> {  Glide.with(requireContext()).load(R.drawable.ic_dot_open_position).into(binding.ivPositionIcon) }
             "미들" -> { Glide.with(requireContext()).load(R.drawable.ic_dot_middle_position).into(binding.ivPositionIcon)}
             "마감" -> { Glide.with(requireContext()).load(R.drawable.ic_dot_end_position).into(binding.ivPositionIcon)}
-        }
+        }*/
 
 
         // 알림 팝업창 닫기
