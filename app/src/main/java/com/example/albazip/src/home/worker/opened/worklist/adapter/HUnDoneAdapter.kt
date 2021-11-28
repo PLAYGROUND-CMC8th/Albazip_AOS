@@ -2,22 +2,28 @@ package com.example.albazip.src.home.worker.opened.worklist.adapter
 
 import android.app.AlertDialog
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.R
+import com.example.albazip.config.BaseResponse
 import com.example.albazip.databinding.DialogTodoAllDoneBinding
 import com.example.albazip.databinding.ItemRvUndoneCheckBinding
+import com.example.albazip.src.home.manager.custom.DelCoWorkBottomSheetDialog
 import com.example.albazip.src.home.worker.opened.worklist.data.HUnDoneWorkListData
+import com.example.albazip.src.mypage.custom.LogoutBottomSheetDialog
+import com.example.albazip.src.mypage.manager.workerlist.network.DelPositionFragmentView
 
 class HUnDoneAdapter(
     private val itemList: ArrayList<HUnDoneWorkListData>,
     context: Context,
     dialogView: View
-) : RecyclerView.Adapter<HUnDoneAdapter.UnDoneWorkHolder>() {
+) : RecyclerView.Adapter<HUnDoneAdapter.UnDoneWorkHolder>(){
 
     private lateinit var binding: ItemRvUndoneCheckBinding
     private var myContext = context
@@ -45,6 +51,7 @@ class HUnDoneAdapter(
             }
         }
 
+        // 해당 업무 완료
         holder.binding.checkboxFinish.setOnCheckedChangeListener { buttonView, isChecked ->
 
             if (isChecked == true) { // flag 변경
@@ -55,6 +62,11 @@ class HUnDoneAdapter(
             }
         }
 
+        // 해당 업무 삭제
+        holder.binding.ibtnWorkDelete.setOnClickListener {
+            // 업무 삭제
+            DelCoWorkBottomSheetDialog(itemList[holder.adapterPosition].taskId).show((myContext as AppCompatActivity).supportFragmentManager, "delCoAlert")
+        }
     }
 
     override fun getItemCount(): Int = itemList.size
@@ -98,9 +110,10 @@ class HUnDoneAdapter(
             R.drawable.rectangle_fill_light_yellow_radius_yellow_20
         )
 
-        // 삭제버튼 보이기
-        holder.binding.ibtnWorkCancel.visibility = View.VISIBLE
-
+        // 삭제 버튼 보이기(관리자만)
+        if(itemList[holder.adapterPosition].posFlags == 0) {
+            holder.binding.ibtnWorkDelete.visibility = View.VISIBLE
+        }
         flags = 1
     }
 
@@ -124,7 +137,7 @@ class HUnDoneAdapter(
             R.drawable.rectangle_fill_light_yellow_radius_main_yellow_20
         )
         // 삭제버튼 숨기기
-        holder.binding.ibtnWorkCancel.visibility = View.GONE
+        holder.binding.ibtnWorkDelete.visibility = View.GONE
 
         flags = 0
     }

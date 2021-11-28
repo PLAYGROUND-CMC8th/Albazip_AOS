@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/ibtn_work_cancel"
+        android:id="@+id/ibtn_work_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"

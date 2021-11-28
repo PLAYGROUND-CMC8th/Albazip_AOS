@@ -55,7 +55,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
 
                 var writerAndDay = ResultData!!.perTask.nonComPerTask[i].writerTitle + " · " + ResultData!!.perTask.nonComPerTask[i].writerName + ResultData!!.perTask.nonComPerTask[i].registerDate.substring(0,9)
 
-                unDoneList.add(HUnDoneWorkListData(0,ResultData!!.perTask.nonComPerTask[i].takTitle,content,writerAndDay))
+                unDoneList.add(HUnDoneWorkListData(1,ResultData!!.perTask.nonComPerTask[i].taskId,0,ResultData!!.perTask.nonComPerTask[i].takTitle,content,writerAndDay))
             }
         }
         unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
@@ -162,7 +162,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
 
                 var writerAndDay = response.data.nonComPerTask[i].writerTitle + " · " + response.data.nonComPerTask[i].writerName + response.data.nonComPerTask[i].registerDate.substring(0,9)
 
-                unDoneList.add(HUnDoneWorkListData(0,response.data.nonComPerTask[i].takTitle,content,writerAndDay))
+                unDoneList.add(HUnDoneWorkListData(1,response.data.nonComPerTask[i].taskId,0,response.data.nonComPerTask[i].takTitle,content,writerAndDay))
             }
         }else{
             unDoneList.clear()
@@ -182,7 +182,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
         }
         if(response.data.compPerTask.size != 0){
             for(i in 0 until response.data.compPerTask.size){
-                doneList.add(HDoneWorkListData(0,response.data.compPerTask[i].takTitle,"완료 "+response.data.compPerTask[i].completeTime))
+                doneList.add(HDoneWorkListData(0,response.data.compPerTask[i].takTitle,"완료 "+response.data.compPerTask[i].completeTime.substring(11, 16)))
             }
         }else{
             doneList.clear()

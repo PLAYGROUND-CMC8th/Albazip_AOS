@@ -49,7 +49,7 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
 
                 var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + " · " + ResultData!!.coTask.nonComCoTask[i].writerName + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0,9)
 
-                unDoneList.add(HUnDoneWorkListData(0,ResultData!!.coTask.nonComCoTask[i].takTitle,content,writerAndDay))
+                unDoneList.add(HUnDoneWorkListData(1,ResultData!!.coTask.nonComCoTask[i].taskId,0,ResultData!!.coTask.nonComCoTask[i].takTitle,content,writerAndDay))
             }
         }
         unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
@@ -57,7 +57,7 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
 
         if(ResultData?.coTask?.comCoTask?.size != null){
             for(i in 0 until ResultData?.coTask?.comCoTask!!.size){
-                doneList.add(HDoneWorkListData(0,ResultData!!.coTask.comCoTask[i].takTitle,"완료 "+ResultData!!.coTask.comCoTask[i].completeTime))
+                doneList.add(HDoneWorkListData(0,ResultData!!.coTask.comCoTask[i].takTitle,"완료 "+ResultData!!.coTask.comCoTask[i].completeTime.substring(11, 16)))
             }
         }
         // 완료 리스트가 없으면 (배열 개수 0)
@@ -125,7 +125,7 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
 
                 var writerAndDay = response.data.nonComCoTask[i].writerTitle + " · " + response.data.nonComCoTask[i].writerName + response.data.nonComCoTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
 
-                unDoneList.add(HUnDoneWorkListData(0,response.data.nonComCoTask[i].takTitle,content,writerAndDay))
+                unDoneList.add(HUnDoneWorkListData(1,response.data.nonComCoTask[i].taskId,0,response.data.nonComCoTask[i].takTitle,content,writerAndDay))
             }
         }else{
             unDoneList.clear()
@@ -145,7 +145,7 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
         }
         if(response.data.comCoTask.size != 0){
             for(i in 0 until response.data.comCoTask.size){
-                doneList.add(HDoneWorkListData(0,response.data.comCoTask[i].takTitle,"완료 "+response.data.comCoTask[i].completeTime))
+                doneList.add(HDoneWorkListData(0,response.data.comCoTask[i].takTitle,"완료 "+response.data.comCoTask[i].completeTime.substring(11, 16)))
             }
         }else{
             doneList.clear()
