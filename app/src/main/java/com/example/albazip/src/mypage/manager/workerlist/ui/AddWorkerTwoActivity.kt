@@ -27,6 +27,11 @@ class AddWorkerTwoActivity:BaseActivity<ActivityAddWorkerTwoBinding>(ActivityAdd
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 뒤로가기 버튼
+        binding.ibtnBack.setOnClickListener {
+            finish()
+        }
+
         // recyclerview 연결
         todoAdapter = ToDoListAdapter(toDoList,this@AddWorkerTwoActivity)
 

@@ -139,6 +139,8 @@
         <activity android:name=".src.home.manager.editshop.ui.DelShopActivity"/>
         <activity android:name=".src.home.manager.worklist.ui.HomePersonalPositionActivity"/>
 
+        <activity android:name=".src.home.manager.worklist.ui.AddTogetherWorkListActivity"/>
+
     </application>
 
 

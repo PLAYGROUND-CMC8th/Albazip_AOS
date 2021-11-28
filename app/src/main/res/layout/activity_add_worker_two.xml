@@ -23,6 +23,7 @@
             android:background="@color/white">
 
             <ImageButton
+                android:id="@+id/ibtn_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
