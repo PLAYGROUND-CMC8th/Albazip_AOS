@@ -37,12 +37,12 @@ class ToDoListAdapter(val itemList: ArrayList<TodoData>,val context:Context) :
 
         holder.setIsRecyclable(false)
 
-        binding.etToDoName.setText(itemList[position].titleTxt)
-        binding.etToDoName.addTextChangedListener(titleTextWatcher(position))
+        holder.binding.etToDoName.setText(itemList[position].titleTxt)
+        holder.binding.etToDoName.addTextChangedListener(titleTextWatcher(position))
 
 
-        binding.etToDoExplain.setText(itemList[position].contextTxt)
-        binding.etToDoExplain.addTextChangedListener(contentTextWatcher(position))
+        holder.binding.etToDoExplain.setText(itemList[position].contextTxt)
+        holder.binding.etToDoExplain.addTextChangedListener(contentTextWatcher(position))
 
 
         holder.binding.ibtnExit.setOnClickListener { // x 버튼 누르면 없애기

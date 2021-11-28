@@ -65,7 +65,7 @@ class AddTogetherWorkListActivity:BaseActivity<ActivityAddTogehterWorkListBindin
             // recyclerview 데이터가 하나라도 존재할 때
             // title 값 체크하고 서버통신
             for(i in 0 until todoAdapter.itemCount) {
-                if (todoAdapter.itemList[i].titleTxt.isEmpty()) { // '제목'부분이 비어있다면
+                if (todoAdapter.itemList[i].titleTxt.isEmpty()) { // '제목' 부분이 비어있다면
                     showCustomToast("작성이 미완료된 업무가 있습니다!")
                     break
                 } else {
@@ -99,6 +99,7 @@ class AddTogetherWorkListActivity:BaseActivity<ActivityAddTogehterWorkListBindin
             binding.tvNext.isEnabled = true
             binding.tvNext.setTextColor(Color.parseColor("#ffc400"))
         }
+        todoAdapter.notifyDataSetChanged()
     }
 
     override fun onPostWorkSuccess(response: BaseResponse) {
