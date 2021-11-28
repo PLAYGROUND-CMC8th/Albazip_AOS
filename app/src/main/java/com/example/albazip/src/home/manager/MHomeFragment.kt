@@ -21,6 +21,7 @@ import com.example.albazip.src.splash.CheckRightTokenService
 import com.example.albazip.src.splash.GetCheckRightTokenFragmentView
 import com.example.albazip.src.splash.GetRightTokenResponse
 import com.example.albazip.src.splash.SplashActivity
+import com.example.albazip.util.GetCurrentTime
 
 
 class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind, R.layout.fragment_home),GetCheckRightTokenFragmentView,GetAllMFragmentView {
@@ -40,11 +41,13 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
 
+    override fun onResume() {
+        super.onResume()
         // 홈 전체 데이터 불러오기
         GetMAllHomeInfoService(this).tryGetAllMHomeInfo()
         showLoadingDialog(requireContext())
-
     }
 
     override fun onGetTokenSuccess(response: GetRightTokenResponse) {
@@ -74,8 +77,8 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         ApplicationClass.prefs.setString("login_shop_name",response.data.shopInfo.name)
 
         // 영업상태
-        //var status = response.data.shopInfo.status
         var status = response.data.shopInfo.status
+
         // 영업상태 체크
         if(status == 0){ // 영업전
             childFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomePreParingChildFragment(response.data))

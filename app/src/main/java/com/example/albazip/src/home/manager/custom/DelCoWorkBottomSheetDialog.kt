@@ -1,5 +1,6 @@
 package com.example.albazip.src.home.manager.custom
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import com.example.albazip.config.BaseResponse
 import com.example.albazip.databinding.DialogFragmentDeleteCoWorkBinding
 import com.example.albazip.src.home.manager.worklist.network.DelTodayTaskFragmentView
 import com.example.albazip.src.home.manager.worklist.network.DelTodayTaskService
+import com.example.albazip.src.home.manager.worklist.ui.HomeMTodayToDoListActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class DelCoWorkBottomSheetDialog(taskId:Int): BottomSheetDialogFragment(),DelTodayTaskFragmentView {
@@ -40,6 +42,9 @@ class DelCoWorkBottomSheetDialog(taskId:Int): BottomSheetDialogFragment(),DelTod
     // 업무 삭제 성공
     override fun onDelTaskSuccess(response: BaseResponse) {
         dismiss()
+        val refreshIntent = Intent(requireContext(),HomeMTodayToDoListActivity::class.java)
+        startActivity(refreshIntent)
+        activity?.finish()
     }
 
     // 업무 삭제 실패
