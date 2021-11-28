@@ -9,9 +9,7 @@ import com.example.albazip.databinding.ChildFragmentWTodoListBinding
 import com.example.albazip.databinding.DialogTodoAllDoneBinding
 import com.example.albazip.src.home.common.adapter.DoneWorkerCntAdapter
 import com.example.albazip.src.home.common.data.DoneWorkerCntData
-import com.example.albazip.src.home.worker.opened.worklist.adapter.HDoneAdapter
-import com.example.albazip.src.home.worker.opened.worklist.adapter.HTogetherDoneAdapter
-import com.example.albazip.src.home.worker.opened.worklist.adapter.HUnDoneAdapter
+import com.example.albazip.src.home.worker.opened.worklist.adapter.*
 import com.example.albazip.src.home.worker.opened.worklist.data.HDoneWorkListData
 import com.example.albazip.src.home.worker.opened.worklist.data.HUnDoneWorkListData
 import com.example.albazip.src.home.worker.opened.worklist.network.GetWPerTaskFragmentView
@@ -27,11 +25,11 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
 
     // 미완료 리스트
     private var unDoneList = ArrayList<HUnDoneWorkListData>()
-    private lateinit var unDoneAdapter: HUnDoneAdapter
+    private lateinit var unDoneAdapter: HWUnDoneAdapter
 
     // 완료 리스트
     private var doneList = ArrayList<HDoneWorkListData>()
-    private lateinit var doneAdpater: HDoneAdapter
+    private lateinit var doneAdpater: HWDoneAdapter
 
     // 다이얼로그 바인딩
     private lateinit var dialogBinding:DialogTodoAllDoneBinding
@@ -53,22 +51,22 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
                     content = "내용없음"
                 }
 
-                var writerAndDay = ResultData!!.perTask.nonComPerTask[i].writerTitle + " · " + ResultData!!.perTask.nonComPerTask[i].writerName + ResultData!!.perTask.nonComPerTask[i].registerDate.substring(0,9)
+                var writerAndDay = ResultData!!.perTask.nonComPerTask[i].writerTitle + " · " + ResultData!!.perTask.nonComPerTask[i].writerName + ResultData!!.perTask.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
 
                 unDoneList.add(HUnDoneWorkListData(1,ResultData!!.perTask.nonComPerTask[i].taskId,0,ResultData!!.perTask.nonComPerTask[i].takTitle,content,writerAndDay))
             }
         }
-        unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
+        unDoneAdapter = HWUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
         binding.rvUndone.adapter = unDoneAdapter
 
 
 
         if(ResultData?.perTask?.compPerTask?.size !=null){
             for(i in 0 until ResultData!!.perTask.compPerTask.size){
-                doneList.add(HDoneWorkListData(ResultData!!.perTask.compPerTask[i].taskId,1,ResultData!!.perTask.compPerTask[i].takTitle,"완료 "+ResultData!!.perTask.compPerTask[i].completeTime))
+                doneList.add(HDoneWorkListData(ResultData!!.perTask.compPerTask[i].taskId,1,ResultData!!.perTask.compPerTask[i].takTitle,"완료 "+ResultData!!.perTask.compPerTask[i].completeTime.substring(11, 16)))
             }
         }
-        doneAdpater = HDoneAdapter(requireContext(),doneList)
+        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList)
         binding.rvDone.adapter = doneAdpater
 
         // ui 체크
@@ -159,7 +157,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
                     content = "내용없음"
                 }
 
-                var writerAndDay = response.data.nonComPerTask[i].writerTitle + " · " + response.data.nonComPerTask[i].writerName + response.data.nonComPerTask[i].registerDate.substring(0,9)
+                var writerAndDay = response.data.nonComPerTask[i].writerTitle + " · " + response.data.nonComPerTask[i].writerName + response.data.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
 
                 unDoneList.add(HUnDoneWorkListData(1,response.data.nonComPerTask[i].taskId,0,response.data.nonComPerTask[i].takTitle,content,writerAndDay))
             }
@@ -168,7 +166,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
             binding.rvUndone.recycledViewPool.clear()
             unDoneAdapter.notifyDataSetChanged()
         }
-        unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
+        unDoneAdapter = HWUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
         binding.rvUndone.adapter = unDoneAdapter
 
 
@@ -188,7 +186,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
             binding.rvDone.recycledViewPool.clear()
             doneAdpater.notifyDataSetChanged()
         }
-        doneAdpater = HDoneAdapter(requireContext(),doneList)
+        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList)
         binding.rvDone.adapter = doneAdpater
 
         checkingUI()

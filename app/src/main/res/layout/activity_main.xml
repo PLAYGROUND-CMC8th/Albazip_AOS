@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".src.main.MainActivity">
 
+
     <ImageView
         android:id="@+id/iv_logo_img"
         android:layout_width="wrap_content"

@@ -1,14 +1,12 @@
 package com.example.albazip.src.home.manager.worklist.ui
 
+import android.R
 import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.TextView
 import androidx.core.view.children
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityHomeTodayTodoListBinding
-import com.example.albazip.src.home.common.data.HomeCoWorkResponse
-import com.example.albazip.src.home.common.network.GetHomeCoWorkFragmentView
-import com.example.albazip.src.home.common.network.GetHomeCoWorkService
 import com.example.albazip.src.home.manager.adapter.PagerFragmentStateAdapter
 import com.example.albazip.src.home.manager.worklist.network.GetMTodayTaskFragmentView
 import com.example.albazip.src.home.manager.worklist.network.GetMTodayTaskResponse
@@ -34,6 +32,7 @@ class HomeMTodayToDoListActivity :
         // 관리자 오늘의 할 일 전체조회
         GetMTodayTaskService(this).tryGetAllWHomeInfo()
         showLoadingDialog(this)
+
     }
 
 

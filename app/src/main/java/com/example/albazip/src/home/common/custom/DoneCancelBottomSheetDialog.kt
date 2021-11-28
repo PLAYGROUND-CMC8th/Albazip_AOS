@@ -12,14 +12,16 @@ import com.example.albazip.databinding.DialogFragmentCancelDoneBinding
 import com.example.albazip.src.home.common.network.PutTodayHomeTaskFragmentView
 import com.example.albazip.src.home.common.network.PutTodayHomeTaskService
 import com.example.albazip.src.home.manager.worklist.ui.HomeMTodayToDoListActivity
+import com.example.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class DoneCancelBottomSheetDialog(checkView:CheckBox,delView:View,taskId:Int): BottomSheetDialogFragment(),PutTodayHomeTaskFragmentView {
+class DoneCancelBottomSheetDialog(checkView:CheckBox,delView:View,taskId:Int,jobFlags:Int): BottomSheetDialogFragment(),PutTodayHomeTaskFragmentView {
 
     private lateinit var binding: DialogFragmentCancelDoneBinding
     private var checkView = checkView
     private val delView = delView
     private val taskId = taskId
+    private var jobFlags = jobFlags
 
     //lateinit var bottomSheetClickListener: DoneCancelBottomSheetDialog.BottomSheetClickListener
 
@@ -56,9 +58,15 @@ class DoneCancelBottomSheetDialog(checkView:CheckBox,delView:View,taskId:Int): B
 
     // 되돌리기 성공
     override fun onPutTodayTaskSuccess(response: BaseResponse) {
-        var nextIntent = Intent(requireContext(), HomeMTodayToDoListActivity::class.java)
-        startActivity(nextIntent)
-        activity?.finish()
+        if(jobFlags == 0) { // 관리자
+            var nextIntent = Intent(requireContext(), HomeMTodayToDoListActivity::class.java)
+            startActivity(nextIntent)
+            activity?.finish()
+        }else{ // 근무자
+            var nextIntent = Intent(requireContext(), HomeWTodayToDoListActivity::class.java)
+            startActivity(nextIntent)
+            activity?.finish()
+        }
         dismiss()
     }
 

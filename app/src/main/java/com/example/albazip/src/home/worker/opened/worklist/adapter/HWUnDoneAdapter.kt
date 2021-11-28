@@ -4,34 +4,27 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.R
 import com.example.albazip.config.BaseResponse
-import com.example.albazip.databinding.DialogTodoAllDoneBinding
 import com.example.albazip.databinding.ItemRvUndoneCheckBinding
 import com.example.albazip.src.home.common.network.PutTodayHomeTaskFragmentView
 import com.example.albazip.src.home.common.network.PutTodayHomeTaskService
 import com.example.albazip.src.home.manager.custom.DelCoWorkBottomSheetDialog
 import com.example.albazip.src.home.manager.worklist.ui.HomeMTodayToDoListActivity
 import com.example.albazip.src.home.worker.opened.worklist.data.HUnDoneWorkListData
-import com.example.albazip.src.mypage.custom.LogoutBottomSheetDialog
-import com.example.albazip.src.mypage.manager.workerlist.network.DelPositionFragmentView
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity
 
-class HUnDoneAdapter(
+class HWUnDoneAdapter(
     private val itemList: ArrayList<HUnDoneWorkListData>,
     context: Context,
     dialogView: View
-) : RecyclerView.Adapter<HUnDoneAdapter.UnDoneWorkHolder>(),PutTodayHomeTaskFragmentView{
+) : RecyclerView.Adapter<HWUnDoneAdapter.UnDoneWorkHolder>(), PutTodayHomeTaskFragmentView {
 
     private lateinit var binding: ItemRvUndoneCheckBinding
     private var myContext = context
@@ -154,7 +147,7 @@ class HUnDoneAdapter(
     fun showDoneDialog(taskId:Int) {
         // 다이얼로그 띄우기
         val mBuilder = AlertDialog.Builder(myContext, R.style.MyDialogTheme).setView(dialogView)
-        
+
 
         // view의 중복 사용을 방지하기 위한 코드
         if (dialogView.parent != null)
@@ -174,7 +167,7 @@ class HUnDoneAdapter(
     // 업무완료 - 미완료
     override fun onPutTodayTaskSuccess(response: BaseResponse) {
 
-        val nextIntent = Intent(myContext,HomeMTodayToDoListActivity::class.java)
+        val nextIntent = Intent(myContext, HomeWTodayToDoListActivity::class.java)
         myContext.startActivity(nextIntent)
         (myContext as Activity).finish()
     }

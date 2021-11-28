@@ -8,13 +8,11 @@ import android.widget.CheckBox
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.albazip.databinding.ItemRvDoneCheckBinding
 import com.example.albazip.databinding.ItemRvDoneCheckTogetherBinding
 import com.example.albazip.src.home.common.custom.DoneCancelBottomSheetDialog
 import com.example.albazip.src.home.worker.opened.worklist.data.HDoneWorkListData
 
-
-class HTogetherDoneAdapter(private val fm:FragmentManager,private val context: Context, private val itemList:ArrayList<HDoneWorkListData>): RecyclerView.Adapter<HTogetherDoneAdapter.DoneWorkHolder>() {
+class HWDoneAdapter(private val fm: FragmentManager, private val context: Context, private val itemList:ArrayList<HDoneWorkListData>): RecyclerView.Adapter<HWDoneAdapter.DoneWorkHolder>() {
 
     private lateinit var binding: ItemRvDoneCheckTogetherBinding
 
@@ -71,8 +69,8 @@ class HTogetherDoneAdapter(private val fm:FragmentManager,private val context: C
         }
     }
 
-    fun showCancelBottomSheetDialog(cb:CheckBox,delView:View,taskId:Int){
-        DoneCancelBottomSheetDialog(cb,delView,taskId,0).show(fm, "cancel")
+    fun showCancelBottomSheetDialog(cb: CheckBox, delView: View, taskId:Int){
+        DoneCancelBottomSheetDialog(cb,delView,taskId,1).show(fm, "cancel")
     }
 
 }

@@ -11,6 +11,8 @@ import com.example.albazip.src.home.common.network.GetHomeCoWorkFragmentView
 import com.example.albazip.src.home.common.network.GetHomeCoWorkService
 import com.example.albazip.src.home.worker.opened.worklist.adapter.HTogetherDoneAdapter
 import com.example.albazip.src.home.worker.opened.worklist.adapter.HUnDoneAdapter
+import com.example.albazip.src.home.worker.opened.worklist.adapter.HWDoneAdapter
+import com.example.albazip.src.home.worker.opened.worklist.adapter.HWUnDoneAdapter
 import com.example.albazip.src.home.worker.opened.worklist.data.HDoneWorkListData
 import com.example.albazip.src.home.worker.opened.worklist.data.HUnDoneWorkListData
 import com.example.albazip.src.home.worker.opened.worklist.network.WTodayTaskResult
@@ -23,11 +25,11 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
 
     // 미완료 리스트
     private var unDoneList = ArrayList<HUnDoneWorkListData>()
-    private lateinit var unDoneAdapter:HUnDoneAdapter
+    private lateinit var unDoneAdapter:HWUnDoneAdapter
 
     // 완료 리스트
     private var doneList = ArrayList<HDoneWorkListData>()
-    private lateinit var doneAdpater:HTogetherDoneAdapter
+    private lateinit var doneAdpater:HWDoneAdapter
 
     // 다이얼로그 바인딩
     private lateinit var dialogBinding: DialogTodoAllDoneBinding
@@ -47,12 +49,12 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
                     content = "내용없음"
                 }
 
-                var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + " · " + ResultData!!.coTask.nonComCoTask[i].writerName + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0,9)
+                var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + " · " + ResultData!!.coTask.nonComCoTask[i].writerName + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
 
                 unDoneList.add(HUnDoneWorkListData(1,ResultData!!.coTask.nonComCoTask[i].taskId,0,ResultData!!.coTask.nonComCoTask[i].takTitle,content,writerAndDay))
             }
         }
-        unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
+        unDoneAdapter = HWUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
         binding.rvUndone.adapter = unDoneAdapter
 
         if(ResultData?.coTask?.comCoTask?.size != null){
@@ -62,7 +64,7 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
         }
         // 완료 리스트가 없으면 (배열 개수 0)
         //doneList.add(HDoneWorkListData(0,"제목1","시간"))
-        doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList)
         binding.rvDone.adapter = doneAdpater
 
         checkingUI()
@@ -132,7 +134,7 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
             binding.rvUndone.recycledViewPool.clear()
             unDoneAdapter.notifyDataSetChanged()
         }
-        unDoneAdapter = HUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
+        unDoneAdapter = HWUnDoneAdapter(unDoneList,requireContext(),dialogBinding.root)
         binding.rvUndone.adapter = unDoneAdapter
 
 
@@ -152,7 +154,7 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
             binding.rvDone.recycledViewPool.clear()
             doneAdpater.notifyDataSetChanged()
         }
-        doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList)
         binding.rvDone.adapter = doneAdpater
 
         checkingUI()
