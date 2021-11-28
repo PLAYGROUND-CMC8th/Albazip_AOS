@@ -85,9 +85,9 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
         }
 
         if(unDoneList.size == 0 && doneList.size !=0){ // 모든 업무 완료
-            binding.rlNoUndoneWork.visibility = View.VISIBLE
+            binding.rlNoDoneWork.visibility = View.VISIBLE
         }else{
-            binding.rlNoUndoneWork.visibility = View.GONE
+            binding.rlNoDoneWork.visibility = View.GONE
         }
 
         if(unDoneList.size !=0 && doneList.size ==0){ // 완료된 업무가 없어요

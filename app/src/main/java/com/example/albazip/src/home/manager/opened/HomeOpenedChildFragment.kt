@@ -119,7 +119,7 @@ class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragment
     fun countWorkerList() {
         // 오픈 명수 카운트
         for (i in 0 until resultData.workerInfo.size) {
-            if (resultData.workerInfo[i].title == "오픈") {
+            if (resultData.workerInfo[i].title.contains("오픈")) {
                 openCnt++
                 openWorkerList.add(resultData.workerInfo[i].firstName)
             }
@@ -127,7 +127,7 @@ class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragment
 
         // 미들 명수 카운트
         for (i in 0 until resultData.workerInfo.size) {
-            if (resultData.workerInfo[i].title == "미들") {
+            if (resultData.workerInfo[i].title.contains("미들")) {
                 middleCnt++
                 middleWorkerList.add(resultData.workerInfo[i].firstName)
             }
@@ -135,7 +135,7 @@ class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragment
 
         // 마감 명수 카운트
         for (i in 0 until resultData.workerInfo.size) {
-            if (resultData.workerInfo[i].title == "마감") {
+            if (resultData.workerInfo[i].title.contains("마감")) {
                 closeCnt++
                 closeWorkerList.add(resultData.workerInfo[i].firstName)
             }
