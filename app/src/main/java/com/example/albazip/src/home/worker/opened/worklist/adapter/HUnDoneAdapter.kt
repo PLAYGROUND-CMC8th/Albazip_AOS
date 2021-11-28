@@ -1,7 +1,9 @@
 package com.example.albazip.src.home.worker.opened.worklist.adapter
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,16 +16,22 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseResponse
 import com.example.albazip.databinding.DialogTodoAllDoneBinding
 import com.example.albazip.databinding.ItemRvUndoneCheckBinding
+import com.example.albazip.src.home.common.network.PutTodayHomeTaskFragmentView
+import com.example.albazip.src.home.common.network.PutTodayHomeTaskService
 import com.example.albazip.src.home.manager.custom.DelCoWorkBottomSheetDialog
+import com.example.albazip.src.home.manager.worklist.ui.HomeMTodayToDoListActivity
 import com.example.albazip.src.home.worker.opened.worklist.data.HUnDoneWorkListData
 import com.example.albazip.src.mypage.custom.LogoutBottomSheetDialog
 import com.example.albazip.src.mypage.manager.workerlist.network.DelPositionFragmentView
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class HUnDoneAdapter(
     private val itemList: ArrayList<HUnDoneWorkListData>,
     context: Context,
     dialogView: View
-) : RecyclerView.Adapter<HUnDoneAdapter.UnDoneWorkHolder>(){
+) : RecyclerView.Adapter<HUnDoneAdapter.UnDoneWorkHolder>(),PutTodayHomeTaskFragmentView{
 
     private lateinit var binding: ItemRvUndoneCheckBinding
     private var myContext = context
@@ -55,7 +63,7 @@ class HUnDoneAdapter(
         holder.binding.checkboxFinish.setOnCheckedChangeListener { buttonView, isChecked ->
 
             if (isChecked == true) { // flag 변경
-                showDoneDialog()
+                showDoneDialog(itemList[holder.adapterPosition].taskId)
                 itemList[position].doneFlags = 1
             } else {
                 itemList[position].doneFlags = 0
@@ -143,7 +151,7 @@ class HUnDoneAdapter(
     }
 
     // 모든 작업 완료 다이얼로그 띄우기
-    fun showDoneDialog() {
+    fun showDoneDialog(taskId:Int) {
         // 다이얼로그 띄우기
         val mBuilder = AlertDialog.Builder(myContext, R.style.MyDialogTheme).setView(dialogView)
 
@@ -152,5 +160,25 @@ class HUnDoneAdapter(
             (dialogView.parent as ViewGroup).removeView(dialogView)
 
         val mAlertDialog = mBuilder.show()
+
+        PutTodayHomeTaskService(this).tryPutTodayTask(taskId)
+
+        /*GlobalScope.launch {
+            delay(10000L)
+            print("in Coroutine ...")
+        }*/
+
+    }
+
+    // 업무완료 - 미완료
+    override fun onPutTodayTaskSuccess(response: BaseResponse) {
+
+        val nextIntent = Intent(myContext,HomeMTodayToDoListActivity::class.java)
+        myContext.startActivity(nextIntent)
+        (myContext as Activity).finish()
+    }
+
+    override fun onPutTodayTaskFailure(message: String) {
+
     }
 }

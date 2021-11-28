@@ -209,6 +209,7 @@
                 <!-- 인원수 확인 클릭 시 -->
                 <FrameLayout
                     android:id="@+id/frame_layout_cnt_done_worker"
+                    android:visibility="gone"
                     android:layout_width="137dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="11dp"
