@@ -25,6 +25,10 @@ class NoticeWChildFragment: BaseFragment<ChildFragmentWNoticeBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         // 공지사항 리스트 조회
         GetBoardNoticeService(this).tryGetBoardList()
@@ -34,6 +38,8 @@ class NoticeWChildFragment: BaseFragment<ChildFragmentWNoticeBinding>(
     // 공지리스트 조회 (성공)
     override fun onBoardListGetSuccess(response: GetBoardListResponse) {
         dismissLoadingDialog()
+
+        noticeArray.clear()
 
         if(response.data.size == 0){
             binding.llNoContent.visibility = View.VISIBLE
