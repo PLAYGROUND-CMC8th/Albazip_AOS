@@ -34,7 +34,7 @@ class HomeVPAdapter(private val context: Context,private val itemList: ArrayList
         fun bind(data: HomeCommuData) {
 
             // 미확인 뷰 체크
-            if (data.newFlags == 1) { // 미확인
+            if (data.newFlags == 0) { // 미확인
                 binding.rlNew.visibility = View.VISIBLE
             } else {
                 binding.rlNew.layoutParams = ViewGroup.LayoutParams(dpToPx(myContext,16f).toInt(),0) // constraint 관계만 남기기 위한 코드

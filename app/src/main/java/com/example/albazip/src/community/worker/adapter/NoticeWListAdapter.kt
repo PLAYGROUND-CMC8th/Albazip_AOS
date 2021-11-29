@@ -1,6 +1,8 @@
 package com.example.albazip.src.community.worker.adapter
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.databinding.ItemRvNoticeListWBinding
+import com.example.albazip.src.community.common.ui.NoticeContentActivity
 import com.example.albazip.src.community.worker.data.NoticeWData
+import com.example.albazip.src.community.worker.ui.NoticeWContentActivity
 
 class NoticeWListAdapter(val context: Context, val itemList:ArrayList<NoticeWData>): RecyclerView.Adapter<NoticeWListAdapter.NoticeHolder>() {
 
@@ -26,6 +30,15 @@ class NoticeWListAdapter(val context: Context, val itemList:ArrayList<NoticeWDat
 
     override fun onBindViewHolder(holder: NoticeHolder, position: Int) {
         holder.setNoticeList(itemList[position])
+
+        // 공지사항 읽기 화면으로 이동
+        holder.binding.root.setOnClickListener {
+            val readIntent = Intent(myContext, NoticeWContentActivity::class.java)
+            readIntent.putExtra("noticeId",itemList[holder.adapterPosition].id)
+            (myContext as Activity).startActivity(readIntent)
+        }
+
+        holder.setIsRecyclable(false)
     }
 
     override fun getItemCount(): Int = itemList.size
