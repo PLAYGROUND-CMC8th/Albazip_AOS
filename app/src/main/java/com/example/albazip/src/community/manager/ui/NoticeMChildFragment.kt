@@ -1,17 +1,21 @@
 package com.example.albazip.src.community.manager.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentNoticeBinding
+import com.example.albazip.src.community.manager.network.GetBoardListFragmentView
+import com.example.albazip.src.community.manager.network.GetBoardListResponse
+import com.example.albazip.src.community.manager.network.GetBoardNoticeService
 import com.example.albazip.src.mypage.manager.adapter.NoticeListAdapter
 import com.example.albazip.src.mypage.manager.board.data.local.NoticeData
 
 class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmentNoticeBinding::bind,
-    R.layout.child_fragment_notice) {
+    R.layout.child_fragment_notice),GetBoardListFragmentView {
 
     private var noticeArray = ArrayList<NoticeData>()
     private lateinit var noticeAdapter:NoticeListAdapter
@@ -20,16 +24,22 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 공지사항 리스트 조회
+        GetBoardNoticeService(this).tryGetBoardList()
+        showLoadingDialog(requireContext())
+    }
 
-        noticeArray.add(NoticeData("[필독] 음료 제조시 주의사항","2020.08.02.",1))
-        noticeArray.add(NoticeData("[필독] 재료 소분시 주의사항","2020.08.04.",1))
-        noticeArray.add(NoticeData("[필독] 손님 응대는 이렇게 해주세요.","2020.08.20.",1))
+    // 공지리스트 조회 (성공)
+    override fun onBoardListGetSuccess(response: GetBoardListResponse) {
+        dismissLoadingDialog()
 
-        noticeArray.add(NoticeData("코로나 관련 매장 공지","2020.08.20.",0))
-        noticeArray.add(NoticeData("빙수기계 작동법","2020.08.20.",0))
-        noticeArray.add(NoticeData("더치 앰플 판매 관련","2020.08.20.",0))
-        noticeArray.add(NoticeData("더치 앰플 판매 관련","2020.08.20.",0))
-        noticeArray.add(NoticeData("더치 앰플 판매 관련","2020.08.20.",0))
+        if(response.data.size == 0){
+            binding.llNoContent.visibility = View.VISIBLE
+        }
+
+        for (i in 0 until response.data.size){
+            noticeArray.add(NoticeData(response.data[i].id ,response.data[i].title,response.data[i].registerDate.substring(0, 10).replace("-", ".") + ".",response.data[i].pin))
+        }
 
         noticeAdapter = NoticeListAdapter(noticeArray)
 
@@ -40,13 +50,19 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                // 스크롤이 끝에 도달했는지 확인
-                if (!binding.rvCommunityMainNotice.canScrollVertically(1)) {
-                    showCustomToast("최하단 도달")
+                // 마지막으로 스크롤 된 항목 위치
+                val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                // 항목 전체 개수
+                val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+                if (lastVisibleItemPosition == itemTotalCount) {
+                    Log.d("SCROLL", "last Position...")
                 }
 
             }
         })
+    }
 
+    override fun onBoardListGetFailure(message: String) {
+        dismissLoadingDialog()
     }
 }

@@ -42,7 +42,7 @@ class BUWroteChildFragment(
         for (i in 0 until getNoticeList.size) {
             noticeList.add(
                 NoticeData(
-                    getNoticeList[i].title,
+                    0,getNoticeList[i].title,
                     getNoticeList[i].registerDate.substring(0, 10).replace("-", ".") + ".",
                     getNoticeList[i].pin
                 )
@@ -89,7 +89,7 @@ class BUWroteChildFragment(
                 for (i in 0 until response.data.noticeInfo.size) {
                     noticeList.add(
                         NoticeData(
-                            response.data.noticeInfo[i].title,
+                            0,response.data.noticeInfo[i].title,
                             response.data.noticeInfo[i].registerDate.substring(0, 10)
                                 .replace("-", ".") + ".",
                             response.data.noticeInfo[i].pin
