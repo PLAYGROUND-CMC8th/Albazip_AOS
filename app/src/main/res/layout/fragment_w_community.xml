@@ -38,6 +38,7 @@
                         android:textStyle="bold" />
                     <ImageButton
                         android:id="@+id/tbr_ibtn_notice"
+                        android:visibility="invisible"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_alignParentEnd="true"
@@ -48,6 +49,7 @@
                         android:src="@drawable/ic_bell" />
                     <ImageButton
                         android:id="@+id/tbr_ibtn_search"
+                        android:visibility="invisible"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"

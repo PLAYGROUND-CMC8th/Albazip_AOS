@@ -136,6 +136,7 @@
 
                 <RelativeLayout
                     android:id="@+id/rl_done_person_cnt"
+                    android:visibility="invisible"
                     android:layout_width="39dp"
                     android:layout_height="24dp"
                     android:layout_marginTop="36dp"
