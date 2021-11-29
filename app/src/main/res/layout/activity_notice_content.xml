@@ -74,7 +74,7 @@
             android:id="@+id/iv_writer_profile"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:src="@color/mainYellow"
+            tools:src="@color/mainYellow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="24dp"
@@ -84,7 +84,7 @@
             android:id="@+id/tv_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="사장님"
+            tools:text="사장님"
             app:layout_constraintStart_toEndOf="@id/iv_writer_profile"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="24dp"
@@ -109,7 +109,7 @@
             app:layout_constraintBottom_toBottomOf="@id/iv_writer_profile"
             app:layout_constraintStart_toStartOf="@id/tv_position"
             app:layout_constraintTop_toBottomOf="@id/tv_position"
-            android:text="김형준"/>
+            tools:text="김형준"/>
 
         <TextView
             android:id="@+id/tv_title"
@@ -120,7 +120,7 @@
             android:textColor="#333333"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="1sp"
-            android:text="코로나 관련 매장 관리 공지 "
+            tools:text="코로나 관련 매장 관리 공지 "
             app:layout_constraintStart_toStartOf="@id/iv_writer_profile"
             app:layout_constraintTop_toBottomOf="@id/iv_writer_profile"
             android:layout_marginTop="24dp"
@@ -133,9 +133,23 @@
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             android:layout_marginTop="12dp"
             android:layout_marginHorizontal="24dp"
-            android:text="📢출입자 명부\n\n출입자명부 작성 철저하게 해주세요!
+            tools:text="📢출입자 명부\n\n출입자명부 작성 철저하게 해주세요!
 주문 받은 뒤, 홀 손님에겐 꼭 명부작성 권유 해야합니다.
 테이크아웃 손님은 매장에 들어와서 주문시에 권유 해주세요!"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_notice_image_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="78dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tv_content"
+            app:layout_constraintStart_toStartOf="@id/tv_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_content" />
 
 
         <!-- 인원수 확인 클릭 시 -->
@@ -192,6 +206,7 @@
             android:id="@+id/rl_read_person_cnt"
             android:layout_width="39dp"
             android:layout_height="24dp"
+            android:visibility="gone"
             android:background="@drawable/rectangle_light_gray_radius_7"
             app:layout_constraintStart_toStartOf="@id/tv_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -231,7 +246,7 @@
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="0sp"
             android:gravity="end"
-            android:text="2021. 08. 30."
+            tools:text="2021. 08. 30."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="24dp"

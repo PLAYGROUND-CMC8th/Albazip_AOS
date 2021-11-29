@@ -1,6 +1,8 @@
 package com.example.albazip.src.mypage.manager.adapter
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.config.BaseResponse
 import com.example.albazip.databinding.ItemRvNoticeListBinding
+import com.example.albazip.src.community.common.ui.NoticeContentActivity
 import com.example.albazip.src.community.manager.network.PutNoticePinListFragmentView
 import com.example.albazip.src.community.manager.network.PutNoticePinService
 import com.example.albazip.src.mypage.manager.board.data.local.NoticeData
@@ -35,8 +38,16 @@ class NoticeListAdapter(context: Context, val itemList:ArrayList<NoticeData>): R
         //    PutNoticePinService(this).tryPutNoticePin(itemList[holder.adapterPosition].id)
         //}
 
+        // 공지사항 핀 고정 확인
         holder.binding.cbPin.setOnCheckedChangeListener { buttonView, isChecked ->
             PutNoticePinService(this).tryPutNoticePin(itemList[holder.adapterPosition].id,holder.binding.cbPin)
+        }
+
+        // 공지사항 읽기 화면으로 이동
+        holder.binding.root.setOnClickListener {
+            val readIntent = Intent(myContext,NoticeContentActivity::class.java)
+            readIntent.putExtra("noticeId",itemList[holder.adapterPosition].id)
+            (myContext as Activity).startActivity(readIntent)
         }
 
         holder.setIsRecyclable(false)

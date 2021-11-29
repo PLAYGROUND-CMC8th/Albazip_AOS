@@ -141,6 +141,7 @@
 
         <activity android:name=".src.home.manager.worklist.ui.AddTogetherWorkListActivity"/>
         <activity android:name=".src.mypage.manager.workerlist.cardevent.detailinfo.cotask.DetailTogetherWorkActivity"/>
+        <activity android:name=".src.community.common.ui.NoticeContentActivity"/>
 
     </application>
 
