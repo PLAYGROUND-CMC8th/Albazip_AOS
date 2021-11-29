@@ -88,6 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <EditText
+            android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="제목"
@@ -95,7 +96,7 @@
             android:background="@null"
             android:textStyle="bold"
             android:textSize="14sp"
-            android:textColor="#c9c9c9"
+            android:textColor="@color/customBlack"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="-2sp"
             android:paddingHorizontal="16dp"/>
@@ -114,6 +115,7 @@
         app:layout_constraintEnd_toEndOf="@id/cl_title">
 
         <EditText
+            android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="16dp"
@@ -121,7 +123,7 @@
             android:gravity="top"
             android:textStyle="normal"
             android:textSize="12sp"
-            android:textColor="#c9c9c9"
+            android:textColor="@color/customBlack"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="0sp"
             android:textColorHint="#c9c9c9"
@@ -222,7 +224,6 @@
         tools:listitem="@layout/item_rv_community_photo"
         android:layout_marginStart="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="2"
         android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@id/cl_select_photo_area"
         app:layout_constraintTop_toTopOf="@id/cl_select_photo_area"

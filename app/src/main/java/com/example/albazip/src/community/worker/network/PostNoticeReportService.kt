@@ -8,7 +8,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.*
 
-class PutNoticeReportService(val view: PutNoticeReportFragmentView) {
+class PostNoticeReportService(val view: PutNoticeReportFragmentView) {
 
     fun tryPutNoticeReport(noticeReportRequest:NoticeReportRequest){
         val putNoticeRetrofitInterface = ApplicationClass.sRetrofit.create(

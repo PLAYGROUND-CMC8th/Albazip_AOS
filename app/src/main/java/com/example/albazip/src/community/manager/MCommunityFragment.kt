@@ -1,5 +1,6 @@
 package com.example.albazip.src.community.manager
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentMCommunityBinding
 import com.example.albazip.src.community.manager.ui.NoticeMChildFragment
+import com.example.albazip.src.community.manager.ui.WriteNoticeActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MCommunityFragment :
@@ -21,6 +23,12 @@ class MCommunityFragment :
 
         // 탭 레이아웃 초기화
         init()
+
+        // 글쓰기 화면으로 이동
+        binding.floatWritingBtn.setOnClickListener {
+            val nextIntent = Intent(requireContext(),WriteNoticeActivity::class.java)
+            startActivity(nextIntent)
+        }
     }
 
 

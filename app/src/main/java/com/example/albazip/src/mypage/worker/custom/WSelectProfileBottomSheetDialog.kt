@@ -267,20 +267,18 @@ class WSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
 
     // 기본 이미지 등록 성공(근무자)
     override fun onDefaultImgPostSuccess(response: BaseResponse) {
-        Log.d("hellotest",response.message.toString())
     }
 
     // 기본 이미지 등록 실패(근무자)
     override fun onDefaultImgFailure(message: String) {
-        Log.d("byetest",message)
     }
 
+    // 갤러리 이미지 등록 성공
     override fun onGalleryImgPostSuccess(response: BaseResponse) {
-        Log.d("hellotest",response.message.toString())
     }
 
+    // 갤러리 이미지 등록 실패
     override fun onGalleryImgFailure(message: String) {
-        Log.d("byetest",message)
     }
 
 }

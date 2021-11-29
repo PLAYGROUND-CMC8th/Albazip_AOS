@@ -26,6 +26,11 @@ class NoticeContentActivity:BaseActivity<ActivityNoticeContentBinding>(ActivityN
     override fun onGetReadNoticeSuccess(response: ReadNoticeResponse) {
         dismissLoadingDialog()
 
+        // 뒤로가기
+        binding.ibtnBack.setOnClickListener {
+            finish()
+        }
+
         // writerInfo
         // 직업
         binding.tvPosition.text = response.data.writerInfo.title

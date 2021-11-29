@@ -72,6 +72,9 @@ class NoticeWListAdapter(val context: Context, val itemList:ArrayList<NoticeWDat
                     myContext,
                     R.drawable.bg_rv_item_read_15
                 )
+
+                binding.tvConfirm.text = "미확인"
+
             }else{ // 확인
                 binding.rlDidRead.background =  ContextCompat.getDrawable(
                     myContext,
@@ -84,6 +87,8 @@ class NoticeWListAdapter(val context: Context, val itemList:ArrayList<NoticeWDat
                     myContext,
                     R.drawable.bg_rv_item_wrote_15
                 )
+
+                binding.tvConfirm.text = "확인"
             }
 
         }

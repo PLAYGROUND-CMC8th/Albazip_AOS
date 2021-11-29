@@ -1,5 +1,6 @@
 package com.example.albazip.src.community.manager.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -23,7 +24,15 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // 글쓰기 버튼
+        binding.btnWriting.setOnClickListener {
+            val nextIntent = Intent(requireContext(),WriteNoticeActivity::class.java)
+            startActivity(nextIntent)
+        }
+    }
 
+    override fun onResume() {
+        super.onResume()
         // 공지사항 리스트 조회
         GetBoardNoticeService(this).tryGetBoardList()
         showLoadingDialog(requireContext())
@@ -32,6 +41,8 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
     // 공지리스트 조회 (성공)
     override fun onBoardListGetSuccess(response: GetBoardListResponse) {
         dismissLoadingDialog()
+
+        noticeArray.clear()
 
         if(response.data.size == 0){
             binding.llNoContent.visibility = View.VISIBLE
@@ -46,7 +57,7 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
         binding.rvCommunityMainNotice.adapter = noticeAdapter
 
         // recyclerview 스크롤 리스너
-        binding.rvCommunityMainNotice.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+       /* binding.rvCommunityMainNotice.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
@@ -59,7 +70,7 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
                 }
 
             }
-        })
+        })*/
     }
 
     override fun onBoardListGetFailure(message: String) {
