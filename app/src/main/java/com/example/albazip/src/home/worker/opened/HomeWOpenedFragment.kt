@@ -1,7 +1,10 @@
 package com.example.albazip.src.home.worker.opened
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -19,6 +22,10 @@ import com.example.albazip.util.GetCurrentTime
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.concurrent.thread
+import kotlin.concurrent.timer
 
 class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHomeWOpenedBinding>(
     ChildFragmentHomeWOpenedBinding::bind,
@@ -26,9 +33,64 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
 ),PutQRScanFragmentView {
 
     var resultData = data
+    // 시간 차 계산을 위한 데이터 포맷 선언
+    val f: SimpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.KOREA)
+
+    val mTimer = timer(initialDelay = 1000, period = 1000) { // 1초후에 1초단위로 진행
+        (requireContext() as Activity).runOnUiThread {
+
+            // 남은시간 (from 서버)
+            var restTime = resultData.scheduleInfo.remainTime
+
+            // 퇴근시간 (from 서버)
+            var offTime = resultData.scheduleInfo.endTime?.substring(0,2) + ":" + resultData.scheduleInfo.endTime?.substring(2,4)
+
+            // 현재시간 (from 로컬)
+            var currentTime = GetCurrentTime().getTime
+
+            // 시간 단위 변경
+            var castOffTime = f.parse(offTime+":00") // 퇴근시간
+            var castCurrentTime = f.parse(currentTime+":00") // 현재시간
+
+            // 시간차 구하기
+            var diffTime = castOffTime.time - castCurrentTime.time
+
+            var sec = diffTime / 1000 // 총 시간(초) 받아오기
+
+            var showHour = sec / (60 * 60)
+            var showMin = sec / 60 - (showHour * 60)
+
+            // 구한시간차 단위 변경
+            var getDiffTime = showHour.toString() + ":" + showMin.toString()
+            var castGetDiffTime = f.parse(getDiffTime+":00")
+
+            // UI에 출력할 시간차
+            var showingTime = castGetDiffTime.toString().substring(11,16)
+
+            // 퇴근시간 초과시
+            if(restTime=="0000"){
+                binding.tvGoOff.setTextColor(Color.parseColor("#f90100")) // 색상변경 - 빨강색
+                binding.rlAlarm.visibility = View.VISIBLE // 알림 띄우기
+                binding.tvGoOff.text = "+" + showingTime
+            }else{ // 기본상태
+                binding.tvGoOff.text = showingTime
+            }
+        }
+    }
+
+    override fun onStop() { // fragment 교체시 타이머 정지
+        super.onStop()
+        mTimer.cancel()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 출근 시간
+        binding.tvGoTime.text = resultData.scheduleInfo.realStartTime?.substring(0,2) + ":" + resultData.scheduleInfo.realStartTime?.substring(2,4)
+
+        // 남은 시간 초기화 (Thread 의 딜레이를 막기 위함)
+        binding.tvGoOff.text = resultData.scheduleInfo.remainTime?.substring(0,2) + ":" + resultData.scheduleInfo.remainTime?.substring(2,4)
 
         // 화면 정보 받아오기
         binding.tvShopName.text = resultData.shopInfo.name // 매장명
@@ -80,7 +142,7 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
             startActivity(nextIntent)
         }
 
-        // qr 스캔 화면으로 이동 - 이이콘
+        // qr 스캔 화면으로 이동 - 아이콘
         binding.ibtnQrScan.setOnClickListener {
             callQRActivity()
         }
@@ -145,4 +207,5 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
     override fun onPutQRFailure(message: String) {
         dismissLoadingDialog()
     }
+
 }

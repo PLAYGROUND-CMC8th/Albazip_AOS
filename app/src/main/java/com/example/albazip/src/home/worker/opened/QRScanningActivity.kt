@@ -12,6 +12,11 @@ class QRScanningActivity:BaseActivity<ActivityQrScanBinding>(ActivityQrScanBindi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 닫기
+        binding.ibtnClose.setOnClickListener{
+            finish()
+        }
+
         captureManager = CaptureManager(this,binding.barcodeScanner)
         captureManager.initializeFromIntent(intent, savedInstanceState)
         captureManager.decode()
