@@ -121,6 +121,7 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_my_info"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/rectangle_fill_white_radius_bottom_20">

@@ -7,6 +7,7 @@ import com.example.albazip.databinding.ActivitySettingBinding
 import com.example.albazip.src.mypage.common.setting.AlarmSettingActivity
 import com.example.albazip.src.mypage.common.setting.AppNoticeActivity
 import com.example.albazip.src.mypage.common.setting.ServiceLawActivity
+import com.example.albazip.src.mypage.common.setting.editinfo.ManageMyInfoActivity
 import com.example.albazip.src.mypage.custom.LogoutBottomSheetDialog
 import com.example.albazip.src.withdraw.ui.DefaultWithDrawActivity
 
@@ -27,6 +28,10 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(ActivitySettingBind
         }
 
         // 내 정보 관리
+        binding.rlMyInfo.setOnClickListener {
+            val nextIntent = Intent(this, ManageMyInfoActivity::class.java)
+            startActivity(nextIntent)
+        }
 
 
         // 공지사항

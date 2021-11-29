@@ -67,6 +67,7 @@
         tools:layout_editor_absoluteY="112dp">
 
         <RelativeLayout
+            android:id="@+id/rl_service_law"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/rectangle_fill_white_radius_top_20">
@@ -102,6 +103,7 @@
         </View>
 
         <RelativeLayout
+            android:id="@+id/rl_info_law"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/rectangle_fill_white_radius_bottom_20">

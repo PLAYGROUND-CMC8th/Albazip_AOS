@@ -68,17 +68,17 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="91dp"
             android:background="@drawable/rectangle_fill_white_radius_gray_15">
             <TextView
                 android:id="@+id/tv_title_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="10/31 게시판 오류에 따른 안내"
+                android:layout_marginTop="23dp"
+                android:text="앱 문의는 아래 메일로 보내주세요!"
                 android:textStyle="bold"
-                android:textSize="14sp"
-                android:layout_marginHorizontal="24dp"
+                android:textSize="16sp"
+                android:layout_marginHorizontal="23dp"
                 android:textColor="#333333"
                 android:letterSpacing="-0.02"
                 android:lineSpacingExtra="-2sp"/>
@@ -87,88 +87,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
-                android:textStyle="normal"
-                android:textSize="10sp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginTop="8dp"
                 android:layout_below="@id/tv_title_one"
                 android:layout_marginHorizontal="24dp"
                 android:layout_alignParentStart="true"
-                android:textColor="#a3a3a3"
-                android:letterSpacing="-0.02"
+                android:layout_alignParentBottom="true"
                 android:lineSpacingExtra="2sp"
-                android:text="2020. 10. 31."/>
+                android:textStyle="normal"
+                android:textSize="13sp"
+                android:textColor="#a3a3a3"
+                android:letterSpacing="-0.03"
+                android:text="albazip.makeus@gmail.com"/>
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/rectangle_fill_white_radius_gray_15">
-            <TextView
-                android:id="@+id/tv_title_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="서비스 보완 강화"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:layout_marginHorizontal="24dp"
-                android:textColor="#333333"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="-2sp"/>
-            <TextView
-                android:id="@+id/tv_date_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:textStyle="normal"
-                android:textSize="10sp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="15dp"
-                android:layout_below="@id/tv_title_two"
-                android:layout_marginHorizontal="24dp"
-                android:layout_alignParentStart="true"
-                android:textColor="#a3a3a3"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="2sp"
-                android:text="2020. 08. 02."/>
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/rectangle_fill_white_radius_gray_15">
-            <TextView
-                android:id="@+id/tv_title_three"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="08/10 서비스 장애 공지"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:layout_marginHorizontal="24dp"
-                android:textColor="#333333"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="-2sp"/>
-            <TextView
-                android:id="@+id/tv_date_three"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:textStyle="normal"
-                android:textSize="10sp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="15dp"
-                android:layout_below="@id/tv_title_three"
-                android:layout_marginHorizontal="24dp"
-                android:layout_alignParentStart="true"
-                android:textColor="#a3a3a3"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="2sp"
-                android:text="2020. 08. 10."/>
-        </RelativeLayout>
+
 
 
     </LinearLayout>

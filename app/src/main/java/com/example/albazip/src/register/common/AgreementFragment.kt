@@ -1,6 +1,8 @@
 package com.example.albazip.src.register.common
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckBox
@@ -21,6 +23,18 @@ class AgreementFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 이용약관 보기
+        binding.tvShowService.setOnClickListener {
+            val uriIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://bronzed-balaur-143.notion.site/42041221d1a6413f84542f571bee6b9c"))
+            startActivity(uriIntent)
+        }
+
+        // 정보처리 약관 보기
+        binding.tvShowCollect.setOnClickListener {
+            val uriIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://bronzed-balaur-143.notion.site/02e8b5a9cf514702977b4e01b82651ca"))
+            startActivity(uriIntent)
+        }
 
         // 동의 체크 이벤트
         binding.apply {
