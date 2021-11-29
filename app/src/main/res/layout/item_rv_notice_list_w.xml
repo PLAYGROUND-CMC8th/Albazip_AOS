@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/cl_root"
     android:background="@drawable/bg_rv_item_wrote_15"
     android:layout_marginBottom="12dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/rectangle_fill_light_green_radius_4">
         <TextView
+            android:id="@+id/tv_confirm"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="확인"

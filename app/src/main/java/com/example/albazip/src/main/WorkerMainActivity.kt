@@ -5,6 +5,7 @@ import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivityWorkerMainBinding
 import com.example.albazip.src.community.manager.MCommunityFragment
+import com.example.albazip.src.community.worker.WCommunityFragment
 import com.example.albazip.src.home.manager.MHomeFragment
 import com.example.albazip.src.home.worker.WHomeFragment
 import com.example.albazip.src.mypage.worker.WMyPageFragment
@@ -39,7 +40,7 @@ class WorkerMainActivity :
                     // 소통창
                     R.id.menu_main_btm_nav_community -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.worker_main_frm, MCommunityFragment())
+                            .replace(R.id.worker_main_frm, WCommunityFragment())
                             .commitAllowingStateLoss()
                         return@setOnItemSelectedListener true
                     }

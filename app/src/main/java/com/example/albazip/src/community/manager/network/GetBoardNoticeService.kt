@@ -41,5 +41,13 @@ interface GetBoardListFragmentView {
 }
 
 data class GetBoardListResponse(
-    @SerializedName("data")val data:ArrayList<NoticeInfo>
+    @SerializedName("data")val data:ArrayList<CommuNoticeInfo>
 ):BaseResponse()
+
+data class CommuNoticeInfo(
+    @SerializedName("id")val id:Int,
+    @SerializedName("pin")val pin:Int,
+    @SerializedName("title")val title:String,
+    @SerializedName("registerDate")val registerDate:String,
+    @SerializedName("confirm")val confirm:Int,
+)
