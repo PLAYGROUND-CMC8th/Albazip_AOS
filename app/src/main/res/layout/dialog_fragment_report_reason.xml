@@ -39,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <TextView
+                android:id="@+id/tv_one"
                 android:text="욕설/비하"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,6 +60,7 @@
             android:background="@drawable/bg_selector_type"
             android:layout_height="0dp">
             <TextView
+                android:id="@+id/tv_two"
                 android:text="음란물/불건전한 대화"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,6 +81,7 @@
             android:background="@drawable/bg_selector_type"
             android:layout_height="0dp">
             <TextView
+                android:id="@+id/tv_three"
                 android:text="낚시/놀람/도배"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,6 +102,7 @@
             android:background="@drawable/bg_selector_type"
             android:layout_height="0dp">
             <TextView
+                android:id="@+id/tv_four"
                 android:text="유출/사칭/사기"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,6 +123,7 @@
             android:background="@drawable/bg_selector_type"
             android:layout_height="0dp">
             <TextView
+                android:id="@+id/tv_five"
                 android:text="게시판 성격에 부적절함"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -10,8 +10,10 @@ import com.example.albazip.src.community.common.adapter.BoardImgData
 import com.example.albazip.src.community.common.network.GetReadNoticeFragmentView
 import com.example.albazip.src.community.common.network.GetReadNoticeService
 import com.example.albazip.src.community.common.network.ReadNoticeResponse
+import com.example.albazip.src.community.worker.custom.NoticeReportBottomSheetDialog
 import com.example.albazip.src.community.worker.network.PutConfirmNoticeFragmentView
 import com.example.albazip.src.community.worker.network.PutConfirmNoticeService
+import com.example.albazip.src.mypage.custom.LogoutBottomSheetDialog
 
 // 공지글
 class NoticeWContentActivity:
@@ -25,6 +27,16 @@ class NoticeWContentActivity:
 
         GetReadNoticeService(this).tryGetNoticeRead(intent.getIntExtra("noticeId",0))
         showLoadingDialog(this)
+
+        // 뒤로가기 버튼
+        binding.ibtnBack.setOnClickListener {
+            finish()
+        }
+
+        // 메뉴선택 (신고하기)
+        binding.ivMenu.setOnClickListener {
+            NoticeReportBottomSheetDialog(intent.getIntExtra("noticeId",0)).show(supportFragmentManager, "NoticeWAlert")
+        }
     }
 
     override fun onGetReadNoticeSuccess(response: ReadNoticeResponse) {
