@@ -43,9 +43,13 @@ class WHomeFragment :
         CheckRightTokenService(this).tryGetCheckToken()
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 전체보기 (커뮤니티 화면으로 이동)
+        binding.tvShowCommunity.setOnClickListener {
+
+        }
 
         // 근무자 홈 전체조회 통신
         GetAllWHomeInfoService(this).tryGetAllWHomeInfo()

@@ -20,6 +20,7 @@ class AddTogetherWorkListActivity:BaseActivity<ActivityAddTogehterWorkListBindin
 
     private val toDoList = ArrayList<TodoData>()
     private lateinit var todoAdapter: ToDoListAdapter
+    var stopFlags = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +42,13 @@ class AddTogetherWorkListActivity:BaseActivity<ActivityAddTogehterWorkListBindin
 
             toDoList.add(TodoData("",""))
             todoAdapter.notifyDataSetChanged()
-            setBtnIsActive()
         }
 
         // 완료 버튼 -> 근무자 추가 POST
         // BUT 타이틀 없으면 등록 x
         binding.tvNext.setOnClickListener {
+
+            stopFlags = 0
 
             val taskList = ArrayList<PostCoTask>()
             todoAdapter.notifyDataSetChanged()
@@ -64,28 +66,48 @@ class AddTogetherWorkListActivity:BaseActivity<ActivityAddTogehterWorkListBindin
 
             // recyclerview 데이터가 하나라도 존재할 때
             // title 값 체크하고 서버통신
-            for(i in 0 until todoAdapter.itemCount) {
+            /*for(i in 0 until todoAdapter.itemCount) {
                 if (todoAdapter.itemList[i].titleTxt.isEmpty()) { // '제목' 부분이 비어있다면
-                    showCustomToast("작성이 미완료된 업무가 있습니다!")
+                    //binding.tvNext.isEnabled = false
+                    //binding.tvNext.setTextColor(Color.parseColor("#adadad"))
+                    //showCustomToast("작성이 미완료된 업무가 있습니다!")
+                    showCustomToast("추가된 업무가 없습니다!")
                     break
-                } else {
-                    if (binding.rvToDoList.isNotEmpty()) {
-                        val postRequest = PostCoWorkRequest(
-                            coTaskList = taskList
-                        )
-                        showLoadingDialog(this)
-                        PostTogetherWorkService(this).tryPostCoWorkInfo(postRequest)
-                    } else { // 비어있을 때
-                        showCustomToast("추가된 업무가 없습니다!")
-                        setBtnIsActive()
-                    }
+                }
+            }*/
+
+            for (i in 0 until todoAdapter.itemCount){
+                // 타이틀 o 하지만 내용 x
+                if(todoAdapter.itemList[i].titleTxt.isEmpty() && todoAdapter.itemList[i].contextTxt.isNotEmpty()){
+                    showCustomToast("작성이 미완료된 업무가 있습니다!")
+                    stopFlags = 1 // 멈춰!
+                }
+
+                // 타이틀 내용 몽땅 x
+                if(todoAdapter.itemList[i].titleTxt.isEmpty() && todoAdapter.itemList[i].contextTxt.isEmpty()){
+                    showCustomToast("작성이 미완료된 업무가 있습니다!")
+                    stopFlags = 1
                 }
             }
 
-            // 추가하고 삭제햇을 때 전부 비게 될 때
-            if(todoAdapter.itemList.isEmpty()){
-                showCustomToast("추가된 업무가 없습니다!")
-                setBtnIsActive()
+            if(stopFlags != 1) {
+                // 생성된 업무가 있을 때
+                if (binding.rvToDoList.isNotEmpty()) {
+                    val postRequest = PostCoWorkRequest(
+                        coTaskList = taskList
+                    )
+                    showLoadingDialog(this) // 추가하기
+                    PostTogetherWorkService(this).tryPostCoWorkInfo(postRequest)
+                } else { // 비어있을 때
+                    showCustomToast("추가된 업무가 없습니다!")
+                    //setBtnIsActive()
+                }
+
+                // 추가하고 삭제햇을 때 전부 비게 될 때
+                if (todoAdapter.itemList.isEmpty()) {
+                    showCustomToast("추가된 업무가 없습니다!")
+                    //setBtnIsActive()
+                }
             }
         }
     }
@@ -104,7 +126,6 @@ class AddTogetherWorkListActivity:BaseActivity<ActivityAddTogehterWorkListBindin
 
     override fun onPostWorkSuccess(response: BaseResponse) {
         dismissLoadingDialog()
-        showCustomToast("업무 추가 성공")
         val nextIntent = Intent(this,ManagerMainActivity::class.java)
         startActivity(nextIntent)
         finishAffinity()

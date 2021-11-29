@@ -64,11 +64,11 @@ class EditWorkerTwoActivity:BaseActivity<ActivityEditWorkerTwoBinding>(ActivityE
             // recyclerview 데이터가 하나라도 존재할 때
             if(binding.rvToDoList.isNotEmpty()){
                 // title 값 체크하고 서버통신
-                //for(i in 0 until todoAdapter.itemCount) {
-                //if (todoAdapter.itemList[i].titleTxt.isEmpty()) { // '제목'부분이 비어있다면
-                //    showCustomToast("작성이 미완료된 업무가 있습니다!")
-                //    break
-                //}else{
+                for(i in 0 until todoAdapter.itemCount) {
+                if (todoAdapter.itemList[i].titleTxt.isEmpty()) { // '제목'부분이 비어있다면
+                    showCustomToast("작성이 미완료된 업무가 있습니다!")
+                    break
+                }  else{
 
                 val postRequest = PostEditWorkerRequest(
                     rank = workerDataList[0].toString(),
@@ -82,11 +82,11 @@ class EditWorkerTwoActivity:BaseActivity<ActivityEditWorkerTwoBinding>(ActivityE
                     taskList = taskList
                 )
 
-                showLoadingDialog(this)
+                    PostPositionInfoService(this).tryPostPositionInfo(intentPositionId,postRequest)
+                    showLoadingDialog(this)
 
-                PostPositionInfoService(this).tryPostPositionInfo(intentPositionId,postRequest)
-                // }
-                //}
+                 }
+                }
             }else {
                 //val workerDataList :ArrayList<Any> = arrayListOf(rank,title,startTime,endTime,workDays,breakTime,salary,salaryType)
                 if (taskList.isEmpty()) {
@@ -99,12 +99,11 @@ class EditWorkerTwoActivity:BaseActivity<ActivityEditWorkerTwoBinding>(ActivityE
                         breakTime = workerDataList[5].toString(),
                         salary = workerDataList[6].toString().replace(",",""),
                         salaryType = getSalaryType,
-                        taskList = null
+                        taskList = taskList
                     )
 
-                    showLoadingDialog(this)
-
                     PostPositionInfoService(this).tryPostPositionInfo(intentPositionId,postRequest)
+                    showLoadingDialog(this)
 
                 }
             }

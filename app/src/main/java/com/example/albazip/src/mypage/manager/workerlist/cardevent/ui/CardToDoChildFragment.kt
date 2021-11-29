@@ -49,6 +49,8 @@ class CardToDoChildFragment(positionTaskList:ArrayList<PositionTaskList>,var pos
     private fun checkBoardEmpty() {
         if (getPositionTaskList.size == 0) {
             binding.clNoWroteList.visibility = View.VISIBLE
+        }else{
+            binding.clNoWroteList.visibility = View.GONE
         }
     }
 
@@ -73,6 +75,13 @@ class CardToDoChildFragment(positionTaskList:ArrayList<PositionTaskList>,var pos
                 binding.rvToDoList.adapter = unDoneListAdapter
             }
         }
+
+        if (unDoneList.size == 0) {
+            binding.clNoWroteList.visibility = View.VISIBLE
+        }else{
+            binding.clNoWroteList.visibility = View.GONE
+        }
+
     }
 
     override fun onGetWorkListFailure(message: String) {

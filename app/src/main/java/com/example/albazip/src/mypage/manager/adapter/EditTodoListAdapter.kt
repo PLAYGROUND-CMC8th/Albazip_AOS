@@ -22,7 +22,6 @@ class EditTodoListAdapter(val itemList: ArrayList<EditTodoData>, val context: Co
     // 아이템 추가
     fun addItem(todoData: EditTodoData) {
         itemList.add(itemCount, todoData)
-        Log.d("helpme", itemCount.toString())
         this.notifyItemInserted(itemCount)
         this.notifyDataSetChanged()
     }
@@ -49,6 +48,7 @@ class EditTodoListAdapter(val itemList: ArrayList<EditTodoData>, val context: Co
 
             // 텍스트 내용 초기화
             itemList.removeAt(position)
+            holder.binding.llRoot.removeViewAt(position)
             notifyItemRemoved(position)
             notifyDataSetChanged()
         }

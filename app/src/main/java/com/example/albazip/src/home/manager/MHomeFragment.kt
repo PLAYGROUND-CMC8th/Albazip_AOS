@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.example.albazip.R
 import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentHomeBinding
+import com.example.albazip.src.community.manager.MCommunityFragment
 import com.example.albazip.src.home.common.data.HomeCommuData
 import com.example.albazip.src.home.manager.adapter.HomeVPAdapter
 import com.example.albazip.src.home.manager.closed.HomeClosedChildFragment
@@ -41,6 +43,11 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 전체보기 (커뮤니티 화면으로 이동)
+        binding.tvShowCommunity.setOnClickListener {
+
+        }
     }
 
     override fun onResume() {
