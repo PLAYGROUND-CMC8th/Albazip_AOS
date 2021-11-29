@@ -70,10 +70,8 @@ class NoticeListAdapter(context: Context, val itemList:ArrayList<NoticeData>): R
     // 핀 등록 성공
     override fun onNoticePinPutSuccess(response: BaseResponse,checkBox:CheckBox) {
         if(response.code == 200) {
-            Log.d("pinTest",response.message.toString())
         }else if(response.code == 202){
             Toast.makeText(myContext,"핀 고정은 최대 5개 입니다.",Toast.LENGTH_SHORT).show()
-            Log.d("pinTest",response.message.toString())
             checkBox.isChecked = false
             notifyDataSetChanged()
         }
