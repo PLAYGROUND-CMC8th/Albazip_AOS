@@ -10,6 +10,8 @@ import com.example.albazip.src.home.common.ui.HomeAlarmActivity
 import com.example.albazip.src.home.common.ui.HomeShopListActivity
 import com.example.albazip.src.home.manager.data.AllHomeMResult
 import com.example.albazip.src.home.manager.opened.ui.QRShowingActivity
+import com.example.albazip.src.home.manager.worklist.ui.HomeMTodayToDoListActivity
+import com.google.android.material.progressindicator.BaseProgressIndicator
 
 class HomeClosedChildFragment(data: AllHomeMResult): BaseFragment<ChildFragmentHomeClosedBinding>(
     ChildFragmentHomeClosedBinding::bind,
@@ -41,6 +43,13 @@ class HomeClosedChildFragment(data: AllHomeMResult): BaseFragment<ChildFragmentH
         // 매장 선택화면으로 이동
         binding.rlChooseShop.setOnClickListener {
             val nextIntent = Intent(requireContext(), HomeShopListActivity::class.java)
+            startActivity(nextIntent)
+        }
+
+        // 완료한 업무 목록
+        binding.btnDoneWork.setOnClickListener {
+            val nextIntent = Intent(requireContext(), HomeMTodayToDoListActivity::class.java)
+            nextIntent.putExtra("tabFlags", 0)
             startActivity(nextIntent)
         }
 

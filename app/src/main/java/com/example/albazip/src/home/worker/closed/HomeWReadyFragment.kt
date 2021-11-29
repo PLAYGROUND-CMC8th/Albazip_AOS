@@ -40,7 +40,7 @@ class HomeWReadyFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWR
             startActivity(nextIntent)
         }
 
-        // qr 스캔 화면으로 이동(1) - 이이콘
+        // qr 스캔 화면으로 이동(1) - 아이콘
         binding.ibtnQrScan.setOnClickListener {
             callQRActivity()
         }

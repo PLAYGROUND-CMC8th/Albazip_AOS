@@ -14,6 +14,7 @@ import com.example.albazip.src.home.worker.data.AllHomeWResult
 import com.example.albazip.src.home.worker.network.PutQRScanFragmentView
 import com.example.albazip.src.home.worker.network.PutQRScanService
 import com.example.albazip.src.home.worker.opened.QRScanningActivity
+import com.example.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity
 import com.example.albazip.util.GetCurrentTime
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
@@ -32,6 +33,13 @@ class HomeWDoneFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWDo
         binding.tvShopName.text =  resultData.shopInfo.name
         // 요일
         binding.tvCurrentDay.text = resultData.todayInfo.month.toString() + "/" + resultData.todayInfo.date.toString() +" "+ resultData.todayInfo.day+"요일" // 오늘 날짜
+
+        // 완료한 업무 조회
+        binding.btnDoneWork.setOnClickListener {
+            val nextIntent = Intent(requireContext(), HomeWTodayToDoListActivity::class.java)
+            nextIntent.putExtra("tabFlags", 0)
+            startActivity(nextIntent)
+        }
 
         // 알림 화면으로 이동
         binding.ibtnBell.setOnClickListener {
