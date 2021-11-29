@@ -31,6 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@null"
+            android:buttonTint="@null"
             android:button="@drawable/custom_checkbox_wrote_list"
             android:layout_marginTop="14dp"
             android:layout_width="17dp"

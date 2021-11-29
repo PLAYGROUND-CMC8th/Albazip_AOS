@@ -126,7 +126,7 @@
         app:fab_colorNormal="#ffd85c"
         app:fab_colorPressed="@color/mainYellow"
         android:layout_gravity="end|bottom"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

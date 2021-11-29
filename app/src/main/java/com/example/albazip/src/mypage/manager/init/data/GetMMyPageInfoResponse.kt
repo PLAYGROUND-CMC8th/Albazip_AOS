@@ -1,6 +1,7 @@
 package com.example.albazip.src.mypage.manager.init.data
 
 import com.example.albazip.config.BaseResponse
+import com.example.albazip.src.community.manager.network.CommuNoticeInfo
 import com.google.gson.annotations.SerializedName
 
 
@@ -37,7 +38,7 @@ data class WorkerList(
 
 /////////////////////////// 공지사항 및 게시판 ///////////////////////////////////
 data class BoardInfo(
-    @SerializedName("noticeInfo") val noticeInfo : ArrayList<NoticeInfo>,
+    @SerializedName("noticeInfo") val noticeInfo : ArrayList<CommuNoticeInfo>,
     @SerializedName("postInfo") val postInfo : ArrayList<PostInfo>,
 )
 

@@ -1,14 +1,23 @@
 package com.example.albazip.src.mypage.manager.adapter
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.albazip.config.BaseResponse
 import com.example.albazip.databinding.ItemRvNoticeListBinding
+import com.example.albazip.src.community.manager.network.PutNoticePinListFragmentView
+import com.example.albazip.src.community.manager.network.PutNoticePinService
 import com.example.albazip.src.mypage.manager.board.data.local.NoticeData
 import okhttp3.internal.notifyAll
 
-class NoticeListAdapter(val itemList:ArrayList<NoticeData>): RecyclerView.Adapter<NoticeListAdapter.NoticeHolder>() {
+class NoticeListAdapter(context: Context, val itemList:ArrayList<NoticeData>): RecyclerView.Adapter<NoticeListAdapter.NoticeHolder>(),PutNoticePinListFragmentView {
 
+    private var myContext = context
     private lateinit var binding: ItemRvNoticeListBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoticeListAdapter.NoticeHolder {
@@ -18,7 +27,30 @@ class NoticeListAdapter(val itemList:ArrayList<NoticeData>): RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: NoticeHolder, position: Int) {
+
+
         holder.setNoticeList(itemList[position])
+
+        //holder.binding.cbPin.setOnCheckedChangeListener { buttonView, isChecked ->
+        //    PutNoticePinService(this).tryPutNoticePin(itemList[holder.adapterPosition].id)
+        //}
+
+        holder.binding.cbPin.setOnCheckedChangeListener { buttonView, isChecked ->
+            PutNoticePinService(this).tryPutNoticePin(itemList[holder.adapterPosition].id,holder.binding.cbPin)
+        }
+
+        holder.setIsRecyclable(false)
+
+        // 체크 상태를 저장 (여기서 아마 서버 통신)
+       /* holder.binding.cbPin.setOnClickListener {
+            if(itemList[holder.adapterPosition].pinState == 0){
+                PutNoticePinService(this).tryPutNoticePin(itemList[holder.adapterPosition].id,holder.binding.cbPin)
+            }else{
+                PutNoticePinService(this).tryPutNoticePin(itemList[holder.adapterPosition].id,holder.binding.cbPin)
+            }
+            //noticeData.pinState = binding.cbPin.isChecked
+            notifyItemChanged(holder.adapterPosition)
+        }*/
     }
 
     override fun getItemCount(): Int = itemList.size
@@ -31,17 +63,24 @@ class NoticeListAdapter(val itemList:ArrayList<NoticeData>): RecyclerView.Adapte
             binding.itemTvDate.text = noticeData.dateTxt // 날짜
 
             binding.cbPin.isChecked = noticeData.pinState != 0 // 핀 고정 여부
-
-            // 체크 상태를 저장 (여기서 아마 서버 통신)
-            binding.cbPin.setOnClickListener {
-                if(noticeData.pinState == 0){
-                    noticeData.pinState = 1
-                }else{
-                    noticeData.pinState = 0
-                }
-                        //noticeData.pinState = binding.cbPin.isChecked
-                notifyItemChanged(adapterPosition)
-            }
         }
+    }
+
+
+    // 핀 등록 성공
+    override fun onNoticePinPutSuccess(response: BaseResponse,checkBox:CheckBox) {
+        if(response.code == 200) {
+            Log.d("pinTest",response.message.toString())
+        }else if(response.code == 202){
+            Toast.makeText(myContext,"핀 고정은 최대 5개 입니다.",Toast.LENGTH_SHORT).show()
+            Log.d("pinTest",response.message.toString())
+            checkBox.isChecked = false
+            notifyDataSetChanged()
+        }
+    }
+
+    // 핀 등록 실패
+    override fun onNoticePinPutFailure(message: String) {
+        Toast.makeText(myContext,message,Toast.LENGTH_SHORT).show()
     }
 }

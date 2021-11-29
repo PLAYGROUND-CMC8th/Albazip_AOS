@@ -115,7 +115,7 @@ class WroteChildFragment(
         val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.rvWritingList.layoutManager = linearLayoutManager
-        noticeListAdapter = NoticeListAdapter(noticeList)
+        noticeListAdapter = NoticeListAdapter(requireContext(),noticeList)
         binding.rvWritingList.adapter = noticeListAdapter
     }
 

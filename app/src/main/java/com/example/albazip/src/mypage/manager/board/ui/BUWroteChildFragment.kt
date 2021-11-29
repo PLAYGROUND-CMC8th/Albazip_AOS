@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.ChildFragmentWroteBeforeUpdateBinding
+import com.example.albazip.src.community.manager.network.CommuNoticeInfo
 import com.example.albazip.src.mypage.manager.adapter.NoticeListAdapter
 import com.example.albazip.src.mypage.manager.board.data.local.NoticeData
 import com.example.albazip.src.mypage.manager.board.data.remote.GetBoardResponse
@@ -17,7 +18,7 @@ import com.example.albazip.src.mypage.manager.init.data.NoticeInfo
 import com.example.albazip.src.mypage.manager.init.data.PostInfo
 
 class BUWroteChildFragment(
-    val serverNoticeList: ArrayList<NoticeInfo>,
+    val serverNoticeList: ArrayList<CommuNoticeInfo>,
     val serverPostList: ArrayList<PostInfo>
 ) : BaseFragment<ChildFragmentWroteBeforeUpdateBinding>(
     ChildFragmentWroteBeforeUpdateBinding::bind,
@@ -42,7 +43,7 @@ class BUWroteChildFragment(
         for (i in 0 until getNoticeList.size) {
             noticeList.add(
                 NoticeData(
-                    0,getNoticeList[i].title,
+                    getNoticeList[i].id,getNoticeList[i].title,
                     getNoticeList[i].registerDate.substring(0, 10).replace("-", ".") + ".",
                     getNoticeList[i].pin
                 )
@@ -66,7 +67,7 @@ class BUWroteChildFragment(
         val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.rvWritingList.layoutManager = linearLayoutManager
-        noticeListAdapter = NoticeListAdapter(noticeList)
+        noticeListAdapter = NoticeListAdapter(requireContext(),noticeList)
         binding.rvWritingList.adapter = noticeListAdapter
     }
 
@@ -89,7 +90,7 @@ class BUWroteChildFragment(
                 for (i in 0 until response.data.noticeInfo.size) {
                     noticeList.add(
                         NoticeData(
-                            0,response.data.noticeInfo[i].title,
+                            response.data.noticeInfo[i].id,response.data.noticeInfo[i].title,
                             response.data.noticeInfo[i].registerDate.substring(0, 10)
                                 .replace("-", ".") + ".",
                             response.data.noticeInfo[i].pin

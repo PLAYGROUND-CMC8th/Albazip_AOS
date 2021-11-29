@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentMMypageBinding
+import com.example.albazip.src.community.manager.network.CommuNoticeInfo
 import com.example.albazip.src.mypage.common.setting.MMyPageSettingActivity
 import com.example.albazip.src.mypage.manager.board.ui.BUWroteChildFragment
 import com.example.albazip.src.mypage.manager.custom.MSelectProfileBottomSheetDialog
@@ -45,7 +46,7 @@ class MMyPageFragment :
 
     // fragment에 전달할 배열
     var workList = ArrayList<WorkerList>() // 근무자 리스트
-    var noticeList = ArrayList<NoticeInfo>() // 공지 리스트
+    var noticeList = ArrayList<CommuNoticeInfo>() // 공지 리스트
     var postList = ArrayList<PostInfo>() // 게시글 리스트
     
     override fun onAttach(context: Context) {

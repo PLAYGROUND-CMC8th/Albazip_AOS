@@ -41,7 +41,7 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
             noticeArray.add(NoticeData(response.data[i].id ,response.data[i].title,response.data[i].registerDate.substring(0, 10).replace("-", ".") + ".",response.data[i].pin))
         }
 
-        noticeAdapter = NoticeListAdapter(noticeArray)
+        noticeAdapter = NoticeListAdapter(requireContext(),noticeArray)
 
         binding.rvCommunityMainNotice.adapter = noticeAdapter
 
