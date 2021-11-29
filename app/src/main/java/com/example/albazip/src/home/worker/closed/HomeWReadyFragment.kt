@@ -14,6 +14,7 @@ import com.example.albazip.src.home.worker.network.PutQRScanFragmentView
 import com.example.albazip.src.home.worker.network.PutQRScanService
 import com.example.albazip.src.home.worker.opened.HomeWOpenedFragment
 import com.example.albazip.src.home.worker.opened.QRScanningActivity
+import com.example.albazip.src.main.WorkerMainActivity
 import com.example.albazip.util.GetCurrentTime
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
@@ -92,6 +93,11 @@ class HomeWReadyFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWR
         }else{
             showCustomToast(GetCurrentTime().getTime+"에 퇴근이 기록되었습니다.")
         }
+
+        // 다시 홈화면으로 이동
+        val nextIntent = Intent(requireContext(), WorkerMainActivity::class.java)
+        startActivity(nextIntent)
+        activity?.finishAffinity()
     }
     // QR 스캔 실패
     override fun onPutQRFailure(message: String) {

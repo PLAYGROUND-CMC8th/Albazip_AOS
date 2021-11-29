@@ -15,6 +15,9 @@ import com.example.albazip.databinding.ChildFragmentHomeWOpenedBinding
 import com.example.albazip.src.home.common.ui.HomeAlarmActivity
 import com.example.albazip.src.home.common.ui.HomeShopListActivity
 import com.example.albazip.src.home.worker.data.AllHomeWResult
+import com.example.albazip.src.home.worker.data.GetAllWHomeResponse
+import com.example.albazip.src.home.worker.network.GetAllWFragmentView
+import com.example.albazip.src.home.worker.network.GetAllWHomeInfoService
 import com.example.albazip.src.home.worker.network.PutQRScanFragmentView
 import com.example.albazip.src.home.worker.network.PutQRScanService
 import com.example.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity
@@ -31,17 +34,20 @@ import kotlin.concurrent.timer
 class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHomeWOpenedBinding>(
     ChildFragmentHomeWOpenedBinding::bind,
     R.layout.child_fragment_home_w_opened
-),PutQRScanFragmentView {
+),PutQRScanFragmentView, GetAllWFragmentView {
 
     var resultData = data
     // 시간 차 계산을 위한 데이터 포맷 선언
     val f: SimpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.KOREA)
 
-    val mTimer = timer(initialDelay = 1000, period = 1000) { // 1초후에 1초단위로 진행
+    var threadTime = "0000"
+
+    val mTimer = timer(initialDelay = 10000, period = 10000) { // 10초후에 10초단위로 진행
         (requireContext() as Activity).runOnUiThread {
 
+            GetAllWHomeInfoService(this@HomeWOpenedFragment).tryGetAllWHomeInfo()
             // 남은시간 (from 서버)
-            var restTime = resultData.scheduleInfo.remainTime
+            /*var restTime = resultData.scheduleInfo.remainTime
 
             // 퇴근시간 (from 서버)
             var offTime = resultData.scheduleInfo.endTime?.substring(0,2) + ":" + resultData.scheduleInfo.endTime?.substring(2,4)
@@ -66,15 +72,16 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
             var castGetDiffTime = f.parse(getDiffTime+":00")
 
             // UI에 출력할 시간차
-            var showingTime = castGetDiffTime.toString().substring(11,16)
+            var showingTime = castGetDiffTime.toString().substring(11,16)*/
 
             // 퇴근시간 초과시
-            if(restTime=="0000"){
+            if(threadTime.contains("+")){
                 binding.tvGoOff.setTextColor(Color.parseColor("#f90100")) // 색상변경 - 빨강색
                 binding.rlAlarm.visibility = View.VISIBLE // 알림 띄우기
-                binding.tvGoOff.text = "+" + showingTime
+                binding.tvGoOff.text = threadTime.substring(0,3)+":"+threadTime.substring(3,5)
             }else{ // 기본상태
-                binding.tvGoOff.text = showingTime
+                binding.tvGoOff.text = threadTime.substring(0,2)+":"+threadTime.substring(2,4)
+                binding.tvGoOff.setTextColor(Color.parseColor("#343434"))
             }
         }
     }
@@ -212,6 +219,15 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
     // QR 스캔 실패
     override fun onPutQRFailure(message: String) {
         dismissLoadingDialog()
+    }
+
+    // 남은 시간만 살짝 빼오기 (thread 를 위함)
+    override fun onGetAllWHomeSuccess(response: GetAllWHomeResponse) {
+        threadTime = response.data.scheduleInfo.remainTime
+    }
+
+    override fun onGetAllWHomeFailure(message: String) {
+
     }
 
 }
