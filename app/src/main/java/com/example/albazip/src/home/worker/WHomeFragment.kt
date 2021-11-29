@@ -1,5 +1,6 @@
 package com.example.albazip.src.home.worker
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -22,6 +23,8 @@ import com.example.albazip.src.home.worker.data.GetAllWHomeResponse
 import com.example.albazip.src.home.worker.network.GetAllWFragmentView
 import com.example.albazip.src.home.worker.network.GetAllWHomeInfoService
 import com.example.albazip.src.home.worker.opened.HomeWOpenedFragment
+import com.example.albazip.src.main.ManagerMainActivity
+import com.example.albazip.src.main.WorkerMainActivity
 import com.example.albazip.src.splash.CheckRightTokenService
 import com.example.albazip.src.splash.GetCheckRightTokenFragmentView
 import com.example.albazip.src.splash.GetRightTokenResponse
@@ -48,7 +51,10 @@ class WHomeFragment :
 
         // 전체보기 (커뮤니티 화면으로 이동)
         binding.tvShowCommunity.setOnClickListener {
-
+            val homeIntent = Intent(requireContext(), WorkerMainActivity::class.java)
+            homeIntent.putExtra("btmTabFlags",1)
+            startActivity(homeIntent)
+            (requireContext() as Activity).finishAffinity()
         }
 
         // 근무자 홈 전체조회 통신

@@ -22,8 +22,17 @@ class WorkerMainActivity :
 
         backPressCloseHandler = BackPressCloseHandler(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.worker_main_frm, WHomeFragment())
-            .commitAllowingStateLoss()
+        if(intent.hasExtra("btmTabFlags")) {
+            var getFlags = intent.getIntExtra("btmTabFlags", 0)
+            if (getFlags == 1){
+                binding.workerMainBtmNav.menu.getItem(1).isChecked = true
+                supportFragmentManager.beginTransaction().replace(R.id.worker_main_frm, WCommunityFragment())
+                    .commitAllowingStateLoss()
+            }
+        }else{
+            supportFragmentManager.beginTransaction().replace(R.id.worker_main_frm, WHomeFragment())
+                .commitAllowingStateLoss()
+        }
 
 
         binding.workerMainBtmNav.run {

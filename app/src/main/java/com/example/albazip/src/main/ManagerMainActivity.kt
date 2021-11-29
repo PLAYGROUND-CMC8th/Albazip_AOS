@@ -1,6 +1,7 @@
 package com.example.albazip.src.main
 
 import android.os.Bundle
+import androidx.core.view.get
 import com.example.albazip.R
 import com.example.albazip.config.ApplicationClass.Companion.prefs
 import com.example.albazip.config.BaseActivity
@@ -22,9 +23,17 @@ class ManagerMainActivity :
 
         backPressCloseHandler = BackPressCloseHandler(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MHomeFragment())
-            .commitAllowingStateLoss()
-
+        if(intent.hasExtra("btmTabFlags")) {
+            var getFlags = intent.getIntExtra("btmTabFlags", 0)
+            if (getFlags == 1){
+                binding.managerMainBtmNav.menu.getItem(1).isChecked = true
+                supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MCommunityFragment())
+                    .commitAllowingStateLoss()
+            }
+        }else{
+            supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MHomeFragment())
+                .commitAllowingStateLoss()
+        }
 
         binding.managerMainBtmNav.run {
             setOnItemSelectedListener {

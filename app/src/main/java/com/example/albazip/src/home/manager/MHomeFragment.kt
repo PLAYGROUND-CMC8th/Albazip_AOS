@@ -1,5 +1,6 @@
 package com.example.albazip.src.home.manager
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -19,6 +20,7 @@ import com.example.albazip.src.home.manager.data.GetAllMHomeResponse
 import com.example.albazip.src.home.manager.opened.HomeOpenedChildFragment
 import com.example.albazip.src.home.manager.opened.network.GetAllMFragmentView
 import com.example.albazip.src.home.manager.opened.network.GetMAllHomeInfoService
+import com.example.albazip.src.main.ManagerMainActivity
 import com.example.albazip.src.splash.CheckRightTokenService
 import com.example.albazip.src.splash.GetCheckRightTokenFragmentView
 import com.example.albazip.src.splash.GetRightTokenResponse
@@ -46,7 +48,10 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
         // 전체보기 (커뮤니티 화면으로 이동)
         binding.tvShowCommunity.setOnClickListener {
-
+            val homeIntent = Intent(requireContext(),ManagerMainActivity::class.java)
+            homeIntent.putExtra("btmTabFlags",1)
+            startActivity(homeIntent)
+            (requireContext() as Activity).finishAffinity()
         }
     }
 
