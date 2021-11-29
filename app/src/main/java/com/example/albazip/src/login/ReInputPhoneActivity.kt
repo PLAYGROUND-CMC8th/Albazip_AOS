@@ -418,7 +418,7 @@ class ReInputPhoneActivity : BaseActivity<ActivityReInputPhoneBinding>(
                 } else {
                     // 계정 생성 실패
                     // Sign in failed, display a message and update the UI
-                    showCustomToast("인증 실패")
+                    // showCustomToast("인증 실패")
 
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
