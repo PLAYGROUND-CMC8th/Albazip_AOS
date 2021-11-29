@@ -10,8 +10,10 @@ import com.example.albazip.src.community.common.adapter.BoardImgData
 import com.example.albazip.src.community.common.network.GetReadNoticeFragmentView
 import com.example.albazip.src.community.common.network.GetReadNoticeService
 import com.example.albazip.src.community.common.network.ReadNoticeResponse
+import com.example.albazip.src.community.manager.custom.DelNoticeBottomSheetDialog
+import com.example.albazip.src.community.manager.custom.ManagerNoticeMenuBottomSheetDialog
 
-// 공지글
+// 공지글(관리자)
 class NoticeContentActivity:BaseActivity<ActivityNoticeContentBinding>(ActivityNoticeContentBinding::inflate),GetReadNoticeFragmentView {
 
     private lateinit var boardIVAdapter: BoardIVAdapter
@@ -21,6 +23,11 @@ class NoticeContentActivity:BaseActivity<ActivityNoticeContentBinding>(ActivityN
 
         GetReadNoticeService(this).tryGetNoticeRead(intent.getIntExtra("noticeId",0))
         showLoadingDialog(this)
+
+        // 관리자 메뉴 조회
+        binding.ivMenu.setOnClickListener {
+            ManagerNoticeMenuBottomSheetDialog(intent.getIntExtra("noticeId",0)).show(supportFragmentManager!!, "DelNoticeAlert")
+        }
     }
 
     override fun onGetReadNoticeSuccess(response: ReadNoticeResponse) {
