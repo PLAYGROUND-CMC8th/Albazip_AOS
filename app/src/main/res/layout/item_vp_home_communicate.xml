@@ -8,6 +8,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_new"
+        android:visibility="gone"
         android:layout_width="35dp"
         android:layout_height="17dp"
         android:background="@drawable/rectangle_fill_light_red_radius_4"

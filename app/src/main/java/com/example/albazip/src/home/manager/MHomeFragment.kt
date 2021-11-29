@@ -115,7 +115,7 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         //noticeList.add(HomeCommuData(0,"코로나 관련 매장 관리 공지"))
 
         // indicator 연결
-        homeVPAdapter = HomeVPAdapter(requireContext(),noticeList)
+        homeVPAdapter = HomeVPAdapter(requireContext(),noticeList,0)
 
         binding.vpHomeCommunicate.adapter = homeVPAdapter
 

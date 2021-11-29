@@ -95,7 +95,7 @@ class WHomeFragment :
         }
 
         // indicator 연결
-        homeVPAdapter = HomeVPAdapter(requireContext(),noticeList)
+        homeVPAdapter = HomeVPAdapter(requireContext(),noticeList,1)
 
         binding.vpHomeCommunicate.adapter = homeVPAdapter
 
