@@ -9,12 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.albazip.config.BaseResponse
 import com.example.albazip.databinding.ItemRvNoticeListBinding
 import com.example.albazip.src.community.common.ui.NoticeContentActivity
 import com.example.albazip.src.community.manager.network.PutNoticePinListFragmentView
 import com.example.albazip.src.community.manager.network.PutNoticePinService
+import com.example.albazip.src.community.worker.WCommunityFragment
 import com.example.albazip.src.mypage.manager.board.data.local.NoticeData
 import okhttp3.internal.notifyAll
 
@@ -40,7 +42,7 @@ class NoticeListAdapter(context: Context, val itemList:ArrayList<NoticeData>): R
 
         // 공지사항 핀 고정 확인
         holder.binding.cbPin.setOnCheckedChangeListener { buttonView, isChecked ->
-            PutNoticePinService(this).tryPutNoticePin(itemList[holder.adapterPosition].id,holder.binding.cbPin)
+            PutNoticePinService(this).tryPutNoticePin(itemList[holder.adapterPosition].id)
         }
 
         // 공지사항 읽기 화면으로 이동
@@ -79,12 +81,12 @@ class NoticeListAdapter(context: Context, val itemList:ArrayList<NoticeData>): R
 
 
     // 핀 등록 성공
-    override fun onNoticePinPutSuccess(response: BaseResponse,checkBox:CheckBox) {
+    override fun onNoticePinPutSuccess(response: BaseResponse) {
         if(response.code == 200) {
         }else if(response.code == 202){
             Toast.makeText(myContext,"핀 고정은 최대 5개 입니다.",Toast.LENGTH_SHORT).show()
-            checkBox.isChecked = false
-            notifyDataSetChanged()
+            //itemList[pos].pinState = 0
+            // checkBox.isChecked = false
         }
     }
 

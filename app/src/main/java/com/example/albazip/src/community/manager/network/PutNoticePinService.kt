@@ -12,13 +12,13 @@ import retrofit2.http.Path
 
 class PutNoticePinService(val view: PutNoticePinListFragmentView) {
 
-    fun tryPutNoticePin(noticeId: Int,checkBox: CheckBox){
+    fun tryPutNoticePin(noticeId: Int){
         val putNoticePinRetrofitInterface = ApplicationClass.sRetrofit.create(PutNoticePinRetrofitInterface::class.java)
         val token = ApplicationClass.prefs.getString("X-ACCESS-TOKEN","0")
         putNoticePinRetrofitInterface.putNoticePin(token,noticeId).enqueue(object :
             Callback<BaseResponse> {
             override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
-                view.onNoticePinPutSuccess(response.body() as BaseResponse,checkBox)
+                view.onNoticePinPutSuccess(response.body() as BaseResponse)
             }
 
             override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
@@ -36,7 +36,7 @@ interface PutNoticePinRetrofitInterface {
 
 interface PutNoticePinListFragmentView {
 
-    fun onNoticePinPutSuccess(response: BaseResponse,checkBox: CheckBox)
+    fun onNoticePinPutSuccess(response: BaseResponse)
 
     fun onNoticePinPutFailure(message: String)
 }
