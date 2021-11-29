@@ -6,6 +6,7 @@ import com.example.albazip.config.BaseActivity
 import com.example.albazip.databinding.ActivitySettingMMyPageBinding
 import com.example.albazip.src.mypage.common.setting.editinfo.ManageMyInfoActivity
 import com.example.albazip.src.mypage.custom.LogoutBottomSheetDialog
+import com.example.albazip.src.withdraw.ui.DefaultWithDrawActivity
 
 class MMyPageSettingActivity:BaseActivity<ActivitySettingMMyPageBinding>(ActivitySettingMMyPageBinding::inflate) {
 
@@ -54,7 +55,10 @@ class MMyPageSettingActivity:BaseActivity<ActivitySettingMMyPageBinding>(Activit
 
         // 회원탈퇴
         binding.rlWithdraw.setOnClickListener {
-            val nextIntent = Intent(this, WithDrawMemberActivity::class.java)
+            //val nextIntent = Intent(this, WithDrawMemberActivity::class.java)
+            //startActivity(nextIntent)
+
+            val nextIntent = Intent(this, DefaultWithDrawActivity::class.java)
             startActivity(nextIntent)
         }
     }
