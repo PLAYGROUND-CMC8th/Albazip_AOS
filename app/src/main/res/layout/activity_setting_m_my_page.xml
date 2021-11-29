@@ -230,7 +230,7 @@
                         android:layout_centerVertical="true"
                         android:textColor="#333333"
                         android:letterSpacing="-0.03"
-                        android:text="공지사항"/>
+                        android:text="앱 문의 • 공지사항"/>
 
                     <ImageView
                         android:layout_width="8dp"
