@@ -145,7 +145,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.example.albazip.util.StickyNScrollView
+    <com.playground.albazip.util.StickyNScrollView
         android:id="@+id/sticky_nested_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -198,7 +198,7 @@
             </androidx.viewpager2.widget.ViewPager2>
 
         </LinearLayout>
-    </com.example.albazip.util.StickyNScrollView>
+    </com.playground.albazip.util.StickyNScrollView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
