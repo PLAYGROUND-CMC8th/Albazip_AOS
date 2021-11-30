@@ -21,15 +21,18 @@
             android:id="@+id/tv_store_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_toEndOf="@id/iv_store"
             android:layout_centerVertical="true"
             android:layout_marginStart="17dp"
-            android:textColor="#343434"
+            android:layout_toStartOf="@+id/ibtn_edit"
+            android:layout_toEndOf="@id/iv_store"
+            android:ellipsize="end"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="3sp"
-            android:text="서플라이 첨단점"/>
+            android:maxLines="1"
+            android:text="서플라이 첨단점"
+            android:textColor="#343434"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/ibtn_trash"

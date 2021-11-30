@@ -39,6 +39,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_pin"
         android:text="빙수기계 작동법"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textStyle="bold"
         android:textSize="14sp"
         android:layout_marginEnd="16dp"

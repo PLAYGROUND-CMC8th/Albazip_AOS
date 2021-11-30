@@ -10,19 +10,22 @@
 
     <TextView
         android:id="@+id/item_tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:textStyle="bold"
-        android:textSize="14sp"
         android:layout_marginTop="14dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/item_tv_date"
-        android:textColor="#333333"
         android:letterSpacing="-0.02"
         android:lineSpacingExtra="-2sp"
-        tools:text="코로나 관련 매장 관리 공지"/>
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@id/item_tv_date"
+        app:layout_constraintEnd_toStartOf="@+id/cb_pin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="코로나 관련 매장 관리 공지" />
 
         <CheckBox
             android:id="@+id/cb_pin"

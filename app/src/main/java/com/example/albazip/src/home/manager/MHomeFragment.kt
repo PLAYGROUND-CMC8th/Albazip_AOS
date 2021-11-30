@@ -13,6 +13,7 @@ import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentHomeBinding
 import com.example.albazip.src.community.manager.MCommunityFragment
 import com.example.albazip.src.home.common.data.HomeCommuData
+import com.example.albazip.src.home.manager.adapter.HomeMVPAdapter
 import com.example.albazip.src.home.manager.adapter.HomeVPAdapter
 import com.example.albazip.src.home.manager.closed.HomeClosedChildFragment
 import com.example.albazip.src.home.manager.closed.HomePreParingChildFragment
@@ -35,7 +36,7 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
     //private lateinit var noticeList:ArrayList<HomeCommuData>
     //private lateinit var boardList:ArrayList<HomeCommuData>
 
-    private lateinit var homeVPAdapter: HomeVPAdapter
+    private lateinit var homeVPAdapter: HomeMVPAdapter
 
 
     override fun onAttach(context: Context) {
@@ -126,7 +127,7 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         //noticeList.add(HomeCommuData(0,"코로나 관련 매장 관리 공지"))
 
         // indicator 연결
-        homeVPAdapter = HomeVPAdapter(requireContext(),noticeList,0)
+        homeVPAdapter = HomeMVPAdapter(requireContext(),noticeList,0)
 
         binding.vpHomeCommunicate.adapter = homeVPAdapter
 

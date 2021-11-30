@@ -92,6 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="제목"
+            android:maxLines="1"
+            android:maxLength="25"
             android:textColorHint="#c9c9c9"
             android:background="@null"
             android:textStyle="bold"

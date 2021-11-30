@@ -17,6 +17,8 @@
         android:letterSpacing="-0.02"
         android:lineSpacingExtra="5sp"
         android:layout_marginTop="16dp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:text="우유배달 오면 오른쪽 냉장고에 정리"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
