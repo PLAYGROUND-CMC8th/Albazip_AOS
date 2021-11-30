@@ -23,17 +23,9 @@ class ManagerMainActivity :
 
         backPressCloseHandler = BackPressCloseHandler(this)
 
-        if(intent.hasExtra("btmTabFlags")) {
-            var getFlags = intent.getIntExtra("btmTabFlags", 0)
-            if (getFlags == 1){
-                binding.managerMainBtmNav.menu.getItem(1).isChecked = true
-                supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MCommunityFragment())
-                    .commitAllowingStateLoss()
-            }
-        }else{
-            supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MHomeFragment())
-                .commitAllowingStateLoss()
-        }
+        supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MHomeFragment())
+            .commitAllowingStateLoss()
+
 
         binding.managerMainBtmNav.run {
             setOnItemSelectedListener {

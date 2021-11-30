@@ -9,14 +9,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.size
-import com.bumptech.glide.Glide
 import com.example.albazip.R
 import com.example.albazip.config.BaseActivity
 import com.example.albazip.config.BaseResponse
@@ -24,13 +20,10 @@ import com.example.albazip.databinding.ActivityWriteNoticeBinding
 import com.example.albazip.src.community.manager.adapter.PostIVAdapter
 import com.example.albazip.src.community.manager.adapter.PostImgData
 import com.example.albazip.src.community.manager.network.PostBoardNoticeFragmentView
-import com.example.albazip.src.community.manager.network.PostBoardNoticeRequest
 import com.example.albazip.src.community.manager.network.PostBoardNoticeService
-import com.example.albazip.src.mypage.common.profile.network.GalleryImgService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.http.Multipart
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
@@ -113,17 +106,21 @@ class WriteNoticeActivity:BaseActivity<ActivityWriteNoticeBinding>(ActivityWrite
         binding.tvDone.setOnClickListener {
 
             val imageList = postImgList
-            val fileList = ArrayList<MultipartBody.Part?>()
+            val fileList = ArrayList<MultipartBody.Part>()
 
             for (i in 0 until imageList.size){
                 fileList.add(uriToFilePath(imageList[i].img_path))
             }
-            val postRequest = PostBoardNoticeRequest(
-                title = binding.etTitle.text.toString(),
-                content = binding.etContent.text.toString(),
-                image = fileList
-            )
-            PostBoardNoticeService(this).tryPutNoticeReport(postRequest)
+           /// val postRequest = PostBoardNoticeRequest(
+           //     title = binding.etTitle.text.toString(),
+           //     content = binding.etContent.text.toString(),
+           // )
+
+            var title = binding.etTitle.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
+            var content = binding.etContent.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
+            PostBoardNoticeService(this).tryPutNoticeReport(title,content,fileList)
             showLoadingDialog(this)
         }
 
@@ -163,7 +160,7 @@ class WriteNoticeActivity:BaseActivity<ActivityWriteNoticeBinding>(ActivityWrite
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.tvTextCnt.text = s?.length.toString() + "자 / 최소20자"
-                if (s?.length!! >= 20){ // 20자 이상이면
+                if (s?.length!! >= 20 && binding.etTitle.text.toString().isNotEmpty()){ // 20자 이상 + 제목이 비어있지 않으면
                     // 버튼 활성화
                     binding.tvDone.isEnabled = true
                     binding.tvDone.setTextColor(Color.parseColor("#ffc400"))
@@ -217,12 +214,12 @@ class WriteNoticeActivity:BaseActivity<ActivityWriteNoticeBinding>(ActivityWrite
         bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
         val fileBody = byteArrayOutputStream.toByteArray()
             .toRequestBody(
-                "image/jpeg".toMediaTypeOrNull(),
+                "image/*".toMediaTypeOrNull(),
                 0
             )
 
         val part = MultipartBody.Part.createFormData(
-            "uploadImage",
+            "images",
             File(uri.toString()).name,
             fileBody
         )

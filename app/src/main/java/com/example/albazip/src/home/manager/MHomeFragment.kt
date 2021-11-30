@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import com.example.albazip.R
 import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseFragment
@@ -46,12 +47,10 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 전체보기 (커뮤니티 화면으로 이동)
+        // 전체보기 (소통창 화면으로 이동)
         binding.tvShowCommunity.setOnClickListener {
-            val homeIntent = Intent(requireContext(),ManagerMainActivity::class.java)
-            homeIntent.putExtra("btmTabFlags",1)
-            startActivity(homeIntent)
-            (requireContext() as Activity).finishAffinity()
+            requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.manager_main_btm_nav).menu.getItem(1).isChecked=true
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm,MCommunityFragment()).commit()
         }
     }
 

@@ -10,6 +10,8 @@ import com.example.albazip.R
 import com.example.albazip.config.ApplicationClass
 import com.example.albazip.config.BaseFragment
 import com.example.albazip.databinding.FragmentHomeBinding
+import com.example.albazip.src.community.manager.MCommunityFragment
+import com.example.albazip.src.community.worker.WCommunityFragment
 import com.example.albazip.src.home.common.data.HomeCommuData
 import com.example.albazip.src.home.manager.adapter.HomeVPAdapter
 import com.example.albazip.src.home.manager.closed.HomeClosedChildFragment
@@ -51,10 +53,10 @@ class WHomeFragment :
 
         // 전체보기 (커뮤니티 화면으로 이동)
         binding.tvShowCommunity.setOnClickListener {
-            val homeIntent = Intent(requireContext(), WorkerMainActivity::class.java)
-            homeIntent.putExtra("btmTabFlags",1)
-            startActivity(homeIntent)
-            (requireContext() as Activity).finishAffinity()
+            requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.worker_main_btm_nav).menu.getItem(1).isChecked=true
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.worker_main_frm,
+                WCommunityFragment()
+            ).commit()
         }
 
         // 근무자 홈 전체조회 통신

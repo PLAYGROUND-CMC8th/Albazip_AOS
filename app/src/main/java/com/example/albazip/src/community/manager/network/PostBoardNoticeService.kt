@@ -12,11 +12,15 @@ import retrofit2.http.*
 
 class PostBoardNoticeService(val view: PostBoardNoticeFragmentView) {
 
-    fun tryPutNoticeReport(postBoardNoticeRequest: PostBoardNoticeRequest){
+    fun tryPutNoticeReport(
+        title: RequestBody,
+        content: RequestBody,
+        images: ArrayList<MultipartBody.Part>
+    ){
         val postBoardNoticeRetrofitInterface = ApplicationClass.sRetrofit.create(
             PostBoardNoticeRetrofitInterface::class.java)
         val token = ApplicationClass.prefs.getString("X-ACCESS-TOKEN","0")
-        postBoardNoticeRetrofitInterface.postBoardNotice(token,postBoardNoticeRequest).enqueue(object :
+        postBoardNoticeRetrofitInterface.postBoardNotice(token,title,content,images).enqueue(object :
             Callback<BaseResponse> {
             override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
                 view.onPostBoardNoticeSuccess(response.body() as BaseResponse)
@@ -30,8 +34,12 @@ class PostBoardNoticeService(val view: PostBoardNoticeFragmentView) {
 }
 
 interface PostBoardNoticeRetrofitInterface {
+    @Multipart
     @POST("/board/notice")
-    fun postBoardNotice(@Header("token")token:String, @Body params: PostBoardNoticeRequest): Call<BaseResponse>
+    fun postBoardNotice(@Header("token")token:String,
+                        @Part("title")title:RequestBody,
+                        @Part("content")content:RequestBody,
+                        @Part images:ArrayList<MultipartBody.Part>): Call<BaseResponse>
 }
 
 interface PostBoardNoticeFragmentView {
@@ -44,5 +52,6 @@ interface PostBoardNoticeFragmentView {
 data class PostBoardNoticeRequest(
     @SerializedName("title")val title:String,
     @SerializedName("content")val content:String,
-    @SerializedName("image")val image:ArrayList<MultipartBody.Part?>,
+    @SerializedName("images")val image:ArrayList<MultipartBody.Part>
 )
+
