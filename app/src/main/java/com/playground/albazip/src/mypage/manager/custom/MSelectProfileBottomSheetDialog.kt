@@ -175,7 +175,7 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
         bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
         val fileBody = byteArrayOutputStream.toByteArray()
             .toRequestBody(
-                "image/jpeg".toMediaTypeOrNull(),
+                "image/*".toMediaTypeOrNull(),
                 0
             )
 
