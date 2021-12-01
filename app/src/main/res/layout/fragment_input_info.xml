@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="68dp"
-        android:fontFamily="@font/roboto_bold"
         android:letterSpacing="-0.03"
         android:lineSpacingExtra="9sp"
         android:text="기본정보를 입력해주세요."
@@ -57,13 +56,16 @@
         app:layout_constraintTop_toBottomOf="@id/tv_name">
 
         <EditText
+            android:id="@+id/et_last_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="14dp"
             android:background="@null"
+            style="@style/EditTextStyle"
             android:fontFamily="@font/roboto_medium"
             android:hint="성"
+            android:singleLine="true"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="13sp"
             android:textColor="@color/customBlack"
@@ -85,13 +87,16 @@
         app:layout_constraintTop_toBottomOf="@id/tv_name">
 
         <EditText
+            android:id="@+id/et_first_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="14dp"
             android:background="@null"
+            style="@style/EditTextStyle"
             android:fontFamily="@font/roboto_medium"
             android:hint="이름"
+            android:singleLine="true"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="13sp"
             android:textColor="@color/customBlack"
@@ -125,18 +130,19 @@
         app:layout_constraintStart_toStartOf="@id/tv_age"
         app:layout_constraintTop_toBottomOf="@id/tv_age">
 
-        <EditText
+        <TextView
+            android:id="@+id/tv_input_age"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="14dp"
             android:background="@null"
             android:fontFamily="@font/roboto_medium"
-            android:hint="출생년도(YYYY)"
+            android:text="출생년도\u0028YYYY\u0029"
+            android:inputType="number"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="13sp"
-            android:textColor="@color/customBlack"
-            android:textColorHint="@color/hintTxtColor"
+            android:textColor="@color/hintTxtColor"
             android:textSize="16sp"
             android:textStyle="normal" />
     </RelativeLayout>
@@ -162,7 +168,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="6dp"
-        android:background="@drawable/rectangle_custom_white_radius"
+        android:background="@drawable/btn_selecter_sex"
         app:layout_constraintEnd_toStartOf="@id/rl_woman"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@id/tv_sex"
@@ -189,7 +195,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="6dp"
         android:layout_marginTop="14dp"
-        android:background="@drawable/rectangle_fill_yellow_radius_yellow"
+        android:background="@drawable/btn_selecter_sex"
         app:layout_constraintEnd_toEndOf="@id/rl_age"
         app:layout_constraintStart_toEndOf="@id/rl_man"
         app:layout_constraintTop_toBottomOf="@id/tv_sex">
@@ -214,13 +220,14 @@
         android:id="@+id/btn_next"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        android:enabled="false"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/btn_disable_yellow_fill_rounded"
         android:fontFamily="@font/roboto_bold"
         android:stateListAnimator="@null"
         android:text="회원가입 완료"
-        android:textColor="@color/white"
+        android:textColor="@color/disableTxtColor"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

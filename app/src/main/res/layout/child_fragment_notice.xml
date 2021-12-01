@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_community_main_notice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        tools:listitem="@layout/item_rv_notice_list"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/ll_no_content"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/image_content_none" />
+
+        <TextView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:layout_marginTop="14dp"
+            android:textSize="22sp"
+            android:textColor="#343434"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="-3sp"
+            android:gravity="center_horizontal"
+            android:text="작성된 글이 없어요."/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_writing"
+            android:layout_width="96dp"
+            android:layout_height="36dp"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginTop="14dp"
+            android:textColor="#343434"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="5sp"
+            android:layout_gravity="center"
+            android:text="추가하기"
+            android:background="@drawable/rectangle_fill_yellow_radius_15"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:layout_marginHorizontal="24dp"
+    android:id="@+id/cl_root"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/rl_personal_work"
+        android:layout_width="match_parent"
+        android:layout_height="117dp"
+        android:background="@drawable/rectangle_fill_light_yellow_radius_yellow_20"
+        app:layout_constraintTop_toTopOf="parent">
+        <RelativeLayout
+            android:id="@+id/rl_img"
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:background="@drawable/oval_fill_light_yellow_b"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp">
+            <ImageView
+                android:id="@+id/iv_honey_progress"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_honey_30_to_60"
+                android:background="@null"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_together"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#333333"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="24sp"
+            android:layout_toEndOf="@id/rl_img"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="21dp"
+            android:text="평일오픈업무"/>
+
+        <TextView
+            android:id="@+id/tv_total_cnt_togehter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="34dp"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="30sp"
+            android:gravity="end"
+            android:text="/ 5"/>
+
+        <TextView
+            android:id="@+id/tv_done_cnt_together"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#343434"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="26sp"
+            android:layout_toStartOf="@id/tv_total_cnt_togehter"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="3dp"
+            android:text="3"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar_together"
+            android:layout_width="167dp"
+            android:layout_height="8dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="24dp"
+            android:progress="70"
+            android:layout_marginEnd="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="23dp"
+            android:background="@null"
+            android:layout_toEndOf="@id/rl_img"
+            android:layout_below="@id/tv_together"
+            android:progressDrawable="@drawable/custom_progress_bar_work_list"
+            style="@android:style/Widget.ProgressBar.Horizontal"/>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

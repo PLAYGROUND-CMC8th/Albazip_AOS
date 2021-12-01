@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="68dp"
+        android:fontFamily="@font/roboto_bold"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="9sp"
+        android:text="매장정보를 확인해주세요."
+        android:textColor="@color/customBlack"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_place_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/roboto_medium"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="13sp"
+        android:text="매장명"
+        android:textColor="#6f6f6f"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <RelativeLayout
+        android:id="@+id/rl_place_name"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="36dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_place_name">
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="14dp"
+            android:background="@null"
+            android:hint="매장명과 지점 입력"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:textColorHint="@color/hintTxtColor"
+            android:textColor="@color/customBlack"
+            android:textSize="16sp"
+            tools:text="서플라이 첨담점" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_place_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_medium"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="13sp"
+        android:text="업종"
+        android:textColor="#6f6f6f"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/rl_place_name" />
+
+    <RelativeLayout
+        android:id="@+id/rl_place_type"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintEnd_toEndOf="@id/rl_place_name"
+        app:layout_constraintStart_toStartOf="@id/rl_place_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_place_type">
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="14dp"
+            android:background="@null"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:text="업종 선택"
+            android:textColor="@color/hintTxtColor"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <ImageButton
+            android:id="@+id/ibtn_vert"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_chevron_down" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_place_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/roboto_medium"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="13sp"
+        android:text="매장위치"
+        android:textColor="#6f6f6f"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/rl_place_type" />
+
+    <RelativeLayout
+        android:id="@+id/rl_location_main"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="36dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_place_location">
+
+        <EditText
+            android:id="@+id/et_location_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="14dp"
+            android:background="@null"
+            android:hint="도로명이나 지번주소 입력"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:textColorHint="@color/hintTxtColor"
+            android:textColor="@color/customBlack"
+            android:textSize="16sp"
+            tools:text="광주 광산구 임방울대로826번길 47" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_location_sub"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="36dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rectangle_custom_white_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_location_main">
+
+        <EditText
+            android:id="@+id/et_location_sub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:background="@null"
+            android:hint="상세주소 입력"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:textColorHint="@color/hintTxtColor"
+            android:textColor="@color/customBlack"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/btn_disable_yellow_fill_rounded"
+        android:fontFamily="@font/roboto_bold"
+        android:stateListAnimator="@null"
+        android:text="다음"
+        android:textColor="@color/disableTxtColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

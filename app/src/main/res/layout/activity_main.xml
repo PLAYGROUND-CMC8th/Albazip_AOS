@@ -4,24 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".src.main.MainActivity">
+
 
     <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="0dp"
+        android:id="@+id/iv_logo_img"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="156dp"
-        android:src="@drawable/ic_logo"
+        android:src="@drawable/logo_image"
         android:foregroundGravity="center"
-        app:layout_constraintBottom_toTopOf="@id/tv_main"
+        app:layout_constraintBottom_toTopOf="@id/iv_logo_txt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
+    <ImageView
+        android:id="@+id/iv_logo_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_text"
+        android:layout_marginTop="15dp"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toTopOf="@id/tv_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo_img"
+        app:layout_constraintVertical_chainStyle="packed" />
+
     <TextView
         android:id="@+id/tv_main"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:fontFamily="@font/roboto_medium"
@@ -35,7 +49,7 @@
         app:layout_constraintBottom_toTopOf="@id/btn_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_logo" />
+        app:layout_constraintTop_toBottomOf="@id/iv_logo_txt" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_register"
@@ -49,11 +63,11 @@
         android:fontFamily="@font/roboto_bold"
         android:letterSpacing="-0.03"
         android:lineSpacingExtra="4sp"
-        android:stateListAnimator="@null"
         android:text="회원가입"
-        android:textColor="@color/white"
+        android:textColor="@color/customBlack"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:stateListAnimator="@null"
         app:layout_constraintBottom_toTopOf="@id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,15 +79,15 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/btn_sub_yellow_fill_rounded"
+        android:background="@drawable/rectangle_fill_light_gray_rounded_15"
         android:fontFamily="@font/roboto_bold"
         android:letterSpacing="-0.03"
         android:lineSpacingExtra="4sp"
-        android:stateListAnimator="@null"
         android:text="로그인"
-        android:textColor="@color/mainYellow"
+        android:textColor="@color/subTxtColor"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:stateListAnimator="@null"
         app:layout_constraintBottom_toTopOf="@id/tv_pw_set"
         app:layout_constraintEnd_toEndOf="@+id/btn_register"
         app:layout_constraintStart_toStartOf="@id/btn_register"

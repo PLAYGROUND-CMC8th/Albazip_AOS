@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#f8f8f8">
+
+   <com.google.android.material.appbar.MaterialToolbar
+       android:id="@+id/toolbar"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       app:contentInsetStart="0dp"
+       android:background="@color/white"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintEnd_toEndOf="parent">
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <ImageButton
+               android:id="@+id/ibtn_close"
+               android:layout_width="24dp"
+               android:layout_height="24dp"
+               android:src="@drawable/ic_back_arrow"
+               android:background="@android:color/transparent"
+               android:layout_marginTop="39dp"
+               android:layout_marginStart="16dp"
+               android:layout_marginBottom="13dp"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerHorizontal="true"
+               android:layout_marginBottom="14dp"
+               android:layout_marginTop="41dp"
+               android:textStyle="bold"
+               android:textSize="18sp"
+               android:textColor="#000000"
+               android:letterSpacing="-0.03"
+               android:gravity="center_horizontal"
+               android:fontFamily="@font/roboto_bold"
+               android:text="설정"/>
+       </RelativeLayout>
+
+   </com.google.android.material.appbar.MaterialToolbar>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="#1a000000">
+    </View>
+
+    <TextView
+        android:id="@+id/tv_set_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서비스 설정"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="#a3a3a3"
+        android:letterSpacing="-0.03" />
+
+    <LinearLayout
+        android:id="@+id/ll_set_service"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_set_service"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="24dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_alarm_set"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/rectangle_fill_white_radius_top_20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="알림 설정"
+                android:layout_marginStart="24dp"
+                android:layout_centerVertical="true"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:letterSpacing="-0.03"
+                android:fontFamily="@font/roboto_medium"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_more"
+                android:background="@android:color/transparent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="24dp"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="24dp"
+            android:background="#e2e2e2">
+        </View>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_my_info"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/rectangle_fill_white_radius_bottom_20">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내 정보관리"
+                android:layout_marginStart="24dp"
+                android:layout_centerVertical="true"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:letterSpacing="-0.03"
+                android:fontFamily="@font/roboto_medium"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_more"
+                android:background="@android:color/transparent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="24dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_info_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서비스 안내"
+        app:layout_constraintStart_toStartOf="@id/tv_set_service"
+        app:layout_constraintTop_toBottomOf="@id/ll_set_service"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:textColor="#a3a3a3"/>
+
+    <LinearLayout
+        android:id="@+id/ll_info_service"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_info_service"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="24dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_notice_set"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/rectangle_fill_white_radius_top_20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="앱 문의 • 공지사항"
+                android:layout_marginStart="24dp"
+                android:layout_centerVertical="true"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:letterSpacing="-0.03"
+                android:fontFamily="@font/roboto_medium"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_more"
+                android:background="@android:color/transparent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="24dp"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="24dp"
+                android:background="#e2e2e2">
+            </View>
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_how_to_use_set"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="서비스 이용약관"
+                android:layout_marginStart="24dp"
+                android:layout_centerVertical="true"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:letterSpacing="-0.03"
+                android:fontFamily="@font/roboto_medium"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_more"
+                android:background="@android:color/transparent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="24dp"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="24dp"
+                android:background="#e2e2e2">
+            </View>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/rectangle_fill_white_radius_bottom_20">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="버전정보"
+                android:layout_marginStart="24dp"
+                android:layout_centerVertical="true"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:letterSpacing="-0.03"
+                android:fontFamily="@font/roboto_medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.0"
+                android:textSize="16sp"
+                android:textColor="#a3a3a3"
+                android:letterSpacing="-0.03"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="24dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_set_etc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기타"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_info_service"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="#a3a3a3"
+        android:letterSpacing="-0.03" />
+
+    <LinearLayout
+        android:id="@+id/ll_set_etc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_set_etc"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="24dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_logout_set"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/rectangle_fill_white_radius_top_20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="로그아웃"
+                android:layout_marginStart="24dp"
+                android:layout_centerVertical="true"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:letterSpacing="-0.03"
+                android:fontFamily="@font/roboto_medium"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_more"
+                android:background="@android:color/transparent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="24dp"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="24dp"
+                android:background="#e2e2e2">
+            </View>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_withdraw_set"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/rectangle_fill_white_radius_bottom_20">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="회원탈퇴"
+                android:layout_marginStart="24dp"
+                android:layout_centerVertical="true"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:letterSpacing="-0.03"
+                android:fontFamily="@font/roboto_medium"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_more"
+                android:background="@android:color/transparent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="24dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

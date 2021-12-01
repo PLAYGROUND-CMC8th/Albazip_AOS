@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cl_root"
+    android:background="@drawable/bg_rv_item_wrote_15"
+    android:layout_marginBottom="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/rl_did_read"
+        android:layout_width="35dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/rectangle_fill_light_green_radius_4">
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="확인"
+            android:textStyle="normal"
+            android:textSize="10sp"
+            android:textColor="#1dbe4e"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="2sp"
+            android:gravity="center"
+            tools:text="확인"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/rl_did_read"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_pin"
+        android:text="빙수기계 작동법"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginEnd="16dp"
+        android:textColor="#333333"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="-2sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"/>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textStyle="normal"
+        android:textSize="10sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:textColor="#a3a3a3"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="2sp"
+        tools:text="2021. 08. 28" />
+
+    <ImageView
+        android:id="@+id/iv_pin"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:src="@drawable/ic_pushpin_active"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="14dp"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

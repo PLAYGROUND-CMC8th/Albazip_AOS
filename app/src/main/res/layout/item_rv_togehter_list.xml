@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="24dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:layout_marginBottom="14dp"
+        android:layout_marginStart="12dp"
+        android:textColor="#6f6f6f"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="28sp"
+        android:text="2021.07.03"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_work_list"
+        tools:listitem="@layout/inner_item_rv_worklist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

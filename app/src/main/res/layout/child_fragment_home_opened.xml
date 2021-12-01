@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="536dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ffd85c">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetStart="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <RelativeLayout
+                android:id="@+id/rl_choose_shop"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                >
+                <TextView
+                    android:id="@+id/tv_shop_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="서플라이 첨단점"
+                    android:layout_alignParentStart="true"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:letterSpacing="-0.03"
+                    android:gravity="center_horizontal"
+                    android:layout_centerVertical="true"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_chevron_down_black"
+                    android:layout_toEndOf="@id/tv_shop_name"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/ibtn_qr_scan"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_m_qr_code"
+                android:background="@null"
+                android:layout_marginEnd="14dp"
+                android:layout_toStartOf="@id/ibtn_bell"
+                android:layout_centerVertical="true"/>
+
+            <ImageButton
+                android:id="@+id/ibtn_bell"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_bell"
+                android:background="@null"
+                android:layout_marginEnd="16dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/tv_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="9/29 수요일"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:textColor="#333333"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="30sp"
+        app:layout_constraintStart_toStartOf="@id/tb_menu"
+        app:layout_constraintTop_toBottomOf="@id/tb_menu"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="36dp"/>
+
+    <TextView
+        android:id="@+id/tv_today_workers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:textColor="#343434"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="30sp"
+        android:gravity="end"
+        app:layout_constraintTop_toBottomOf="@id/tb_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="36dp"
+        android:text="오늘 근무자"/>
+
+    <LinearLayout
+        android:id="@+id/ll_worker_list"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="24dp"
+        android:orientation="horizontal"
+        android:background="@drawable/rectangle_fill_white_radius_15"
+        app:layout_constraintTop_toBottomOf="@id/tv_today_workers"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오픈"
+                android:layout_marginTop="8dp"
+                android:layout_centerHorizontal="true"
+                android:textStyle="normal"
+                android:textSize="12sp"
+                android:textColor="#343434"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="10sp"
+                android:gravity="center_horizontal"/>
+
+            <!-- @@@@@@@@@@@@@@@@@@오픈@@@@@@@@@@@@@@@@@@@@@@@@ -->
+            <!-- (오픈) 근무자 없을 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_open_none"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="33dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="normal"
+                    android:textSize="11sp"
+                    android:textColor="#a3a3a3"
+                    android:letterSpacing="-0.03"
+                    android:lineSpacingExtra="9sp"
+                    android:gravity="center"
+                    android:text="근무자 없음"/>
+            </RelativeLayout>
+
+            <!-- (오픈) 근무자가 한 명 일 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_open_one"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="33dp">
+
+                <RelativeLayout
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/oval_worker_list">
+                    <TextView
+                        android:id="@+id/tv_open_one_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="1sp"
+                        android:text="지훈"
+                        android:gravity="center"
+                        android:textColor="#343434"
+                        android:textSize="12sp"
+                        android:textStyle="normal" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <!-- (오픈) 근무자가 두 명 일 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_open_two"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="33dp"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="-3dp"
+                        android:background="@drawable/oval_worker_list">
+
+                        <TextView
+                            android:id="@+id/tv_open_two_one"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            android:text="지훈"
+                            android:textColor="#343434"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="-3dp"
+                        android:background="@drawable/oval_worker_list">
+
+                        <TextView
+                            android:id="@+id/tv_open_two_two"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            android:text="지훈"
+                            android:textColor="#343434"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- (오픈) 근무자가 세 명 일 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_open_three"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="33dp"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="-3dp"
+                        android:background="@drawable/oval_worker_list">
+
+                        <TextView
+                            android:id="@+id/tv_open_three_one"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            android:text="지훈"
+                            android:textColor="#343434"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="-3dp"
+                        android:layout_marginEnd="-3dp"
+                        android:background="@drawable/oval_worker_list">
+
+                        <TextView
+                            android:id="@+id/tv_open_three_two"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            android:text="지훈"
+                            android:textColor="#343434"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="-3dp"
+                        android:background="@drawable/oval_worker_list_more">
+
+                        <TextView
+                            android:id="@+id/tv_open_three_three"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            android:text="+1"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="15dp"
+            android:background="@color/customWhite"/>
+
+        <!--- @@@@@@@@@@@@@@중간@@@@@@@@@@@@@@@@@@@ -->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="미들"
+                android:layout_marginTop="8dp"
+                android:layout_centerHorizontal="true"
+                android:textStyle="normal"
+                android:textSize="12sp"
+                android:textColor="#343434"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="10sp"
+                android:gravity="center_horizontal"/>
+
+            <!--(중간) 근무자가 없을 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_mid_none"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="33dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="normal"
+                    android:textSize="11sp"
+                    android:textColor="#a3a3a3"
+                    android:letterSpacing="-0.03"
+                    android:lineSpacingExtra="9sp"
+                    android:gravity="center"
+                    android:text="근무자 없음"/>
+            </RelativeLayout>
+
+            <!-- (중간) 근무자가 한 명 일 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_mid_one"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="33dp">
+
+                <RelativeLayout
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/oval_worker_list">
+                    <TextView
+                        android:id="@+id/tv_mid_one_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="1sp"
+                        tools:text="지훈"
+                        android:gravity="center"
+                        android:textColor="#343434"
+                        android:textSize="12sp"
+                        android:textStyle="normal" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <!--(중간) 근무자가 두 명 일 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_mid_two"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="33dp"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="-3dp"
+                    android:background="@drawable/oval_worker_list">
+
+                    <TextView
+                        android:id="@+id/tv_mid_two_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="1sp"
+                        android:text="지훈"
+                        android:textColor="#343434"
+                        android:textSize="12sp"
+                        android:textStyle="normal" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="-3dp"
+                    android:background="@drawable/oval_worker_list">
+
+                    <TextView
+                        android:id="@+id/tv_mid_two_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="1sp"
+                        android:text="지훈"
+                        android:textColor="#343434"
+                        android:textSize="12sp"
+                        android:textStyle="normal" />
+                </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- (중간) 근무자가 세 명 일 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_mid_three"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="33dp"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="-3dp"
+                        android:background="@drawable/oval_worker_list">
+
+                        <TextView
+                            android:id="@+id/tv_mid_three_one"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            android:text="지훈"
+                            android:textColor="#343434"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="-3dp"
+                        android:layout_marginEnd="-3dp"
+                        android:background="@drawable/oval_worker_list">
+
+                        <TextView
+                            android:id="@+id/tv_mid_three_two"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            android:text="지훈"
+                            android:textColor="#343434"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="-3dp"
+                        android:background="@drawable/oval_worker_list_more">
+
+                        <TextView
+                            android:id="@+id/tv_mid_three_three"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            android:text="+1"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="15dp"
+            android:background="@color/customWhite"/>
+
+        <!-- @@@@@@@@@@@@ 마감 @@@@@@@@@@ -->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="마감"
+                android:layout_marginTop="8dp"
+                android:layout_centerHorizontal="true"
+                android:textStyle="normal"
+                android:textSize="12sp"
+                android:textColor="#343434"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="10sp"
+                android:gravity="center_horizontal"/>
+
+            <!--(마감) 근무자가 없을 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_close_none"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="33dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="normal"
+                    android:textSize="11sp"
+                    android:textColor="#a3a3a3"
+                    android:letterSpacing="-0.03"
+                    android:lineSpacingExtra="9sp"
+                    android:gravity="center"
+                    android:text="근무자 없음"/>
+            </RelativeLayout>
+
+            <!-- (마감) 근무자가 한 명 일 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_close_one"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="33dp">
+
+                <RelativeLayout
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/oval_worker_list">
+                    <TextView
+                        android:id="@+id/tv_close_one_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="1sp"
+                        tools:text="지훈"
+                        android:gravity="center"
+                        android:textColor="#343434"
+                        android:textSize="12sp"
+                        android:textStyle="normal" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <!--(마감) 근무자가 두 명 일 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_close_two"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="33dp"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="-3dp"
+                        android:background="@drawable/oval_worker_list">
+
+                        <TextView
+                            android:id="@+id/tv_close_two_one"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            tools:text="지훈"
+                            android:textColor="#343434"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="-3dp"
+                        android:background="@drawable/oval_worker_list">
+
+                        <TextView
+                            android:id="@+id/tv_close_two_two"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            tools:text="지훈"
+                            android:textColor="#343434"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- (마감) 근무자가 세 명 일 때 -->
+            <RelativeLayout
+                android:id="@+id/rl_close_three"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="33dp"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="-3dp"
+                        android:background="@drawable/oval_worker_list">
+
+                        <TextView
+                            android:id="@+id/tv_close_three_one"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            tools:text="지훈"
+                            android:textColor="#343434"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="-3dp"
+                        android:layout_marginEnd="-3dp"
+                        android:background="@drawable/oval_worker_list">
+
+                        <TextView
+                            android:id="@+id/tv_close_three_two"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            tools:text="지훈"
+                            android:textColor="#343434"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="-3dp"
+                        android:background="@drawable/oval_worker_list_more">
+
+                        <TextView
+                            android:id="@+id/tv_close_three_three"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="1sp"
+                            tools:text="+1"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오늘의 할 일"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="-6sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_worker_list"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="47dp"/>
+
+    <ImageButton
+        android:id="@+id/ibtn_add"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/ic_add_24_px"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_worker_list"
+        android:layout_marginTop="48dp"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_together_bg"
+        android:layout_width="match_parent"
+        android:layout_height="117dp"
+        android:background="@drawable/rectangle_fill_white_radius_20"
+        android:layout_marginHorizontal="24dp"
+        app:layout_constraintTop_toBottomOf="@id/ibtn_add"
+        android:layout_marginTop="14dp">
+        <RelativeLayout
+            android:id="@+id/rl_img"
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:background="@drawable/oval_fill_light_yellow"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp">
+            <ImageView
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_together_work_logo"
+                android:background="@null"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_together"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#333333"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="24sp"
+            android:layout_toEndOf="@id/rl_img"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="21dp"
+            android:text="공동업무"/>
+
+        <TextView
+            android:id="@+id/tv_total_cnt_togehter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="34dp"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="30sp"
+            android:gravity="end"
+            android:text="/ 5"/>
+
+        <TextView
+            android:id="@+id/tv_done_cnt_together"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#343434"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="26sp"
+            android:layout_toStartOf="@id/tv_total_cnt_togehter"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="3dp"
+            android:text="3"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar_together"
+            android:layout_width="167dp"
+            android:layout_height="8dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="24dp"
+            android:progress="70"
+            android:layout_marginEnd="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="23dp"
+            android:background="@null"
+            android:layout_toEndOf="@id/rl_img"
+            android:layout_below="@id/tv_together"
+            android:progressDrawable="@drawable/custom_progressbar_home_work"
+            style="@android:style/Widget.ProgressBar.Horizontal"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_personal_work_bg"
+        android:layout_width="match_parent"
+        android:layout_height="117dp"
+        android:background="@drawable/rectangle_fill_white_radius_20"
+        android:layout_marginHorizontal="24dp"
+        app:layout_constraintTop_toBottomOf="@id/rl_together_bg"
+        android:layout_marginTop="16dp">
+        <RelativeLayout
+            android:id="@+id/rl_img_two"
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:background="@drawable/oval_fill_light_yellow"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp">
+            <ImageView
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_alone_work_logo"
+                android:background="@null"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_alone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#333333"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="24sp"
+            android:layout_toEndOf="@id/rl_img_two"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="21dp"
+            android:text="개인업무"/>
+
+        <TextView
+            android:id="@+id/tv_total_cnt_alone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="34dp"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="30sp"
+            android:gravity="end"
+            android:text="/ 5"/>
+
+        <TextView
+            android:id="@+id/tv_done_cnt_alone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#343434"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="26sp"
+            android:layout_toStartOf="@id/tv_total_cnt_alone"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="3dp"
+            android:text="3"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar_alone"
+            android:layout_width="167dp"
+            android:layout_height="8dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="24dp"
+            android:progress="70"
+            android:layout_marginEnd="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="23dp"
+            android:background="@null"
+            android:layout_toEndOf="@id/rl_img_two"
+            android:layout_below="@id/tv_alone"
+            android:progressDrawable="@drawable/custom_progressbar_home_work"
+            style="@android:style/Widget.ProgressBar.Horizontal"/>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

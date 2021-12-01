@@ -2,15 +2,131 @@
     <!-- Base application theme. -->
     <style name="Theme.Albazip" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">#cecece</item>
         <item name="colorPrimaryVariant">@color/systembar</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">@color/disableYellow</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorControlHighlight">#cecece</item>
+
+        <!--custom font-family 적용-->
+        <item name="android:textViewStyle">@style/customTextViewFontStyle</item>
+        <item name="android:buttonStyle">@style/customButtonFontStyle</item>
+        <item name="android:editTextStyle">@style/customEditTextFontStyle</item>
+        <item name="android:radioButtonStyle">@style/customRadioButtonFontStyle</item>
+        <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
+
+        <!-- BottomSheet Dialog -->
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+
     </style>
+
+    <!-- Bottom Navi Custom -->
+    <style name="BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/TextAppearance.BottomNavigationView.Active
+        </item>
+        <item name="itemTextAppearanceInactive">
+            @style/TextAppearance.BottomNavigationView.Inactive
+        </item>
+    </style>
+
+    <style name="TextAppearance" />
+
+    <style name="TextAppearance.BottomNavigationView" />
+    <!-- inactive tab icon style -->
+    <style name="TextAppearance.BottomNavigationView.Inactive">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- active tab icon style -->
+    <style name="TextAppearance.BottomNavigationView.Active">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <!-- BottomSheet Dialog Custom -->
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@drawable/rectangle_fill_white_radius_top_20</item>
+    </style>
+
+    <!--NumberPicker Custom -->
+    <style name="AgePicker" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorSecondary">#bcbcbc</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="selectableItemBackground">@color/black</item>
+        <item name="colorOnPrimarySurface">@color/black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!--TimePicker Custom -->
+    <style name="TimePicker" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="android:textColorPrimary">@color/customBlack</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:selectionDividerHeight">29dp</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="Theme.Albazip.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Albazip.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Albazip.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- edittext 스타일 -->
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/mainYellow</item>
+
+        <item name="colorControlActivated">@color/mainYellow</item>
+
+        <item name="android:textCursorDrawable">@drawable/edittext_cursor</item>
+
+        <item name="android:textColor">@color/customBlack</item>
+
+        <item name="android:textColorHint">@color/hintTxtColor</item>
+
+        <item name="android:textColorHighlight">@color/mainYellow</item>
+    </style>
+
+    <!-- tab 텍스트 굵기 -->
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 투명 액티비티 만들기 -->
+    <style name="Theme.Transparent" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <!-- 다이얼로그 배경 커스튬 -->
+    <style name="MyDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>
+

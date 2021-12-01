@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="143dp"
+    android:layout_marginBottom="11dp"
+    android:layout_marginHorizontal="12dp"
+    android:background="@drawable/bg_card_deactive"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="알바생"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:textColor="#6f6f6f"
+        android:letterSpacing="-0.03"
+        android:gravity="center_horizontal"/>
+
+
+    <ImageView
+        android:id="@+id/iv_profile"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@null"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/img_profile_48_px_none"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/frame_badge_layout"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_alarm"
+            android:visibility="gone"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:src="@drawable/new_badge_8_px"
+            android:layout_gravity="end"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="평일 오픈"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="#ffb100"
+        android:letterSpacing="-0.03"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_profile"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="등록하기"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:textColor="#343434"
+        android:letterSpacing="-0.03"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_position"
+        android:gravity="center_horizontal"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
