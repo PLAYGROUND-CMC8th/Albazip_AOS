@@ -35,17 +35,17 @@ class PosInfoChildFragment(val positionInfo:PositionInfo,val intentPosition:Stri
 
         // 총 근무시간
         var workTime = ""
-        if(getPositionInfo.workTime.substring(0,1) == "0"){ // 0100, 0130
-            if(getPositionInfo.workTime.substring(2,4) == "00"){ // 1시간
-                workTime = getPositionInfo.workTime.substring(1,2) + "시간)"
-            }else{ // 1시간 30분
-                workTime = getPositionInfo.workTime.substring(1,2) + "시간 " + getPositionInfo.workTime.substring(3,4)+"분)"
+        if(getPositionInfo.workTime.substring(2,4) == "00"){ // 1시간, 12시간
+            if(getPositionInfo.workTime.substring(0,1)=="0"){
+                workTime = getPositionInfo.workTime.substring(1,2)+"시간)" // 1시간
+            }else{
+                workTime = getPositionInfo.workTime.substring(0,2)+"시간)" // 12시간
             }
-        }else{ // 1030, 1000
-            if(getPositionInfo.workTime.substring(2,4) == "00"){ // 10시간
-                workTime = getPositionInfo.workTime.substring(0,2) + "시간)"
-            }else{ // 10시간 30분
-                workTime = getPositionInfo.workTime.substring(0,2) + "시간 " + getPositionInfo.workTime.substring(3,4)+"분)"
+        }else{
+            if(getPositionInfo.workTime.substring(0,1)=="0"){
+                workTime = getPositionInfo.workTime.substring(1,2)+"시간 "+ getPositionInfo.workTime.substring(2,4)+"분)" // 1시간 30분
+            }else{
+                workTime = getPositionInfo.workTime.substring(0,2)+"시간 "+ getPositionInfo.workTime.substring(2,4)+"분)" // 12시간 30분
             }
         }
 

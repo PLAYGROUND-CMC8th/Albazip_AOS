@@ -62,7 +62,7 @@ class WHomeFragment :
         ApplicationClass.prefs.setString("login_shop_name",response.data.shopInfo.name)
 
         // 영업상태
-        //var status = response.data.shopInfo.status
+        // var status = 0
         var status = response.data.shopInfo.status
 
         // 영업상태 체크
