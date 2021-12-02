@@ -72,13 +72,21 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
             var showingTime = castGetDiffTime.toString().substring(11,16)*/
 
             // 퇴근시간 초과시
-            if(threadTime.contains("+")){
+            if(threadTime == "0000"){ // 화면 갱신시간을 대비하여 로드하는 동안 UI 공백처리
+                binding.tvGoOff.text = ""
+            }
+
+            if(threadTime.contains("-")){
                 binding.tvGoOff.setTextColor(Color.parseColor("#f90100")) // 색상변경 - 빨강색
                 binding.rlAlarm.visibility = View.VISIBLE // 알림 띄우기
-                binding.tvGoOff.text = threadTime.substring(0,3)+":"+threadTime.substring(3,5)
+                binding.tvGoOff.text = "+"+threadTime.substring(1,3)+":"+threadTime.substring(3,5)
+                // qr 빨간점 보이기
+                binding.ivQrBedge.visibility = View.VISIBLE
             }else{ // 기본상태
                 binding.tvGoOff.text = threadTime.substring(0,2)+":"+threadTime.substring(2,4)
                 binding.tvGoOff.setTextColor(Color.parseColor("#343434"))
+                // qr 빨간점 숨기기
+                binding.ivQrBedge.visibility = View.INVISIBLE
             }
         }
     }
