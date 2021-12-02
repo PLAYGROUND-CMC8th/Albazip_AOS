@@ -39,7 +39,7 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
 
     var threadTime = "0000"
 
-    val mTimer = timer(initialDelay = 10000, period = 10000) { // 10초후에 10초단위로 진행
+    val mTimer = timer(initialDelay = 3000, period = 3000) { // 3초후에 3초단위로 진행
         (requireContext() as Activity).runOnUiThread {
 
             GetAllWHomeInfoService(this@HomeWOpenedFragment).tryGetAllWHomeInfo()
@@ -86,7 +86,7 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
                 binding.tvGoOff.text = threadTime.substring(0,2)+":"+threadTime.substring(2,4)
                 binding.tvGoOff.setTextColor(Color.parseColor("#343434"))
                 // qr 빨간점 숨기기
-                binding.ivQrBedge.visibility = View.INVISIBLE
+                binding.ivQrBedge.visibility = View.GONE
             }
         }
     }
@@ -125,6 +125,20 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
 
         // 포지션
         binding.tvWorkerPosition.text = resultData.scheduleInfo.positionTitle
+        // 개인업무 포지션 정보 받아오기
+        binding.tvAlone.text = resultData.scheduleInfo.positionTitle.replace(" ","")+" 업무"
+        // 개인업무 꿀단지 표시여부
+        var personalDoneRate = (((resultData.taskInfo.perTask.completeCount).toDouble() / (resultData.taskInfo.perTask.totalCount).toDouble()) * 100).toInt()
+        // 꿀단지 상태(이미지뷰)
+        if(personalDoneRate==0){
+            Glide.with(requireContext()).load(R.drawable.img_honey_0).into(binding.ivHoneyProgress)
+        }else if(personalDoneRate in 0..29){
+            Glide.with(requireContext()).load(R.drawable.img_honey_0_to_30).into(binding.ivHoneyProgress)
+        }else if(personalDoneRate in 30..59){
+            Glide.with(requireContext()).load(R.drawable.img_honey_30_to_60).into(binding.ivHoneyProgress)
+        }else if(personalDoneRate >=90){
+            Glide.with(requireContext()).load(R.drawable.img_honey_90).into(binding.ivHoneyProgress)
+        }
 
         val positionTime = resultData.scheduleInfo.positionTitle
 

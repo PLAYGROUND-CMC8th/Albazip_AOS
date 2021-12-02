@@ -389,11 +389,12 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp">
             <ImageView
+                android:id="@+id/iv_honey_progress"
                 android:layout_width="68dp"
                 android:layout_height="68dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/img_alone_work_logo"
+                android:src="@drawable/img_honey_30_to_60"
                 android:background="@null"/>
         </RelativeLayout>
 
