@@ -102,10 +102,6 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
         // 팝업 띄우기 -> 사람 목록을 눌렀을 때
         binding.rlDonePersonCnt.setOnClickListener {
 
-            val inflater:LayoutInflater = requireContext().getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            //val popupView = inflater.inflate(R.layout.bg_cnt_read_popup,null)
-            //val popupView = inflater.inflate(R.layout.bg_cnt_read_popup,null)
-
             // dp to px 단위변경
             val density = resources.displayMetrics.density
             val w_value = (140 * density).toInt()
@@ -113,8 +109,7 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
             val moved_w_value =  (100 * density).toInt()
             val moved_h_value =  (8 * density).toInt()
 
-
-            val width = LinearLayout.LayoutParams.WRAP_CONTENT
+            // val width = LinearLayout.LayoutParams.WRAP_CONTENT
             val height = LinearLayout.LayoutParams.WRAP_CONTENT
             var focusable = true
 
@@ -127,22 +122,7 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
                 popupWindow.contentView = popUpBinding.root
                 popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),moved_h_value)
             }
-
-            // popupWindow.showAsDropDown(binding.rlDonePersonCnt)
-
-            // popupWindow.showAsDropDown(binding.rlDonePersonCnt)
-            // popupWindow.update(binding.rlDonePersonCnt,width,height)
-            //popupWindow.showAtLocation(binding.rlDonePersonCnt, Gravity.CENTER, -100, 0)
-
-            /*val popupWindow = PopupWindow(binding.frameLayoutCntDoneWorker)
-            if(binding.frameLayoutCntDoneWorker.parent != null){
-                ((binding.frameLayoutCntDoneWorker.parent)as ViewGroup).removeView(binding.frameLayoutCntDoneWorker)
-            }else{
-                binding.frameLayoutCntDoneWorker.visibility = View.VISIBLE
-                popupWindow.showAsDropDown(binding.rlDonePersonCnt)
-            }*/
         }
-
 
         checkingUI()
     }
