@@ -49,6 +49,11 @@ class WHomeFragment :
             ).commit()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         // 근무자 홈 전체조회 통신
         GetAllWHomeInfoService(this).tryGetAllWHomeInfo()
         showLoadingDialog(requireContext())
@@ -62,7 +67,7 @@ class WHomeFragment :
         ApplicationClass.prefs.setString("login_shop_name",response.data.shopInfo.name)
 
         // 영업상태
-        // var status = 0
+        //var status = 1
         var status = response.data.shopInfo.status
 
         // 영업상태 체크

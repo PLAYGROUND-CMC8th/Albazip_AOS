@@ -136,7 +136,7 @@
             android:layout_toStartOf="@id/tv_late_unit"
             android:gravity="center"
             android:letterSpacing="-0.03"
-            android:text="3"
+            tools:text="3"
             android:textColor="#343434"
             android:textSize="24sp"
             android:textStyle="bold" />

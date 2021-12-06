@@ -37,9 +37,9 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
     // 시간 차 계산을 위한 데이터 포맷 선언
     val f: SimpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.KOREA)
 
-    var threadTime = "0000"
+    var threadTime = "    "
 
-    val mTimer = timer(initialDelay = 3000, period = 3000) { // 3초후에 3초단위로 진행
+    val mTimer = timer(initialDelay = 100, period = 100) { // 0.1초후에 0.1초단위로 진행
         (requireContext() as Activity).runOnUiThread {
 
             GetAllWHomeInfoService(this@HomeWOpenedFragment).tryGetAllWHomeInfo()
@@ -72,9 +72,9 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
             var showingTime = castGetDiffTime.toString().substring(11,16)*/
 
             // 퇴근시간 초과시
-            if(threadTime == "0000"){ // 화면 갱신시간을 대비하여 로드하는 동안 UI 공백처리
-                binding.tvGoOff.text = ""
-            }
+           // if(threadTime == "0000"){ // 화면 갱신시간을 대비하여 로드하는 동안 UI 공백처리
+           //     binding.tvGoOff.text = ""
+           // }
 
             if(threadTime.contains("-")){
                 binding.tvGoOff.setTextColor(Color.parseColor("#f90100")) // 색상변경 - 빨강색
@@ -233,7 +233,8 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
         // 다시 홈화면으로 이동
         val nextIntent = Intent(requireContext(),WorkerMainActivity::class.java)
         startActivity(nextIntent)
-        activity?.finishAffinity()
+        (requireContext() as Activity).finishAffinity()
+        //activity?.finishAffinity()
     }
     // QR 스캔 실패
     override fun onPutQRFailure(message: String) {

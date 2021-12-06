@@ -1,11 +1,24 @@
 package com.playground.albazip.src.home.manager.worklist.ui
 
+import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.os.Bundle
+import android.text.Layout
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+import androidx.core.content.getSystemService
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseFragment
+import com.playground.albazip.databinding.BgCntReadPopupBinding
 import com.playground.albazip.databinding.ChildFragmentTogetherBinding
 import com.playground.albazip.databinding.DialogTodoAllDoneBinding
+import com.playground.albazip.src.home.common.adapter.DoneWorkerCntAdapter
+import com.playground.albazip.src.home.common.data.DoneWorkerCntData
 import com.playground.albazip.src.home.common.data.HomeCoWorkResponse
 import com.playground.albazip.src.home.common.network.GetHomeCoWorkFragmentView
 import com.playground.albazip.src.home.common.network.GetHomeCoWorkService
@@ -29,13 +42,22 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
     private var doneList = ArrayList<HDoneWorkListData>()
     private lateinit var doneAdpater: HTogetherDoneAdapter
 
+    // 업무 완료자 리스트
+    private var workerCntList = ArrayList<DoneWorkerCntData>()
+    private lateinit var doneWorkerCntAdapter:DoneWorkerCntAdapter
+
     // 다이얼로그 바인딩
     private lateinit var dialogBinding: DialogTodoAllDoneBinding
+
+    // 팝업 view
+    private lateinit var popUpBinding:BgCntReadPopupBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         dialogBinding = DialogTodoAllDoneBinding.inflate(layoutInflater)
+
+        popUpBinding = BgCntReadPopupBinding.inflate(layoutInflater)
 
         // 미완료 리스트가 없으면 (배열 개수 0)
         //unDoneList.add(HUnDoneWorkListData(0,"제목1","내용1","작성 날짜 및 작성자"))
@@ -65,6 +87,61 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
         //doneList.add(HDoneWorkListData(0,"제목1","시간"))
         doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
         binding.rvDone.adapter = doneAdpater
+
+        // 완료한 사람 목록 adpater
+        for(i in 0 until ResultData?.coTask?.comWorker?.comWorker!!.size){
+            var workerInfo = ResultData!!.coTask.comWorker.comWorker[i].worker!!.split(" ")
+            workerCntList.add(DoneWorkerCntData(ResultData!!.coTask.comWorker.comWorker[i].image!!,workerInfo[0],workerInfo[1],ResultData!!.coTask.comWorker.comWorker[i].count))
+        }
+
+        doneWorkerCntAdapter = DoneWorkerCntAdapter(workerCntList,requireContext())
+        popUpBinding.rvDoneWorkerList.adapter = doneWorkerCntAdapter
+
+        binding.tvDonePersonCnt.text = ResultData?.coTask?.comWorker?.comWorker!!.size.toString()
+
+        // 팝업 띄우기 -> 사람 목록을 눌렀을 때
+        binding.rlDonePersonCnt.setOnClickListener {
+
+            val inflater:LayoutInflater = requireContext().getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            //val popupView = inflater.inflate(R.layout.bg_cnt_read_popup,null)
+            //val popupView = inflater.inflate(R.layout.bg_cnt_read_popup,null)
+
+            // dp to px 단위변경
+            val density = resources.displayMetrics.density
+            val w_value = (140 * density).toInt()
+            val h_value = (200 * density).toInt()
+            val moved_w_value =  (100 * density).toInt()
+            val moved_h_value =  (8 * density).toInt()
+
+
+            val width = LinearLayout.LayoutParams.WRAP_CONTENT
+            val height = LinearLayout.LayoutParams.WRAP_CONTENT
+            var focusable = true
+
+            if(workerCntList.size <= 4) {
+                val popupWindow = PopupWindow(popUpBinding.root, w_value, height, focusable)
+                popupWindow.contentView = popUpBinding.root
+                popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),moved_h_value)
+            }else{ // item 이 4개 이상일 때
+                val popupWindow = PopupWindow(popUpBinding.root, w_value, h_value, focusable)
+                popupWindow.contentView = popUpBinding.root
+                popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),moved_h_value)
+            }
+
+            // popupWindow.showAsDropDown(binding.rlDonePersonCnt)
+
+            // popupWindow.showAsDropDown(binding.rlDonePersonCnt)
+            // popupWindow.update(binding.rlDonePersonCnt,width,height)
+            //popupWindow.showAtLocation(binding.rlDonePersonCnt, Gravity.CENTER, -100, 0)
+
+            /*val popupWindow = PopupWindow(binding.frameLayoutCntDoneWorker)
+            if(binding.frameLayoutCntDoneWorker.parent != null){
+                ((binding.frameLayoutCntDoneWorker.parent)as ViewGroup).removeView(binding.frameLayoutCntDoneWorker)
+            }else{
+                binding.frameLayoutCntDoneWorker.visibility = View.VISIBLE
+                popupWindow.showAsDropDown(binding.rlDonePersonCnt)
+            }*/
+        }
 
 
         checkingUI()

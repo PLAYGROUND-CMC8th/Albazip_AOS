@@ -26,6 +26,7 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // binding.tvLateCnt.text = "2"
         binding.tvLateCnt.text = intent.getStringExtra("lateCnt")
 
         // 이전화면으로 돌아가기

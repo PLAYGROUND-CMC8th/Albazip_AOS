@@ -1,15 +1,18 @@
 package com.playground.albazip.src.home.common.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.playground.albazip.databinding.ItemRvWorkerCntPopUpBinding
 import com.playground.albazip.src.home.common.data.DoneWorkerCntData
 
 
-class DoneWorkerCntAdapter(private val itemList:ArrayList<DoneWorkerCntData>): RecyclerView.Adapter<DoneWorkerCntAdapter.DoneWorkerCntHolder>() {
+class DoneWorkerCntAdapter(private val itemList:ArrayList<DoneWorkerCntData>,private val context: Context): RecyclerView.Adapter<DoneWorkerCntAdapter.DoneWorkerCntHolder>() {
 
     private lateinit var binding: ItemRvWorkerCntPopUpBinding
+    private var myContext = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoneWorkerCntHolder {
         binding =  ItemRvWorkerCntPopUpBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -29,6 +32,7 @@ class DoneWorkerCntAdapter(private val itemList:ArrayList<DoneWorkerCntData>): R
         fun setItemList(doneData: DoneWorkerCntData){
 
             // 프로필
+            Glide.with(myContext).load(doneData.profile).into(binding.ivProfile)
 
             // 포지션
             binding.tvPosition.text = doneData.position

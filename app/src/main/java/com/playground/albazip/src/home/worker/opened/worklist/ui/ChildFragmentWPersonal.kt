@@ -79,7 +79,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
         doneWorkerCntList.add(DoneWorkerCntData("","평일마감","수빈",1))
         doneWorkerCntList.add(DoneWorkerCntData("","평일마감","희영",3))
 
-        doneWorkerCntAdapter = DoneWorkerCntAdapter(doneWorkerCntList)
+        doneWorkerCntAdapter = DoneWorkerCntAdapter(doneWorkerCntList,requireContext())
         binding.rvDoneWorkerList.adapter = doneWorkerCntAdapter
 
         // 인원수 체크 레이아웃
