@@ -9,14 +9,14 @@ import com.playground.albazip.databinding.ChildFragmentNoticeBinding
 import com.playground.albazip.src.community.manager.network.GetBoardListFragmentView
 import com.playground.albazip.src.community.manager.network.GetBoardListResponse
 import com.playground.albazip.src.community.manager.network.GetBoardNoticeService
-import com.playground.albazip.src.mypage.manager.adapter.NoticeListAdapter
+import com.playground.albazip.src.community.manager.adapter.NoticeListAdapter
 import com.playground.albazip.src.mypage.manager.board.data.local.NoticeData
 
 class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmentNoticeBinding::bind,
     R.layout.child_fragment_notice),GetBoardListFragmentView {
 
     private var noticeArray = ArrayList<NoticeData>()
-    private lateinit var noticeAdapter:NoticeListAdapter
+    private lateinit var noticeAdapter: NoticeListAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,7 +65,6 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
                 if (lastVisibleItemPosition == itemTotalCount) {
                     Log.d("SCROLL", "last Position...")
                 }
-
             }
         })*/
     }

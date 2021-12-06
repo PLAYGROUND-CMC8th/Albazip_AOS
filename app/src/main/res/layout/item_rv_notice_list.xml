@@ -22,20 +22,20 @@
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@id/item_tv_date"
-        app:layout_constraintEnd_toStartOf="@+id/cb_pin"
+        app:layout_constraintEnd_toStartOf="@+id/iv_pin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="코로나 관련 매장 관리 공지" />
 
-        <CheckBox
-            android:id="@+id/cb_pin"
+        <ImageView
+            android:id="@+id/iv_pin"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@null"
             android:buttonTint="@null"
-            android:button="@drawable/custom_checkbox_wrote_list"
+            android:src="@drawable/ic_pushpin_inactive"
             android:layout_marginTop="14dp"
             android:layout_width="17dp"
             android:layout_height="17dp"/>

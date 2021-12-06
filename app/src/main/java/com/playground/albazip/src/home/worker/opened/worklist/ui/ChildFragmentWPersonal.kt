@@ -34,13 +34,11 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
     // 다이얼로그 바인딩
     private lateinit var dialogBinding:DialogTodoAllDoneBinding
 
-    // 인원수 체크 버튼 클릭 여부
-    var clickedCnt = false
-    private var doneWorkerCntList = ArrayList<DoneWorkerCntData>()
-    private lateinit var doneWorkerCntAdapter:DoneWorkerCntAdapter
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 완료 인원 뷰 가리기
+        binding.rlDonePersonCnt.visibility = View.INVISIBLE
 
         dialogBinding = DialogTodoAllDoneBinding.inflate(layoutInflater)
 
@@ -71,38 +69,6 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
 
         // ui 체크
         checkingUI()
-
-
-
-        doneWorkerCntList.add(DoneWorkerCntData("","평일마감","지연",1))
-        doneWorkerCntList.add(DoneWorkerCntData("","평일마감","주연",2))
-        doneWorkerCntList.add(DoneWorkerCntData("","평일마감","수빈",1))
-        doneWorkerCntList.add(DoneWorkerCntData("","평일마감","희영",3))
-
-        doneWorkerCntAdapter = DoneWorkerCntAdapter(doneWorkerCntList,requireContext())
-        binding.rvDoneWorkerList.adapter = doneWorkerCntAdapter
-
-        // 인원수 체크 레이아웃
-        binding.rlDonePersonCnt.setOnClickListener {
-
-            if(clickedCnt == false) {
-                // pop up 활성화 상태 -> 터치 대기
-                clickedCnt = true
-                // bg 도 변경하기
-                binding.rlDonePersonCnt.background = ContextCompat.getDrawable(
-                        requireContext(),
-                R.drawable.rectangle_gray_radius_7
-                )
-                binding.frameLayoutCntDoneWorker.visibility = View.VISIBLE
-            }else{
-                clickedCnt = false
-                binding.rlDonePersonCnt.background = ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.rectangle_light_gray_radius_7
-                )
-                binding.frameLayoutCntDoneWorker.visibility = View.GONE
-            }
-        }
     }
 
     fun checkingUI(){
@@ -195,6 +161,5 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
     override fun onGetWPerTaskFailure(message: String) {
         dismissLoadingDialog()
     }
-
 
 }

@@ -10,7 +10,7 @@ import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.ChildFragmentWroteBinding
 import com.playground.albazip.src.mypage.common.setting.BoardData
 import com.playground.albazip.src.mypage.manager.adapter.MBoardListAdapter
-import com.playground.albazip.src.mypage.manager.adapter.NoticeListAdapter
+import com.playground.albazip.src.community.manager.adapter.NoticeListAdapter
 import com.playground.albazip.src.mypage.manager.board.data.local.NoticeData
 import com.playground.albazip.src.mypage.manager.board.data.remote.GetBoardResponse
 import com.playground.albazip.src.mypage.manager.board.network.BoardFragmentView
