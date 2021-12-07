@@ -146,6 +146,7 @@
         <activity android:name="com.playground.albazip.src.community.manager.ui.WriteNoticeActivity"
             android:windowSoftInputMode="adjustPan"
             />
+        <activity android:name=".src.community.common.ui.PhotoListActivity"/>
 
     </application>
 

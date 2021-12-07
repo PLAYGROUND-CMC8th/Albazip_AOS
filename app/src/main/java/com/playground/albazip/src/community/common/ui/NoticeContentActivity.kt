@@ -1,6 +1,8 @@
 package com.playground.albazip.src.community.common.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.bumptech.glide.Glide
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityNoticeContentBinding
@@ -38,7 +40,9 @@ class NoticeContentActivity:BaseActivity<ActivityNoticeContentBinding>(ActivityN
 
         // writerInfo
         // 직업
-        binding.tvPosition.text = response.data.writerInfo.title
+        if(response.data.writerInfo.title!=null) {
+            binding.tvPosition.text = response.data.writerInfo.title
+        }
         // 이름
         binding.tvName.text = response.data.writerInfo.name
         // 프로필
@@ -60,6 +64,7 @@ class NoticeContentActivity:BaseActivity<ActivityNoticeContentBinding>(ActivityN
 
         boardIVAdapter = BoardIVAdapter(imgList,this)
         binding.rvNoticeImageList.adapter = boardIVAdapter
+
 
         // confirmInfo
     }
