@@ -147,6 +147,7 @@
             android:windowSoftInputMode="adjustPan"
             />
         <activity android:name=".src.community.common.ui.PhotoListActivity"/>
+        <activity android:name=".src.community.manager.ui.EditNoticeActivity"/>
 
     </application>
 

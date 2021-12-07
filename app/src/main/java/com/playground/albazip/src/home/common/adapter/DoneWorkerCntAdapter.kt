@@ -2,6 +2,7 @@ package com.playground.albazip.src.home.common.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -40,8 +41,12 @@ class DoneWorkerCntAdapter(private val itemList:ArrayList<DoneWorkerCntData>,pri
             // 이름
             binding.tvFirstName.text = doneData.firstName
 
-            // 완료 업무 수
-            binding.tvWorkCnt.text = doneData.doneCnt.toString()
+            // 확인한 사람 수
+            if(doneData.doneCnt == -1) {
+                binding.tvWorkCnt.visibility = View.GONE
+            }else{ // 완료한 사람 수
+                binding.tvWorkCnt.text = doneData.doneCnt.toString()
+            }
         }
     }
 }
