@@ -1,15 +1,17 @@
 package com.playground.albazip.src.community.manager.custom
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.playground.albazip.databinding.DialogFragmentNoticeMenuForWBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.playground.albazip.databinding.DialogFragmentNoticeMenuForMBinding
+import com.playground.albazip.src.community.manager.ui.EditNoticeActivity
 
 class ManagerNoticeMenuBottomSheetDialog(noticeId:Int): BottomSheetDialogFragment() {
-    private lateinit var binding: DialogFragmentNoticeMenuForWBinding
+    private lateinit var binding: DialogFragmentNoticeMenuForMBinding
     var getNoticeId = noticeId
 
     override fun onCreateView(
@@ -17,12 +19,17 @@ class ManagerNoticeMenuBottomSheetDialog(noticeId:Int): BottomSheetDialogFragmen
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogFragmentNoticeMenuForWBinding.inflate(inflater, container, false)
+        binding = DialogFragmentNoticeMenuForMBinding.inflate(inflater, container, false)
 
-        binding.tvMenuOne.text = "삭제하기"
+        // 편집하기
+        binding.rlRowOne.setOnClickListener {
+            val nextIntent = Intent(requireContext(),EditNoticeActivity::class.java)
+            nextIntent.putExtra("noticeId",getNoticeId)
+            startActivity(nextIntent)
+        }
 
         // 삭제하기
-        binding.rlRowOne.setOnClickListener {
+        binding.rlRowTwo.setOnClickListener {
             DelNoticeBottomSheetDialog(getNoticeId).show(activity?.supportFragmentManager!!, "DelNoticeAlert")
             dismiss()
         }

@@ -62,7 +62,6 @@ class NoticeContentActivity :
 
         // writerInfo
         // 직업
-
         binding.tvPosition.text = response.data.writerInfo.title
 
         // 이름
