@@ -1,11 +1,15 @@
 package com.playground.albazip.src.home.manager.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.playground.albazip.R
 import com.playground.albazip.databinding.ItemVpHomeCommunicateBinding
 import com.playground.albazip.src.home.common.data.HomeCommuData
 
@@ -35,14 +39,25 @@ class HomeVPAdapter(private val context: Context,private val itemList: ArrayList
 
             // 미확인 뷰 체크 -> 근무자 일 때만
             if(getJobFlags == 1) {
+                binding.rlNew.visibility = View.VISIBLE
                 if (data.newFlags == 0) { // 미확인
-                    binding.rlNew.visibility = View.VISIBLE
+                    // 배경 색상변경
+                    binding.rlNew.background = ContextCompat.getDrawable(
+                        myContext,
+                        R.drawable.rectangle_fill_light_red_radius_4
+                    )
+                    // 글씨색 변경
+                    binding.tvDidRead.setTextColor(Color.parseColor("#fb3a00"))
+
+                    // 텍스트 변경
+                    binding.tvDidRead.text = "미확인"
                 } else {
-                    binding.rlNew.layoutParams = ViewGroup.LayoutParams(
-                        dpToPx(myContext, 16f).toInt(),
-                        0
-                    ) // constraint 관계만 남기기 위한 코드
-                    binding.rlNew.visibility = View.INVISIBLE
+                    binding.rlNew.background = ContextCompat.getDrawable(
+                        myContext,
+                        R.drawable.rectangle_fill_light_green_radius_4
+                    )
+                    binding.tvDidRead.setTextColor(Color.parseColor("#1dbe4e"))
+                    binding.tvDidRead.text = "확인"
                 }
             }
 
