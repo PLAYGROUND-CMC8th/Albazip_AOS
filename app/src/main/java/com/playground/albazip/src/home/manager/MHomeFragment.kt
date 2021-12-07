@@ -80,8 +80,11 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         dismissLoadingDialog()
 
         // 매장명 받아오기
-        ApplicationClass.prefs.setString("login_shop_name",response.data.shopInfo.name)
-
+       // if(response.data.shopInfo.name != null) {
+       //     ApplicationClass.prefs.setString("login_shop_name", response.data.shopInfo.name)
+       // }else{
+            ApplicationClass.prefs.setString("login_shop_name", "")
+      //  }
         // 영업상태
         var status = response.data.shopInfo.status
 
