@@ -33,6 +33,12 @@ class NoticeWListAdapter(val context: Context, val itemList:ArrayList<NoticeWDat
         holder.binding.root.setOnClickListener {
             val readIntent = Intent(myContext, NoticeWContentActivity::class.java)
             readIntent.putExtra("noticeId",itemList[holder.adapterPosition].id)
+
+            // 미확인 화면이라면 flags 로 0 보내기
+            if(itemList[position].confirm == 0) {
+                readIntent.putExtra("readSwitch", -1)
+            }
+
             (myContext as Activity).startActivity(readIntent)
         }
 

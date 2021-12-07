@@ -68,8 +68,13 @@ class NoticeWContentActivity:
 
         // confirmInfo
         // 데이터를 다 불러온 후 공지 <<확인>> 체크
-        PutConfirmNoticeService(this).tryPutNoticeRead(intent.getIntExtra("noticeId",0))
-        showLoadingDialog(this)
+        // -> 그런데 미확인 일 때 체크하게 하기
+        if(intent.hasExtra("readSwitch")){
+            if(intent.getIntExtra("readSwitch",0) == -1) {
+                PutConfirmNoticeService(this).tryPutNoticeRead(intent.getIntExtra("noticeId", 0))
+                showLoadingDialog(this)
+            }
+        }
     }
 
     override fun onGetReadNoticeFailure(message: String) {
