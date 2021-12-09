@@ -103,7 +103,7 @@ class NoticeWContentActivity:
             // dp to px 단위변경
             val density = resources.displayMetrics.density
             val w_value = (140 * density).toInt()
-            val h_value = (200 * density).toInt()
+            val h_value = ((130+40) * density).toInt()
             val moved_w_value = (100 * density).toInt()
 
             // val width = LinearLayout.LayoutParams.WRAP_CONTENT
@@ -132,12 +132,9 @@ class NoticeWContentActivity:
                 2 -> {
                     popupWindow.showAsDropDown(binding.rlReadPersonCnt, 0, -(moved_h_value_2)) // O.K
                 }
-                3 -> {
-                    popupWindow.showAsDropDown(binding.rlReadPersonCnt, 0, -(moved_h_value_3))
-                }
-                else -> { // 4개이상
+                else -> { // 3개 이상
                     val popupWindow = PopupWindow(popUpBinding.root, w_value, h_value, focusable)
-                    popupWindow.showAsDropDown(binding.rlReadPersonCnt, 0, -(moved_h_value_4)) // O.K
+                    popupWindow.showAsDropDown(binding.rlReadPersonCnt, 0, -(moved_h_value_3))
                 }
 
             }
