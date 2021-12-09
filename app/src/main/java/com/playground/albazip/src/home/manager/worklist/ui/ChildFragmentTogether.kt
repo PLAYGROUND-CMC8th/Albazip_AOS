@@ -119,12 +119,14 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
                 val popupWindow = PopupWindow(popUpBinding.root, w_value, height, focusable)
                 popupWindow.contentView = popUpBinding.root
                 popupWindow.elevation = 5F
-                popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),moved_h_value)
+                popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),0)
+                //popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),moved_h_value)
             }else{ // item 이 3개 이상일 때
                 val popupWindow = PopupWindow(popUpBinding.root, w_value, h_value, focusable)
                 popupWindow.contentView = popUpBinding.root
                 popupWindow.elevation = 5F
-                popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),moved_h_value_3)
+                popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),0)
+                //popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),moved_h_value_3)
             }
         }
 
