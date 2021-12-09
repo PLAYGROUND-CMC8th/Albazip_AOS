@@ -74,9 +74,28 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
             binding.llNoData.visibility = View.VISIBLE
         }else{
             binding.llNoData.visibility = View.GONE
+
+            var real_start_time = ""
+            var real_end_time = ""
+
             for (i in 0 until response.data.commuteData.size){
+
+                //  출근 null 값 체크
+                if(response.data.commuteData[i].real_start_time == null){
+                    real_start_time = ""
+                }else{
+                    real_start_time = response.data.commuteData[i].real_start_time!!
+                }
+
+                // 퇴근 null 값 체크
+                if(response.data.commuteData[i].real_end_time == null){
+                    real_end_time = ""
+                }else{
+                    real_end_time = response.data.commuteData[i].real_end_time!!
+                }
+
                 lateRecordList.add(
-                    WLateRecordData(response.data.commuteData[i].year,response.data.commuteData[i].month,response.data.commuteData[i].day,response.data.commuteData[i].start_time,response.data.commuteData[i].end_time,
+                    WLateRecordData(response.data.commuteData[i].year,response.data.commuteData[i].month,response.data.commuteData[i].day,real_start_time,real_end_time,
                         response.data.commuteData[i].start_late,response.data.commuteData[i].end_late)
                 )
             }
@@ -114,9 +133,26 @@ class LateCheckActivity:BaseActivity<ActivityLateCheckBinding>(ActivityLateCheck
             binding.llNoData.visibility = View.VISIBLE
         }else {
             binding.llNoData.visibility = View.GONE
+                var real_start_time = ""
+                var real_end_time = ""
             for (i in 0 until response.data.commuteData.size){
+
+                    //  출근 null 값 체크
+                    if(response.data.commuteData[i].real_start_time == null){
+                        real_start_time = ""
+                    }else{
+                        real_start_time = response.data.commuteData[i].real_start_time!!
+                    }
+
+                    // 퇴근 null 값 체크
+                    if(response.data.commuteData[i].real_end_time == null){
+                        real_end_time = ""
+                    }else{
+                        real_end_time = response.data.commuteData[i].real_end_time!!
+                    }
+
                 lateRecordList.add(
-                    WLateRecordData(response.data.commuteData[i].year,response.data.commuteData[i].month,response.data.commuteData[i].day,response.data.commuteData[i].start_time,response.data.commuteData[i].end_time,
+                    WLateRecordData(response.data.commuteData[i].year,response.data.commuteData[i].month,response.data.commuteData[i].day,real_start_time,real_end_time,
                         response.data.commuteData[i].start_late,response.data.commuteData[i].end_late)
                 )
             }
