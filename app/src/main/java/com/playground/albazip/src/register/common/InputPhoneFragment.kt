@@ -119,6 +119,7 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         // [START initialize_auth]
         // Initialize Firebase Auth
         auth = Firebase.auth
