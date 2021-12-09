@@ -30,14 +30,18 @@ class WLateRecordAdapter(private val itemList:ArrayList<WLateRecordData>):Recycl
             binding.tvDate.text = recordData.year+"."+recordData.month+"."+recordData.day+"."
             // 출근시간
             if(recordData.real_start_time == ""){ // 만약 출근 기록이 없다면
-                binding.tvGoWorkTime.text = "기록없음"
+                binding.tvGoWorkTime.text = "기록 없음"
+                binding.tvGoToWork.setTextColor(Color.parseColor("#a3a3a3")) // 텍스트 컬러 변경
+                binding.viewGoWork.setBackgroundColor(Color.parseColor("#a3a3a3")) // 배경색 변경
             }else{
                 binding.tvGoWorkTime.text = recordData.real_start_time.substring(0,2) + ":" + recordData.real_start_time.substring(2,4)
             }
 
             // 퇴근 시간
             if(recordData.real_end_time == ""){ // 만약 퇴근 기록이 없다면
-                binding.tvOffWorkTime.text = "기록없음"
+                binding.tvOffWorkTime.text = "기록 없음"
+                binding.tvGoOffWork.setTextColor(Color.parseColor("#a3a3a3")) // 텍스트 컬러 변경
+                binding.viewOffWork.setBackgroundColor(Color.parseColor("#a3a3a3")) // 배경색 변경
             }else{
                 binding.tvOffWorkTime.text = recordData.real_end_time.substring(0,2) + ":" + recordData.real_end_time.substring(2,4)
             }
