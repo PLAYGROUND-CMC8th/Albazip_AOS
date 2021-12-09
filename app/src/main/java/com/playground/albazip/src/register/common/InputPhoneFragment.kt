@@ -133,6 +133,7 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
             if(binding.etCertify.text.toString().isNotEmpty()) {
 
                 verifyPhoneNumberWithCode(storedVerificationId, binding.etCertify.text.toString())
+                showLoadingDialog(requireContext())
             }
 
         }
@@ -455,6 +456,8 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                 Toast.makeText(requireContext(),"유저정보 삭제 실패 ",Toast.LENGTH_LONG).show()
             }
         }
+
+        dismissLoadingDialog()
 
 //        FirebaseAuth.getInstance().currentUser?.reauthenticate(credential)?.addOnCompleteListener {
 //            if(it.isSuccessful){
