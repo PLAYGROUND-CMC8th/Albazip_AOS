@@ -96,15 +96,17 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
             // dp to px 단위변경
             val density = resources.displayMetrics.density
             val w_value = (140 * density).toInt()
-            val h_value = (200 * density).toInt()
+            val h_value = (170 * density).toInt()
             val moved_w_value =  (100 * density).toInt()
             val moved_h_value =  (8 * density).toInt()
+
+            val moved_h_value_3=  ((130+70) * density).toInt()
 
             // val width = LinearLayout.LayoutParams.WRAP_CONTENT
             val height = LinearLayout.LayoutParams.WRAP_CONTENT
             var focusable = true
 
-            if(workerCntList.size <= 4) {
+            if(workerCntList.size <= 3) {
                 val popupWindow = PopupWindow(popUpBinding.root, w_value, height, focusable)
                 popupWindow.contentView = popUpBinding.root
                 popupWindow.elevation = 5F
@@ -113,7 +115,7 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
                 val popupWindow = PopupWindow(popUpBinding.root, w_value, h_value, focusable)
                 popupWindow.contentView = popUpBinding.root
                 popupWindow.elevation = 5F
-                popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),moved_h_value)
+                popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),moved_h_value_3)
             }
         }
 
