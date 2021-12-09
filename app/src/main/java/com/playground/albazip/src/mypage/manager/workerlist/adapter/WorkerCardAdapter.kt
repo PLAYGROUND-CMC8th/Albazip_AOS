@@ -52,7 +52,7 @@ class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): 
             // 비활성화 카드면 -> 배경 off , 이미지 기본
             if(cardData.status == 0){
                 // 타임
-                binding.tvPosition.text = cardData.title
+                binding.tvPosition.text = cardData.title.substring(0,2) + " " + cardData.title.substring(2,4)
             }else{
                 // 활성화 카드면 -> 배경 on
                 binding.clParent.background =  ContextCompat.getDrawable(
@@ -73,8 +73,7 @@ class WorkerCardAdapter(val itemList:ArrayList<CardData>,val context: Context): 
                 binding.tvRegister.text = cardData.first_name
 
                 // 타임
-                binding.tvPosition.text = cardData.title
-
+                binding.tvPosition.text = cardData.title.substring(0,2) + " " + cardData.title.substring(2,4)
                 // 퇴사요청 알람
                 if(cardData.status == 2){
                     binding.ivAlarm.visibility = View.VISIBLE
