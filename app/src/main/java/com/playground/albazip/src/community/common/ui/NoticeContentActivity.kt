@@ -112,7 +112,9 @@ class NoticeContentActivity :
             )
         }
 
-        doneWorkerCntAdapter = DoneWorkerCntAdapter(workerCntList, this@NoticeContentActivity)
+        var wct = workerCntList.distinct()
+
+        doneWorkerCntAdapter = DoneWorkerCntAdapter(workerCntList.distinct() as ArrayList<DoneWorkerCntData>, this@NoticeContentActivity)
         popUpBinding.rvDoneWorkerList.adapter = doneWorkerCntAdapter
 
         binding.tvDonePersonCnt.text = response.data.confirmInfo.count.toString()
@@ -140,7 +142,7 @@ class NoticeContentActivity :
             popupWindow.contentView = popUpBinding.root
             popupWindow.elevation = 5F
 
-            when (workerCntList.size) {
+            when (wct.size) {
 
                 0 -> {
                     popupWindow.showAsDropDown(binding.rlReadPersonCnt, 0, -(moved_h_value_0)) // O.K
