@@ -68,7 +68,7 @@ class EditShopInfoTwoActivity :
                         btnList[i].isSelected = true
                         btnList[i].setTextColor(Color.parseColor("#343434"))
 
-                        if (i == 7 || i == 8){
+                        if (i== 0 || i == 8){
                             btnList[i].background = ContextCompat.getDrawable(this@EditShopInfoTwoActivity, R.drawable.rectangle_fill_yellow_radius_16)
                         }else{
                             btnList[i].background =
@@ -364,7 +364,7 @@ class EditShopInfoTwoActivity :
                         } else {     // 아니면? -> 해당 요일만 선택해제
                             v.background = ContextCompat.getDrawable(
                                 this@EditShopInfoTwoActivity,
-                                R.drawable.oval_fill_white_stroke_gray
+                                R.drawable.rectangle_fill_white_radius_gray_16
                             )
                             (v as AppCompatButton).setTextColor(Color.parseColor("#6f6f6f"))
 
