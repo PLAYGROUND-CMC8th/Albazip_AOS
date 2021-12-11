@@ -51,6 +51,11 @@ class AddWorkerOneActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 화면닫기
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+
         // 알바생
         binding.btnAlba.setOnClickListener {
             selectRank(binding.btnAlba)

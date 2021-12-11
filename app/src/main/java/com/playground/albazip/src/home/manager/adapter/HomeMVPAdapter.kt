@@ -1,10 +1,13 @@
 package com.playground.albazip.src.home.manager.adapter
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.databinding.ItemVpHomeCommunicateMBinding
+import com.playground.albazip.src.community.common.ui.NoticeContentActivity
 import com.playground.albazip.src.home.common.data.HomeCommuData
 
 class HomeMVPAdapter(private val context: Context, private val itemList: ArrayList<HomeCommuData>, jobFlags:Int) :
@@ -22,6 +25,13 @@ class HomeMVPAdapter(private val context: Context, private val itemList: ArrayLi
     override fun onBindViewHolder(holder: HomeVPHolder, position: Int) {
         val dataList = itemList[position]
         holder.bind(dataList)
+
+        // 공지사항 읽기 화면으로 이동
+        holder.binding.root.setOnClickListener {
+            val readIntent = Intent(myContext, NoticeContentActivity::class.java)
+            readIntent.putExtra("noticeId",itemList[holder.adapterPosition].noticeId)
+            (myContext as Activity).startActivity(readIntent)
+        }
     }
 
     override fun getItemCount(): Int = itemList.size

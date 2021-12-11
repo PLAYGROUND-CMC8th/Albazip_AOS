@@ -1,6 +1,8 @@
 package com.playground.albazip.src.home.manager.adapter
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -11,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.R
 import com.playground.albazip.databinding.ItemVpHomeCommunicateBinding
+import com.playground.albazip.src.community.worker.ui.NoticeWContentActivity
 import com.playground.albazip.src.home.common.data.HomeCommuData
 
 class HomeVPAdapter(private val context: Context,private val itemList: ArrayList<HomeCommuData>,jobFlags:Int) :
@@ -28,6 +31,19 @@ class HomeVPAdapter(private val context: Context,private val itemList: ArrayList
     override fun onBindViewHolder(holder: HomeVPHolder, position: Int) {
         val dataList = itemList[position]
         holder.bind(dataList)
+
+        // 공지사항 읽기 화면으로 이동
+        holder.binding.root.setOnClickListener {
+            val readIntent = Intent(myContext, NoticeWContentActivity::class.java)
+            readIntent.putExtra("noticeId",itemList[holder.adapterPosition].noticeId)
+
+            // 미확인 화면이라면 flags 로 0 보내기
+            if(itemList[position].confirm == 0) {
+                readIntent.putExtra("readSwitch", -1)
+            }
+
+            (myContext as Activity).startActivity(readIntent)
+        }
     }
 
     override fun getItemCount(): Int = itemList.size

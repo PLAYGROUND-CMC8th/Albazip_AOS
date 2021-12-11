@@ -15,6 +15,7 @@ import com.playground.albazip.src.home.manager.editshop.network.PostEditShopInfo
 import com.playground.albazip.src.home.manager.editshop.network.PostEditShopRequest
 import com.playground.albazip.src.home.manager.editshop.network.PostEditShopService
 import com.playground.albazip.src.main.MainActivity
+import com.playground.albazip.src.main.ManagerMainActivity
 import com.playground.albazip.src.register.manager.custom.PayDayBottomSheetDialog
 import com.playground.albazip.src.register.manager.custom.TimePickerBottomSheetDialog
 import java.text.SimpleDateFormat
@@ -516,8 +517,8 @@ class EditShopInfoTwoActivity :
     // 매장 편집 성공
     override fun onPostEditShopInfoSuccess(response: BaseResponse) {
        dismissLoadingDialog()
-        showCustomToast("'매장 정보가 변경되었습니다'")
-        val nextIntent = Intent(this,MainActivity::class.java)
+        showCustomToast("매장 정보가 변경되었습니다")
+        val nextIntent = Intent(this,ManagerMainActivity::class.java)
         startActivity(nextIntent)
         finishAffinity()
     }
