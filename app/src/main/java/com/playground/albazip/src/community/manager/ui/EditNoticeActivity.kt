@@ -5,21 +5,14 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.provider.MediaStore
+import android.os.*
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toFile
 import androidx.core.net.toUri
 import androidx.core.view.size
-import com.bumptech.glide.Glide
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.config.BaseResponse
 import com.playground.albazip.databinding.ActivityWriteNoticeBinding
@@ -33,7 +26,6 @@ import com.playground.albazip.src.community.manager.network.PutEditNoticeService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.http.Multipart
 import java.io.*
 import java.net.*
 
@@ -46,6 +38,8 @@ class EditNoticeActivity :
     private lateinit var postIVAdapter: PostIVAdapter
     private var postImgList = ArrayList<PostImgData>()
     private var noticeId = -1
+
+    private val mHandler = Handler(Looper.getMainLooper())
 
     // 프로필 결과 반환
     private val getResult =
@@ -161,34 +155,44 @@ class EditNoticeActivity :
 
         // 공지사항 편집
         binding.tvDone.setOnClickListener {
+
             val title =
-                binding.etTitle.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+                binding.etTitle.text.toString()
+                    .toRequestBody("text/plain".toMediaTypeOrNull())
             val pin = 0.toString().toRequestBody("text/plain".toMediaTypeOrNull())
             val content =
-                binding.etContent.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+                binding.etContent.text.toString()
+                    .toRequestBody("text/plain".toMediaTypeOrNull())
 
+            postIVAdapter.notifyDataSetChanged()
             val imageList = postIVAdapter.itemList
             val fileList = ArrayList<MultipartBody.Part>()
-            val MEDIA_TYPE_IMAGE = "image/*".toMediaTypeOrNull()
 
-            var bitmap:Bitmap? = null
 
-            for (i in 0 until imageList.size) {
+            Thread {
+                kotlin.run {
 
-                if (imageList[i].img_path.toString().contains("https")) {
-                        val requestBody = imageList[i].img_path.toString().toRequestBody(MEDIA_TYPE_IMAGE)
-                        fileList.add(MultipartBody.Part.createFormData("images",imageList[i].img_path.toString(),requestBody))
-                } else {
-                    fileList.add(uriToFilePath(imageList[i].img_path))
+                    for (i in 0 until imageList.size) {
+
+                        if (imageList[i].img_path.toString().contains("https")) {
+                            fileList.add(httpToFilePath(imageList[i].img_path.toString())!!)
+                        } else {
+                            fileList.add(uriToFilePath(imageList[i].img_path))
+                        }
+
+                        PutEditNoticeService(this).tryPutEditNotice(
+                            noticeId,
+                            title,
+                            pin,
+                            content,
+                            fileList
+                        )
+                        // showLoadingDialog(this)
+                    }
+
                 }
+            }.start()
 
-                Log.d("stringlog", fileList.toString())
-                // bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
-                // fileList.add(uriToFilePath(imageList[i].img_path))
-            }
-
-            PutEditNoticeService(this).tryPutEditNotice(noticeId, title, pin, content, fileList)
-            showLoadingDialog(this)
         }
     }
 
@@ -219,14 +223,12 @@ class EditNoticeActivity :
 
     // 편집성공
     override fun onPutBoardNoticeSuccess(response: BaseResponse) {
-        dismissLoadingDialog()
         showCustomToast(response.message.toString())
-        Log.d("givemeId",noticeId.toString())
         finish()
     }
 
     override fun onPutBoardNoticeFailure(message: String) {
-        dismissLoadingDialog()
+        // dismissLoadingDialog()
         showCustomToast(message)
     }
 
@@ -238,6 +240,7 @@ class EditNoticeActivity :
         val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+
         val fileBody = byteArrayOutputStream.toByteArray()
             .toRequestBody(
                 "image/*".toMediaTypeOrNull(),
@@ -252,4 +255,44 @@ class EditNoticeActivity :
 
         return part
     }
+
+    // 기존 이미지 파일로 형변환
+    fun httpToFilePath(strImageURL: String): MultipartBody.Part? {
+        val options = BitmapFactory.Options()
+        var imgBitmap: Bitmap? = null
+
+        try {
+            var url = URL(strImageURL)
+            var conn: URLConnection = url.openConnection()
+            conn.connect()
+
+            var nSize = conn.contentLength
+            var bis: BufferedInputStream = BufferedInputStream(conn.getInputStream(), nSize)
+            imgBitmap = BitmapFactory.decodeStream(bis, null, options)
+
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            imgBitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+            val fileBody = byteArrayOutputStream.toByteArray()
+                .toRequestBody(
+                    "image/*".toMediaTypeOrNull(),
+                    0
+                )
+
+            val part = MultipartBody.Part.createFormData(
+                "images",
+                strImageURL,
+                fileBody
+            )
+
+            bis.close()
+
+            return part
+
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+
+        return null
+    }
+
 }
