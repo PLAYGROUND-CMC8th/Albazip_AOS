@@ -19,10 +19,16 @@ class HomeMTodayToDoListActivity :
     BaseActivity<ActivityHomeTodayTodoListBinding>(ActivityHomeTodayTodoListBinding::inflate),
     GetMTodayTaskFragmentView {
 
+    private var openFlags = true
     private val tabTextList = arrayListOf("공동업무", "개인업무")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 매장 열렸는지 닫혔는지 여부 받아오기
+        if(intent.hasExtra("openFlags")==true){
+            openFlags = intent.getBooleanExtra("openFlags",true)
+        }
 
         // 뒤로가기 버튼
         binding.ibtnBack.setOnClickListener {

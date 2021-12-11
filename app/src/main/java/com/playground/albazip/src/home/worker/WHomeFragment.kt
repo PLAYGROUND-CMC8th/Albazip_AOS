@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.playground.albazip.R
 import com.playground.albazip.config.ApplicationClass
+import com.playground.albazip.config.ApplicationClass.Companion.prefs
 import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.FragmentHomeBinding
 import com.playground.albazip.src.community.worker.WCommunityFragment
@@ -70,17 +71,33 @@ class WHomeFragment :
         //var status = 1
         var status = response.data.shopInfo.status
 
+        var qrCheckStatus = prefs.getInt("qrCheckState",0)
+
+        // 다음날로 돌아왔을 때
+        if(status == 0 || status == 3){
+            prefs.setInt("qrCheckState",0) // qr 체크 상태 초기화
+        }
+
+        if (status == 1){ // 영업중일 때
+            if (qrCheckStatus == -1){ // qr을 찍고 퇴근한 상태라면
+                status = -1 // 오픈 -> 마감 (qr 체크완료 화면으로 이동)
+            }
+        }
+
         // 영업상태 체크
         if(status == 0){ // 영업전
             childFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomeWReadyFragment(response.data))
                 .commitAllowingStateLoss()
         }else if(status == 1){ // 영업중
-            childFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomeWOpenedFragment(response.data))
-                .commitAllowingStateLoss()
+                childFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomeWOpenedFragment(response.data))
+                    .commitAllowingStateLoss()
         }else if(status == 2){ // 영업후
+            childFragmentManager.beginTransaction().replace(R. id.home_child_frame_layout, HomeWDoneFragment(response.data))
+                .commitAllowingStateLoss()
+        }else if(status == -1){ // 가게는 영업중이나, 퇴근을 찍어버렸을 때
             childFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomeWDoneFragment(response.data))
                 .commitAllowingStateLoss()
-        }else{ // 휴무일
+        } else{ // 휴무일
             childFragmentManager.beginTransaction().replace(R.id.home_child_frame_layout, HomeWRestFragment(response.data))
                 .commitAllowingStateLoss()
         }

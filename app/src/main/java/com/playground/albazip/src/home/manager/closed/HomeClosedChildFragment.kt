@@ -49,6 +49,7 @@ class HomeClosedChildFragment(data: AllHomeMResult): BaseFragment<ChildFragmentH
         binding.btnDoneWork.setOnClickListener {
             val nextIntent = Intent(requireContext(), HomeMTodayToDoListActivity::class.java)
             nextIntent.putExtra("tabFlags", 0)
+            nextIntent.putExtra("openFlags",false)
             startActivity(nextIntent)
         }
 

@@ -65,7 +65,6 @@ class HWDoneAdapter(private val fm: FragmentManager, private val context: Contex
             }else{
                 binding.frameDisable.visibility = View.GONE
             }
-
         }
     }
 

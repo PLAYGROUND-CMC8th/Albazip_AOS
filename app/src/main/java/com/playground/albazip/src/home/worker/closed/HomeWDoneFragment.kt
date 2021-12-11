@@ -20,6 +20,7 @@ import com.playground.albazip.util.GetCurrentTime
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import com.playground.albazip.config.ApplicationClass
 
 class HomeWDoneFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWDoneBinding>(
     ChildFragmentHomeWDoneBinding::bind,

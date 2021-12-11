@@ -24,6 +24,7 @@ import com.playground.albazip.util.GetCurrentTime
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.ApplicationClass.Companion.prefs
 import java.text.SimpleDateFormat
 import java.util.*
@@ -244,6 +245,8 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
             showCustomToast(GetCurrentTime().getTime+"에 출근이 기록되었습니다.")
         }else{
             showCustomToast(GetCurrentTime().getTime+"에 퇴근이 기록되었습니다.")
+            // qr 체크 완료(화면 갱신을 위한 prefs설정)
+            ApplicationClass.prefs.setInt("qrCheckState",-1)
         }
 
         // 다시 홈화면으로 이동

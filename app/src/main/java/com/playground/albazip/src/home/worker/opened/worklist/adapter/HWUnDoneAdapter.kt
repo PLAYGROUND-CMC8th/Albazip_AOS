@@ -23,7 +23,7 @@ import com.playground.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoL
 class HWUnDoneAdapter(
     private val itemList: ArrayList<HUnDoneWorkListData>,
     context: Context,
-    dialogView: View
+    dialogView: View,
 ) : RecyclerView.Adapter<HWUnDoneAdapter.UnDoneWorkHolder>(), PutTodayHomeTaskFragmentView {
 
     private lateinit var binding: ItemRvUndoneCheckBinding

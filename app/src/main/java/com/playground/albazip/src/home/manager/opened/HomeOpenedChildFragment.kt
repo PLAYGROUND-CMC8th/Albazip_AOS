@@ -103,6 +103,7 @@ class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragment
         binding.rlTogetherBg.setOnClickListener {
             val nextIntent = Intent(requireContext(), HomeMTodayToDoListActivity::class.java)
             nextIntent.putExtra("tabFlags", 0)
+            nextIntent.putExtra("openFlags",true)
             startActivity(nextIntent)
         }
 
@@ -110,6 +111,7 @@ class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragment
         binding.rlPersonalWorkBg.setOnClickListener {
             val nextIntent = Intent(requireContext(), HomeMTodayToDoListActivity::class.java)
             nextIntent.putExtra("tabFlags", 1)
+            nextIntent.putExtra("openFlags",true)
             startActivity(nextIntent)
         }
     }
