@@ -48,14 +48,15 @@ class HomeWDoneFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWDo
             startActivity(nextIntent)
         }
 
-        // qr 스캔 화면으로 이동(1) - 이이콘
+        // qr 스캔 화면으로 이동(1) - 아이콘
         binding.ibtnQrScan.setOnClickListener {
-            callQRActivity()
+            showCustomToast("이미 근무를 마치고 퇴근한 상태에요")
         }
 
-        // qr 스캔 화면으로 이동(2) - 버튼
+        // 완료한 업무 - 버튼
         binding.btnDoneWork.setOnClickListener {
-            callQRActivity()
+            val nextIntent = Intent(requireContext(), HomeWTodayToDoListActivity::class.java)
+            startActivity(nextIntent)
         }
 
         // 매장 선택화면으로 이동

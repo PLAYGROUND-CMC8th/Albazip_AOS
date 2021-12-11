@@ -24,6 +24,7 @@ import com.playground.albazip.util.GetCurrentTime
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import com.playground.albazip.config.ApplicationClass.Companion.prefs
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.timer
@@ -78,23 +79,37 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
 
             if(threadTime.contains("-")){
                 binding.tvGoOff.setTextColor(Color.parseColor("#f90100")) // 색상변경 - 빨강색
-                binding.rlAlarm.visibility = View.VISIBLE // 알림 띄우기
-                binding.tvGoOff.text = "+"+threadTime.substring(1,3)+":"+threadTime.substring(3,5)
-                // qr 빨간점 보이기
-                binding.ivQrBedge.visibility = View.VISIBLE
+
+                // 기본 상태는 0, 알림을 확인하면 1로 변경
+                var goOffPopFlags = prefs.getInt("goOffPopFlags",0)
+                if(goOffPopFlags == 0) {
+                    binding.rlAlarm.visibility = View.VISIBLE // 알림 띄우기
+                }
+                    binding.tvGoOff.text =
+                        "+" + threadTime.substring(1, 3) + ":" + threadTime.substring(3, 5)
+                    // qr 빨간점 보이기
+                    binding.ivQrBedge.visibility = View.VISIBLE
+
             }else{ // 기본상태
                 binding.tvGoOff.text = threadTime.substring(0,2)+":"+threadTime.substring(2,4)
                 binding.tvGoOff.setTextColor(Color.parseColor("#343434"))
                 // qr 빨간점 숨기기
                 binding.ivQrBedge.visibility = View.GONE
+                prefs.setInt("goOffPopFlags",0) // 확인 상태 "0"로 변경하기
+
             }
         }
     }
 
-    override fun onStop() { // fragment 교체시 타이머 정지
+    override fun onStop() {
         super.onStop()
         mTimer.cancel()
     }
+
+//    override fun onPause() {// fragment 교체시 타이머 정지
+//        super.onPause()
+//        mTimer.cancel()
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -161,6 +176,7 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
         // 알림 팝업창 닫기
         binding.btnDelPopUp.setOnClickListener {
             binding.rlAlarm.visibility = View.GONE
+            prefs.setInt("goOffPopFlags",1) // 확인 상태 "1"로 변경하기
         }
 
         // 알림 화면으로 이동

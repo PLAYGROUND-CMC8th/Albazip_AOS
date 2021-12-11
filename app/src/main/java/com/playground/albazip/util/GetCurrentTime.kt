@@ -13,4 +13,8 @@ class GetCurrentTime() {
     // 형변환
     var simpleDate: SimpleDateFormat = SimpleDateFormat("hh:mm")
     var getTime: String = simpleDate.format(mDate)
+
+    // qr 스캔
+    var sdf1: SimpleDateFormat? = SimpleDateFormat("yy.MM.dd E요일")
+    var getQRScanDate:String = sdf1!!.format(mDate)
 }
