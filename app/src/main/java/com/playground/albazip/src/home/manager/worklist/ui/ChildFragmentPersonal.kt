@@ -25,7 +25,7 @@ class ChildFragmentPersonal(data: MTodayTaskResult?):BaseFragment<ChildFragmentP
 
         if (ResultData?.perTask?.size != null) {
             for(i in 0 until ResultData?.perTask?.size!!){
-                perWorkList.add(HomePerWorkData(ResultData!!.perTask[i].workerId,ResultData!!.perTask[i].workerTitle,ResultData!!.perTask[i].completeCount,ResultData!!.perTask[i].totalCount))
+                perWorkList.add(HomePerWorkData(ResultData!!.perTask[i].workerId,ResultData!!.perTask[i].workerTitle,ResultData!!.perTask[i].workerName,ResultData!!.perTask[i].completeCount,ResultData!!.perTask[i].totalCount))
             }
 
             perListAdapter = PerWorkListAdapter(perWorkList,requireContext())
@@ -64,7 +64,7 @@ class ChildFragmentPersonal(data: MTodayTaskResult?):BaseFragment<ChildFragmentP
 
         if (response.data.size != 0) {
             for(i in 0 until response.data.size){
-                perWorkList.add(HomePerWorkData(response.data[i].workerId,response.data[i].workerTitle,response.data[i].completeCount,response.data[i].totalCount))
+                perWorkList.add(HomePerWorkData(response.data[i].workerId,response.data[i].workerTitle,response.data[i].workerName,response.data[i].completeCount,response.data[i].totalCount))
             }
         }else{
             perWorkList.clear()

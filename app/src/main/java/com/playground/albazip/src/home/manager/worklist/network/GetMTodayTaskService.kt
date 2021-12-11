@@ -84,6 +84,7 @@ data class ComCoTask(
 data class MPerTask(
     @SerializedName("workerId")val workerId:Int,
     @SerializedName("workerTitle")val workerTitle:String,
+    @SerializedName("workerName")val workerName:String,
     @SerializedName("totalCount")val totalCount:Int,
     @SerializedName("completeCount")val completeCount:Int,
 )

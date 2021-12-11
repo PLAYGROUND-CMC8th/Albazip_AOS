@@ -33,7 +33,10 @@ class PerWorkListAdapter(val itemList:ArrayList<HomePerWorkData>, var context: C
         fun setItemList(perWorkData: HomePerWorkData){
 
             // 업무 타이틀
-            binding.tvTogether.text = perWorkData.workTitle + "업무"
+            binding.tvTogether.text = perWorkData.workTitle + " "
+
+            // 업무자 이름
+            binding.tvWorkerName.text = perWorkData.workerName
 
             // 전체 업무 개수
             binding.tvTotalCntTogehter.text = "/ "+perWorkData.totalCnt.toString()
