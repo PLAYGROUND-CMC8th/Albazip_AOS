@@ -11,12 +11,12 @@ import retrofit2.http.*
 
 class PutEditNoticeService(val view: PutEditNoticeFragmentView) {
 
-    fun tryPutEditNotice(noticeId: Int,title: RequestBody, content: RequestBody, images: ArrayList<MultipartBody.Part>
+    fun tryPutEditNotice(noticeId: Int,title: RequestBody, pin:RequestBody, content: RequestBody, images: ArrayList<MultipartBody.Part>
     ){
         val putEditNoticeRetrofitInterface = ApplicationClass.sRetrofit.create(
             PutEditNoticeRetrofitInterface::class.java)
         val token = ApplicationClass.prefs.getString("X-ACCESS-TOKEN","0")
-        putEditNoticeRetrofitInterface.postBoardNotice(token,noticeId,title,content,images).enqueue(object :
+        putEditNoticeRetrofitInterface.postBoardNotice(token,noticeId,title,pin,content,images).enqueue(object :
             Callback<BaseResponse> {
             override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
                 view.onPutBoardNoticeSuccess(response.body() as BaseResponse)
@@ -35,6 +35,7 @@ interface PutEditNoticeRetrofitInterface {
     fun postBoardNotice(@Header("token")token:String,
                         @Path(value = "noticeId", encoded = false) noticeId: Int,
                         @Part("title")title: RequestBody,
+                        @Part("pin")pin: RequestBody,
                         @Part("content")content: RequestBody,
                         @Part images:ArrayList<MultipartBody.Part>): Call<BaseResponse>
 }

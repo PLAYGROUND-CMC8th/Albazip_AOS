@@ -5,14 +5,21 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toFile
 import androidx.core.net.toUri
 import androidx.core.view.size
+import com.bumptech.glide.Glide
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.config.BaseResponse
 import com.playground.albazip.databinding.ActivityWriteNoticeBinding
@@ -26,13 +33,14 @@ import com.playground.albazip.src.community.manager.network.PutEditNoticeService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.InputStream
-import java.lang.Exception
+import retrofit2.http.Multipart
+import java.io.*
+import java.net.*
 
-class EditNoticeActivity:BaseActivity<ActivityWriteNoticeBinding>(ActivityWriteNoticeBinding::inflate),
-    GetReadNoticeFragmentView,PutEditNoticeFragmentView {
+
+class EditNoticeActivity :
+    BaseActivity<ActivityWriteNoticeBinding>(ActivityWriteNoticeBinding::inflate),
+    GetReadNoticeFragmentView, PutEditNoticeFragmentView {
 
     // 이미지 rv를 담는 코드
     private lateinit var postIVAdapter: PostIVAdapter
@@ -40,64 +48,67 @@ class EditNoticeActivity:BaseActivity<ActivityWriteNoticeBinding>(ActivityWriteN
     private var noticeId = -1
 
     // 프로필 결과 반환
-    private val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == Activity.RESULT_OK) {
-            try {
-                it.data?.let {
-                    val list = arrayListOf<Uri>()
+    private val getResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                try {
+                    it.data?.let {
+                        val list = arrayListOf<Uri>()
 
-                    when{
-                        it?.data != null -> {
-                            list.add(it.data!!)
+                        when {
+                            it?.data != null -> {
+                                list.add(it.data!!)
 
-                            if(binding.rvPhotoList.size < 2) {
-                                postImgList.add(PostImgData(list[0]))
-                                postIVAdapter = PostIVAdapter(postImgList, this@EditNoticeActivity)
-                                binding.rvPhotoList.adapter = postIVAdapter
-                            }else{
-                                showCustomToast("최대 두 장까지 업로드 가능합니다!")
-                            }
-
-                            postIVAdapter.notifyDataSetChanged()
-                        }
-
-                        it?.clipData != null -> {
-                            val clip = it?.clipData
-                            val size = clip?.itemCount
-
-                            for (i in 0 until size!!){
-                                val item = clip.getItemAt(i).uri
-                                list.add(item)
-                            }
-
-                            if(binding.rvPhotoList.size < 2) {
-                                // 리사이클러뷰에 불러온 데이터들 연결하기
-                                for (i in 0 until list.size) {
-                                    postImgList.add(PostImgData(list[i]))
+                                if (binding.rvPhotoList.size < 2) {
+                                    postImgList.add(PostImgData(list[0]))
+                                    postIVAdapter =
+                                        PostIVAdapter(postImgList, this@EditNoticeActivity)
+                                    binding.rvPhotoList.adapter = postIVAdapter
+                                } else {
+                                    showCustomToast("최대 두 장까지 업로드 가능합니다!")
                                 }
-                                postIVAdapter = PostIVAdapter(postImgList, this@EditNoticeActivity)
-                                binding.rvPhotoList.adapter = postIVAdapter
-                            }else{
-                                showCustomToast("최대 두 장까지 업로드 가능합니다!")
+
+                                postIVAdapter.notifyDataSetChanged()
                             }
 
-                            postIVAdapter.notifyDataSetChanged()
+                            it?.clipData != null -> {
+                                val clip = it?.clipData
+                                val size = clip?.itemCount
+
+                                for (i in 0 until size!!) {
+                                    val item = clip.getItemAt(i).uri
+                                    list.add(item)
+                                }
+
+                                if (binding.rvPhotoList.size < 2) {
+                                    // 리사이클러뷰에 불러온 데이터들 연결하기
+                                    for (i in 0 until list.size) {
+                                        postImgList.add(PostImgData(list[i]))
+                                    }
+                                    postIVAdapter =
+                                        PostIVAdapter(postImgList, this@EditNoticeActivity)
+                                    binding.rvPhotoList.adapter = postIVAdapter
+                                } else {
+                                    showCustomToast("최대 두 장까지 업로드 가능합니다!")
+                                }
+
+                                postIVAdapter.notifyDataSetChanged()
+                            }
+                            else -> {
+                            }
+
                         }
-                        else -> {
-                        }
+
 
                     }
 
+                } catch (e: Exception) {
 
                 }
-
-            } catch (e: Exception) {
-
+            } else if (it.resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this@EditNoticeActivity, "선택 취소", Toast.LENGTH_SHORT).show()
             }
-        } else if (it.resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(this@EditNoticeActivity, "선택 취소", Toast.LENGTH_SHORT).show()
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,18 +122,20 @@ class EditNoticeActivity:BaseActivity<ActivityWriteNoticeBinding>(ActivityWriteN
         binding.tvDone.setTextColor(Color.parseColor("#ffc400"))
 
         // 내용 최소 글자 수 감지
-        binding.etContent.addTextChangedListener(object: TextWatcher {
+        binding.etContent.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.tvTextCnt.text = s?.length.toString() + "자 / 최소20자"
-                if (s?.length!! >= 20 && binding.etTitle.text.toString().isNotEmpty()){ // 20자 이상 + 제목이 비어있지 않으면
+                if (s?.length!! >= 20 && binding.etTitle.text.toString()
+                        .isNotEmpty()
+                ) { // 20자 이상 + 제목이 비어있지 않으면
                     // 버튼 활성화
                     binding.tvDone.isEnabled = true
                     binding.tvDone.setTextColor(Color.parseColor("#ffc400"))
-                }else{
+                } else {
                     // 버튼 비활성화
                     binding.tvDone.isEnabled = false
                     binding.tvDone.setTextColor(Color.parseColor("#ADADAD"))
@@ -147,18 +160,34 @@ class EditNoticeActivity:BaseActivity<ActivityWriteNoticeBinding>(ActivityWriteN
         }
 
         // 공지사항 편집
-        binding.tvDone.setOnClickListener{
-            val title = binding.etTitle.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-            val content = binding.etContent.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        binding.tvDone.setOnClickListener {
+            val title =
+                binding.etTitle.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            val pin = 0.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            val content =
+                binding.etContent.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
 
-            val imageList = postImgList
+            val imageList = postIVAdapter.itemList
             val fileList = ArrayList<MultipartBody.Part>()
+            val MEDIA_TYPE_IMAGE = "image/*".toMediaTypeOrNull()
 
-            for (i in 0 until imageList.size){
-                fileList.add(uriToFilePath(imageList[i].img_path))
+            var bitmap:Bitmap? = null
+
+            for (i in 0 until imageList.size) {
+
+                if (imageList[i].img_path.toString().contains("https")) {
+                        val requestBody = imageList[i].img_path.toString().toRequestBody(MEDIA_TYPE_IMAGE)
+                        fileList.add(MultipartBody.Part.createFormData("images",imageList[i].img_path.toString(),requestBody))
+                } else {
+                    fileList.add(uriToFilePath(imageList[i].img_path))
+                }
+
+                Log.d("stringlog", fileList.toString())
+                // bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+                // fileList.add(uriToFilePath(imageList[i].img_path))
             }
 
-            PutEditNoticeService(this).tryPutEditNotice(noticeId,title,content,fileList)
+            PutEditNoticeService(this).tryPutEditNotice(noticeId, title, pin, content, fileList)
             showLoadingDialog(this)
         }
     }
@@ -176,11 +205,11 @@ class EditNoticeActivity:BaseActivity<ActivityWriteNoticeBinding>(ActivityWriteN
         binding.tvTextCnt.text = binding.etContent.text.length.toString() + "자 / 최소20자"
 
         // 사진
-        for(i in 0 until response.data.boardInfo.image.size) {
+        for (i in 0 until response.data.boardInfo.image.size) {
             postImgList.add(PostImgData(response.data.boardInfo.image[i].image_path.toUri()))
         }
 
-        postIVAdapter = PostIVAdapter(postImgList,this@EditNoticeActivity)
+        postIVAdapter = PostIVAdapter(postImgList, this@EditNoticeActivity)
         binding.rvPhotoList.adapter = postIVAdapter
     }
 
@@ -192,6 +221,8 @@ class EditNoticeActivity:BaseActivity<ActivityWriteNoticeBinding>(ActivityWriteN
     override fun onPutBoardNoticeSuccess(response: BaseResponse) {
         dismissLoadingDialog()
         showCustomToast(response.message.toString())
+        Log.d("givemeId",noticeId.toString())
+        finish()
     }
 
     override fun onPutBoardNoticeFailure(message: String) {

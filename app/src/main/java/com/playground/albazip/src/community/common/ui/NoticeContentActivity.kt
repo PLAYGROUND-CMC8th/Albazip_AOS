@@ -38,8 +38,6 @@ class NoticeContentActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        GetReadNoticeService(this).tryGetNoticeRead(intent.getIntExtra("noticeId", 0))
-        showLoadingDialog(this)
 
         popUpBinding = BgCntReadPopupBinding.inflate(layoutInflater)
 
@@ -50,6 +48,13 @@ class NoticeContentActivity :
                 "DelNoticeAlert"
             )
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        GetReadNoticeService(this).tryGetNoticeRead(intent.getIntExtra("noticeId", 0))
+        showLoadingDialog(this)
     }
 
     override fun onGetReadNoticeSuccess(response: ReadNoticeResponse) {
@@ -78,6 +83,7 @@ class NoticeContentActivity :
         // 날짜
         binding.tvWroteDate.text =
             response.data.boardInfo.registerDate.substring(0, 10).replace("-", ".") + "."
+
         // 이미지
         var imgList = ArrayList<BoardImgData>()
         for (i in 0 until response.data.boardInfo.image.size) {
@@ -92,6 +98,7 @@ class NoticeContentActivity :
 
         boardIVAdapter = BoardIVAdapter(imgList, this)
         binding.rvNoticeImageList.adapter = boardIVAdapter
+
 
         // 읽은 사람 목록 adpater
         for (i in 0 until response.data.confirmInfo.confirmer.size) {

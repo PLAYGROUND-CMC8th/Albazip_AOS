@@ -69,8 +69,8 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
                 content = "내용없음"
             }
 
-            var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + " · " + ResultData!!.coTask.nonComCoTask[i].writerName + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0,9)
-
+            //var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + ResultData!!.coTask.nonComCoTask[i].writerName + " · " + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0,9)
+            var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + " " + ResultData!!.coTask.nonComCoTask[i].writerName + " · " + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
             unDoneList.add(HUnDoneWorkListData(0,ResultData!!.coTask.nonComCoTask[i].taskId,0,ResultData!!.coTask.nonComCoTask[i].takTitle,content,writerAndDay))
         }
         }
@@ -186,8 +186,9 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
                 if (content == "null" || content.isEmpty()){
                     content = "내용없음"
                 }
-
-                var writerAndDay = response.data.nonComCoTask[i].writerTitle + " · " + response.data.nonComCoTask[i].writerName +" "+ response.data.nonComCoTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+                var writerAndDay = response.data.nonComCoTask[i].writerTitle  + " " + response.data.nonComCoTask[i].writerName + " · " + response.data.nonComCoTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+                // var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + ResultData!!.coTask.nonComCoTask[i].writerName + " · " + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0,9)
+                // var writerAndDay = response.data.nonComCoTask[i].writerTitle + " · " + response.data.nonComCoTask[i].writerName +" "+ response.data.nonComCoTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
 
                 unDoneList.add(HUnDoneWorkListData(0,response.data.nonComCoTask[i].taskId,0,response.data.nonComCoTask[i].takTitle,content,writerAndDay))
             }

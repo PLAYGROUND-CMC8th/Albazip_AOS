@@ -26,6 +26,7 @@ class ManagerNoticeMenuBottomSheetDialog(noticeId:Int): BottomSheetDialogFragmen
             val nextIntent = Intent(requireContext(),EditNoticeActivity::class.java)
             nextIntent.putExtra("noticeId",getNoticeId)
             startActivity(nextIntent)
+            dismiss()
         }
 
         // 삭제하기

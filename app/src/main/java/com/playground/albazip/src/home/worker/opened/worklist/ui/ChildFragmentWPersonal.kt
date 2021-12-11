@@ -49,7 +49,8 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
                     content = "내용없음"
                 }
 
-                var writerAndDay = ResultData!!.perTask.nonComPerTask[i].writerTitle + " · " + ResultData!!.perTask.nonComPerTask[i].writerName + ResultData!!.perTask.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+                var writerAndDay = ResultData!!.perTask.nonComPerTask[i].writerTitle + " " + ResultData!!.perTask.nonComPerTask[i].writerName + " · " + ResultData!!.perTask.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+                //var writerAndDay = ResultData!!.perTask.nonComPerTask[i].writerTitle + " · " + ResultData!!.perTask.nonComPerTask[i].writerName + ResultData!!.perTask.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
 
                 unDoneList.add(HUnDoneWorkListData(1,ResultData!!.perTask.nonComPerTask[i].taskId,0,ResultData!!.perTask.nonComPerTask[i].takTitle,content,writerAndDay))
             }
@@ -123,7 +124,8 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
                     content = "내용없음"
                 }
 
-                var writerAndDay = response.data.nonComPerTask[i].writerTitle + " · " + response.data.nonComPerTask[i].writerName + response.data.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+                var writerAndDay = response.data.nonComPerTask[i].writerTitle + " " + response.data.nonComPerTask[i].writerName + " · " + response.data.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+               // var writerAndDay = response.data.nonComPerTask[i].writerTitle + " · " + response.data.nonComPerTask[i].writerName + response.data.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
 
                 unDoneList.add(HUnDoneWorkListData(1,response.data.nonComPerTask[i].taskId,0,response.data.nonComPerTask[i].takTitle,content,writerAndDay))
             }
