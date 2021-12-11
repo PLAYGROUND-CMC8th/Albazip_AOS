@@ -67,6 +67,7 @@
             android:layout_height="42dp"
             android:background="@drawable/custom_tab_bg"
             app:tabGravity="fill"
+            app:tabTextAppearance="@style/MineCustomTabText"
             android:outlineProvider="none"
             app:tabIndicator="@drawable/custom_tab_gradient"
             app:tabIndicatorColor="#343434"

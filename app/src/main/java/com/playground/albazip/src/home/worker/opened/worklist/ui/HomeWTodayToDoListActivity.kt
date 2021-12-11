@@ -70,7 +70,7 @@ class HomeWTodayToDoListActivity:
         binding.vpTodayTodo.adapter = pagerAdapter
 
         // 탭 타이틀 재설정
-        val tabTextList = arrayListOf("공동업무", response.data.perTask.positionTitle)
+        val tabTextList = arrayListOf("공동업무", response.data.perTask.positionTitle+" 업무")
         TabLayoutMediator(binding.tabLayout, binding.vpTodayTodo) { tab, position ->
             tab.text = tabTextList[position]
         }.attach()
@@ -83,11 +83,25 @@ class HomeWTodayToDoListActivity:
             }
         }
         // 탭 레이아웃 커스튬
-        // 초기화 시 position 0 의 텍스트 Bold 로 만들기
+        // 초기화 시 position 1 의 텍스트 Bold 로 만들기
         binding.tabLayout.getTabAt(1)?.view?.children?.find { it is TextView }?.let { tv ->
             (tv as TextView).post {
-                if(tv.text.toString() == "평일마감 업무") {
-                    tv.setTypeface(null, Typeface.BOLD)
+                val tabFlags = intent.getIntExtra("tabFlags",0)
+                if(tabFlags ==1 ) {
+                    if (tv.text.toString() == response.data.perTask.positionTitle + " 업무") {
+                        tv.setTypeface(null, Typeface.BOLD)
+                    }
+                }
+            }
+        }
+
+        binding.tabLayout.getTabAt(0)?.view?.children?.find { it is TextView }?.let { tv ->
+            (tv as TextView).post {
+                val tabFlags = intent.getIntExtra("tabFlags",0)
+                if(tabFlags == 0) {
+                    if (tv.text.toString() == "공동업무") {
+                        tv.setTypeface(null, Typeface.BOLD)
+                    }
                 }
             }
         }

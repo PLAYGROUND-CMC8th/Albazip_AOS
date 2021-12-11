@@ -1,5 +1,6 @@
 package com.playground.albazip.src.home.manager.worklist.ui
 
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.TextView
@@ -89,8 +90,22 @@ class HomeMTodayToDoListActivity :
         // 초기화 시 position 0 의 텍스트 Bold 로 만들기
         binding.tabLayout.getTabAt(0)?.view?.children?.find { it is TextView }?.let { tv ->
             (tv as TextView).post {
-                if (tv.text.toString() == "공동업무") {
-                    tv.setTypeface(null, Typeface.BOLD)
+                val tabFlags = intent.getIntExtra("tabFlags",0)
+                if(tabFlags == 0) {
+                    if (tv.text.toString() == "공동업무") {
+                        tv.setTypeface(null, Typeface.BOLD)
+                    }
+                }
+            }
+        }
+
+        binding.tabLayout.getTabAt(1)?.view?.children?.find { it is TextView }?.let { tv ->
+            (tv as TextView).post {
+                val tabFlags = intent.getIntExtra("tabFlags",0)
+                if(tabFlags ==1) {
+                    if (tv.text.toString() == "개인업무") {
+                        tv.setTypeface(null, Typeface.BOLD)
+                    }
                 }
             }
         }
