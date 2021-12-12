@@ -112,9 +112,14 @@ class NoticeContentActivity :
             )
         }
 
-        var wct = workerCntList.distinct()
+        var wct = workerCntList
 
-        doneWorkerCntAdapter = DoneWorkerCntAdapter(workerCntList.distinct() as ArrayList<DoneWorkerCntData>, this@NoticeContentActivity)
+        if(workerCntList.isNotEmpty()) {
+            wct = workerCntList.distinct() as ArrayList<DoneWorkerCntData>
+        }else{
+            wct = workerCntList
+        }
+        doneWorkerCntAdapter = DoneWorkerCntAdapter(wct, this@NoticeContentActivity)
         popUpBinding.rvDoneWorkerList.adapter = doneWorkerCntAdapter
 
         binding.tvDonePersonCnt.text = response.data.confirmInfo.count.toString()

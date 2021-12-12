@@ -50,20 +50,6 @@
             android:lineSpacingExtra="-3sp"
             android:gravity="center_horizontal"
             android:text="작성된 글이 없어요."/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_writing"
-            android:layout_width="96dp"
-            android:layout_height="36dp"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:layout_marginTop="14dp"
-            android:textColor="#343434"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="5sp"
-            android:layout_gravity="center"
-            android:text="추가하기"
-            android:background="@drawable/rectangle_fill_yellow_radius_15"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

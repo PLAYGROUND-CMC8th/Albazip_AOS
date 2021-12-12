@@ -31,7 +31,6 @@ class MCommunityFragment :
         }
     }
 
-
     private fun init() {
         binding.viewpager.adapter = CustomFragmentStateAdapter(requireActivity())
         TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->

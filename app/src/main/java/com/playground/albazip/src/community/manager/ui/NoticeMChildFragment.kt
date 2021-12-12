@@ -21,11 +21,6 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // 글쓰기 버튼
-        binding.btnWriting.setOnClickListener {
-            val nextIntent = Intent(requireContext(),WriteNoticeActivity::class.java)
-            startActivity(nextIntent)
-        }
     }
 
     override fun onResume() {
@@ -43,6 +38,8 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
 
         if(response.data.size == 0){
             binding.llNoContent.visibility = View.VISIBLE
+        }else{
+            binding.llNoContent.visibility = View.GONE
         }
 
         for (i in 0 until response.data.size){
