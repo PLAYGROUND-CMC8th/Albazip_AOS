@@ -85,9 +85,7 @@ class NoticeListAdapter(context: Context, val itemList:ArrayList<NoticeData>): R
 
         // 갱신
         (myContext as AppCompatActivity).findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.manager_main_btm_nav).menu.getItem(1).isChecked=true
-        (myContext as AppCompatActivity).supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm,
-            MCommunityFragment()
-        ).commit()
+        (myContext as AppCompatActivity).supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MCommunityFragment()).commit()
     }
 
     // 핀 등록 실패
