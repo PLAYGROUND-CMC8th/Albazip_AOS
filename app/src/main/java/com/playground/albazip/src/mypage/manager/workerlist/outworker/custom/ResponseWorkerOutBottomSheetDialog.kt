@@ -37,7 +37,6 @@ class ResponseWorkerOutBottomSheetDialog(val positionId:Int,val name:String): Bo
 
         // 퇴사 ok
         binding.btnYes.setOnClickListener {
-            this.dismiss()
             ResponseWorkOutService(this).tryPutWorkOut(getPositionId) // 서버통신 시도
             //ResponseRealOutBottomSheetDialog(getPositionId,worker_name).show(requireActivity().supportFragmentManager,"real_response_out")
         }
