@@ -13,6 +13,7 @@ import com.playground.albazip.src.community.manager.ui.NoticeMChildFragment
 import com.playground.albazip.src.community.worker.ui.NoticeWChildFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.playground.albazip.src.community.manager.ui.SearchCoMActivity
+import com.playground.albazip.src.community.worker.ui.SearchCoWActivity
 import com.playground.albazip.src.home.common.ui.HomeAlarmActivity
 
 class WCommunityFragment :
@@ -28,7 +29,7 @@ class WCommunityFragment :
 
         // 검색화면으로 이동
         binding.tbrIbtnSearch.setOnClickListener {
-            val nextIntent = Intent(requireContext(), SearchCoMActivity::class.java)
+            val nextIntent = Intent(requireContext(), SearchCoWActivity::class.java)
             startActivity(nextIntent)
         }
 
