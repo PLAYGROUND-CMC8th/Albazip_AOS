@@ -12,8 +12,10 @@ import com.playground.albazip.src.mypage.manager.MMyPageFragment
 import com.playground.albazip.src.mypage.manager.workerlist.outworker.network.ResponseWorkOutFragmentView
 import com.playground.albazip.src.mypage.manager.workerlist.outworker.network.ResponseWorkOutService
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.playground.albazip.src.mypage.manager.workerlist.cardevent.network.PutRejectWorkerOutFragmentView
+import com.playground.albazip.src.mypage.manager.workerlist.cardevent.network.PutRejectWorkerOutService
 
-class ResponseWorkerOutBottomSheetDialog(val positionId:Int,val name:String): BottomSheetDialogFragment(),
+class ResponseWorkerOutBottomSheetDialog(val positionId:Int,val name:String): BottomSheetDialogFragment(),PutRejectWorkerOutFragmentView,
     ResponseWorkOutFragmentView {
 
     private var getPositionId = positionId
@@ -32,7 +34,7 @@ class ResponseWorkerOutBottomSheetDialog(val positionId:Int,val name:String): Bo
 
         // 거절하기 버튼
         binding.btnNo.setOnClickListener {
-            dismiss()
+            PutRejectWorkerOutService(this).tryPutRejectOut(getPositionId) // 서버통신 시도
         }
 
         // 퇴사 ok
@@ -44,6 +46,7 @@ class ResponseWorkerOutBottomSheetDialog(val positionId:Int,val name:String): Bo
         return binding.root
     }
 
+    // 퇴사 수락 성공
     override fun onWorkOutDelSuccess(response: BaseResponse) {
         dismiss()
         requireActivity().supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MMyPageFragment()).commitNow()
@@ -51,6 +54,16 @@ class ResponseWorkerOutBottomSheetDialog(val positionId:Int,val name:String): Bo
     }
 
     override fun onWorkOutDelFailure(message: String) {
+    }
+
+
+    // 퇴사 거절 성공
+    override fun onPutRejectSuccess(response: BaseResponse) {
+        dismiss()
+    }
+
+    override fun onPutRejectFailure(message: String) {
+
     }
 
 }
