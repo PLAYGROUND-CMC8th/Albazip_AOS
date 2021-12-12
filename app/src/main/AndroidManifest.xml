@@ -154,6 +154,8 @@
             android:windowSoftInputMode="adjustNothing"
             />
 
+        <activity android:name=".src.home.manager.closed.worklist.ui.HomeMClosedToDoListActivity"/>
+
     </application>
 
 

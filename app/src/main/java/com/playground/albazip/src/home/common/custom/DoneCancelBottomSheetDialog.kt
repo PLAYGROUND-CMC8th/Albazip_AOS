@@ -48,6 +48,8 @@ class DoneCancelBottomSheetDialog(checkView:CheckBox,delView:View,taskId:Int,job
             checkView.isChecked = false
             delView.visibility = View.GONE
 
+            // id와 일치하면 -> taskId 넘겨주고
+            // id와 일치하지 않으면 -> 토스트 메세지 띄워주기
             PutTodayHomeTaskService(this).tryPutTodayTask(taskId)
 
         }

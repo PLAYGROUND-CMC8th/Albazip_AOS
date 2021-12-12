@@ -45,10 +45,10 @@ class MMyPageFragment :
     var workList = ArrayList<WorkerList>() // 근무자 리스트
     var noticeList = ArrayList<CommuNoticeInfo>() // 공지 리스트
     var postList = ArrayList<PostInfo>() // 게시글 리스트
-    
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         // 서버 통신 시작 (관리자 화면 모든 정보 불러오기)
         MMyPageService(this).tryGetMMyPage()
         showLoadingDialog(requireContext())

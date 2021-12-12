@@ -8,6 +8,7 @@ import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.ChildFragmentHomeClosedBinding
 import com.playground.albazip.src.home.common.ui.HomeAlarmActivity
 import com.playground.albazip.src.home.common.ui.HomeShopListActivity
+import com.playground.albazip.src.home.manager.closed.worklist.ui.HomeMClosedToDoListActivity
 import com.playground.albazip.src.home.manager.data.AllHomeMResult
 import com.playground.albazip.src.home.manager.opened.ui.QRShowingActivity
 import com.playground.albazip.src.home.manager.worklist.ui.HomeMTodayToDoListActivity
@@ -47,7 +48,7 @@ class HomeClosedChildFragment(data: AllHomeMResult): BaseFragment<ChildFragmentH
 
         // 완료한 업무 목록
         binding.btnDoneWork.setOnClickListener {
-            val nextIntent = Intent(requireContext(), HomeMTodayToDoListActivity::class.java)
+            val nextIntent = Intent(requireContext(), HomeMClosedToDoListActivity::class.java)
             nextIntent.putExtra("tabFlags", 0)
             nextIntent.putExtra("openFlags",false)
             startActivity(nextIntent)

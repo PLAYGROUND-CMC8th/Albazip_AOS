@@ -73,6 +73,7 @@ data class InnerCoWorker(
     @SerializedName("worker")val worker:String,
     @SerializedName("count")val count:Int,
     @SerializedName("image")val image:String?,
+    @SerializedName("taskId")val taskId:ArrayList<Int>
 )
 
 data class ComCoTask(
