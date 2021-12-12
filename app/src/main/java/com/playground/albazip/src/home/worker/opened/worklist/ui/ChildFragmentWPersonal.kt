@@ -65,7 +65,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
                 doneList.add(HDoneWorkListData(ResultData!!.perTask.compPerTask[i].taskId,1,ResultData!!.perTask.compPerTask[i].takTitle,"완료 "+ResultData!!.perTask.compPerTask[i].completeTime.substring(11, 16)))
             }
         }
-        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList,null)
         binding.rvDone.adapter = doneAdpater
 
         // ui 체크
@@ -154,7 +154,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
             binding.rvDone.recycledViewPool.clear()
             doneAdpater.notifyDataSetChanged()
         }
-        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList,null)
         binding.rvDone.adapter = doneAdpater
 
         checkingUI()

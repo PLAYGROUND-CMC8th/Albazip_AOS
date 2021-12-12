@@ -1,6 +1,7 @@
 package com.playground.albazip.src.community.worker.ui
 
 import android.os.Bundle
+import android.security.identity.ResultData
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import com.bumptech.glide.Glide
@@ -92,7 +93,10 @@ class NoticeWContentActivity:
             )
         }
 
-        doneWorkerCntAdapter = DoneWorkerCntAdapter(workerCntList, this@NoticeWContentActivity)
+        doneWorkerCntAdapter = DoneWorkerCntAdapter(
+            workerCntList,
+            this@NoticeWContentActivity
+        )
         popUpBinding.rvDoneWorkerList.adapter = doneWorkerCntAdapter
 
         binding.tvDonePersonCnt.text = response.data.confirmInfo.count.toString()

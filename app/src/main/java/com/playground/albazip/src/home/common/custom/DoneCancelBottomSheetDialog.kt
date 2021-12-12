@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.Toast
 import com.playground.albazip.config.BaseResponse
 import com.playground.albazip.databinding.DialogFragmentCancelDoneBinding
 import com.playground.albazip.src.home.common.network.PutTodayHomeTaskFragmentView
@@ -13,8 +14,9 @@ import com.playground.albazip.src.home.common.network.PutTodayHomeTaskService
 import com.playground.albazip.src.home.manager.worklist.ui.HomeMTodayToDoListActivity
 import com.playground.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.playground.albazip.src.home.manager.worklist.network.InnerCoWorker
 
-class DoneCancelBottomSheetDialog(checkView:CheckBox,delView:View,taskId:Int,jobFlags:Int): BottomSheetDialogFragment(),PutTodayHomeTaskFragmentView {
+class DoneCancelBottomSheetDialog(checkView:CheckBox,delView:View,taskId:Int,jobFlags:Int,comWorker: ArrayList<InnerCoWorker>?): BottomSheetDialogFragment(),PutTodayHomeTaskFragmentView {
 
     private lateinit var binding: DialogFragmentCancelDoneBinding
     private var checkView = checkView
@@ -22,6 +24,7 @@ class DoneCancelBottomSheetDialog(checkView:CheckBox,delView:View,taskId:Int,job
     private val taskId = taskId
     private var jobFlags = jobFlags
 
+    private var popComWorker = comWorker
     //lateinit var bottomSheetClickListener: DoneCancelBottomSheetDialog.BottomSheetClickListener
 
     //override fun onAttach(context: Context) {
@@ -48,9 +51,25 @@ class DoneCancelBottomSheetDialog(checkView:CheckBox,delView:View,taskId:Int,job
             checkView.isChecked = false
             delView.visibility = View.GONE
 
-            // id와 일치하면 -> taskId 넘겨주고
-            // id와 일치하지 않으면 -> 토스트 메세지 띄워주기
-            PutTodayHomeTaskService(this).tryPutTodayTask(taskId)
+            if(popComWorker != null) {
+                // 관리자 일 때
+                if (jobFlags == 0) {
+                    for (i in 0 until popComWorker!!.size) { // taskId가 일치하고 관리자 본인이 한 일이 맞을 때
+                        if (popComWorker!![i].worker.contains("사장님") && popComWorker!![i].taskId.contains(taskId)
+                        ) {
+                            PutTodayHomeTaskService(this).tryPutTodayTask(taskId)
+                            break
+                        } else {
+                            checkView.isChecked = true
+                            delView.visibility = View.VISIBLE
+                            Toast.makeText(context, "다른 사람이 완료한 업무입니다.", Toast.LENGTH_SHORT).show()
+                            dismiss()
+                        }
+                    }
+                } else { // 근무자 일 때
+
+                }
+            }
 
         }
 

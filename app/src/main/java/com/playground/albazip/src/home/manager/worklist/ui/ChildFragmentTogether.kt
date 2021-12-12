@@ -1,17 +1,9 @@
 package com.playground.albazip.src.home.manager.worklist.ui
 
-import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.os.Bundle
-import android.text.Layout
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.PopupWindow
-import androidx.core.content.getSystemService
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.BgCntReadPopupBinding
@@ -85,7 +77,7 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
         }
         // 완료 리스트가 없으면 (배열 개수 0)
         //doneList.add(HDoneWorkListData(0,"제목1","시간"))
-        doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList,ResultData?.coTask?.comWorker?.comWorker!!)
         binding.rvDone.adapter = doneAdpater
 
         // 완료한 사람 목록 adpater
@@ -217,7 +209,7 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
             binding.rvDone.recycledViewPool.clear()
             doneAdpater.notifyDataSetChanged()
         }
-        doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList,response.data.comWorker.comWorker)
         binding.rvDone.adapter = doneAdpater
 
         checkingUI()

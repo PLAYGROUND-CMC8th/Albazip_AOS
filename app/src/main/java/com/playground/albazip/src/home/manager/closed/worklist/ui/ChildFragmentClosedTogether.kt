@@ -77,7 +77,7 @@ class ChildFragmentClosedTogether(data: MTodayTaskResult?) : BaseFragment<ChildF
         }
         // 완료 리스트가 없으면 (배열 개수 0)
         //doneList.add(HDoneWorkListData(0,"제목1","시간"))
-        doneAdpater = FTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = FTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList,ResultData!!.coTask.comWorker.comWorker)
         binding.rvDone.adapter = doneAdpater
 
         // 완료한 사람 목록 adpater
@@ -86,7 +86,10 @@ class ChildFragmentClosedTogether(data: MTodayTaskResult?) : BaseFragment<ChildF
             workerCntList.add(DoneWorkerCntData(ResultData!!.coTask.comWorker.comWorker[i].image!!,workerInfo[0],workerInfo[1],ResultData!!.coTask.comWorker.comWorker[i].count))
         }
 
-        doneWorkerCntAdapter = DoneWorkerCntAdapter(workerCntList,requireContext())
+        doneWorkerCntAdapter = DoneWorkerCntAdapter(
+            workerCntList,
+            requireContext()
+        )
         popUpBinding.rvDoneWorkerList.adapter = doneWorkerCntAdapter
 
         binding.tvDonePersonCnt.text = ResultData?.coTask?.comWorker?.comWorker!!.size.toString()
@@ -209,7 +212,7 @@ class ChildFragmentClosedTogether(data: MTodayTaskResult?) : BaseFragment<ChildF
             binding.rvDone.recycledViewPool.clear()
             doneAdpater.notifyDataSetChanged()
         }
-        doneAdpater = FTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = FTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList,response.data.comWorker.comWorker)
         binding.rvDone.adapter = doneAdpater
 
         checkingUI()

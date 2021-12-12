@@ -86,7 +86,10 @@ class ChildFragmentWClosedTogether(data: WTodayTaskResult?) : BaseFragment<Child
             workerCntList.add(DoneWorkerCntData(ResultData!!.coTask.comWorker.comWorker[i].image!!,workerInfo[0],workerInfo[1],ResultData!!.coTask.comWorker.comWorker[i].count))
         }
 
-        doneWorkerCntAdapter = DoneWorkerCntAdapter(workerCntList,requireContext())
+        doneWorkerCntAdapter = DoneWorkerCntAdapter(
+            workerCntList,
+            requireContext()
+        )
         popUpBinding.rvDoneWorkerList.adapter = doneWorkerCntAdapter
 
         binding.tvDonePersonCnt.text = ResultData?.coTask?.comWorker?.comWorker!!.size.toString()
