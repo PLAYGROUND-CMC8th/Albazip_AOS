@@ -21,6 +21,7 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import com.playground.albazip.config.ApplicationClass
+import com.playground.albazip.src.home.worker.closed.worklist.ui.HomeWClosedToDoListActivity
 
 class HomeWDoneFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWDoneBinding>(
     ChildFragmentHomeWDoneBinding::bind,
@@ -56,7 +57,7 @@ class HomeWDoneFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWDo
 
         // 완료한 업무 - 버튼
         binding.btnDoneWork.setOnClickListener {
-            val nextIntent = Intent(requireContext(), HomeWTodayToDoListActivity::class.java)
+            val nextIntent = Intent(requireContext(), HomeWClosedToDoListActivity::class.java)
             startActivity(nextIntent)
         }
 

@@ -26,6 +26,7 @@ import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.ApplicationClass.Companion.prefs
+import com.playground.albazip.src.home.worker.closed.worklist.ui.HomeWClosedToDoListActivity
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.timer

@@ -155,6 +155,7 @@
             />
 
         <activity android:name=".src.home.manager.closed.worklist.ui.HomeMClosedToDoListActivity"/>
+        <activity android:name=".src.home.worker.closed.worklist.ui.HomeWClosedToDoListActivity"/>
 
     </application>
 
