@@ -42,7 +42,7 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
 
     var threadTime = "    "
 
-    val mTimer = timer(initialDelay = 100, period = 100) { // 0.1초후에 0.1초단위로 진행
+    val mTimer = timer(initialDelay = 100, period = 100) { // 1초후에 0.1초단위로 진행
         (requireContext() as Activity).runOnUiThread {
 
             GetAllWHomeInfoService(this@HomeWOpenedFragment).tryGetAllWHomeInfo()
@@ -88,12 +88,12 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
                     binding.rlAlarm.visibility = View.VISIBLE // 알림 띄우기
                 }
                     binding.tvGoOff.text =
-                        "+" + threadTime.substring(1, 3) + ":" + threadTime.substring(3, 5)
+                        "+" + threadTime?.substring(1, 3) + ":" + threadTime?.substring(3, 5)
                     // qr 빨간점 보이기
                     binding.ivQrBedge.visibility = View.VISIBLE
 
             }else{ // 기본상태
-                binding.tvGoOff.text = threadTime.substring(0,2)+":"+threadTime.substring(2,4)
+                binding.tvGoOff.text = threadTime?.substring(0,2)+":"+threadTime?.substring(2,4)
                 binding.tvGoOff.setTextColor(Color.parseColor("#343434"))
                 // qr 빨간점 숨기기
                 binding.ivQrBedge.visibility = View.GONE
