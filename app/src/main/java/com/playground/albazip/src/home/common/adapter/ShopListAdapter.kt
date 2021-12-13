@@ -40,6 +40,9 @@ class ShopListAdapter(private val itemList:ArrayList<ShopListData>,context:Conte
                 binding.rootLl.setBackgroundColor(Color.parseColor("#fffaea"))
             }
 
+            // null 값 -> 업데이트 이전 활성화 값
+            binding.rootLl.setBackgroundColor(Color.parseColor("#fffaea"))
+
             // 매장이름
             binding.tvStoreName.text = shopData.shop_name
 

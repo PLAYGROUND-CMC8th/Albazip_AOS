@@ -21,6 +21,7 @@
             android:background="@color/white">
 
             <ImageButton
+                android:id="@+id/btn_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
@@ -69,13 +70,15 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb_late">
+        app:layout_constraintTop_toBottomOf="@id/tb_late"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
-            android:animateLayoutChanges="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -103,6 +106,7 @@
                     android:layout_width="55dp"
                     android:layout_height="31dp"
                     android:layout_marginTop="16dp"
+                    android:gravity="center"
                     android:background="@drawable/bg_selector_rest_long"
                     android:letterSpacing="-0.02"
                     android:lineSpacingExtra="0sp"
@@ -110,7 +114,7 @@
                     android:stateListAnimator="@null"
                     android:text="알바생"
                     android:textColor="#6f6f6f"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_select_rank_title" />
 
@@ -118,6 +122,7 @@
                     android:id="@+id/btn_staff"
                     android:layout_width="44dp"
                     android:layout_height="31dp"
+                    android:gravity="center"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/bg_selector_rest_long"
@@ -126,7 +131,7 @@
                     android:paddingVertical="8dp"
                     android:text="직원"
                     android:textColor="#6f6f6f"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     app:layout_constraintStart_toEndOf="@id/btn_alba"
                     app:layout_constraintTop_toBottomOf="@id/tv_select_rank_title" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -163,6 +168,7 @@
                         android:id="@+id/btn_weekday"
                         android:layout_width="44dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/bg_selector_rest_long"
                         android:letterSpacing="-0.02"
@@ -176,6 +182,7 @@
                         android:id="@+id/btn_weekend"
                         android:layout_width="44dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/bg_selector_rest_long"
@@ -190,6 +197,7 @@
                         android:id="@+id/btn_manager"
                         android:layout_width="55dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/bg_selector_rest_long"
@@ -204,6 +212,7 @@
                         android:id="@+id/btn_store_manager"
                         android:layout_width="44dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/bg_selector_rest_long"
@@ -227,6 +236,7 @@
                         android:id="@+id/btn_open"
                         android:layout_width="44dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_selector_rest_long"
                         android:letterSpacing="-0.02"
@@ -240,6 +250,7 @@
                         android:id="@+id/btn_middle"
                         android:layout_width="44dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_selector_rest_long"
@@ -254,6 +265,7 @@
                         android:id="@+id/btn_end"
                         android:layout_width="44dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_selector_rest_long"
@@ -314,6 +326,7 @@
                         android:id="@+id/btn_mon"
                         android:layout_width="31dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_selector_rest_oval"
                         android:letterSpacing="-0.02"
@@ -327,6 +340,7 @@
                         android:id="@+id/btn_tue"
                         android:layout_width="31dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_selector_rest_oval"
@@ -341,6 +355,7 @@
                         android:id="@+id/btn_wen"
                         android:layout_width="31dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_selector_rest_oval"
@@ -355,6 +370,7 @@
                         android:id="@+id/btn_thur"
                         android:layout_width="31dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_selector_rest_oval"
@@ -370,6 +386,7 @@
                         android:id="@+id/btn_fri"
                         android:layout_width="31dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_selector_rest_oval"
@@ -384,6 +401,7 @@
                         android:id="@+id/btn_sat"
                         android:layout_width="31dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_selector_rest_oval"
@@ -398,6 +416,7 @@
                         android:id="@+id/btn_sun"
                         android:layout_width="31dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_selector_rest_oval"
@@ -412,6 +431,7 @@
                         android:id="@+id/btn_rotate"
                         android:layout_width="65dp"
                         android:layout_height="31dp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_selector_rest_long"
@@ -421,7 +441,6 @@
                         android:text="교대근무"
                         android:textColor="#6f6f6f"
                         android:textSize="12sp" />
-
                 </LinearLayout>
 
 
@@ -429,11 +448,11 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_visible_layout"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="24dp">
+                android:layout_marginTop="24dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_go_work"
@@ -614,8 +633,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                android:paddingBottom="30dp"
-                android:layout_marginTop="36dp">
+                android:layout_marginTop="36dp"
+                android:paddingBottom="30dp">
 
                 <TextView
                     android:id="@+id/tv_pay_day"
@@ -697,16 +716,16 @@
 
                         <EditText
                             android:id="@+id/et_payment"
-                            android:background="@null"
                             android:layout_width="250dp"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:inputType="number"
-                            android:maxLength="15"
                             android:layout_marginEnd="8dp"
                             android:layout_toStartOf="@id/tv_pay_unit"
+                            android:background="@null"
                             android:gravity="end"
+                            android:inputType="number"
                             android:letterSpacing="-0.03"
+                            android:maxLength="15"
                             android:textColor="#343434"
                             android:textSize="18sp"
                             android:textStyle="bold" />

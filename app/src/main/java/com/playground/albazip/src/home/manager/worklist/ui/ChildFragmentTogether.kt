@@ -2,10 +2,15 @@ package com.playground.albazip.src.home.manager.worklist.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseFragment
+import com.playground.albazip.databinding.BgCntReadPopupBinding
 import com.playground.albazip.databinding.ChildFragmentTogetherBinding
 import com.playground.albazip.databinding.DialogTodoAllDoneBinding
+import com.playground.albazip.src.home.common.adapter.DoneWorkerCntAdapter
+import com.playground.albazip.src.home.common.data.DoneWorkerCntData
 import com.playground.albazip.src.home.common.data.HomeCoWorkResponse
 import com.playground.albazip.src.home.common.network.GetHomeCoWorkFragmentView
 import com.playground.albazip.src.home.common.network.GetHomeCoWorkService
@@ -29,13 +34,22 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
     private var doneList = ArrayList<HDoneWorkListData>()
     private lateinit var doneAdpater: HTogetherDoneAdapter
 
+    // 업무 완료자 리스트
+    private var workerCntList = ArrayList<DoneWorkerCntData>()
+    private lateinit var doneWorkerCntAdapter:DoneWorkerCntAdapter
+
     // 다이얼로그 바인딩
     private lateinit var dialogBinding: DialogTodoAllDoneBinding
+
+    // 팝업 view
+    private lateinit var popUpBinding:BgCntReadPopupBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         dialogBinding = DialogTodoAllDoneBinding.inflate(layoutInflater)
+
+        popUpBinding = BgCntReadPopupBinding.inflate(layoutInflater)
 
         // 미완료 리스트가 없으면 (배열 개수 0)
         //unDoneList.add(HUnDoneWorkListData(0,"제목1","내용1","작성 날짜 및 작성자"))
@@ -47,8 +61,8 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
                 content = "내용없음"
             }
 
-            var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + " · " + ResultData!!.coTask.nonComCoTask[i].writerName + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0,9)
-
+            //var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + ResultData!!.coTask.nonComCoTask[i].writerName + " · " + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0,9)
+            var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + " " + ResultData!!.coTask.nonComCoTask[i].writerName + " · " + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
             unDoneList.add(HUnDoneWorkListData(0,ResultData!!.coTask.nonComCoTask[i].taskId,0,ResultData!!.coTask.nonComCoTask[i].takTitle,content,writerAndDay))
         }
         }
@@ -63,9 +77,50 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
         }
         // 완료 리스트가 없으면 (배열 개수 0)
         //doneList.add(HDoneWorkListData(0,"제목1","시간"))
-        doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList,ResultData?.coTask?.comWorker?.comWorker!!)
         binding.rvDone.adapter = doneAdpater
 
+        // 완료한 사람 목록 adpater
+        for(i in 0 until ResultData?.coTask?.comWorker?.comWorker!!.size){
+            var workerInfo = ResultData!!.coTask.comWorker.comWorker[i].worker!!.split(" ")
+            workerCntList.add(DoneWorkerCntData(ResultData!!.coTask.comWorker.comWorker[i].image!!,workerInfo[0],workerInfo[1],ResultData!!.coTask.comWorker.comWorker[i].count))
+        }
+
+        doneWorkerCntAdapter = DoneWorkerCntAdapter(workerCntList,requireContext())
+        popUpBinding.rvDoneWorkerList.adapter = doneWorkerCntAdapter
+
+        binding.tvDonePersonCnt.text = ResultData?.coTask?.comWorker?.comWorker!!.size.toString()
+
+        // 팝업 띄우기 -> 사람 목록을 눌렀을 때
+        binding.rlDonePersonCnt.setOnClickListener {
+
+            // dp to px 단위변경
+            val density = resources.displayMetrics.density
+            val w_value = (140 * density).toInt()
+            val h_value = (170 * density).toInt()
+            val moved_w_value =  (100 * density).toInt()
+            val moved_h_value =  (8 * density).toInt()
+
+            val moved_h_value_3=  ((130+70) * density).toInt()
+
+            // val width = LinearLayout.LayoutParams.WRAP_CONTENT
+            val height = LinearLayout.LayoutParams.WRAP_CONTENT
+            var focusable = true
+
+            if(workerCntList.size <= 3) {
+                val popupWindow = PopupWindow(popUpBinding.root, w_value, height, focusable)
+                popupWindow.contentView = popUpBinding.root
+                popupWindow.elevation = 5F
+                popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),0)
+                //popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),moved_h_value)
+            }else{ // item 이 3개 이상일 때
+                val popupWindow = PopupWindow(popUpBinding.root, w_value, h_value, focusable)
+                popupWindow.contentView = popUpBinding.root
+                popupWindow.elevation = 5F
+                popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),0)
+                //popupWindow.showAsDropDown(binding.rlDonePersonCnt,-(moved_w_value),moved_h_value_3)
+            }
+        }
 
         checkingUI()
     }
@@ -123,8 +178,9 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
                 if (content == "null" || content.isEmpty()){
                     content = "내용없음"
                 }
-
-                var writerAndDay = response.data.nonComCoTask[i].writerTitle + " · " + response.data.nonComCoTask[i].writerName +" "+ response.data.nonComCoTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+                var writerAndDay = response.data.nonComCoTask[i].writerTitle  + " " + response.data.nonComCoTask[i].writerName + " · " + response.data.nonComCoTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+                // var writerAndDay = ResultData!!.coTask.nonComCoTask[i].writerTitle + ResultData!!.coTask.nonComCoTask[i].writerName + " · " + ResultData!!.coTask.nonComCoTask[i].registerDate.substring(0,9)
+                // var writerAndDay = response.data.nonComCoTask[i].writerTitle + " · " + response.data.nonComCoTask[i].writerName +" "+ response.data.nonComCoTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
 
                 unDoneList.add(HUnDoneWorkListData(0,response.data.nonComCoTask[i].taskId,0,response.data.nonComCoTask[i].takTitle,content,writerAndDay))
             }
@@ -153,7 +209,7 @@ class ChildFragmentTogether(data: MTodayTaskResult?) : BaseFragment<ChildFragmen
             binding.rvDone.recycledViewPool.clear()
             doneAdpater.notifyDataSetChanged()
         }
-        doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = HTogetherDoneAdapter(parentFragmentManager,requireContext(),doneList,response.data.comWorker.comWorker)
         binding.rvDone.adapter = doneAdpater
 
         checkingUI()

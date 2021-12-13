@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.playground.albazip.R
 import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseResponse
@@ -26,12 +28,12 @@ import com.playground.albazip.src.mypage.common.profile.network.DefaultImgFragme
 import com.playground.albazip.src.mypage.common.profile.network.DefaultImgService
 import com.playground.albazip.src.mypage.common.profile.network.GalleryImgFragmentView
 import com.playground.albazip.src.mypage.common.profile.network.GalleryImgService
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.IOException
 import java.io.InputStream
 import java.util.*
 
@@ -151,7 +153,30 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
                     Glide.with(requireContext()).load(uri).circleCrop()
                         .into(binding.ivCurrentProfile)
 
+                    /*val stream: InputStream? = requireContext().applicationContext.contentResolver.openInputStream(uri!!)
+
+                    var exif : ExifInterface? = null
+                    try{
+                        exif = ExifInterface(stream!!)
+                    }catch (e : IOException){
+                        e.printStackTrace()
+                    }
+                    exif?.setAttribute(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED.toString())
+                    val orientation = when (exif?.getAttributeInt(ExifInterface.TAG_ORIENTATION, 0)) {
+                        ExifInterface.ORIENTATION_ROTATE_90 -> 90
+                        ExifInterface.ORIENTATION_ROTATE_180 -> 180
+                        ExifInterface.ORIENTATION_ROTATE_270 -> 270
+                        else -> 0
+                    }
+
+                    Log.d("ExifData", "Orientation : $orientation")*/
+
+                    // val imgPath = path.toString()
+                    //val reUri = Uri.parse("${binding.ivCurrentProfile.drawable}")
+                    //val stream: InputStream? = requireContext().applicationContext.contentResolver.openInputStream(reUri)
+
                     galleryUri = uri
+                    // galleryUri = uri
 
                     // 플래그 저장 및 기존 Check 전부 비활성화
                     deselectAllCheck()
@@ -175,7 +200,7 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
         bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
         val fileBody = byteArrayOutputStream.toByteArray()
             .toRequestBody(
-                "image/jpeg".toMediaTypeOrNull(),
+                "image/*".toMediaTypeOrNull(),
                 0
             )
 

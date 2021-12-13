@@ -80,8 +80,11 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         dismissLoadingDialog()
 
         // 매장명 받아오기
-        ApplicationClass.prefs.setString("login_shop_name",response.data.shopInfo.name)
-
+       // if(response.data.shopInfo.name != null) {
+       //     ApplicationClass.prefs.setString("login_shop_name", response.data.shopInfo.name)
+       // }else{
+            ApplicationClass.prefs.setString("login_shop_name", "")
+      //  }
         // 영업상태
         var status = response.data.shopInfo.status
 
@@ -105,7 +108,7 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
         for (i in 0 until response.data.boardInfo.size){
             if(response.data.boardInfo[i].status == 0){
-                noticeList.add(HomeCommuData(0,response.data.boardInfo[i].title))
+                noticeList.add(HomeCommuData(0,response.data.boardInfo[i].title,response.data.boardInfo[i].id,0))
                 if (noticeList.size > 3) break // 홈화면에서는 4개까지만 보여주기
             }
         }

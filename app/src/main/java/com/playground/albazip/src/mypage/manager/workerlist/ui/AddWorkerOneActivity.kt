@@ -51,6 +51,11 @@ class AddWorkerOneActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 화면닫기
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+
         // 알바생
         binding.btnAlba.setOnClickListener {
             selectRank(binding.btnAlba)
@@ -83,7 +88,7 @@ class AddWorkerOneActivity :
                 }
             }
 
-            val title = titleOne+" "+titleTwo
+            val title = titleOne+titleTwo
             val startTime = binding.tvInputStartTime.text.toString().replace(":", "")
             val endTime = binding.tvInputOffTime.text.toString().replace(":", "")
 

@@ -9,6 +9,7 @@ import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.ChildFragmentHomeOpenedBinding
 import com.playground.albazip.src.home.common.ui.HomeAlarmActivity
 import com.playground.albazip.src.home.common.ui.HomeShopListActivity
+import com.playground.albazip.src.home.manager.closed.worklist.ui.HomeMClosedToDoListActivity
 import com.playground.albazip.src.home.manager.data.AllHomeMResult
 import com.playground.albazip.src.home.manager.opened.ui.QRShowingActivity
 import com.playground.albazip.src.home.manager.opened.ui.TodaysWorkerListActivity
@@ -103,6 +104,7 @@ class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragment
         binding.rlTogetherBg.setOnClickListener {
             val nextIntent = Intent(requireContext(), HomeMTodayToDoListActivity::class.java)
             nextIntent.putExtra("tabFlags", 0)
+            nextIntent.putExtra("openFlags",true)
             startActivity(nextIntent)
         }
 
@@ -110,6 +112,7 @@ class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragment
         binding.rlPersonalWorkBg.setOnClickListener {
             val nextIntent = Intent(requireContext(), HomeMTodayToDoListActivity::class.java)
             nextIntent.putExtra("tabFlags", 1)
+            nextIntent.putExtra("openFlags",true)
             startActivity(nextIntent)
         }
     }

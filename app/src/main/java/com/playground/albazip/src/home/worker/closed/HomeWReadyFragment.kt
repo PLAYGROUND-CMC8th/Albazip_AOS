@@ -1,5 +1,6 @@
 package com.playground.albazip.src.home.worker.closed
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -96,7 +97,7 @@ class HomeWReadyFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWR
         // 다시 홈화면으로 이동
         val nextIntent = Intent(requireContext(), WorkerMainActivity::class.java)
         startActivity(nextIntent)
-        activity?.finishAffinity()
+        (requireContext() as Activity).finishAffinity()
     }
     // QR 스캔 실패
     override fun onPutQRFailure(message: String) {

@@ -23,7 +23,7 @@ data class HomeTodayInfo(
 
 data class HomeShopInfo(
     @SerializedName("status")val status:Int,
-    @SerializedName("name")val name:String,
+    @SerializedName("name")val name:String?,
     @SerializedName("startTime")val startTime:String,
     @SerializedName("endTime")val endTime:String
 )

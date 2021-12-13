@@ -1,5 +1,6 @@
 package com.playground.albazip.src.home.manager.worklist.ui
 
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.TextView
@@ -18,10 +19,16 @@ class HomeMTodayToDoListActivity :
     BaseActivity<ActivityHomeTodayTodoListBinding>(ActivityHomeTodayTodoListBinding::inflate),
     GetMTodayTaskFragmentView {
 
+    private var openFlags = true
     private val tabTextList = arrayListOf("공동업무", "개인업무")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 매장 열렸는지 닫혔는지 여부 받아오기
+        if(intent.hasExtra("openFlags")==true){
+            openFlags = intent.getBooleanExtra("openFlags",true)
+        }
 
         // 뒤로가기 버튼
         binding.ibtnBack.setOnClickListener {
@@ -89,8 +96,22 @@ class HomeMTodayToDoListActivity :
         // 초기화 시 position 0 의 텍스트 Bold 로 만들기
         binding.tabLayout.getTabAt(0)?.view?.children?.find { it is TextView }?.let { tv ->
             (tv as TextView).post {
-                if (tv.text.toString() == "공동업무") {
-                    tv.setTypeface(null, Typeface.BOLD)
+                val tabFlags = intent.getIntExtra("tabFlags",0)
+                if(tabFlags == 0) {
+                    if (tv.text.toString() == "공동업무") {
+                        tv.setTypeface(null, Typeface.BOLD)
+                    }
+                }
+            }
+        }
+
+        binding.tabLayout.getTabAt(1)?.view?.children?.find { it is TextView }?.let { tv ->
+            (tv as TextView).post {
+                val tabFlags = intent.getIntExtra("tabFlags",0)
+                if(tabFlags ==1) {
+                    if (tv.text.toString() == "개인업무") {
+                        tv.setTypeface(null, Typeface.BOLD)
+                    }
                 }
             }
         }

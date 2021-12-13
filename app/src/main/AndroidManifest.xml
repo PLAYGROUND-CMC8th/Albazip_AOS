@@ -10,6 +10,7 @@
 
     <application
         android:name="com.playground.albazip.config.ApplicationClass"
+        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:exported="false"
         android:icon="@mipmap/ic_albazip_launcher"
@@ -144,8 +145,17 @@
         <activity android:name="com.playground.albazip.src.community.common.ui.NoticeContentActivity"/>
         <activity android:name="com.playground.albazip.src.community.worker.ui.NoticeWContentActivity"/>
         <activity android:name="com.playground.albazip.src.community.manager.ui.WriteNoticeActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".src.community.common.ui.PhotoListActivity"/>
+        <activity android:name=".src.community.manager.ui.EditNoticeActivity"/>
+        <activity android:name=".src.community.manager.ui.SearchCoMActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity android:name=".src.community.worker.ui.SearchCoWActivity"
+            android:windowSoftInputMode="adjustNothing"
             />
+
+        <activity android:name=".src.home.manager.closed.worklist.ui.HomeMClosedToDoListActivity"/>
+        <activity android:name=".src.home.worker.closed.worklist.ui.HomeWClosedToDoListActivity"/>
 
     </application>
 

@@ -1,5 +1,6 @@
 package com.playground.albazip.src.home.worker.closed
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -19,6 +20,8 @@ import com.playground.albazip.util.GetCurrentTime
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import com.playground.albazip.config.ApplicationClass
+import com.playground.albazip.src.home.worker.closed.worklist.ui.HomeWClosedToDoListActivity
 
 class HomeWDoneFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWDoneBinding>(
     ChildFragmentHomeWDoneBinding::bind,
@@ -47,14 +50,15 @@ class HomeWDoneFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWDo
             startActivity(nextIntent)
         }
 
-        // qr 스캔 화면으로 이동(1) - 이이콘
+        // qr 스캔 화면으로 이동(1) - 아이콘
         binding.ibtnQrScan.setOnClickListener {
-            callQRActivity()
+            showCustomToast("이미 근무를 마치고 퇴근한 상태에요")
         }
 
-        // qr 스캔 화면으로 이동(2) - 버튼
+        // 완료한 업무 - 버튼
         binding.btnDoneWork.setOnClickListener {
-            callQRActivity()
+            val nextIntent = Intent(requireContext(), HomeWClosedToDoListActivity::class.java)
+            startActivity(nextIntent)
         }
 
         // 매장 선택화면으로 이동
@@ -102,7 +106,7 @@ class HomeWDoneFragment(data: AllHomeWResult): BaseFragment<ChildFragmentHomeWDo
         // 다시 홈화면으로 이동
         val nextIntent = Intent(requireContext(), WorkerMainActivity::class.java)
         startActivity(nextIntent)
-        activity?.finishAffinity()
+        (requireContext() as Activity).finishAffinity()
     }
     // QR 스캔 실패
     override fun onPutQRFailure(message: String) {

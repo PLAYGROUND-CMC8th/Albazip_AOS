@@ -10,11 +10,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.databinding.ItemRvDoneCheckTogetherBinding
 import com.playground.albazip.src.home.common.custom.DoneCancelBottomSheetDialog
+import com.playground.albazip.src.home.manager.worklist.network.InnerCoWorker
 import com.playground.albazip.src.home.worker.opened.worklist.data.HDoneWorkListData
 
-class HWDoneAdapter(private val fm: FragmentManager, private val context: Context, private val itemList:ArrayList<HDoneWorkListData>): RecyclerView.Adapter<HWDoneAdapter.DoneWorkHolder>() {
+class HWDoneAdapter(private val fm: FragmentManager, private val context: Context, private val itemList:ArrayList<HDoneWorkListData>,comWorker: ArrayList<InnerCoWorker>?): RecyclerView.Adapter<HWDoneAdapter.DoneWorkHolder>() {
 
     private lateinit var binding: ItemRvDoneCheckTogetherBinding
+    private var popComWorker = comWorker
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoneWorkHolder {
         binding =  ItemRvDoneCheckTogetherBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -65,12 +67,11 @@ class HWDoneAdapter(private val fm: FragmentManager, private val context: Contex
             }else{
                 binding.frameDisable.visibility = View.GONE
             }
-
         }
     }
 
     fun showCancelBottomSheetDialog(cb: CheckBox, delView: View, taskId:Int){
-        DoneCancelBottomSheetDialog(cb,delView,taskId,1).show(fm, "cancel")
+        DoneCancelBottomSheetDialog(cb,delView,taskId,1,popComWorker).show(fm, "cancel")
     }
 
 }

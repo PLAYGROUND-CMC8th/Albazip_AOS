@@ -7,6 +7,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_personal_work"
+        android:overScrollMode="never"
         tools:listitem="@layout/item_rv_personal_work_list"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"

@@ -27,7 +27,7 @@ class GalleryImgService(val view: GalleryImgFragmentView) {
 }
 
 interface GalleryImgRetrofitInterface {
-
+    @Multipart
     @POST("/mypage/profile/image")
     fun postGalleryImg(@Header("token")token:String, @Part uploadImage:MultipartBody.Part?): Call<BaseResponse>
 }

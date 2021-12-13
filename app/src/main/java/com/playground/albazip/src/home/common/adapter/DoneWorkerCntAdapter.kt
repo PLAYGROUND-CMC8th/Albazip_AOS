@@ -1,15 +1,23 @@
 package com.playground.albazip.src.home.common.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.playground.albazip.databinding.ItemRvWorkerCntPopUpBinding
 import com.playground.albazip.src.home.common.data.DoneWorkerCntData
+import com.playground.albazip.src.home.manager.worklist.network.InnerCoWorker
 
 
-class DoneWorkerCntAdapter(private val itemList:ArrayList<DoneWorkerCntData>): RecyclerView.Adapter<DoneWorkerCntAdapter.DoneWorkerCntHolder>() {
+class DoneWorkerCntAdapter(
+    private val itemList: ArrayList<DoneWorkerCntData>,
+    private val context: Context,
+): RecyclerView.Adapter<DoneWorkerCntAdapter.DoneWorkerCntHolder>() {
 
     private lateinit var binding: ItemRvWorkerCntPopUpBinding
+    private var myContext = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoneWorkerCntHolder {
         binding =  ItemRvWorkerCntPopUpBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -29,6 +37,7 @@ class DoneWorkerCntAdapter(private val itemList:ArrayList<DoneWorkerCntData>): R
         fun setItemList(doneData: DoneWorkerCntData){
 
             // 프로필
+            Glide.with(myContext).load(doneData.profile).into(binding.ivProfile)
 
             // 포지션
             binding.tvPosition.text = doneData.position
@@ -36,8 +45,12 @@ class DoneWorkerCntAdapter(private val itemList:ArrayList<DoneWorkerCntData>): R
             // 이름
             binding.tvFirstName.text = doneData.firstName
 
-            // 완료 업무 수
-            binding.tvWorkCnt.text = doneData.doneCnt.toString()
+            // 확인한 사람 수
+            if(doneData.doneCnt == -1) {
+                binding.tvWorkCnt.visibility = View.GONE
+            }else{ // 완료한 사람 수
+                binding.tvWorkCnt.text = doneData.doneCnt.toString()
+            }
         }
     }
 }

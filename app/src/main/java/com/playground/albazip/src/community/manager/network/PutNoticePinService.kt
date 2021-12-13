@@ -2,6 +2,7 @@ package com.playground.albazip.src.community.manager.network
 
 import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseResponse
+import com.playground.albazip.src.mypage.manager.board.data.local.NoticeData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,13 +12,13 @@ import retrofit2.http.Path
 
 class PutNoticePinService(val view: PutNoticePinListFragmentView) {
 
-    fun tryPutNoticePin(noticeId: Int){
+    fun tryPutNoticePin(noticeId: Int,position:Int){
         val putNoticePinRetrofitInterface = ApplicationClass.sRetrofit.create(PutNoticePinRetrofitInterface::class.java)
         val token = ApplicationClass.prefs.getString("X-ACCESS-TOKEN","0")
         putNoticePinRetrofitInterface.putNoticePin(token,noticeId).enqueue(object :
             Callback<BaseResponse> {
             override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
-                view.onNoticePinPutSuccess(response.body() as BaseResponse)
+                view.onNoticePinPutSuccess(response.body() as BaseResponse,position)
             }
 
             override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
@@ -35,7 +36,7 @@ interface PutNoticePinRetrofitInterface {
 
 interface PutNoticePinListFragmentView {
 
-    fun onNoticePinPutSuccess(response: BaseResponse)
+    fun onNoticePinPutSuccess(response: BaseResponse,position: Int)
 
     fun onNoticePinPutFailure(message: String)
 }

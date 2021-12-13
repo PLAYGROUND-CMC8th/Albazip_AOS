@@ -1,6 +1,7 @@
 package com.playground.albazip.src.mypage.worker.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,6 +67,8 @@ class DailyUnDoneAdapter(private val itemList:ArrayList<DailyUnDoneWorkListData>
         holder.binding.tvContents.setPadding(0,16,0,16)
         //text max Line 없애기
         holder.binding.tvContents.maxLines = 20
+        // 텍스트 색상 변경
+        holder.binding.tvContents.setTextColor(Color.parseColor("#6f6f6f"))
 
         // 배경 (테두리)설정
         holder.binding.root.background = ContextCompat.getDrawable(
@@ -91,6 +94,8 @@ class DailyUnDoneAdapter(private val itemList:ArrayList<DailyUnDoneWorkListData>
             myContext,
             R.drawable.rectangle_fill_light_yellow_radius_main_yellow_20
         )
+        // 텍스트 색상 변경
+        holder.binding.tvContents.setTextColor(Color.parseColor("#919191"))
 
         flags = 0
     }

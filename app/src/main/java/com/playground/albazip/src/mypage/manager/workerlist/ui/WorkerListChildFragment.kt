@@ -51,7 +51,6 @@ class WorkerListChildFragment(serverCardList:ArrayList<WorkerList>) : BaseFragme
 
     override fun onResume() {
         super.onResume()
-
         //checkExistState()
     }
 

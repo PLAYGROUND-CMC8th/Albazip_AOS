@@ -9,23 +9,18 @@ import com.playground.albazip.databinding.ChildFragmentNoticeBinding
 import com.playground.albazip.src.community.manager.network.GetBoardListFragmentView
 import com.playground.albazip.src.community.manager.network.GetBoardListResponse
 import com.playground.albazip.src.community.manager.network.GetBoardNoticeService
-import com.playground.albazip.src.mypage.manager.adapter.NoticeListAdapter
+import com.playground.albazip.src.community.manager.adapter.NoticeListAdapter
 import com.playground.albazip.src.mypage.manager.board.data.local.NoticeData
 
 class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmentNoticeBinding::bind,
     R.layout.child_fragment_notice),GetBoardListFragmentView {
 
     private var noticeArray = ArrayList<NoticeData>()
-    private lateinit var noticeAdapter:NoticeListAdapter
+    private lateinit var noticeAdapter: NoticeListAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // 글쓰기 버튼
-        binding.btnWriting.setOnClickListener {
-            val nextIntent = Intent(requireContext(),WriteNoticeActivity::class.java)
-            startActivity(nextIntent)
-        }
     }
 
     override fun onResume() {
@@ -43,6 +38,8 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
 
         if(response.data.size == 0){
             binding.llNoContent.visibility = View.VISIBLE
+        }else{
+            binding.llNoContent.visibility = View.GONE
         }
 
         for (i in 0 until response.data.size){
@@ -65,7 +62,6 @@ class NoticeMChildFragment:BaseFragment<ChildFragmentNoticeBinding>(ChildFragmen
                 if (lastVisibleItemPosition == itemTotalCount) {
                     Log.d("SCROLL", "last Position...")
                 }
-
             }
         })*/
     }

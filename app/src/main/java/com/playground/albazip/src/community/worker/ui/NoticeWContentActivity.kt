@@ -1,10 +1,14 @@
 package com.playground.albazip.src.community.worker.ui
 
 import android.os.Bundle
+import android.security.identity.ResultData
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import com.bumptech.glide.Glide
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.config.BaseResponse
 import com.playground.albazip.databinding.ActivityNoticeContentBinding
+import com.playground.albazip.databinding.BgCntReadPopupBinding
 import com.playground.albazip.src.community.common.adapter.BoardIVAdapter
 import com.playground.albazip.src.community.common.adapter.BoardImgData
 import com.playground.albazip.src.community.common.network.GetReadNoticeFragmentView
@@ -13,6 +17,8 @@ import com.playground.albazip.src.community.common.network.ReadNoticeResponse
 import com.playground.albazip.src.community.worker.custom.NoticeReportBottomSheetDialog
 import com.playground.albazip.src.community.worker.network.PutConfirmNoticeFragmentView
 import com.playground.albazip.src.community.worker.network.PutConfirmNoticeService
+import com.playground.albazip.src.home.common.adapter.DoneWorkerCntAdapter
+import com.playground.albazip.src.home.common.data.DoneWorkerCntData
 
 // 공지글
 class NoticeWContentActivity:
@@ -21,11 +27,20 @@ class NoticeWContentActivity:
 
     private lateinit var boardIVAdapter: BoardIVAdapter
 
+    // 업무 완료자 리스트
+    private var workerCntList = ArrayList<DoneWorkerCntData>()
+    private lateinit var doneWorkerCntAdapter: DoneWorkerCntAdapter
+
+    // 팝업 view
+    private lateinit var popUpBinding: BgCntReadPopupBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         GetReadNoticeService(this).tryGetNoticeRead(intent.getIntExtra("noticeId",0))
         showLoadingDialog(this)
+
+        popUpBinding = BgCntReadPopupBinding.inflate(layoutInflater)
 
         // 뒤로가기 버튼
         binding.ibtnBack.setOnClickListener {
@@ -66,10 +81,79 @@ class NoticeWContentActivity:
         boardIVAdapter = BoardIVAdapter(imgList,this)
         binding.rvNoticeImageList.adapter = boardIVAdapter
 
+        // 읽은 사람 목록 adpater
+        for (i in 0 until response.data.confirmInfo.confirmer.size) {
+            workerCntList.add(
+                DoneWorkerCntData(
+                    response.data.confirmInfo.confirmer[i].writerImage,
+                    response.data.confirmInfo.confirmer[i].writerTitle,
+                    response.data.confirmInfo.confirmer[i].writerName,
+                    -1
+                )
+            )
+        }
+
+        doneWorkerCntAdapter = DoneWorkerCntAdapter(
+            workerCntList,
+            this@NoticeWContentActivity
+        )
+        popUpBinding.rvDoneWorkerList.adapter = doneWorkerCntAdapter
+
+        binding.tvDonePersonCnt.text = response.data.confirmInfo.count.toString()
+
+        // 팝업 띄우기 -> 사람 목록을 눌렀을 때
+        binding.rlReadPersonCnt.setOnClickListener {
+
+            // dp to px 단위변경
+            val density = resources.displayMetrics.density
+            val w_value = (140 * density).toInt()
+            val h_value = ((130+40) * density).toInt()
+            val moved_w_value = (100 * density).toInt()
+
+            // val width = LinearLayout.LayoutParams.WRAP_CONTENT
+            val height = LinearLayout.LayoutParams.WRAP_CONTENT
+            val moved_h_value_0 = ((130-30) * density).toInt()
+            val moved_h_value_1=  ((130) * density).toInt()
+            val moved_h_value_2=  ((130+40) * density).toInt()
+            val moved_h_value_3=  ((130+70) * density).toInt()
+            val moved_h_value_4=  ((130+110) * density).toInt()
+            var focusable = true
+
+            popUpBinding.tvPopUp.text = "확인한 인원"
+
+            val popupWindow = PopupWindow(popUpBinding.root, w_value, height, focusable)
+            popupWindow.contentView = popUpBinding.root
+            popupWindow.elevation = 5F
+
+            when (workerCntList.size) {
+
+                0 -> {
+                    popupWindow.showAsDropDown(binding.rlReadPersonCnt, 0, -(moved_h_value_0)) // O.K
+                }
+                1 -> {
+                    popupWindow.showAsDropDown(binding.rlReadPersonCnt, 0, -(moved_h_value_1)) // O.K
+                }
+                2 -> {
+                    popupWindow.showAsDropDown(binding.rlReadPersonCnt, 0, -(moved_h_value_2)) // O.K
+                }
+                else -> { // 3개 이상
+                    val popupWindow = PopupWindow(popUpBinding.root, w_value, h_value, focusable)
+                    popupWindow.showAsDropDown(binding.rlReadPersonCnt, 0, -(moved_h_value_3))
+                }
+
+            }
+
+        }
+
         // confirmInfo
         // 데이터를 다 불러온 후 공지 <<확인>> 체크
-        PutConfirmNoticeService(this).tryPutNoticeRead(intent.getIntExtra("noticeId",0))
-        showLoadingDialog(this)
+        // -> 그런데 미확인 일 때 체크하게 하기
+        if(intent.hasExtra("readSwitch")){
+            if(intent.getIntExtra("readSwitch",0) == -1) {
+                PutConfirmNoticeService(this).tryPutNoticeRead(intent.getIntExtra("noticeId", 0))
+                showLoadingDialog(this)
+            }
+        }
     }
 
     override fun onGetReadNoticeFailure(message: String) {

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +23,7 @@ import com.playground.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoL
 class HWUnDoneAdapter(
     private val itemList: ArrayList<HUnDoneWorkListData>,
     context: Context,
-    dialogView: View
+    dialogView: View,
 ) : RecyclerView.Adapter<HWUnDoneAdapter.UnDoneWorkHolder>(), PutTodayHomeTaskFragmentView {
 
     private lateinit var binding: ItemRvUndoneCheckBinding
@@ -104,6 +105,9 @@ class HWUnDoneAdapter(
         //text max Line 없애기
         holder.binding.tvContents.maxLines = 20
 
+        // 텍스트 색 변경
+        holder.binding.tvContents.setTextColor(Color.parseColor("#6f6f6f"))
+
         // 배경 (테두리)설정
         holder.binding.root.background = ContextCompat.getDrawable(
             myContext,
@@ -138,6 +142,9 @@ class HWUnDoneAdapter(
         )
         // 삭제버튼 숨기기
         holder.binding.ibtnWorkDelete.visibility = View.GONE
+
+        // 텍스트 색 변경
+        holder.binding.tvContents.setTextColor(Color.parseColor("#919191"))
 
         flags = 0
     }

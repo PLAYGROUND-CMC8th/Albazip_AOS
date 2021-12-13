@@ -7,7 +7,8 @@ import com.playground.albazip.R
 import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.ChildFragmentWroteBeforeUpdateBinding
 import com.playground.albazip.src.community.manager.network.CommuNoticeInfo
-import com.playground.albazip.src.mypage.manager.adapter.NoticeListAdapter
+import com.playground.albazip.src.community.manager.adapter.NoticeListAdapter
+import com.playground.albazip.src.mypage.manager.adapter.MPNoticeListAdapter
 import com.playground.albazip.src.mypage.manager.board.data.local.NoticeData
 import com.playground.albazip.src.mypage.manager.board.data.remote.GetBoardResponse
 import com.playground.albazip.src.mypage.manager.board.network.BoardFragmentView
@@ -24,7 +25,7 @@ class BUWroteChildFragment(
     // 공지 리스트
     private var getNoticeList = serverNoticeList
     private var noticeList = ArrayList<NoticeData>()
-    private lateinit var noticeListAdapter: NoticeListAdapter
+    private lateinit var noticeListAdapter: MPNoticeListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,7 +65,7 @@ class BUWroteChildFragment(
         val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.rvWritingList.layoutManager = linearLayoutManager
-        noticeListAdapter = NoticeListAdapter(requireContext(),noticeList)
+        noticeListAdapter = MPNoticeListAdapter(requireContext(),noticeList)
         binding.rvWritingList.adapter = noticeListAdapter
     }
 

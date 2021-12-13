@@ -12,6 +12,8 @@ import com.playground.albazip.databinding.FragmentMCommunityBinding
 import com.playground.albazip.src.community.manager.ui.NoticeMChildFragment
 import com.playground.albazip.src.community.manager.ui.WriteNoticeActivity
 import com.google.android.material.tabs.TabLayoutMediator
+import com.playground.albazip.src.community.manager.ui.SearchCoMActivity
+import com.playground.albazip.src.home.common.ui.HomeAlarmActivity
 
 class MCommunityFragment :
     BaseFragment<FragmentMCommunityBinding>(FragmentMCommunityBinding::bind, R.layout.fragment_m_community) {
@@ -29,8 +31,19 @@ class MCommunityFragment :
             val nextIntent = Intent(requireContext(),WriteNoticeActivity::class.java)
             startActivity(nextIntent)
         }
-    }
 
+        // 검색 화면으로 이동
+        binding.tbrIbtnSearch.setOnClickListener {
+            val nextIntent = Intent(requireContext(),SearchCoMActivity::class.java)
+            startActivity(nextIntent)
+        }
+
+        // 알림 화면으로 이동(준비중)
+        binding.tbrIbtnNotice.setOnClickListener {
+            val nextIntent = Intent(requireContext(),HomeAlarmActivity::class.java)
+            startActivity(nextIntent)
+        }
+    }
 
     private fun init() {
         binding.viewpager.adapter = CustomFragmentStateAdapter(requireActivity())

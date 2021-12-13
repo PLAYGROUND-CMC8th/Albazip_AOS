@@ -49,7 +49,7 @@ data class ReadNoticeResponse(
 data class NoticeReadResult(
     @SerializedName("writerInfo")val writerInfo:NoticeWriterInfo,
     @SerializedName("boardInfo")val boardInfo:NoticeBoardInfo,
-   // @SerializedName("confirmInfo")val confirmInfo:NoticeConfirmInfo,
+    @SerializedName("confirmInfo")val confirmInfo:NoticeConfirmInfo,
 )
 
 data class NoticeWriterInfo(
@@ -71,6 +71,12 @@ data class BoardImage(
 )
 
 data class NoticeConfirmInfo(
-    @SerializedName("count")val title:Int,
-    @SerializedName("confirmer")val confirmer:ArrayList<String>, // 다음에 받기 ㅎ.ㅎ ;;;
+    @SerializedName("count")val count:Int,
+    @SerializedName("confirmer")val confirmer:ArrayList<NoticeConfirmerInfo>
+)
+
+data class NoticeConfirmerInfo(
+    @SerializedName("writerTitle")val writerTitle:String,
+    @SerializedName("writerName")val writerName:String,
+    @SerializedName("writerImage")val writerImage:String,
 )

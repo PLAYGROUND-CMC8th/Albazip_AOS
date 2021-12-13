@@ -34,13 +34,11 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
     // 다이얼로그 바인딩
     private lateinit var dialogBinding:DialogTodoAllDoneBinding
 
-    // 인원수 체크 버튼 클릭 여부
-    var clickedCnt = false
-    private var doneWorkerCntList = ArrayList<DoneWorkerCntData>()
-    private lateinit var doneWorkerCntAdapter:DoneWorkerCntAdapter
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 완료 인원 뷰 가리기
+        binding.rlDonePersonCnt.visibility = View.INVISIBLE
 
         dialogBinding = DialogTodoAllDoneBinding.inflate(layoutInflater)
 
@@ -51,7 +49,8 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
                     content = "내용없음"
                 }
 
-                var writerAndDay = ResultData!!.perTask.nonComPerTask[i].writerTitle + " · " + ResultData!!.perTask.nonComPerTask[i].writerName + ResultData!!.perTask.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+                var writerAndDay = ResultData!!.perTask.nonComPerTask[i].writerTitle + " " + ResultData!!.perTask.nonComPerTask[i].writerName + " · " + ResultData!!.perTask.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+                //var writerAndDay = ResultData!!.perTask.nonComPerTask[i].writerTitle + " · " + ResultData!!.perTask.nonComPerTask[i].writerName + ResultData!!.perTask.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
 
                 unDoneList.add(HUnDoneWorkListData(1,ResultData!!.perTask.nonComPerTask[i].taskId,0,ResultData!!.perTask.nonComPerTask[i].takTitle,content,writerAndDay))
             }
@@ -66,43 +65,11 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
                 doneList.add(HDoneWorkListData(ResultData!!.perTask.compPerTask[i].taskId,1,ResultData!!.perTask.compPerTask[i].takTitle,"완료 "+ResultData!!.perTask.compPerTask[i].completeTime.substring(11, 16)))
             }
         }
-        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList,null)
         binding.rvDone.adapter = doneAdpater
 
         // ui 체크
         checkingUI()
-
-
-
-        doneWorkerCntList.add(DoneWorkerCntData("","평일마감","지연",1))
-        doneWorkerCntList.add(DoneWorkerCntData("","평일마감","주연",2))
-        doneWorkerCntList.add(DoneWorkerCntData("","평일마감","수빈",1))
-        doneWorkerCntList.add(DoneWorkerCntData("","평일마감","희영",3))
-
-        doneWorkerCntAdapter = DoneWorkerCntAdapter(doneWorkerCntList)
-        binding.rvDoneWorkerList.adapter = doneWorkerCntAdapter
-
-        // 인원수 체크 레이아웃
-        binding.rlDonePersonCnt.setOnClickListener {
-
-            if(clickedCnt == false) {
-                // pop up 활성화 상태 -> 터치 대기
-                clickedCnt = true
-                // bg 도 변경하기
-                binding.rlDonePersonCnt.background = ContextCompat.getDrawable(
-                        requireContext(),
-                R.drawable.rectangle_gray_radius_7
-                )
-                binding.frameLayoutCntDoneWorker.visibility = View.VISIBLE
-            }else{
-                clickedCnt = false
-                binding.rlDonePersonCnt.background = ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.rectangle_light_gray_radius_7
-                )
-                binding.frameLayoutCntDoneWorker.visibility = View.GONE
-            }
-        }
     }
 
     fun checkingUI(){
@@ -157,7 +124,8 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
                     content = "내용없음"
                 }
 
-                var writerAndDay = response.data.nonComPerTask[i].writerTitle + " · " + response.data.nonComPerTask[i].writerName + response.data.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+                var writerAndDay = response.data.nonComPerTask[i].writerTitle + " " + response.data.nonComPerTask[i].writerName + " · " + response.data.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
+               // var writerAndDay = response.data.nonComPerTask[i].writerTitle + " · " + response.data.nonComPerTask[i].writerName + response.data.nonComPerTask[i].registerDate.substring(0, 10).replace("-", ".") + "."
 
                 unDoneList.add(HUnDoneWorkListData(1,response.data.nonComPerTask[i].taskId,0,response.data.nonComPerTask[i].takTitle,content,writerAndDay))
             }
@@ -186,7 +154,7 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
             binding.rvDone.recycledViewPool.clear()
             doneAdpater.notifyDataSetChanged()
         }
-        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList)
+        doneAdpater = HWDoneAdapter(parentFragmentManager,requireContext(),doneList,null)
         binding.rvDone.adapter = doneAdpater
 
         checkingUI()
@@ -195,6 +163,5 @@ class ChildFragmentWPersonal(data: WTodayTaskResult?): BaseFragment<ChildFragmen
     override fun onGetWPerTaskFailure(message: String) {
         dismissLoadingDialog()
     }
-
 
 }

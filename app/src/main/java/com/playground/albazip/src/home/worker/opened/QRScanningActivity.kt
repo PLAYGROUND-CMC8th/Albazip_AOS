@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityQrScanBinding
 import com.journeyapps.barcodescanner.CaptureManager
+import com.playground.albazip.util.GetCurrentTime
 
 class QRScanningActivity:BaseActivity<ActivityQrScanBinding>(ActivityQrScanBinding::inflate) {
 
@@ -16,6 +17,9 @@ class QRScanningActivity:BaseActivity<ActivityQrScanBinding>(ActivityQrScanBindi
         binding.ibtnClose.setOnClickListener{
             finish()
         }
+
+        //qr 스캔 날짜
+        binding.tvScanDate.text = GetCurrentTime().getQRScanDate
 
         captureManager = CaptureManager(this,binding.barcodeScanner)
         captureManager.initializeFromIntent(intent, savedInstanceState)

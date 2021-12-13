@@ -24,6 +24,9 @@ import com.playground.albazip.util.GetCurrentTime
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import com.playground.albazip.config.ApplicationClass
+import com.playground.albazip.config.ApplicationClass.Companion.prefs
+import com.playground.albazip.src.home.worker.closed.worklist.ui.HomeWClosedToDoListActivity
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.timer
@@ -37,9 +40,9 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
     // 시간 차 계산을 위한 데이터 포맷 선언
     val f: SimpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.KOREA)
 
-    var threadTime = "0000"
+    var threadTime = "    "
 
-    val mTimer = timer(initialDelay = 10000, period = 10000) { // 10초후에 10초단위로 진행
+    val mTimer = timer(initialDelay = 100, period = 100) { // 1초후에 0.1초단위로 진행
         (requireContext() as Activity).runOnUiThread {
 
             GetAllWHomeInfoService(this@HomeWOpenedFragment).tryGetAllWHomeInfo()
@@ -72,21 +75,43 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
             var showingTime = castGetDiffTime.toString().substring(11,16)*/
 
             // 퇴근시간 초과시
-            if(threadTime.contains("+")){
+           // if(threadTime == "0000"){ // 화면 갱신시간을 대비하여 로드하는 동안 UI 공백처리
+           //     binding.tvGoOff.text = ""
+           // }
+
+            if(threadTime.contains("-")){
                 binding.tvGoOff.setTextColor(Color.parseColor("#f90100")) // 색상변경 - 빨강색
-                binding.rlAlarm.visibility = View.VISIBLE // 알림 띄우기
-                binding.tvGoOff.text = threadTime.substring(0,3)+":"+threadTime.substring(3,5)
+
+                // 기본 상태는 0, 알림을 확인하면 1로 변경
+                var goOffPopFlags = prefs.getInt("goOffPopFlags",0)
+                if(goOffPopFlags == 0) {
+                    binding.rlAlarm.visibility = View.VISIBLE // 알림 띄우기
+                }
+                    binding.tvGoOff.text =
+                        "+" + threadTime?.substring(1, 3) + ":" + threadTime?.substring(3, 5)
+                    // qr 빨간점 보이기
+                    binding.ivQrBedge.visibility = View.VISIBLE
+
             }else{ // 기본상태
-                binding.tvGoOff.text = threadTime.substring(0,2)+":"+threadTime.substring(2,4)
+                binding.tvGoOff.text = threadTime?.substring(0,2)+":"+threadTime?.substring(2,4)
                 binding.tvGoOff.setTextColor(Color.parseColor("#343434"))
+                // qr 빨간점 숨기기
+                binding.ivQrBedge.visibility = View.GONE
+                prefs.setInt("goOffPopFlags",0) // 확인 상태 "0"로 변경하기
+
             }
         }
     }
 
-    override fun onStop() { // fragment 교체시 타이머 정지
+    override fun onStop() {
         super.onStop()
         mTimer.cancel()
     }
+
+//    override fun onPause() {// fragment 교체시 타이머 정지
+//        super.onPause()
+//        mTimer.cancel()
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -117,6 +142,20 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
 
         // 포지션
         binding.tvWorkerPosition.text = resultData.scheduleInfo.positionTitle
+        // 개인업무 포지션 정보 받아오기
+        binding.tvAlone.text = resultData.scheduleInfo.positionTitle.replace(" ","")+" 업무"
+        // 개인업무 꿀단지 표시여부
+        var personalDoneRate = (((resultData.taskInfo.perTask.completeCount).toDouble() / (resultData.taskInfo.perTask.totalCount).toDouble()) * 100).toInt()
+        // 꿀단지 상태(이미지뷰)
+        if(personalDoneRate==0){
+            Glide.with(requireContext()).load(R.drawable.img_honey_0).into(binding.ivHoneyProgress)
+        }else if(personalDoneRate in 0..29){
+            Glide.with(requireContext()).load(R.drawable.img_honey_0_to_30).into(binding.ivHoneyProgress)
+        }else if(personalDoneRate in 30..59){
+            Glide.with(requireContext()).load(R.drawable.img_honey_30_to_60).into(binding.ivHoneyProgress)
+        }else if(personalDoneRate >=90){
+            Glide.with(requireContext()).load(R.drawable.img_honey_90).into(binding.ivHoneyProgress)
+        }
 
         val positionTime = resultData.scheduleInfo.positionTitle
 
@@ -139,6 +178,7 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
         // 알림 팝업창 닫기
         binding.btnDelPopUp.setOnClickListener {
             binding.rlAlarm.visibility = View.GONE
+            prefs.setInt("goOffPopFlags",1) // 확인 상태 "1"로 변경하기
         }
 
         // 알림 화면으로 이동
@@ -206,12 +246,15 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
             showCustomToast(GetCurrentTime().getTime+"에 출근이 기록되었습니다.")
         }else{
             showCustomToast(GetCurrentTime().getTime+"에 퇴근이 기록되었습니다.")
+            // qr 체크 완료(화면 갱신을 위한 prefs설정)
+            ApplicationClass.prefs.setInt("qrCheckState",-1)
         }
 
         // 다시 홈화면으로 이동
         val nextIntent = Intent(requireContext(),WorkerMainActivity::class.java)
         startActivity(nextIntent)
-        activity?.finishAffinity()
+        (requireContext() as Activity).finishAffinity()
+        //activity?.finishAffinity()
     }
     // QR 스캔 실패
     override fun onPutQRFailure(message: String) {

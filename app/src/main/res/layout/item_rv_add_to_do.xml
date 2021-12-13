@@ -68,7 +68,7 @@
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="7sp"
             android:paddingVertical="16dp"
-            android:textColor="@color/black"
+            android:textColor="#6f6f6f"
             android:textColorHint="#c9c9c9"
             android:textSize="12sp"
             android:textStyle="normal"

@@ -54,7 +54,7 @@ class NoticeWChildFragment: BaseFragment<ChildFragmentWNoticeBinding>(
         binding.rvCommunityMainNoticeW.adapter = noticeAdapter
 
         // recyclerview 스크롤 리스너
-        binding.rvCommunityMainNoticeW.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        /*binding.rvCommunityMainNoticeW.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
@@ -67,7 +67,7 @@ class NoticeWChildFragment: BaseFragment<ChildFragmentWNoticeBinding>(
                 }
 
             }
-        })
+        })*/
     }
 
     override fun onBoardListGetFailure(message: String) {

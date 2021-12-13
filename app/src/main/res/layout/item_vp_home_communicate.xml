@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="24dp"
-    android:background="@drawable/retangle_fill_ligth_gray_radius_19"
+    android:background="@drawable/rectangle_fill_ligth_gray_radius_19"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
@@ -18,6 +18,7 @@
         android:layout_marginStart="16dp">
 
         <TextView
+            android:id="@+id/tv_did_read"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="미확인"
