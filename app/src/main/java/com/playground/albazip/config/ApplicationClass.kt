@@ -13,8 +13,8 @@ class ApplicationClass: Application()  {
         const val KAKAO_URL = "https://dapi.kakao.com/"
         const val KAKAO_API_KEY = "KakaoAK de9363698180277fcaae08b7d4bf415c"  // REST API 키
 
-         const val API_URL = "http://3.140.50.45:3000"  // 테스트 서버
-         // const val API_URL = "http://18.222.46.235:3000" // 실서버
+         // const val API_URL = "http://3.140.50.45:3000"  // 테스트 서버
+         const val API_URL = "http://18.222.46.235:3000" // 실서버
 
         // Retrofit 인스턴스, 앱 실행시 한번만 생성하여 사용합니다.
         lateinit var sRetrofit: Retrofit
