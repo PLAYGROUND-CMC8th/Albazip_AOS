@@ -99,13 +99,10 @@ class ChildFragmentWClosedPersonal(data: WTodayTaskResult?): BaseFragment<ChildF
     override fun onResume() {
         super.onResume()
         GetWPerTaskService(this).tryGetPerTask()
-        showLoadingDialog(requireContext())
     }
 
     // 개인업무 조회 성공
     override fun onGetWPerTaskSuccess(response: GetWPerTaskResponse) {
-        dismissLoadingDialog()
-
         // 미완료 리스트 조회
         // 기존 데이터 비우기
         if(unDoneList.size != 0) {
@@ -159,7 +156,6 @@ class ChildFragmentWClosedPersonal(data: WTodayTaskResult?): BaseFragment<ChildF
     }
 
     override fun onGetWPerTaskFailure(message: String) {
-        dismissLoadingDialog()
     }
 
 }
