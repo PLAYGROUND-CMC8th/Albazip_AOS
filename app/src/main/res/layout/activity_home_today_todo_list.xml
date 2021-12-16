@@ -76,6 +76,7 @@
             app:tabIndicatorHeight="54dp"
             app:tabInlineLabel="true"
             app:tabMode="fixed"
+            app:tabRippleColor="@null"
             app:tabSelectedTextColor="@color/white"
             app:tabTextColor="#a3a3a3" />
     </FrameLayout>
