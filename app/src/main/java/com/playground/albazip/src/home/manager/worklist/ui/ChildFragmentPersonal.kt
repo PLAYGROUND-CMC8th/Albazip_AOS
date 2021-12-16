@@ -49,11 +49,11 @@ class ChildFragmentPersonal(data: MTodayTaskResult?):BaseFragment<ChildFragmentP
     override fun onResume() {
         super.onResume()
         GetHomeMPerService(this).tryGetHomeMPer()
-        showLoadingDialog(requireContext())
+        // showLoadingDialog(requireContext())
     }
 
     override fun onGetMPerWorkSuccess(response: HomeMPerWorkResponse) {
-       dismissLoadingDialog()
+       // dismissLoadingDialog()
 
         // 기존 데이터 비우기
         if(perWorkList.size != 0) {

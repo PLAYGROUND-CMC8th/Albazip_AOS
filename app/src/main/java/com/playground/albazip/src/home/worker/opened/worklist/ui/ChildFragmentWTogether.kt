@@ -158,12 +158,12 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
     override fun onResume() {
         super.onResume()
         GetHomeCoWorkService(this).tryGetHomeCoWork()
-        showLoadingDialog(requireContext())
+        // showLoadingDialog(requireContext())
     }
 
     // 공동 업무 조회(공동 업무 탭 클릭)
     override fun onGetHomeCoWorkSuccess(response: HomeCoWorkResponse) {
-        dismissLoadingDialog()
+        // dismissLoadingDialog()
 
         // 미완료 리스트 조회
         // 기존 데이터 비우기
@@ -218,7 +218,7 @@ class ChildFragmentWTogether(data: WTodayTaskResult?) : BaseFragment<ChildFragme
     }
 
     override fun onGetHomeCoWorkFailure(message: String) {
-        dismissLoadingDialog()
+       // dismissLoadingDialog()
     }
 
 }
