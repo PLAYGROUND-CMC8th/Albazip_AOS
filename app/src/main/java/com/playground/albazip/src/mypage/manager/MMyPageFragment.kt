@@ -51,6 +51,7 @@ class MMyPageFragment :
         super.onAttach(context)
         // 서버 통신 시작 (관리자 화면 모든 정보 불러오기)
         MMyPageService(this).tryGetMMyPage()
+        //showBeeLoadingDialog(requireContext())
         showLoadingDialog(requireContext())
     }
 
@@ -163,6 +164,7 @@ class MMyPageFragment :
 
     override fun onMMyPageGetSuccess(response: GetMMyPageInfoResponse) {
         dismissLoadingDialog()
+        //dismissBeeLoadingDialog()
         if(response.code == 200){
 
             // 근무자 정보(ProfileInfo)
@@ -198,6 +200,7 @@ class MMyPageFragment :
 
     override fun onMMyPageGetFailure(message: String) {
         dismissLoadingDialog()
+        //dismissBeeLoadingDialog()
     }
 
 }
