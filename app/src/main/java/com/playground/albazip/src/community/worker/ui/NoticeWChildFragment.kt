@@ -32,12 +32,14 @@ class NoticeWChildFragment: BaseFragment<ChildFragmentWNoticeBinding>(
 
         // 공지사항 리스트 조회
         GetBoardNoticeService(this).tryGetBoardList()
-        showLoadingDialog(requireContext())
+        //showLoadingDialog(requireContext())
+        showBeeLoadingDialog(requireContext())
     }
 
     // 공지리스트 조회 (성공)
     override fun onBoardListGetSuccess(response: GetBoardListResponse) {
-        dismissLoadingDialog()
+        dismissBeeLoadingDialog()
+        //dismissLoadingDialog()
 
         noticeArray.clear()
 
@@ -71,6 +73,7 @@ class NoticeWChildFragment: BaseFragment<ChildFragmentWNoticeBinding>(
     }
 
     override fun onBoardListGetFailure(message: String) {
-        dismissLoadingDialog()
+        dismissBeeLoadingDialog()
+        //dismissLoadingDialog()
     }
 }

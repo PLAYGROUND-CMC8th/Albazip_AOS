@@ -11,8 +11,8 @@ android {
         applicationId "com.playground.albazip"
         minSdkVersion 27
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

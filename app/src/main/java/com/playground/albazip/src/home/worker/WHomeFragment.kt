@@ -57,12 +57,14 @@ class WHomeFragment :
 
         // 근무자 홈 전체조회 통신
         GetAllWHomeInfoService(this).tryGetAllWHomeInfo()
-        showLoadingDialog(requireContext())
+        showBeeLoadingDialog(requireContext())
+        //showLoadingDialog(requireContext())
     }
 
     // 관리자 전체 정보 조회 성공
     override fun onGetAllWHomeSuccess(response: GetAllWHomeResponse) {
-        dismissLoadingDialog()
+        dismissBeeLoadingDialog()
+        //dismissLoadingDialog()
 
         // 매장명 받아오기
         ApplicationClass.prefs.setString("login_shop_name",response.data.shopInfo.name)
@@ -127,7 +129,8 @@ class WHomeFragment :
     }
 
     override fun onGetAllWHomeFailure(message: String) {
-        dismissLoadingDialog()
+        dismissBeeLoadingDialog()
+        //dismissLoadingDialog()
     }
 
 

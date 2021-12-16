@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.playground.albazip.util.BeeLoadingDialog
 import com.playground.albazip.util.LoadingDialog
 
 // 액티비티의 기본을 작성, 뷰 바인딩 활용
@@ -18,6 +19,7 @@ abstract class BaseActivity<B : ViewBinding>(private val inflate: (LayoutInflate
     protected lateinit var binding: B
         private set
     lateinit var mLoadingDialog: LoadingDialog
+    lateinit var beeLoadingDialog:BeeLoadingDialog
 
     // 뷰 바인딩 객체를 받아서 inflate해서 화면을 만들어줌.
     // 즉 매번 onCreate에서 setContentView를 하지 않아도 됨.
@@ -38,6 +40,19 @@ abstract class BaseActivity<B : ViewBinding>(private val inflate: (LayoutInflate
     fun dismissLoadingDialog() {
         if (mLoadingDialog.isShowing) {
             mLoadingDialog.dismiss()
+        }
+    }
+
+    // 꿀벌 로딩 다이얼로그
+    fun showBeeLoadingDialog(context: Context){
+        beeLoadingDialog = BeeLoadingDialog(context)
+        beeLoadingDialog.show()
+    }
+
+    // 꿀벌 다이얼로그 없애기
+    fun dismissBeeLoadingDialog(){
+        if(beeLoadingDialog.isShowing){
+            beeLoadingDialog.dismiss()
         }
     }
 

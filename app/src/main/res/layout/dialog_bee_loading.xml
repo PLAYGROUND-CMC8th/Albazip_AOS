@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#66000000"
+    android:orientation="vertical"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_bee"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bee_loading_img"/>
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#ffc200"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="6sp"
+        android:text="잠시만 기다려주세요!"/>
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="#f0f0f0"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="10sp"
+        android:text="열심히 정보를 불러오고 있어요."/>
+
+</LinearLayout>

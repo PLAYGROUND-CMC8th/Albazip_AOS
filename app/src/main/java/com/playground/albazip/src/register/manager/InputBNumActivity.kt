@@ -264,6 +264,14 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
             // 사업자 성함
             registerDataList.add(binding.etInputName.text.toString())
 
+            // 체크 성공
+            binding.ivInputCheckName.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this@InputBNumActivity,
+                    R.drawable.ic_checked_correct
+                )
+            )
+
             // 화면이동
             val nextIntent = Intent(this,InputPlaceMoreActivity::class.java)
             nextIntent.putExtra("registerDataList",registerDataList)
@@ -273,6 +281,13 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
             binding.rlNameInput.background = ContextCompat.getDrawable(
                 this,
                 R.drawable.rectagnle_red_radius
+            )
+            // 체크 경고
+            binding.ivInputCheckName.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this@InputBNumActivity,
+                    R.drawable.ic_checked_normal
+                )
             )
         }
     }

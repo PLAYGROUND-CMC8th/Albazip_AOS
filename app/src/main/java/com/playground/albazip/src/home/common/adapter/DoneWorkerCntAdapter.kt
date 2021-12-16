@@ -37,7 +37,7 @@ class DoneWorkerCntAdapter(
         fun setItemList(doneData: DoneWorkerCntData){
 
             // 프로필
-            Glide.with(myContext).load(doneData.profile).into(binding.ivProfile)
+            Glide.with(myContext).load(doneData.profile).circleCrop().into(binding.ivProfile)
 
             // 포지션
             binding.tvPosition.text = doneData.position

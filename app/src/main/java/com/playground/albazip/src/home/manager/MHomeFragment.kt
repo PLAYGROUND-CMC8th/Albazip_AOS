@@ -53,7 +53,8 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         super.onResume()
         // 홈 전체 데이터 불러오기
         GetMAllHomeInfoService(this).tryGetAllMHomeInfo()
-        showLoadingDialog(requireContext())
+        showBeeLoadingDialog(requireContext())
+        //showLoadingDialog(requireContext())
     }
 
     override fun onGetTokenSuccess(response: GetRightTokenResponse) {
@@ -77,7 +78,8 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
     // 관리자 홈 전체 조회 성공
     override fun onGetAllMHomeSuccess(response: GetAllMHomeResponse) {
-        dismissLoadingDialog()
+        dismissBeeLoadingDialog()
+        //dismissLoadingDialog()
 
         // 매장명 받아오기
        // if(response.data.shopInfo.name != null) {
@@ -132,6 +134,7 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
     }
 
     override fun onGetAllMHomeFailure(message: String) {
-        dismissLoadingDialog()
+        dismissBeeLoadingDialog()
+        //dismissLoadingDialog()
     }
 }
