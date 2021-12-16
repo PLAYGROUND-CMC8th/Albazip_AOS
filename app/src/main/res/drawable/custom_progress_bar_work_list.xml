@@ -7,11 +7,11 @@
         </shape>
     </item>
     <item android:id="@android:id/progress">
-        <clip>
+        <scale android:scaleWidth="100%" android:useIntrinsicSizeAsMinimum="true">
             <shape>
                 <corners android:radius="16dp" />
                 <solid android:color="#ffb100"/>
             </shape>
-        </clip>
+        </scale>
     </item>
 </layer-list>

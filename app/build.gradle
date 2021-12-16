@@ -95,6 +95,9 @@ dependencies {
 
     // 모서리 둥근 이미지 뷰
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3'
+
+    // 커스텀 프로그래스 바
+    implementation 'com.akexorcist:round-corner-progress-bar:2.1.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
