@@ -86,7 +86,7 @@ class MMyPageFragment :
         // 근무자 추가버튼 클릭 시
         binding.tbrIbtnPlusWorker.setOnClickListener {
             // 근무자 카드가 세 개 이상일 때
-            if(workList.size >= 3){
+            if(workList.size >= 50){
                 // 메세지 띄우기
                 Snackbar.make(binding.root, "더 많은 근무자 등록은 구독 시 사용할 수 있습니다 :)", Snackbar.LENGTH_SHORT)
                     .setBackgroundTint(Color.parseColor("#5b5b5b"))

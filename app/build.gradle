@@ -11,8 +11,8 @@ android {
         applicationId "com.playground.albazip"
         minSdkVersion 27
         targetSdkVersion 30
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -95,9 +95,6 @@ dependencies {
 
     // 모서리 둥근 이미지 뷰
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3'
-
-    // 커스텀 프로그래스 바
-    implementation 'com.akexorcist:round-corner-progress-bar:2.1.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

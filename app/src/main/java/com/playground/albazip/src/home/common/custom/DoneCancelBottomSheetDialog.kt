@@ -82,8 +82,8 @@ class DoneCancelBottomSheetDialog(
                 }else{
                     PutTodayHomeTaskService(this).tryPutTodayTask(taskId)
                 }
-            }else{
-                //if (popComWorker != null) {
+            }else{ // 근무자일 때
+                // if (popComWorker != null) {
                 //    for (i in 0 until popComWorker!!.size) { // taskId가 일치하고 근무자 본인이 한 일이 맞을 때
                 //        if (popComWorker!![i].worker.contains(workerName) && popComWorker!![i].taskId.contains(taskId)
                 //        ) {

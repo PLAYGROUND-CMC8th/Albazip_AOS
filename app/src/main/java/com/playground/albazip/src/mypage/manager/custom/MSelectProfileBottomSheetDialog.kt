@@ -122,6 +122,7 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
                 DefaultImgService(this).tryPostNewPW(postRequest)
             }else{
                 // 갤러리 선택 이미지 서버통신 시작
+                // 버전에 따라 돌아가는 거 확인
                 uriToFilePath(galleryUri)
             }
 
@@ -287,20 +288,16 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
 
     // 기본 이미지 업로드
     override fun onDefaultImgPostSuccess(response: BaseResponse) {
-        Log.d("hellotest",response.message.toString())
     }
 
     override fun onDefaultImgFailure(message: String) {
-        Log.d("byetest",message)
     }
 
     // 갤러리 이미지 업로드
     override fun onGalleryImgPostSuccess(response: BaseResponse) {
-        Log.d("hellotest",response.message.toString())
     }
 
     override fun onGalleryImgFailure(message: String) {
-        Log.d("byetest",message)
     }
 
 }

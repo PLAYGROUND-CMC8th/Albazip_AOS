@@ -5,11 +5,13 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseResponse
@@ -19,6 +21,7 @@ import com.playground.albazip.src.home.common.network.PutTodayHomeTaskService
 import com.playground.albazip.src.home.manager.custom.DelCoWorkBottomSheetDialog
 import com.playground.albazip.src.home.worker.opened.worklist.data.HUnDoneWorkListData
 import com.playground.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity
+
 
 class HWUnDoneAdapter(
     private val itemList: ArrayList<HUnDoneWorkListData>,
@@ -173,6 +176,7 @@ class HWUnDoneAdapter(
     // 업무완료 - 미완료
     override fun onPutTodayTaskSuccess(response: BaseResponse) {
 
+        // fragment 교체
         val nextIntent = Intent(myContext, HomeWTodayToDoListActivity::class.java)
         myContext.startActivity(nextIntent)
         (myContext as Activity).finish()
