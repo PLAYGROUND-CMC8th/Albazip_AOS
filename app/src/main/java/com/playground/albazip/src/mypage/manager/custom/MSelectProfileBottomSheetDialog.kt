@@ -5,9 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.media.ExifInterface
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +20,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.playground.albazip.R
@@ -60,6 +64,7 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
         bottomSheetClickListener = parentFragment as BottomSheetClickListener
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -122,7 +127,7 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
                 DefaultImgService(this).tryPostNewPW(postRequest)
             }else{
                 // 갤러리 선택 이미지 서버통신 시작
-                // 버전에 따라 돌아가는 거 확인
+                // 회전값이 들어있는 이미지인지도 체크한다.
                 uriToFilePath(galleryUri)
             }
 
@@ -151,33 +156,11 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
                 try {
 
                     val uri: Uri? = (it.data)?.data
+
                     Glide.with(requireContext()).load(uri).circleCrop()
                         .into(binding.ivCurrentProfile)
 
-                    /*val stream: InputStream? = requireContext().applicationContext.contentResolver.openInputStream(uri!!)
-
-                    var exif : ExifInterface? = null
-                    try{
-                        exif = ExifInterface(stream!!)
-                    }catch (e : IOException){
-                        e.printStackTrace()
-                    }
-                    exif?.setAttribute(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED.toString())
-                    val orientation = when (exif?.getAttributeInt(ExifInterface.TAG_ORIENTATION, 0)) {
-                        ExifInterface.ORIENTATION_ROTATE_90 -> 90
-                        ExifInterface.ORIENTATION_ROTATE_180 -> 180
-                        ExifInterface.ORIENTATION_ROTATE_270 -> 270
-                        else -> 0
-                    }
-
-                    Log.d("ExifData", "Orientation : $orientation")*/
-
-                    // val imgPath = path.toString()
-                    //val reUri = Uri.parse("${binding.ivCurrentProfile.drawable}")
-                    //val stream: InputStream? = requireContext().applicationContext.contentResolver.openInputStream(reUri)
-
                     galleryUri = uri
-                    // galleryUri = uri
 
                     // 플래그 저장 및 기존 Check 전부 비활성화
                     deselectAllCheck()
@@ -192,11 +175,23 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun uriToFilePath(uri: Uri?) {
+
         val options = BitmapFactory.Options()
         val inputStream: InputStream =
             requireNotNull(mycontext.contentResolver.openInputStream(uri!!))
-        val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+
+        var bitmap:Bitmap? = null
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+            val source = ImageDecoder.createSource(requireContext().contentResolver, uri)
+            bitmap = ImageDecoder.decodeBitmap(source)
+        }else{
+            MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
+            bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+        }
+
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
         val fileBody = byteArrayOutputStream.toByteArray()
@@ -210,7 +205,6 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
             File(uri.toString()).name,
             fileBody
         )
-
         // 갤러리 업로드 서버통신
         GalleryImgService(this).tryPostGalleryImg(part)
     }
@@ -299,5 +293,4 @@ class MSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
 
     override fun onGalleryImgFailure(message: String) {
     }
-
 }

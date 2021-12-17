@@ -5,8 +5,11 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
@@ -209,7 +212,17 @@ class WriteNoticeActivity:BaseActivity<ActivityWriteNoticeBinding>(ActivityWrite
         val options = BitmapFactory.Options()
         val inputStream: InputStream =
             requireNotNull(this.contentResolver.openInputStream(uri!!))
-        val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+
+        var bitmap:Bitmap? = null
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+            val source = ImageDecoder.createSource(this.contentResolver, uri)
+            bitmap = ImageDecoder.decodeBitmap(source)
+        }else{
+            MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+            bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+        }
+
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
         val fileBody = byteArrayOutputStream.toByteArray()

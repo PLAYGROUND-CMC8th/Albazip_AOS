@@ -5,8 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -144,7 +147,17 @@ class WSelectProfileBottomSheetDialog(context: Context) : BottomSheetDialogFragm
         val options = BitmapFactory.Options()
         val inputStream: InputStream =
             requireNotNull(mycontext.contentResolver.openInputStream(uri!!))
-        val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+
+        var bitmap:Bitmap? = null
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+            val source = ImageDecoder.createSource(requireContext().contentResolver, uri)
+            bitmap = ImageDecoder.decodeBitmap(source)
+        }else{
+            MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
+            bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+        }
+
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
         val fileBody = byteArrayOutputStream.toByteArray()

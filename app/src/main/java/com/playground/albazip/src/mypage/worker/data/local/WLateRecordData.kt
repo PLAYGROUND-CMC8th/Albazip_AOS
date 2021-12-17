@@ -1,6 +1,6 @@
 package com.playground.albazip.src.mypage.worker.data.local
 
-data class WLateRecordData(var year: String, var month: String, var day: String, var real_start_time:String, var real_end_time:String,var start_late:Int , var end_late:Int)
+data class WLateRecordData(var year: String, var month: String, var day: String, var real_start_time:String?, var real_end_time:String?,var start_late:Int , var end_late:Int)
 
 /*
 "year": "2021",

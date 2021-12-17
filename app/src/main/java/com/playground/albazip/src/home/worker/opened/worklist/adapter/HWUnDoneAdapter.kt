@@ -175,7 +175,6 @@ class HWUnDoneAdapter(
 
     // 업무완료 - 미완료
     override fun onPutTodayTaskSuccess(response: BaseResponse) {
-
         // fragment 교체
         val nextIntent = Intent(myContext, HomeWTodayToDoListActivity::class.java)
         myContext.startActivity(nextIntent)
@@ -183,6 +182,5 @@ class HWUnDoneAdapter(
     }
 
     override fun onPutTodayTaskFailure(message: String) {
-
     }
 }
