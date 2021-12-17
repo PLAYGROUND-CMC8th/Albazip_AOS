@@ -34,7 +34,9 @@ class WLateRecordAdapter(private val itemList:ArrayList<WLateRecordData>):Recycl
                 binding.tvGoToWork.setTextColor(Color.parseColor("#a3a3a3")) // 텍스트 컬러 변경
                 binding.viewGoWork.setBackgroundColor(Color.parseColor("#a3a3a3")) // 배경색 변경
             }else{
-                binding.tvGoWorkTime.text = recordData.real_start_time.substring(0,2) + ":" + recordData.real_start_time.substring(2,4)
+                binding.tvGoWorkTime.text = recordData.real_start_time!!.substring(0,2) + ":" + recordData.real_start_time!!.substring(2,4)
+                binding.tvGoToWork.setTextColor(Color.parseColor("#1dbe4e")) // 텍스트 컬러 변경
+                binding.viewGoWork.setBackgroundColor(Color.parseColor("#1dbe4e")) // 배경색 변경
             }
 
             // 퇴근 시간
@@ -43,7 +45,9 @@ class WLateRecordAdapter(private val itemList:ArrayList<WLateRecordData>):Recycl
                 binding.tvGoOffWork.setTextColor(Color.parseColor("#a3a3a3")) // 텍스트 컬러 변경
                 binding.viewOffWork.setBackgroundColor(Color.parseColor("#a3a3a3")) // 배경색 변경
             }else{
-                binding.tvOffWorkTime.text = recordData.real_end_time.substring(0,2) + ":" + recordData.real_end_time.substring(2,4)
+                binding.tvOffWorkTime.text = recordData.real_end_time!!.substring(0,2) + ":" + recordData.real_end_time!!.substring(2,4)
+                binding.tvGoOffWork.setTextColor(Color.parseColor("#1dbe4e")) // 텍스트 컬러 변경
+                binding.viewOffWork.setBackgroundColor(Color.parseColor("#1dbe4e")) // 배경색 변경
             }
 
             // 지각체크
