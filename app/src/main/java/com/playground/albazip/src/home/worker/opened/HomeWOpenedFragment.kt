@@ -42,7 +42,7 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
 
     var threadTime = "    "
 
-    val mTimer = timer(initialDelay = 100, period = 100) { // 1초후에 0.1초단위로 진행
+    val mTimer = timer(initialDelay = 1000, period = 100) { // 1초후에 0.1초단위로 진행
         (requireContext() as Activity).runOnUiThread {
 
             GetAllWHomeInfoService(this@HomeWOpenedFragment).tryGetAllWHomeInfo()
