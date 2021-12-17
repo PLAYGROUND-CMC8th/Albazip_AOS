@@ -14,10 +14,6 @@ import com.playground.albazip.src.home.common.ui.HomeAlarmActivity
 import com.playground.albazip.src.home.common.ui.HomeShopListActivity
 import com.playground.albazip.src.home.worker.data.AllHomeWResult
 import com.playground.albazip.src.home.worker.data.GetAllWHomeResponse
-import com.playground.albazip.src.home.worker.network.GetAllWFragmentView
-import com.playground.albazip.src.home.worker.network.GetAllWHomeInfoService
-import com.playground.albazip.src.home.worker.network.PutQRScanFragmentView
-import com.playground.albazip.src.home.worker.network.PutQRScanService
 import com.playground.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity
 import com.playground.albazip.src.main.WorkerMainActivity
 import com.playground.albazip.util.GetCurrentTime
@@ -27,6 +23,7 @@ import com.journeyapps.barcodescanner.ScanOptions
 import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.ApplicationClass.Companion.prefs
 import com.playground.albazip.src.home.worker.closed.worklist.ui.HomeWClosedToDoListActivity
+import com.playground.albazip.src.home.worker.network.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.timer
@@ -34,7 +31,7 @@ import kotlin.concurrent.timer
 class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHomeWOpenedBinding>(
     ChildFragmentHomeWOpenedBinding::bind,
     R.layout.child_fragment_home_w_opened
-),PutQRScanFragmentView, GetAllWFragmentView {
+),PutQRScanFragmentView, GetWorkerRemainFragmentView {
 
     var resultData = data
     // 시간 차 계산을 위한 데이터 포맷 선언
@@ -45,7 +42,8 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
     val mTimer = timer(initialDelay = 3000, period = 1000) { // 3초후에 1초단위로 진행
         (requireContext() as Activity).runOnUiThread {
 
-            GetAllWHomeInfoService(this@HomeWOpenedFragment).tryGetAllWHomeInfo()
+            GetWorkerRemainService(this@HomeWOpenedFragment).tryGetWorkerTimeInfo()
+            // GetAllWHomeInfoService(this@HomeWOpenedFragment).tryGetAllWHomeInfo()
             // 남은시간 (from 서버)
             /*var restTime = resultData.scheduleInfo.remainTime
 
@@ -261,13 +259,12 @@ class HomeWOpenedFragment(data: AllHomeWResult) : BaseFragment<ChildFragmentHome
         dismissLoadingDialog()
     }
 
-    // 남은 시간만 살짝 빼오기 (thread 를 위함)
-    override fun onGetAllWHomeSuccess(response: GetAllWHomeResponse) {
-        threadTime = response.data.scheduleInfo.remainTime
+    // 남은 시간 받아오기
+    override fun onGetWorkerTimeSuccess(response: WorkerRemainResult) {
+        threadTime = response.data
     }
 
-    override fun onGetAllWHomeFailure(message: String) {
-
+    override fun onGetWorkerTimeFailure(message: String) {
     }
 
 }
