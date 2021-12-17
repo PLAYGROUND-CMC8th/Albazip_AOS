@@ -33,6 +33,9 @@ class EditWorkerOneActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 업데이트 전에 잠시 가리기
+        binding.tvWorkHour.visibility = View.INVISIBLE
+
         // 뒤로가기 버튼
         binding.ibtnBack.setOnClickListener {
             finish()

@@ -47,7 +47,7 @@ class EditTodoListAdapter(val itemList: ArrayList<EditTodoData>, val context: Co
 
             // 텍스트 내용 초기화
             itemList.removeAt(position)
-            holder.binding.llRoot.removeViewAt(position)
+            //holder.binding.llRoot.removeViewAt(position)
             notifyItemRemoved(position)
             notifyDataSetChanged()
         }

@@ -86,7 +86,9 @@ class EditWorkerTwoActivity:BaseActivity<ActivityEditWorkerTwoBinding>(ActivityE
 
                  }
                 }
-            }else {
+            }
+
+            /*else {
                 //val workerDataList :ArrayList<Any> = arrayListOf(rank,title,startTime,endTime,workDays,breakTime,salary,salaryType)
                 if (taskList.isEmpty()) {
                     val postRequest = PostEditWorkerRequest(
@@ -105,7 +107,7 @@ class EditWorkerTwoActivity:BaseActivity<ActivityEditWorkerTwoBinding>(ActivityE
                     showLoadingDialog(this)
 
                 }
-            }
+            }*/
 
 
         }
