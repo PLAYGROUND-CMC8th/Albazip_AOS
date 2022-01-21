@@ -41,3 +41,7 @@
 | Kakao Map, 키워드로 장소검색 API | 지도 사용 |
 
 <br>
+
+## 더보기
+#### [ios](https://github.com/PLAYGROUND-CMC8th/Albazip_iOS)
+#### [server](https://github.com/PLAYGROUND-CMC8th/Albazip_Server)
