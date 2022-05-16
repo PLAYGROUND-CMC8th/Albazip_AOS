@@ -24,6 +24,9 @@
         <!-- BottomSheet Dialog -->
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
 
+        <!-- font padding 제거 -->
+        <item name="android:includeFontPadding">false</item>
+
     </style>
 
     <!-- Bottom Navi Custom -->
@@ -124,6 +127,13 @@
 
     <!-- 다이얼로그 배경 커스튬 -->
     <style name="MyDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!-- 경고창 배경 커스튬 -->
+    <style name="MyAlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:background">@drawable/bg_pop_up</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>

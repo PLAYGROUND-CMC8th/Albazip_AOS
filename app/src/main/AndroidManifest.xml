@@ -62,13 +62,17 @@
         </activity>
         <activity android:name="com.playground.albazip.src.main.MainActivity">
         </activity>
-        <activity android:name="com.playground.albazip.src.register.manager.InputBNumActivity" >
+
+
+        <activity android:name="com.playground.albazip.src.register.manager.InputBNumActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity android:name="com.playground.albazip.src.register.worker.ui.RegisterJoinActivity" />
         <activity android:name="com.playground.albazip.src.register.worker.ui.WorkerOnBoardingActivity" />
         <activity android:name="com.playground.albazip.src.home.common.ui.SettingActivity" />
@@ -92,14 +96,8 @@
         </activity>
 
         <!-- setting -->
-        <activity android:name="com.playground.albazip.src.mypage.common.setting.AlarmSettingActivity">
-
-        </activity>
-
-        <activity android:name="com.playground.albazip.src.mypage.common.setting.MMyPageSettingActivity">
-
-        </activity>
-
+        <activity android:name="com.playground.albazip.src.mypage.common.setting.AlarmSettingActivity"/>
+        <activity android:name="com.playground.albazip.src.mypage.common.setting.MMyPageSettingActivity"/>
         <activity android:name="com.playground.albazip.src.mypage.common.setting.AppNoticeActivity"/>
         <activity android:name="com.playground.albazip.src.mypage.common.setting.editinfo.EditMyInfoActivity"/>
         <activity android:name="com.playground.albazip.src.mypage.common.setting.editinfo.EditPhoneNumActivity"/>

@@ -6,6 +6,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.playground.albazip.R
@@ -139,10 +140,14 @@ class InputPlaceMoreActivity :
 
     }
 
+
     fun whichHolidayIsSelected() {
         val btnList: ArrayList<AppCompatButton> = arrayListOf(
-            binding.btnNoClosed, binding.btnMon, binding.btnTue, binding.btnWen,
-            binding.btnThur, binding.btnFri, binding.btnSat, binding.btnSun, binding.btnHoliday
+            binding.btnNoClosed,
+
+            binding.btnHoliday,
+            binding.btnMon, binding.btnTue, binding.btnWen,
+            binding.btnThur, binding.btnFri, binding.btnSat, binding.btnSun
         )
 
         for (i in 0..8)
@@ -151,205 +156,20 @@ class InputPlaceMoreActivity :
             }
     }
 
-    fun isAllDeActive(): Boolean {
-        binding.apply {
-            if (btnMon.isSelected == false && btnTue.isSelected == false && btnWen.isSelected == false && btnThur.isSelected == false && btnFri.isSelected == false
-                && btnSat.isSelected == false && btnSun.isSelected == false && btnHoliday.isSelected == false
-            ) {
-                return true
-            }
-            return false
-        }
-    }
-
-    fun weekSelectEvent(v: AppCompatButton) {
-
-        val btnList: ArrayList<AppCompatButton> = arrayListOf(
-            binding.btnNoClosed, binding.btnMon, binding.btnTue, binding.btnWen,
-            binding.btnThur, binding.btnFri, binding.btnSat, binding.btnSun, binding.btnHoliday
-        )
-
-        // 요일이 선택되면
-        if (v.isSelected == false) {
-            v.isSelected = true
-            v.setTextColor(Color.parseColor("#343434"))
-            v.background =
-                ContextCompat.getDrawable(this@InputPlaceMoreActivity, R.drawable.oval_fill_yellow)
-
-
-            binding.btnNoClosed.isSelected = false  // 연중무휴 선택해제
-            binding.btnNoClosed.setTextColor(Color.parseColor("#6f6f6f"))
-            binding.btnNoClosed.background = ContextCompat.getDrawable(
-                this@InputPlaceMoreActivity,
-                R.drawable.rectangle_fill_gray_radius_16
-            )   // 연중무휴 회색으로
-
-        } else {
-            v.isSelected = false
-            v.setTextColor(Color.parseColor("#6f6f6f"))
-            v.background = ContextCompat.getDrawable(
-                this@InputPlaceMoreActivity,
-                R.drawable.oval_fill_white_stroke_gray
-            )
-            // 만약 월~공휴일이 전부 선택 안됐을 때 -> 전부 선택해제
-            if (isAllDeActive() == true) {
-                for (i in 1..7) {   // 연중무휴가 해제되면
-                    // 월~ 공휴일 다 흰색으로
-                    btnList[i].background = ContextCompat.getDrawable(
-                        this@InputPlaceMoreActivity,
-                        R.drawable.oval_fill_white_stroke_gray
-                    ) // 배경 비활성화
-                    btnList[i].setTextColor(Color.parseColor("#6f6f6f"))
-                }
-                btnList[8].background = ContextCompat.getDrawable(
-                    this@InputPlaceMoreActivity,
-                    R.drawable.rectangle_fill_white_radius_gray_16
-                )
-                btnList[8].setTextColor(Color.parseColor("#6f6f6f"))
-            } else {     // 아니면? -> 해당 요일만 선택해제
-                v.background = ContextCompat.getDrawable(
-                    this@InputPlaceMoreActivity,
-                    R.drawable.oval_fill_white_stroke_gray
-                )
-                v.setTextColor(Color.parseColor("#6f6f6f"))
-            }
-        }
-    }
-
 
     override fun onClick(v: View?) {
 
         val btnList: ArrayList<AppCompatButton> = arrayListOf(
-            binding.btnNoClosed, binding.btnMon, binding.btnTue, binding.btnWen,
-            binding.btnThur, binding.btnFri, binding.btnSat, binding.btnSun, binding.btnHoliday
+            binding.btnNoClosed,
+
+            binding.btnHoliday,
+            binding.btnMon, binding.btnTue, binding.btnWen,
+            binding.btnThur, binding.btnFri, binding.btnSat, binding.btnSun
         )
 
+        v?.isSelected = !(v!!.isSelected)
+        
 
-        binding.apply {
-            when (v) {
-                btnNoClosed -> {
-                    // 연중무휴가 선택되면
-                    if (v.isSelected == false) {
-                        v.isSelected = true
-                        (v as AppCompatButton).setTextColor(Color.parseColor("#343434"))
-                        v.background = ContextCompat.getDrawable(
-                            this@InputPlaceMoreActivity,
-                            R.drawable.rectangle_fill_yellow_radius_16
-                        )
-
-                        for (i in 1..7) {
-                            btnList[i].isSelected = false   // 월~공휴일 선택 전부 해제
-                            btnList[i].background = ContextCompat.getDrawable(
-                                this@InputPlaceMoreActivity,
-                                R.drawable.oval_fill_custom_white
-                            ) // 배경 비활성화
-                            btnList[i].setTextColor(Color.parseColor("#6f6f6f"))
-                        }
-                        btnList[8].isSelected = false
-                        btnList[8].setTextColor(Color.parseColor("#6f6f6f"))
-                        btnList[8].background = ContextCompat.getDrawable(
-                            this@InputPlaceMoreActivity,
-                            R.drawable.rectangle_fill_gray_radius_16
-                        )
-                    } else {
-                        v.isSelected = false
-                        (v as AppCompatButton).setTextColor(Color.parseColor("#6f6f6f"))
-                        v.background = ContextCompat.getDrawable(
-                            this@InputPlaceMoreActivity,
-                            R.drawable.rectangle_fill_white_radius_gray_16
-                        )
-
-                        // 만약 모든 버튼이 비활성화 되어 있다면
-                        if (isAllDeActive() == true) {
-                            for (i in 1..7) {   // 연중무휴가 해제되면
-                                // 월~ 공휴일 다 흰색으로
-                                btnList[i].background = ContextCompat.getDrawable(
-                                    this@InputPlaceMoreActivity,
-                                    R.drawable.oval_fill_white_stroke_gray
-                                ) // 배경 비활성화
-                                btnList[i].setTextColor(Color.parseColor("#6f6f6f"))
-                            }
-                            btnList[8].background = ContextCompat.getDrawable(
-                                this@InputPlaceMoreActivity,
-                                R.drawable.rectangle_fill_white_radius_gray_16
-                            )
-                            btnList[8].setTextColor(Color.parseColor("#6f6f6f"))
-                        }
-                    }
-
-                }
-
-                btnMon -> {
-                    weekSelectEvent(v as AppCompatButton)
-                }
-                btnTue -> {
-                    weekSelectEvent(v as AppCompatButton)
-                }
-                btnWen -> {
-                    weekSelectEvent(v as AppCompatButton)
-                }
-                btnThur -> {
-                    weekSelectEvent(v as AppCompatButton)
-                }
-                btnFri -> {
-                    weekSelectEvent(v as AppCompatButton)
-                }
-                btnSat -> {
-                    weekSelectEvent(v as AppCompatButton)
-                }
-                btnSun -> {
-                    weekSelectEvent(v as AppCompatButton)
-                }
-                btnHoliday -> {
-                    // 요일이 선택되면
-                    if (v.isSelected == false) {
-                        v.isSelected = true
-                        (v as AppCompatButton).setTextColor(Color.parseColor("#343434"))
-                        v.background = ContextCompat.getDrawable(
-                            this@InputPlaceMoreActivity,
-                            R.drawable.rectangle_fill_yellow_radius_16
-                        )
-                        btnNoClosed.isSelected = false  // 연중무휴 선택해제
-                        btnNoClosed.setTextColor(Color.parseColor("#6f6f6f"))
-                        btnNoClosed.background = ContextCompat.getDrawable(
-                            this@InputPlaceMoreActivity,
-                            R.drawable.rectangle_fill_gray_radius_16
-                        )   // 연중무휴 회색으로
-                    } else {
-                        v.isSelected = false
-                        (v as AppCompatButton).setTextColor(Color.parseColor("#6f6f6f"))
-                        v.background = ContextCompat.getDrawable(
-                            this@InputPlaceMoreActivity,
-                            R.drawable.rectangle_fill_white_radius_gray_16
-                        )
-                        // 만약 월~공휴일이 전부 선택 안됐을 때 -> 전부 선택해제
-                        if (isAllDeActive() == true) {
-                            for (i in 1..7) {   // 연중무휴가 해제되면
-                                // 월~ 공휴일 다 흰색으로
-                                btnList[i].background = ContextCompat.getDrawable(
-                                    this@InputPlaceMoreActivity,
-                                    R.drawable.oval_fill_white_stroke_gray
-                                ) // 배경 비활성화
-                                btnList[i].setTextColor(Color.parseColor("#6f6f6f"))
-                            }
-                            btnList[8].background = ContextCompat.getDrawable(
-                                this@InputPlaceMoreActivity,
-                                R.drawable.rectangle_fill_white_radius_gray_16
-                            )
-                            btnList[8].setTextColor(Color.parseColor("#6f6f6f"))
-                        } else {     // 아니면? -> 해당 요일만 선택해제
-                            v.background = ContextCompat.getDrawable(
-                                this@InputPlaceMoreActivity,
-                                R.drawable.oval_fill_white_stroke_gray
-                            )
-                            (v as AppCompatButton).setTextColor(Color.parseColor("#6f6f6f"))
-
-                        }
-                    }
-                }
-
-            }
-        }
     }
 
 
@@ -424,17 +244,17 @@ class InputPlaceMoreActivity :
 
     // 시간차 설정해주는 함수
     private fun getTimeLag() {
-        var sDate = f.parse(binding.tvInputStartTime.text.toString() + ":00")
-        var eDate = f.parse(binding.tvInputEndTime.text.toString() + ":00")
-        var diff = eDate.time - sDate.time
+        val sDate = f.parse(binding.tvInputStartTime.text.toString() + ":00")
+        val eDate = f.parse(binding.tvInputEndTime.text.toString() + ":00")
+        val diff = eDate.time - sDate.time
 
-        var sec = diff / 1000 // 총 시간(초) 받아오기
+        val sec = diff / 1000 // 총 시간(초) 받아오기
 
 
         if (eDate.time >= sDate.time) {
 
-            var showHour = sec / (60 * 60)
-            var showMin = sec / 60 - (showHour * 60)
+            val showHour = sec / (60 * 60)
+            val showMin = sec / 60 - (showHour * 60)
 
             if (showMin == 0L) {
                 binding.tvWorkHour.setText(showHour.toString() + "시간")
@@ -445,10 +265,10 @@ class InputPlaceMoreActivity :
 
         } else { // 24시간을 더해서 빼준다.
 
-            var sec = diff / 1000 + 86400// 총 시간(초) 받아오기(24시간 더해서)
+            val sec = diff / 1000 + 86400// 총 시간(초) 받아오기(24시간 더해서)
 
-            var showHour = sec / (60 * 60)
-            var showMin = sec / 60 - (showHour * 60)
+            val showHour = sec / (60 * 60)
+            val showMin = sec / 60 - (showHour * 60)
 
             if (showMin == 0L) {
                 binding.tvWorkHour.setText(showHour.toString() + "시간")
@@ -505,31 +325,33 @@ class InputPlaceMoreActivity :
         if (response.code == 200) {
             showCustomToast("관리자 가입 완료")
 
-            val mBoardingFlags = prefs.getInt("mBoardingFlags",0)
-            ApplicationClass.prefs.setString(ApplicationClass.X_ACCESS_TOKEN, response.tokenData.token)
+            val mBoardingFlags = prefs.getInt("mBoardingFlags", 0)
+            ApplicationClass.prefs.setString(
+                ApplicationClass.X_ACCESS_TOKEN,
+                response.tokenData.token
+            )
 
             // 저장된 Flag값이 0이면 온보딩
-            if(mBoardingFlags == 0){
-                prefs.setInt("jobFlags",1)
-                val nextIntent = Intent(this,ManagerOnBoardingActivity::class.java)
+            if (mBoardingFlags == 0) {
+                prefs.setInt("jobFlags", 1)
+                val nextIntent = Intent(this, ManagerOnBoardingActivity::class.java)
                 startActivity(nextIntent)
                 finishAffinity()
 
-            }else{ // 저장된 Flag 1이면 관리자 홈으로 바로 이동
-                prefs.setInt("jobFlags",1)
-                val nextIntent = Intent(this,ManagerMainActivity::class.java)
+            } else { // 저장된 Flag 1이면 관리자 홈으로 바로 이동
+                prefs.setInt("jobFlags", 1)
+                val nextIntent = Intent(this, ManagerMainActivity::class.java)
                 startActivity(nextIntent)
                 finishAffinity()
             }
 
-        }else if(response.code == 202){
-            if(response.message ==  "필수 정보가 부족합니다."){
+        } else if (response.code == 202) {
+            if (response.message == "필수 정보가 부족합니다.") {
                 showCustomToast("필수 정보가 부족합니다.")
-            }
-            else if (response.message == "이미 존재하는 매장입니다.") {
+            } else if (response.message == "이미 존재하는 매장입니다.") {
                 showCustomToast("이미 존재하는 매장입니다.")
             }
-        }else{
+        } else {
             showCustomToast(response.message.toString())
         }
 
