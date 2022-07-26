@@ -39,7 +39,7 @@
                 android:textColor="#000000"
                 android:letterSpacing="-0.03"
                 android:gravity="center_horizontal"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/roboto_bold_otf"
                 android:text="전화번호 변경"/>
 
             <TextView
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/roboto_bold_otf"
                 android:letterSpacing="-0.03"
                 android:lineSpacingExtra="21sp"
                 android:text="인증"
@@ -169,7 +169,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="16dp"
             android:layout_toStartOf="@id/rl_clickable_resend"
-            android:fontFamily="@font/roboto_medium"
+            android:fontFamily="@font/roboto_medium_otf"
             android:gravity="center_vertical"
             android:letterSpacing="-0.03"
             android:lineSpacingExtra="19sp"
@@ -193,7 +193,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginHorizontal="5dp"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/roboto_bold_otf"
                 android:letterSpacing="-0.03"
                 android:lineSpacingExtra="21sp"
                 android:text="재전송"

@@ -66,7 +66,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/btn_disable_yellow_fill_rounded"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/roboto_bold_otf"
         android:stateListAnimator="@null"
         android:text="매장 합류하기"
         android:enabled="false"

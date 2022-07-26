@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
-        android:fontFamily="@font/roboto_medium"
+        android:fontFamily="@font/roboto_medium_otf"
         android:letterSpacing="-0.03"
         android:lineHeight="33sp"
         android:lineSpacingExtra="17sp"

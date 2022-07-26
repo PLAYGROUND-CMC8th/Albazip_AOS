@@ -215,11 +215,11 @@ class ReInputPhoneActivity : BaseActivity<ActivityReInputPhoneBinding>(
                 // 텍스트 크기 동적 변경
                 if (s!!.isEmpty()) {
                     binding.etInputPhone.typeface =
-                        ResourcesCompat.getFont(this@ReInputPhoneActivity, R.font.roboto_medium)
+                        ResourcesCompat.getFont(this@ReInputPhoneActivity, R.font.roboto_medium_otf)
                     binding.etInputPhone.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16F)
                 } else {
                     binding.etInputPhone.typeface =
-                        ResourcesCompat.getFont(this@ReInputPhoneActivity, R.font.roboto_bold)
+                        ResourcesCompat.getFont(this@ReInputPhoneActivity, R.font.roboto_bold_otf)
                     binding.etInputPhone.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18F)
                 }
 
