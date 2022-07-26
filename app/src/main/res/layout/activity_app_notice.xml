@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/roboto_bold_otf"
                 android:gravity="center_horizontal"
                 android:letterSpacing="-0.03"
                 android:text="공지사항"

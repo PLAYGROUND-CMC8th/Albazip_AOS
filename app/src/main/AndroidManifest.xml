@@ -151,8 +151,7 @@
         <activity android:name=".src.community.manager.ui.SearchCoMActivity"
             android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".src.community.worker.ui.SearchCoWActivity"
-            android:windowSoftInputMode="adjustNothing"
-            />
+            android:windowSoftInputMode="adjustNothing" />
 
         <activity android:name=".src.home.manager.closed.worklist.ui.HomeMClosedToDoListActivity"/>
         <activity android:name=".src.home.worker.closed.worklist.ui.HomeWClosedToDoListActivity"/>

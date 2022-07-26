@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/font/custom_font_family.xml" value="0.27395833333333336" />
+        <entry key="app/src/main/res/font/font_family.xml" value="0.27291666666666664" />
+        <entry key="app/src/main/res/font/roboto_bold.xml" value="0.27395833333333336" />
+        <entry key="app/src/main/res/font/roboto_medium.xml" value="0.27395833333333336" />
+        <entry key="app/src/main/res/layout/test_hello.xml" value="0.24270833333333333" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
