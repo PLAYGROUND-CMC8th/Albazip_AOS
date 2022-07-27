@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -33,6 +34,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -95,6 +97,13 @@ dependencies {
 
     // 모서리 둥근 이미지 뷰
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3'
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.0-alpha01"
+    // Coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
 }
 
 apply plugin: 'com.google.gms.google-services'
