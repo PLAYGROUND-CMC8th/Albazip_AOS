@@ -12,6 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.playground.albazip.util.BeeLoadingDialog
 import com.playground.albazip.util.LoadingDialog
+import retrofit2.http.GET
+import retrofit2.http.QueryMap
+
+
+
+
+
+
 
 // 액티비티의 기본을 작성, 뷰 바인딩 활용
 abstract class BaseActivity<B : ViewBinding>(private val inflate: (LayoutInflater) -> B) :
@@ -28,7 +36,7 @@ abstract class BaseActivity<B : ViewBinding>(private val inflate: (LayoutInflate
         binding = inflate(layoutInflater)
         setContentView(binding.root)
     }
-
+    
     // 로딩 다이얼로그, 즉 로딩창을 띄워줌.
     // 네트워크가 시작될 때 사용자가 무작정 기다리게 하지 않기 위해 작성.
     fun showLoadingDialog(context: Context) {
