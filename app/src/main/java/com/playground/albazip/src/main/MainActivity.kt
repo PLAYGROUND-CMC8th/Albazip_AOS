@@ -14,7 +14,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         // 시스템바 색상 변경
-        window.statusBarColor = Color.parseColor("#ffffff")
+        window.statusBarColor = Color.WHITE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
