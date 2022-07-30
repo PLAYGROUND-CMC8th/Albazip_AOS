@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.playground.albazip"
         minSdkVersion 27
-        targetSdkVersion 30
+        targetSdkVersion 32
         versionCode 6
         versionName "1.0.4"
 
@@ -62,13 +62,13 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
     // https://github.com/square/okhttp
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation "com.squareup.okhttp3:okhttp:4.9.1"
 
     // https://github.com/square/retrofit/tree/master/retrofit-converters/gson
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     // https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
 
     // firebase sms 인증
     implementation platform('com.google.firebase:firebase-bom:28.4.2')
@@ -76,8 +76,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
 
     // glide
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    kapt 'com.github.bumptech.glide:compiler:4.13.2'
 
     // swipe refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
