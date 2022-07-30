@@ -1,6 +1,7 @@
 package com.playground.albazip.config
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable

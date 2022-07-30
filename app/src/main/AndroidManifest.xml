@@ -54,7 +54,8 @@
         <activity android:name="com.playground.albazip.src.home.common.ui.HomeActivity" />
         <activity android:name="com.playground.albazip.src.login.LoginActivity" />
         <activity android:name="com.playground.albazip.src.register.common.RegisterActivity" />
-        <activity android:name="com.playground.albazip.src.splash.SplashActivity">
+        <activity android:name="com.playground.albazip.src.splash.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

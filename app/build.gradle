@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.playground.albazip"
         minSdkVersion 27
-        targetSdkVersion 30
+        targetSdkVersion 32
         versionCode 6
         versionName "1.0.4"
 
@@ -76,8 +76,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
 
     // glide
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    kapt 'com.github.bumptech.glide:compiler:4.13.2'
 
     // swipe refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
