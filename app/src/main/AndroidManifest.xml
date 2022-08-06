@@ -35,7 +35,7 @@
         <activity android:name="com.playground.albazip.src.main.WorkerMainActivity" >
 
         </activity>
-        <activity android:name="com.playground.albazip.src.register.manager.ManagerOnBoardingActivity"
+        <activity android:name="com.playground.albazip.src.onboard.manager.ManagerOnBoardingActivity"
             android:exported="true"/>
         <activity android:name="com.playground.albazip.src.register.manager.InputPlaceMoreActivity"
             android:exported="true"/>
@@ -65,7 +65,7 @@
         </activity>
         <activity android:name="com.playground.albazip.src.register.manager.InputBNumActivity" />
         <activity android:name="com.playground.albazip.src.register.worker.ui.RegisterJoinActivity" />
-        <activity android:name="com.playground.albazip.src.register.worker.ui.WorkerOnBoardingActivity" />
+        <activity android:name="com.playground.albazip.src.onboard.worker.WorkerOnBoardingActivity" />
         <activity android:name="com.playground.albazip.src.home.common.ui.SettingActivity" />
 
 

@@ -12,6 +12,7 @@ import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRegisterJoinBinding
 import com.playground.albazip.src.main.WorkerMainActivity
+import com.playground.albazip.src.onboard.worker.WorkerOnBoardingActivity
 import com.playground.albazip.src.register.common.data.remote.PositionRegisterResponse
 import com.playground.albazip.src.register.worker.data.PostSignInWorkerRequest
 import com.playground.albazip.src.register.worker.network.WSignUpFragmentView
@@ -104,6 +105,7 @@ class RegisterJoinActivity:BaseActivity<ActivityRegisterJoinBinding>(ActivityReg
                 response.tokenData.token
             )
 
+            ApplicationClass.prefs.setInt("wBoardingFlags", 0)
             val wBoardingFlags = ApplicationClass.prefs.getInt("wBoardingFlags", 0)
             // 저장된 Flag값이 0이면 온보딩
             if (wBoardingFlags == 0) {
