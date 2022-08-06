@@ -3,12 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_menu_home_active.xml" value="0.1235" />
+        <entry key="app/src/main/res/drawable/menu_community_selector.xml" value="0.1235" />
+        <entry key="app/src/main/res/drawable/menu_home_selector.xml" value="0.1235" />
         <entry key="app/src/main/res/font/custom_font_family.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/font/font_family.xml" value="0.27291666666666664" />
         <entry key="app/src/main/res/font/roboto_bold.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/font/roboto_medium.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/layout/activity_add_personal_work_list.xml" value="0.13020833333333334" />
+        <entry key="app/src/main/res/layout/activity_input_place_more.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_register_join.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_register_place.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_search_place.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/bg_cnt_read_popup.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/item_vp_search_result.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/test_hello.xml" value="0.24270833333333333" />
+        <entry key="app/src/main/res/menu/menu_main_btm_nav.xml" value="0.24375" />
       </map>
     </option>
   </component>

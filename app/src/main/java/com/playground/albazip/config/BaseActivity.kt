@@ -35,7 +35,6 @@ abstract class BaseActivity<B : ViewBinding>(private val inflate: (LayoutInflate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = inflate(layoutInflater)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(binding.root)
     }
     

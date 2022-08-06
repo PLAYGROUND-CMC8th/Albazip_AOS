@@ -35,10 +35,10 @@
         <activity android:name="com.playground.albazip.src.main.WorkerMainActivity" >
 
         </activity>
-        <activity android:name="com.playground.albazip.src.register.manager.ManagerOnBoardingActivity" />
-        <activity android:name="com.playground.albazip.src.register.manager.InputPlaceMoreActivity" >
-
-        </activity>
+        <activity android:name="com.playground.albazip.src.register.manager.ManagerOnBoardingActivity"
+            android:exported="true"/>
+        <activity android:name="com.playground.albazip.src.register.manager.InputPlaceMoreActivity"
+            android:exported="true"/>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
