@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".src.register.manager.ManagerOnBoardingActivity">
+    tools:context=".src.onboard.manager.ManagerOnBoardingActivity">
 
     <ImageView
         android:id="@+id/iv_onboard"

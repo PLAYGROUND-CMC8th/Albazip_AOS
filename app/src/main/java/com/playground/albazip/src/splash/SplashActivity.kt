@@ -12,8 +12,8 @@ import com.playground.albazip.src.home.common.ui.HomeActivity
 import com.playground.albazip.src.main.MainActivity
 import com.playground.albazip.src.main.ManagerMainActivity
 import com.playground.albazip.src.main.WorkerMainActivity
-import com.playground.albazip.src.register.manager.ManagerOnBoardingActivity
-import com.playground.albazip.src.register.worker.ui.WorkerOnBoardingActivity
+import com.playground.albazip.src.onboard.manager.ManagerOnBoardingActivity
+import com.playground.albazip.src.onboard.worker.WorkerOnBoardingActivity
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
 
