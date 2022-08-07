@@ -13,6 +13,7 @@
 
     <!-- common -->
     <string name="common_done">완료</string>
+    <string name="common_confirm">확인</string>
     <string name="common_rest_day">휴무일</string>
     <string name="common_24_hour">24시간 영업</string>
 
