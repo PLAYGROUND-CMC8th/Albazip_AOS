@@ -11,4 +11,14 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
+
+    <!-- 매장 추가 정보 -->
+    <string name="input_place_more_title">추가 정보를 입력해주세요.</string>
+    <string name="input_place_more_running_hour">영업시간</string>
+    <string name="input_place_more_input_done">입력완료</string>
+    <string name="input_place_more_set_running_time">영업시간 설정하기</string>
+    <string name="input_place_more_rest_day">공휴일은 쉬어요.</string>
+    <string name="input_place_more_pay_day">급여일</string>
+    <string name="input_place_more_register">매장 등록하기</string>
+
 </resources>

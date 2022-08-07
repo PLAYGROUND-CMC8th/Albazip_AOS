@@ -3,15 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_input_place_more.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/bg_input_place_more_active.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/bg_input_place_more_inactive.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/btn_input_place_more_register.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/fill_white_radius_gray_20.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/ic_menu_home_active.xml" value="0.1235" />
         <entry key="app/src/main/res/drawable/menu_community_selector.xml" value="0.1235" />
         <entry key="app/src/main/res/drawable/menu_home_selector.xml" value="0.1235" />
+        <entry key="app/src/main/res/drawable/selector_input_place_checkbox.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/selector_input_place_more_10.xml" value="0.154" />
         <entry key="app/src/main/res/font/custom_font_family.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/font/font_family.xml" value="0.27291666666666664" />
         <entry key="app/src/main/res/font/roboto_bold.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/font/roboto_medium.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/layout/activity_add_personal_work_list.xml" value="0.13020833333333334" />
+        <entry key="app/src/main/res/layout/activity_bnum.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_input_place_more.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_input_place_more_beta.xml" value="0.39520958083832336" />
         <entry key="app/src/main/res/layout/activity_register_join.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_register_place.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_search_place.xml" value="0.24375" />
