@@ -273,7 +273,7 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
             )
 
             // 화면이동
-            val nextIntent = Intent(this,InputPlaceMoreActivity::class.java)
+            val nextIntent = Intent(this, InputPlaceMoreActivity::class.java)
             nextIntent.putExtra("registerDataList",registerDataList)
             startActivity(nextIntent)
         }else{

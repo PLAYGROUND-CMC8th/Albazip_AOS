@@ -37,7 +37,7 @@
         </activity>
         <activity android:name="com.playground.albazip.src.onboard.manager.ManagerOnBoardingActivity"
             android:exported="true"/>
-        <activity android:name="com.playground.albazip.src.register.manager.InputPlaceMoreActivity"
+        <activity android:name="com.playground.albazip.src.register.manager.place.InputPlaceMoreActivity"
             android:exported="true"/>
 
         <meta-data
@@ -45,9 +45,9 @@
             android:value="9b17465bab986538ecc5bcc77361fcd2" />
 
         <activity
-            android:name="com.playground.albazip.src.register.manager.SearchPlaceActivity"
+            android:name="com.playground.albazip.src.register.manager.place.SearchPlaceActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name="com.playground.albazip.src.register.manager.RegisterPlaceActivity" >
+        <activity android:name="com.playground.albazip.src.register.manager.place.RegisterPlaceActivity" >
 
         </activity>
         <activity android:name="com.playground.albazip.src.home.common.ui.HomeActivity" />
@@ -155,6 +155,12 @@
 
         <activity android:name=".src.home.manager.closed.worklist.ui.HomeMClosedToDoListActivity"/>
         <activity android:name=".src.home.worker.closed.worklist.ui.HomeWClosedToDoListActivity"/>
+
+
+
+
+        <activity android:name=".src.register.manager.moreinfo.InputPlaceMoreBetaActivity"
+            android:exported="true"/>
 
     </application>
 
