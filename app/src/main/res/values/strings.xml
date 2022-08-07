@@ -13,6 +13,8 @@
 
     <!-- common -->
     <string name="common_done">완료</string>
+    <string name="common_rest_day">휴무일</string>
+    <string name="common_24_hour">24시간 영업</string>
 
     <!-- 매장 추가 정보 -->
     <string name="input_place_more_title">추가 정보를 입력해주세요.</string>
