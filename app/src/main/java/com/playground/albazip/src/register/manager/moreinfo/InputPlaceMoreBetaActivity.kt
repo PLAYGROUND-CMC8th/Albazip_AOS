@@ -1,4 +1,4 @@
-package com.playground.albazip.src.register.manager.place
+package com.playground.albazip.src.register.manager.moreinfo
 
 import android.os.Bundle
 import com.playground.albazip.config.BaseActivity

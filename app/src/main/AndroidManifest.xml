@@ -159,7 +159,7 @@
 
 
 
-        <activity android:name=".src.register.manager.place.InputPlaceMoreBetaActivity"
+        <activity android:name=".src.register.manager.moreinfo.InputPlaceMoreBetaActivity"
             android:exported="true"/>
 
     </application>

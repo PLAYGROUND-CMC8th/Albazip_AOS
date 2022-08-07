@@ -112,6 +112,7 @@
             android:id="@+id/cb_input_place_rest_day"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:gravity="center"
             android:background="@drawable/selector_input_place_checkbox"
             android:button="@android:color/transparent"
             android:checked="false"/>
