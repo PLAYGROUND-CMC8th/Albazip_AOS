@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/bg_input_place_more_inactive.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/bg_run_time_active.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/bg_run_time_inactive.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/btn_disable_yellow_fill_rounded.xml" value="0.153" />
         <entry key="app/src/main/res/drawable/btn_input_place_more_register.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/fill_white_radius_gray_20.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/ic_menu_home_active.xml" value="0.1235" />
@@ -16,6 +17,7 @@
         <entry key="app/src/main/res/drawable/selector_input_place_checkbox.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/selector_input_place_more_10.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/selector_run_time.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/selector_time_btn.xml" value="0.153" />
         <entry key="app/src/main/res/font/custom_font_family.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/font/font_family.xml" value="0.27291666666666664" />
         <entry key="app/src/main/res/font/roboto_bold.xml" value="0.27395833333333336" />

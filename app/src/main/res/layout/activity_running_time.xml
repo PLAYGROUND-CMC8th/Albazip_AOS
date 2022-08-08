@@ -53,6 +53,7 @@
             android:text="@string/common_done"
             android:textColor="@color/selector_tv_done"
             android:textSize="16sp"
+            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -91,7 +92,7 @@
                 <LinearLayout
                     android:id="@+id/ll_running_time_same"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:paddingVertical="22dp"
                     android:orientation="horizontal"
                     android:layout_marginHorizontal="24dp"
@@ -101,23 +102,37 @@
                     app:layout_constraintBottom_toBottomOf="parent">
 
 
-                    <CheckBox
-                        android:id="@+id/cb_running_time_checkbox"
+                    <FrameLayout
+                        android:id="@+id/fl_running_time_check"
                         android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:gravity="center"
-                        android:background="@drawable/selector_circle_yellow_checkbox"
-                        android:button="@android:color/transparent"
-                        android:checked="false"/>
+                        android:layout_height="24dp">
+
+                        <CheckBox
+                            android:id="@+id/cb_running_time_checkbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@drawable/selector_circle_yellow_checkbox"
+                            android:button="@android:color/transparent"
+                            android:checked="false"/>
+
+                        <View
+                            android:id="@+id/view_running_check"
+                            android:background="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clickable="true"/>
+                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/tv_running_time_same"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:textColor="@color/text4_343434"
                         android:letterSpacing="-0.03"
                         android:lineSpacingExtra="7sp"
                         android:textSize="16sp"
+                        android:gravity="center"
                         android:layout_marginStart="4dp"
                         android:fontFamily="@font/roboto_medium_otf"
                         android:text="@string/running_time_same"/>

@@ -85,6 +85,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_open"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="134"
@@ -123,6 +124,7 @@
             android:src="@drawable/ic_running_time_wave"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_close"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="134"

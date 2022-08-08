@@ -89,6 +89,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_open"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="134"
@@ -127,6 +128,7 @@
                 android:src="@drawable/ic_running_time_wave"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_close"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="134"
@@ -162,7 +164,7 @@
             android:id="@+id/tv_total_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="8시간"
+            android:text="0시간"
             android:fontFamily="@font/roboto_medium_otf"
             android:textSize="12sp"
             android:textColor="@color/text2_a3a3a3"
@@ -174,18 +176,19 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_24_hour"
+        android:id="@+id/btn_confirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="36dp"
-        android:background="@drawable/btn_disable_yellow_fill_rounded"
+        android:background="@drawable/selector_time_btn"
         android:fontFamily="@font/roboto_bold_otf"
         android:stateListAnimator="@null"
         android:text="@string/common_confirm"
-        android:textColor="@color/disableTxtColor"
+        android:textColor="@color/selector_tv_confirm"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cl_24_hour"
         app:layout_constraintStart_toStartOf="@id/cl_24_hour"

@@ -20,6 +20,7 @@ class RunningTimeAdapter() : ListAdapter<TimeData, RunningTimeAdapter.RunningTim
 
     override fun onBindViewHolder(holder: RunningTimeViewHolder, position: Int) {
         holder.onBind(getItem(position))
+        holder.setUI(getItem(position))
     }
 
     class RunningTimeViewHolder(val binding: ItemRvRunningTimeBinding) :
@@ -37,6 +38,31 @@ class RunningTimeAdapter() : ListAdapter<TimeData, RunningTimeAdapter.RunningTim
             binding.tvCloseHour.text = data.closeTimeTxt
             // 총시간
             binding.tvTotalTime.text = data.totalTimeTxt
+        }
+
+        fun setUI(data: TimeData) {
+
+            // 액티비티에서 전체 체크를 할 때 변화 감지
+            if (data.allDayState == true) {
+                binding.clOpen.isEnabled = false
+                binding.clClose.isEnabled = false
+            } else {
+                binding.clOpen.isEnabled = true
+                binding.clClose.isEnabled = true
+            }
+
+            // recycleriew 에서 체크를 할 때 변화 감지 리스너
+            binding.cb24Hour.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) { // 누르면 데이터 변경
+                    data.allDayState = true // 24시간 영업
+                    binding.clOpen.isEnabled = false
+                    binding.clClose.isEnabled = false
+                } else {
+                    data.allDayState = false
+                    binding.clOpen.isEnabled = true
+                    binding.clClose.isEnabled = true
+                }
+            }
         }
     }
 

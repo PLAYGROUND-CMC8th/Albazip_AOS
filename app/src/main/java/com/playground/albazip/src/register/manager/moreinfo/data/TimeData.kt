@@ -1,12 +1,12 @@
 package com.playground.albazip.src.register.manager.moreinfo.data
 
 data class TimeData(
-    val daysTxt: String,
-    val restState: Boolean = false,
-    val allDayState: Boolean = false,
-    val openTimeTxt: String? = "00:00",
-    val closeTimeTxt: String? = "00:00",
-    val totalTimeTxt: String? = "0시간"
+    var daysTxt: String,
+    var restState: Boolean = false,
+    var allDayState: Boolean = false,
+    var openTimeTxt: String? = "00:00",
+    var closeTimeTxt: String? = "00:00",
+    var totalTimeTxt: String? = "0시간"
 )
 
 // 요일

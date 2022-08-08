@@ -9,7 +9,7 @@ class GetTimeDiffUtil() {
     // 시간 차 계산을 위한 데이터 포맷 선언
     val f: SimpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.KOREA)
 
-    private fun getTimeDiff(openTime:TextView, closeTime:TextView, totalTime:TextView) {
+    fun getTimeDiff(openTime:TextView, closeTime:TextView, totalTime:TextView) {
         var sDate = f.parse(openTime.text.toString() + ":00")
         var eDate = f.parse(closeTime.text.toString() + ":00")
         var diff = eDate.time - sDate.time
