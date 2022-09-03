@@ -7,7 +7,7 @@ data class TimeData(
     var openTimeTxt: String? = "00:00",
     var closeTimeTxt: String? = "00:00",
     var totalTimeTxt: String? = "0시간",
-    var textActivate:Boolean?= false
+    var textActivate:Boolean?= false,
 )
 
 // 요일

@@ -57,9 +57,11 @@ class RunningTimeAdapter() : ListAdapter<TimeData, RunningTimeAdapter.RunningTim
             // '24시간' 체크를 할 때 변화 감지 리스너
             binding.cb24Hour.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) { // 누르면 데이터 변경
-                    // 휴무일 버튼 끄기
-                    data.restState = false
-                    binding.cbRestDay.isChecked = false
+
+                    // 휴무일 비활성화 -> 휴무일도 선택 안하고, 24시간도 선택 안했을 때
+                    if (data.restState == false && data.allDayState == false) {
+                        binding.cbRestDay.isChecked = false
+                    }
 
                     data.allDayState = true // 24시간 영업
                     binding.clOpen.isEnabled = false
@@ -81,11 +83,13 @@ class RunningTimeAdapter() : ListAdapter<TimeData, RunningTimeAdapter.RunningTim
             // '휴무일' 체크를 할 때 변화 감지 리스너
             binding.cbRestDay.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) { // 누르면 데이터 변경
-                    // 24시간 버튼 끄기
-                    data.allDayState = false
-                    binding.cb24Hour.isChecked = false
 
-                    data.restState = true // 24시간 영업
+                    // 24시 비활성화 -> 휴무일이 비활성화 상태일 때
+                    if (data.restState == false) {
+                        binding.cb24Hour.isChecked = false
+                    }
+
+                    data.restState = true // 휴무일 미영업
                     binding.clOpen.isEnabled = false
                     binding.clClose.isEnabled = false
                     // 텍스트 색상 변경

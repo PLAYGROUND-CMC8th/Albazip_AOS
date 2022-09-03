@@ -88,14 +88,16 @@ class RunningTimeActivity :
             for (i in 0..6) {
                 dayList[i].allDayState = true
                 dayList[i].textActivate = false
+                dayList[i].restState = false
             }
 
             // 완료 버튼 활성화
             binding.tvRunningTimeDone.isEnabled = true
         } else { // 24시간이 아닐 때
-            // 모든 rv item 24시간 체크해주기
+            // text 넣기
             for (i in 0..6) {
                 dayList[i].allDayState = false
+                dayList[i].restState = false
                 dayList[i].textActivate = true
             }
             // 완료 버튼 비활성화
