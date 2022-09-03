@@ -2,18 +2,25 @@ package com.playground.albazip.src.register.manager.moreinfo
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.SimpleItemAnimator
+import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRunningTimeBinding
 import com.playground.albazip.src.register.manager.moreinfo.adater.RunningTimeAdapter
 import com.playground.albazip.src.register.manager.moreinfo.custom.AllTimeBottomSheetDialog
+import com.playground.albazip.src.register.manager.moreinfo.custom.RunningTimePickerBottomSheetDialog
 import com.playground.albazip.src.register.manager.moreinfo.data.TimeData
 
 class RunningTimeActivity :
     BaseActivity<ActivityRunningTimeBinding>(ActivityRunningTimeBinding::inflate),
-    AllTimeBottomSheetDialog.BottomSheetClickListener {
+    AllTimeBottomSheetDialog.BottomSheetClickListener,
+    RunningTimePickerBottomSheetDialog.BottomSheetClickListener {
 
     private val dayList = mutableListOf<TimeData>()
     private val runningTimeAdapter = RunningTimeAdapter()
+
+    // 마지막으로 선택한 요일의 포지션
+    private var currentPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +42,28 @@ class RunningTimeActivity :
 
         setDayList() // 요일 리스트 생성
         runningTimeAdapter.submitList(dayList)
+
+        // 개별 아이템 이벤트 생성
+        runningTimeAdapter.setItemClickListener(object : RunningTimeAdapter.OnItemClickListener {
+            override fun onClick(v: View, position: Int) {
+
+                when (v.id) {
+                    // 오픈 시간을 클릭 했을 때
+                    R.id.cl_open -> RunningTimePickerBottomSheetDialog(0).show(
+                        supportFragmentManager,
+                        "openTimePicker"
+                    )
+
+                    // 마감 시간을 클릭 했을 때
+                    R.id.cl_close -> RunningTimePickerBottomSheetDialog(1).show(
+                        supportFragmentManager,
+                        "closeTimePicker"
+                    )
+                }
+
+                currentPosition = position
+            }
+        })
 
         binding.rvRunningTimeDays.adapter = runningTimeAdapter
 
@@ -62,8 +91,8 @@ class RunningTimeActivity :
 
         binding.cbRunningTimeCheckbox.setOnCheckedChangeListener { it, isChecked ->
             if (it.isChecked) {
-               // AllTimeBottomSheetDialog().show(supportFragmentManager, "allTimePicker")
-            } else{ // 체크박스 view 재생성
+                // AllTimeBottomSheetDialog().show(supportFragmentManager, "allTimePicker")
+            } else { // 체크박스 view 재생성
                 setCheckViewVisibility()
             }
         }
@@ -111,16 +140,45 @@ class RunningTimeActivity :
 
         runningTimeAdapter.submitList(null)
         runningTimeAdapter.submitList(dayList)
-
     }
 
-    private fun setCheckViewVisibility(){
+    private fun setCheckViewVisibility() {
         if (binding.cbRunningTimeCheckbox.isChecked) {
             binding.viewRunningCheck.visibility = View.GONE
         } else {
             binding.viewRunningCheck.visibility = View.VISIBLE
             binding.cbRunningTimeCheckbox.isChecked = false
         }
+    }
+
+    // 텍스트 설정
+    override fun onTimeSelected(h: String, m: String, flag: Int) {
+
+        var displayHour = "00"
+        var displayMinute = "00"
+
+        // ui에 보여지는 시간과 분
+        if (h.length == 1) { // 한자리 숫자일 때는 앞에 "0"을 붙여준다.
+            displayHour = "0$h"
+        } else {
+            displayHour = h
+        }
+
+        if (m.length == 1) {
+            displayMinute = "0$m"
+        } else {
+            displayMinute = m
+        }
+
+
+        if (flag == 0) { // 오픈시간
+            dayList[currentPosition].openTimeTxt = "$displayHour:$displayMinute"
+        } else { // 마감시간
+            dayList[currentPosition].closeTimeTxt = "$displayHour:$displayMinute"
+        }
+
+        runningTimeAdapter.submitList(null)
+        runningTimeAdapter.submitList(dayList)
     }
 
 }

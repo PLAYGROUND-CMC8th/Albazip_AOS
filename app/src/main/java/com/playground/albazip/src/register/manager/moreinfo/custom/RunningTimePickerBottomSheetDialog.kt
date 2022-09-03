@@ -8,19 +8,24 @@ import android.view.ViewGroup
 import android.widget.TimePicker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.playground.albazip.databinding.DialogFragmentTimeBinding
+import java.lang.Exception
 
 class RunningTimePickerBottomSheetDialog(// 타이틀 선택
     var flag: Int // 오픈 0, 마감 1
 ) : BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogFragmentTimeBinding
-    private var selectedHour:Int = 0 // 초기값 설정(h)
-    private var selectedMinute:Int = 0 // 초기값 설정
-    lateinit var bottomSheetClickListener:BottomSheetClickListener
+    private var selectedHour: Int = 0 // 초기값 설정(h)
+    private var selectedMinute: Int = 0 // 초기값 설정
+    lateinit var bottomSheetClickListener: BottomSheetClickListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        bottomSheetClickListener = parentFragment as BottomSheetClickListener
+        bottomSheetClickListener = try {
+            parentFragment as BottomSheetClickListener
+        } catch (e: Exception) {
+            context as BottomSheetClickListener
+        }
     }
 
     override fun onCreateView(
@@ -43,7 +48,11 @@ class RunningTimePickerBottomSheetDialog(// 타이틀 선택
         // 확인 버튼
         binding.btnOk.setOnClickListener {
             // activity에 값 전달
-            bottomSheetClickListener.onTimeSelected(selectedHour.toString(),selectedMinute.toString(),flag)
+            bottomSheetClickListener.onTimeSelected(
+                selectedHour.toString(),
+                selectedMinute.toString(),
+                flag
+            )
 
             dismiss()
         }
@@ -51,7 +60,7 @@ class RunningTimePickerBottomSheetDialog(// 타이틀 선택
         return binding.root
     }
 
-    private fun initUI(){
+    private fun initUI() {
         if (flag == 0) { // 오픈이면
             binding.tvDialogTitle.text = "매장 오픈시간"
         } else {
@@ -63,7 +72,7 @@ class RunningTimePickerBottomSheetDialog(// 타이틀 선택
         binding.timePicker.setIs24HourView(true)
     }
 
-    private fun callTimePicker(){
+    private fun callTimePicker() {
 
         // 피커 생성
         binding.timePicker.apply {
@@ -80,10 +89,9 @@ class RunningTimePickerBottomSheetDialog(// 타이틀 선택
         }
     }
 
-    interface BottomSheetClickListener{
-        fun onTimeSelected(h:String,m:String,flag:Int)
+    interface BottomSheetClickListener {
+        fun onTimeSelected(h: String, m: String, flag: Int)
     }
-
 
 
 }

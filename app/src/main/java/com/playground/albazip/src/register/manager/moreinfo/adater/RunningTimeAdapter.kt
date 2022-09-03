@@ -1,19 +1,30 @@
 package com.playground.albazip.src.register.manager.moreinfo.adater
 
-import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.R
 import com.playground.albazip.databinding.ItemRvRunningTimeBinding
+import com.playground.albazip.src.register.manager.moreinfo.custom.RunningTimePickerBottomSheetDialog
 import com.playground.albazip.src.register.manager.moreinfo.data.TimeData
+import com.playground.albazip.util.GetTimeDiffUtil
 
 class RunningTimeAdapter() : ListAdapter<TimeData, RunningTimeAdapter.RunningTimeViewHolder>(
     timeDiffUtil
-){
+) {
+
+    private lateinit var itemClickListener: OnItemClickListener
+
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RunningTimeViewHolder {
         val binding =
@@ -24,6 +35,14 @@ class RunningTimeAdapter() : ListAdapter<TimeData, RunningTimeAdapter.RunningTim
     override fun onBindViewHolder(holder: RunningTimeViewHolder, position: Int) {
         holder.onBind(getItem(position))
         holder.setUI(getItem(position))
+        holder.binding.clOpen.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
+
+        holder.binding.clClose.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
+        holder.setTimeUI()
     }
 
     class RunningTimeViewHolder(val binding: ItemRvRunningTimeBinding) :
@@ -105,17 +124,35 @@ class RunningTimeAdapter() : ListAdapter<TimeData, RunningTimeAdapter.RunningTim
                 }
             }
 
-           // 텍스트 활성화 여부
-           if (data.textActivate == false) {
-               // 텍스트 색상 변경 -> 비활성화
-               binding.tvOpenHour.setTextColor(binding.root.context.getColor(R.color.gray6_cecece))
-               binding.tvCloseHour.setTextColor(binding.root.context.getColor(R.color.gray6_cecece))
-           } else {
-               // 텍스트 색상 변경 -> 활성화
-               binding.tvOpenHour.setTextColor(binding.root.context.getColor(R.color.text4_343434))
-               binding.tvCloseHour.setTextColor(binding.root.context.getColor(R.color.text4_343434))
-           }
+            // 텍스트 활성화 여부
+            if (data.textActivate == false) {
+                // 텍스트 색상 변경 -> 비활성화
+                binding.tvOpenHour.setTextColor(binding.root.context.getColor(R.color.gray6_cecece))
+                binding.tvCloseHour.setTextColor(binding.root.context.getColor(R.color.gray6_cecece))
+            } else {
+                // 텍스트 색상 변경 -> 활성화
+                binding.tvOpenHour.setTextColor(binding.root.context.getColor(R.color.text4_343434))
+                binding.tvCloseHour.setTextColor(binding.root.context.getColor(R.color.text4_343434))
+            }
         }
+
+        fun setTimeUI(){
+            // 시간차 텍스트 설정
+            GetTimeDiffUtil().getTimeDiff(binding.tvOpenHour, binding.tvCloseHour, binding.tvTotalTime)
+
+            if (binding.tvTotalTime.text != "0시간") {
+                binding.apply { // 시간 차 o -> 텍스트 활성화
+                    tvOpenHour.setTextColor(binding.root.context.getColor(R.color.text4_343434))
+                    tvCloseHour.setTextColor(binding.root.context.getColor(R.color.text4_343434))
+                }
+            } else {
+                binding.apply { // 시간 차 x -> 텍스트 비활성화
+                    tvOpenHour.setTextColor(binding.root.context.getColor(R.color.gray5_e2e2e2))
+                    tvCloseHour.setTextColor(binding.root.context.getColor(R.color.gray5_e2e2e2))
+                }
+            }
+        }
+
     }
 
     companion object {
@@ -126,5 +163,6 @@ class RunningTimeAdapter() : ListAdapter<TimeData, RunningTimeAdapter.RunningTim
             override fun areContentsTheSame(oldItem: TimeData, newItem: TimeData): Boolean =
                 oldItem == newItem
         }
+
     }
 }

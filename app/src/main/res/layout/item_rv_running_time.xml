@@ -89,6 +89,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="134"
+            android:clickable="true"
             android:background="@drawable/selector_run_time"
             android:paddingHorizontal="17dp"
             android:paddingVertical="14dp">
@@ -129,6 +130,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="134"
+            android:clickable="true"
             android:background="@drawable/selector_run_time"
             android:paddingHorizontal="17dp"
             android:paddingVertical="14dp">
