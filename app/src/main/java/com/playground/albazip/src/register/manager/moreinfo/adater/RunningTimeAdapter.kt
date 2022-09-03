@@ -54,9 +54,13 @@ class RunningTimeAdapter() : ListAdapter<TimeData, RunningTimeAdapter.RunningTim
                 binding.clClose.isEnabled = true
             }
 
-            // recycleriew 에서 체크를 할 때 변화 감지 리스너
+            // '24시간' 체크를 할 때 변화 감지 리스너
             binding.cb24Hour.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) { // 누르면 데이터 변경
+                    // 휴무일 버튼 끄기
+                    data.restState = false
+                    binding.cbRestDay.isChecked = false
+
                     data.allDayState = true // 24시간 영업
                     binding.clOpen.isEnabled = false
                     binding.clClose.isEnabled = false
@@ -71,6 +75,29 @@ class RunningTimeAdapter() : ListAdapter<TimeData, RunningTimeAdapter.RunningTim
                     binding.clOpen.isEnabled = true
                     binding.clClose.isEnabled = true
                     binding.tvTotalTime.text = "0시간"
+                }
+            }
+
+            // '휴무일' 체크를 할 때 변화 감지 리스너
+            binding.cbRestDay.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) { // 누르면 데이터 변경
+                    // 24시간 버튼 끄기
+                    data.allDayState = false
+                    binding.cb24Hour.isChecked = false
+
+                    data.restState = true // 24시간 영업
+                    binding.clOpen.isEnabled = false
+                    binding.clClose.isEnabled = false
+                    // 텍스트 색상 변경
+                    binding.tvOpenHour.setTextColor(binding.root.context.getColor(R.color.gray6_cecece))
+                    binding.tvCloseHour.setTextColor(binding.root.context.getColor(R.color.gray6_cecece))
+
+                    // 총시간 설정
+                    binding.tvTotalTime.text = "0시간"
+                } else {
+                    data.allDayState = false
+                    binding.clOpen.isEnabled = true
+                    binding.clClose.isEnabled = true
                 }
             }
 
