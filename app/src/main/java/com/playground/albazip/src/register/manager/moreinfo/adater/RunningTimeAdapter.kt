@@ -1,10 +1,13 @@
 package com.playground.albazip.src.register.manager.moreinfo.adater
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.playground.albazip.R
 import com.playground.albazip.databinding.ItemRvRunningTimeBinding
 import com.playground.albazip.src.register.manager.moreinfo.data.TimeData
 
@@ -57,15 +60,32 @@ class RunningTimeAdapter() : ListAdapter<TimeData, RunningTimeAdapter.RunningTim
                     data.allDayState = true // 24시간 영업
                     binding.clOpen.isEnabled = false
                     binding.clClose.isEnabled = false
+                    // 텍스트 색상 변경
+                    binding.tvOpenHour.setTextColor(binding.root.context.getColor(R.color.gray6_cecece))
+                    binding.tvCloseHour.setTextColor(binding.root.context.getColor(R.color.gray6_cecece))
+
+                    // 총시간 설정
+                    binding.tvTotalTime.text = "24시간"
                 } else {
                     data.allDayState = false
                     binding.clOpen.isEnabled = true
                     binding.clClose.isEnabled = true
+                    binding.tvTotalTime.text = "0시간"
                 }
             }
+
+           // 텍스트 활성화 여부
+           if (data.textActivate == false) {
+               // 텍스트 색상 변경 -> 비활성화
+               binding.tvOpenHour.setTextColor(binding.root.context.getColor(R.color.gray6_cecece))
+               binding.tvCloseHour.setTextColor(binding.root.context.getColor(R.color.gray6_cecece))
+           } else {
+               // 텍스트 색상 변경 -> 활성화
+               binding.tvOpenHour.setTextColor(binding.root.context.getColor(R.color.text4_343434))
+               binding.tvCloseHour.setTextColor(binding.root.context.getColor(R.color.text4_343434))
+           }
         }
     }
-
 
     companion object {
         private val timeDiffUtil = object : DiffUtil.ItemCallback<TimeData>() {

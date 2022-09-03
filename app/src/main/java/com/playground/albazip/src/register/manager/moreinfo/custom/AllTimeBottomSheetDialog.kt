@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.playground.albazip.R
 import com.playground.albazip.databinding.DialogFragment24HourBinding
 import com.playground.albazip.util.GetTimeDiffUtil
 
@@ -52,8 +53,12 @@ class AllTimeBottomSheetDialog : BottomSheetDialogFragment(),
             binding.tvCloseHour.text = "00:00"
             binding.tvTotalTime.text = "24시간"
 
-            // 버튼 설정
-            binding.btnConfirm.isEnabled = binding.btnConfirm.isEnabled != true
+            // 텍스트 색상 변경
+            binding.tvOpenHour.setTextColor(requireContext().getColor(R.color.gray5_e2e2e2))
+            binding.tvCloseHour.setTextColor(requireContext().getColor(R.color.gray5_e2e2e2))
+
+            // 버튼 활성화 여부 설정
+            binding.btnConfirm.isEnabled = buttonView.isChecked
         }
 
     }
@@ -112,17 +117,27 @@ class AllTimeBottomSheetDialog : BottomSheetDialogFragment(),
 
 
         if (flag == 0) { // 오픈시간
-
             binding.tvOpenHour.text = "$displayHour:$displayMinute"
-        } else {
+        } else { // 마감시간
             binding.tvCloseHour.text = "$displayHour:$displayMinute"
         }
 
         // 시간차 텍스트 설정
         GetTimeDiffUtil().getTimeDiff(binding.tvOpenHour, binding.tvCloseHour, binding.tvTotalTime)
 
-        // 버튼 활성화
-        binding.btnConfirm.isEnabled = true
+        if (binding.tvTotalTime.text != "0시간") {
+            binding.apply { // 시간 차 o -> 텍스트 활성화
+                tvOpenHour.setTextColor(requireContext().getColor(R.color.text4_343434))
+                tvCloseHour.setTextColor(requireContext().getColor(R.color.text4_343434))
+                btnConfirm.isEnabled = true // -> 버튼 활성화
+            }
+        } else {
+            binding.apply { // 시간 차 x -> 텍스트 비활성화
+                tvOpenHour.setTextColor(requireContext().getColor(R.color.gray5_e2e2e2))
+                tvCloseHour.setTextColor(requireContext().getColor(R.color.gray5_e2e2e2))
+                btnConfirm.isEnabled = false // -> 버튼 비활성화
+            }
+        }
     }
 
     interface BottomSheetClickListener {

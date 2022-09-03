@@ -6,7 +6,8 @@ data class TimeData(
     var allDayState: Boolean = false,
     var openTimeTxt: String? = "00:00",
     var closeTimeTxt: String? = "00:00",
-    var totalTimeTxt: String? = "0시간"
+    var totalTimeTxt: String? = "0시간",
+    var textActivate:Boolean?= false
 )
 
 // 요일
@@ -15,3 +16,5 @@ data class TimeData(
 // 오픈시간
 // 마감시간
 // 총시간
+
+// 텍스트 활성화 여부 =
