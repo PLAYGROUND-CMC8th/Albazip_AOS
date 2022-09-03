@@ -1,6 +1,7 @@
 package com.playground.albazip.src.register.manager.moreinfo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.playground.albazip.R
@@ -17,7 +18,7 @@ class RunningTimeActivity :
     RunningTimePickerBottomSheetDialog.BottomSheetClickListener {
 
     private val dayList = mutableListOf<TimeData>()
-    private val runningTimeAdapter = RunningTimeAdapter()
+    private lateinit var runningTimeAdapter:RunningTimeAdapter
 
     // 마지막으로 선택한 요일의 포지션
     private var currentPosition = 0
@@ -39,6 +40,8 @@ class RunningTimeActivity :
 
     // 요일별 RV 초기화
     private fun initAdapter() {
+
+        runningTimeAdapter = RunningTimeAdapter { checkDoneTxtState() }
 
         setDayList() // 요일 리스트 생성
         runningTimeAdapter.submitList(dayList)
@@ -121,8 +124,6 @@ class RunningTimeActivity :
                 dayList[i].restState = false
             }
 
-            // 완료 버튼 활성화
-            binding.tvRunningTimeDone.isEnabled = true
         } else { // 24시간이 아닐 때
             // text 넣기
             for (i in 0..6) {
@@ -130,9 +131,14 @@ class RunningTimeActivity :
                 dayList[i].restState = false
                 dayList[i].textActivate = true
             }
-            // 완료 버튼 비활성화
-            binding.tvRunningTimeDone.isEnabled = false
         }
+
+        for (i in 0..6) {
+            dayList[i].inputState = true
+            /** 동일한 영업시간일 때 모든 입력 true*/
+        }
+        // 완료 버튼 활성화 여부 체크 - 전체 입력 (1)
+        checkDoneTxtState()
 
         // 체크박스 체크해주고
         binding.cbRunningTimeCheckbox.isChecked = true
@@ -178,8 +184,27 @@ class RunningTimeActivity :
             dayList[currentPosition].closeTimeTxt = "$displayHour:$displayMinute"
         }
 
+        /** 동일한 영업시간일 때 모든 입력 true*/
+        for (i in 0..6) {
+            dayList[i].inputState = true
+        }
+        checkDoneTxtState()
+
         runningTimeAdapter.submitList(null)
         runningTimeAdapter.submitList(dayList)
+    }
+
+    // 완료 여부 체크해주는 함수
+    private fun checkDoneTxtState() {
+        val stateList = mutableListOf<Boolean>()
+        for (i in 0..6) {
+            stateList.add(runningTimeAdapter.currentList[i].inputState)
+        }
+
+        val filteredList = stateList.filter { !it }
+
+        // 리스트가 비어있다면 버튼 활성화 else 비활성화
+        binding.tvRunningTimeDone.isEnabled = filteredList.isEmpty()
     }
 
 }

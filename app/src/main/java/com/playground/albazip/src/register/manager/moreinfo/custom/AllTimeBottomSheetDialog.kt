@@ -10,7 +10,7 @@ import com.playground.albazip.R
 import com.playground.albazip.databinding.DialogFragment24HourBinding
 import com.playground.albazip.util.GetTimeDiffUtil
 
-class AllTimeBottomSheetDialog : BottomSheetDialogFragment(),
+class AllTimeBottomSheetDialog() : BottomSheetDialogFragment(),
     RunningTimePickerBottomSheetDialog.BottomSheetClickListener {
 
     private lateinit var binding: DialogFragment24HourBinding
@@ -43,15 +43,16 @@ class AllTimeBottomSheetDialog : BottomSheetDialogFragment(),
             if (binding.clOpen.isEnabled) {
                 binding.clOpen.isEnabled = false
                 binding.clClose.isEnabled = false
+                binding.tvTotalTime.text = "24시간"
             } else {
                 binding.clOpen.isEnabled = true
                 binding.clClose.isEnabled = true
+                binding.tvTotalTime.text = "0시간"
             }
 
             // 텍스트 설정
             binding.tvOpenHour.text = "00:00"
             binding.tvCloseHour.text = "00:00"
-            binding.tvTotalTime.text = "24시간"
 
             // 텍스트 색상 변경
             binding.tvOpenHour.setTextColor(requireContext().getColor(R.color.gray5_e2e2e2))
