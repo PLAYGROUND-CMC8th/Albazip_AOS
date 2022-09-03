@@ -65,6 +65,7 @@ class RunningTimeActivity :
             }
         })
 
+        binding.rvRunningTimeDays.itemAnimator = null
         binding.rvRunningTimeDays.adapter = runningTimeAdapter
 
     }
