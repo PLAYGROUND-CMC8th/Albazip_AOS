@@ -90,7 +90,7 @@ class AllTimeBottomSheetDialog() : BottomSheetDialogFragment(),
                 allOpenHour,
                 allCloseHour,
                 allTotalTime,
-                true
+                true,
             )
             // 종료
             dismiss()

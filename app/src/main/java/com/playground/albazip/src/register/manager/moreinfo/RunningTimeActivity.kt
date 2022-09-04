@@ -3,6 +3,7 @@ package com.playground.albazip.src.register.manager.moreinfo
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
@@ -18,7 +19,7 @@ class RunningTimeActivity :
     RunningTimePickerBottomSheetDialog.BottomSheetClickListener {
 
     private val dayList = mutableListOf<TimeData>()
-    private lateinit var runningTimeAdapter:RunningTimeAdapter
+    private lateinit var runningTimeAdapter: RunningTimeAdapter
 
     // 마지막으로 선택한 요일의 포지션
     private var currentPosition = 0
@@ -29,6 +30,14 @@ class RunningTimeActivity :
         initBackBtn()
         initAdapter()
         initAllTimeCheck()
+        initDoneTxt()
+    }
+
+    // 완료버튼 클릭
+    private fun initDoneTxt(){
+        binding.tvRunningTimeDone.setOnClickListener {
+            finish()
+        }
     }
 
     // 뒤로가기 버튼 초기화
@@ -62,6 +71,23 @@ class RunningTimeActivity :
                         supportFragmentManager,
                         "closeTimePicker"
                     )
+
+                    // 24시간
+                    R.id.cb_24_hour -> {
+                        if (runningTimeAdapter.getCurrentSameCheckedList()) {
+                            binding.cbRunningTimeCheckbox.isChecked = false
+                            setCheckViewVisibility()
+                        }
+                    }
+
+                    // 휴무일
+                    R.id.cb_rest_day -> {
+                        if (runningTimeAdapter.getCurrentSameCheckedList()) {
+                            binding.cbRunningTimeCheckbox.isChecked = false
+                            setCheckViewVisibility()
+                        }
+                    }
+
                 }
 
                 currentPosition = position
@@ -70,7 +96,6 @@ class RunningTimeActivity :
 
         binding.rvRunningTimeDays.itemAnimator = null
         binding.rvRunningTimeDays.adapter = runningTimeAdapter
-
     }
 
     // 요일 리스트 생성
@@ -95,6 +120,14 @@ class RunningTimeActivity :
 
         binding.cbRunningTimeCheckbox.setOnCheckedChangeListener { it, isChecked ->
             if (it.isChecked) {
+
+                for (i in 0..6) {
+                    dayList[i].inputState = true
+                    /** 동일한 영업시간일 때 모든 입력 true*/
+                }
+                // 완료 버튼 활성화 여부 체크 - 전체 입력 (1)
+                checkDoneTxtState()
+
                 // AllTimeBottomSheetDialog().show(supportFragmentManager, "allTimePicker")
             } else { // 체크박스 view 재생성
                 setCheckViewVisibility()
@@ -107,7 +140,7 @@ class RunningTimeActivity :
         h: String,
         m: String,
         totalTime: String,
-        checkBoxState: Boolean
+        checkBoxState: Boolean,
     ) {
         for (i in 0..6) {
             dayList[i].openTimeTxt = h
@@ -133,13 +166,6 @@ class RunningTimeActivity :
             }
         }
 
-        for (i in 0..6) {
-            dayList[i].inputState = true
-            /** 동일한 영업시간일 때 모든 입력 true*/
-        }
-        // 완료 버튼 활성화 여부 체크 - 전체 입력 (1)
-        checkDoneTxtState()
-
         // 체크박스 체크해주고
         binding.cbRunningTimeCheckbox.isChecked = true
         // view 는 숨긴다
@@ -147,6 +173,7 @@ class RunningTimeActivity :
 
         runningTimeAdapter.submitList(null)
         runningTimeAdapter.submitList(dayList)
+        runningTimeAdapter.setCurrentSameCheckedList(dayList)
     }
 
     private fun setCheckViewVisibility() {
@@ -184,14 +211,9 @@ class RunningTimeActivity :
             dayList[currentPosition].closeTimeTxt = "$displayHour:$displayMinute"
         }
 
-        /** 동일한 영업시간일 때 모든 입력 true*/
-        for (i in 0..6) {
-            dayList[i].inputState = true
-        }
-        checkDoneTxtState()
-
         runningTimeAdapter.submitList(null)
         runningTimeAdapter.submitList(dayList)
+        runningTimeAdapter.setCurrentSameCheckedList(dayList)
     }
 
     // 완료 여부 체크해주는 함수

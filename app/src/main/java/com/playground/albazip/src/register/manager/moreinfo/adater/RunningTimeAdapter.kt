@@ -20,6 +20,7 @@ class RunningTimeAdapter(val checkDoneTxtState: () -> Unit) :
     ) {
 
     private lateinit var itemClickListener: OnItemClickListener
+    var weekList = mutableListOf<TimeData>()
 
     interface OnItemClickListener {
         fun onClick(v: View, position: Int)
@@ -38,14 +39,38 @@ class RunningTimeAdapter(val checkDoneTxtState: () -> Unit) :
     override fun onBindViewHolder(holder: RunningTimeViewHolder, position: Int) {
         holder.onBind(getItem(position))
         holder.setUI(getItem(position))
-        holder.binding.clOpen.setOnClickListener {
+        holder.binding.clOpen.setOnClickListener { // 매장 오픈시간 클릭 이벤트
             itemClickListener.onClick(it, position)
         }
 
-        holder.binding.clClose.setOnClickListener {
+        holder.binding.clClose.setOnClickListener { // 매장 종료 시간 클릭 이벤트
             itemClickListener.onClick(it, position)
         }
+
+        holder.binding.cb24Hour.setOnClickListener { // 24시간
+            itemClickListener.onClick(it, position)
+        }
+
+        holder.binding.cbRestDay.setOnClickListener { // 휴무일 체크 이벤트
+            itemClickListener.onClick(it, position)
+        }
+
         holder.setTimeUI(getItem(position))
+    }
+
+
+    fun setCurrentSameCheckedList(myList: MutableList<TimeData>) {
+        weekList = myList
+        Log.d("setList",weekList.toString())
+        Log.d("setList",myList.toString())
+        Log.d("setList",currentList.toString())
+    }
+
+    fun getCurrentSameCheckedList():Boolean { // 가장 최근 체크된 데이터와 비교하여 달라졌다면
+        Log.d("getList",weekList.toString())
+        Log.d("getList",currentList.toString())
+        return weekList == currentList
+
     }
 
     inner class RunningTimeViewHolder(val binding: ItemRvRunningTimeBinding) :
@@ -67,15 +92,30 @@ class RunningTimeAdapter(val checkDoneTxtState: () -> Unit) :
 
         fun setUI(data: TimeData) {
 
-            // 액티비티에서 전체 체크를 할 때 변화 감지
-            if (data.allDayState == true) {
+            // 액티비티에서 24시 전체 체크를 할 때 변화 감지
+            if (data.allDayState) { // 체크된 상태일 때 -> 체크상태를 true 로
                 binding.clOpen.isEnabled = false
                 binding.clClose.isEnabled = false
-                Log.d("test", "에잉?" + binding.tvTotalTime.text.toString())
-            } else {
-                binding.clOpen.isEnabled = true
-                binding.clClose.isEnabled = true
-                Log.d("test", "떼잉?" + binding.tvTotalTime.text.toString())
+
+                data.inputState = true
+                checkDoneTxtState()
+
+            }
+
+            // 휴무일 배경 감지
+            if (data.restState) { // 휴무일 체크된 상태일 때  -> 체크 상태를 true 로
+                binding.clOpen.isEnabled = false
+                binding.clClose.isEnabled = false
+
+                data.inputState = true
+                checkDoneTxtState()
+
+            }
+
+            // 전체에서 시간 체크 감지
+            if (data.totalTimeTxt != "0시간" && data.totalTimeTxt != "24시간") {
+                data.inputState = true
+                checkDoneTxtState()
             }
 
             // '24시간' 체크를 할 때 변화 감지 리스너
@@ -84,6 +124,12 @@ class RunningTimeAdapter(val checkDoneTxtState: () -> Unit) :
                 if (buttonView.isChecked) { // 누르면 데이터 변경
                     data.restState = false // "휴무일" 버튼 체크 풀기
 
+                    // 휴무일 비활성화 -> 24시간 비활성화 상태일 때
+                    if (data.allDayState == false) {
+                        binding.cbRestDay.isChecked = false
+                    }
+
+                    data.allDayState = true // 24시간 영업
                     binding.clOpen.isEnabled = false
                     binding.clClose.isEnabled = false
                     // 텍스트 색상 변경
@@ -94,18 +140,11 @@ class RunningTimeAdapter(val checkDoneTxtState: () -> Unit) :
                     binding.tvOpenHour.text = "00:00"
                     binding.tvCloseHour.text = "00:00"
                     binding.tvTotalTime.text = "24시간"
-
-                    // 휴무일 비활성화 -> 24시간 비활성화 상태일 때
-                    if (data.allDayState == false) {
-                        binding.cbRestDay.isChecked = false
-                    }
-
-                    data.allDayState = true // 24시간 영업
+                    //Log.d("test", "24시간 눌렀을 때 24true 휴무일 false")
 
                     /** 24시간 체크되었을 때 해당 position 입력 true*/
                     data.inputState = true
                     checkDoneTxtState()
-                    Log.d("test", "24시간 눌렀을 때 24true 휴무일 false")
 
                 } else {
                     data.allDayState = false
@@ -114,10 +153,8 @@ class RunningTimeAdapter(val checkDoneTxtState: () -> Unit) :
                     binding.tvTotalTime.text = "0시간"
 
                     // 둘다 체크 x 면
-                    if (data.restState == false && data.allDayState == false) {
-                        data.inputState = false
-                        checkDoneTxtState()
-                    }
+                    data.inputState = !(!data.restState && !data.allDayState)
+                    checkDoneTxtState()
                 }
             }
 
@@ -126,11 +163,6 @@ class RunningTimeAdapter(val checkDoneTxtState: () -> Unit) :
 
                 if (buttonView.isChecked) { // 누르면 데이터 변경
                     data.allDayState = false // "24시간" 버튼 체크 풀기
-
-                    /** 휴무일 체크되었을 때 해당 position 입력 true*/
-                    data.inputState = true
-                    checkDoneTxtState()
-                    Log.d("test", "휴무일 눌렀을 때 휴무일 true 24시간 false")
 
                     // 24시 비활성화 -> 휴무일이 비활성화 상태일 때
                     if (data.restState == false) {
@@ -149,6 +181,11 @@ class RunningTimeAdapter(val checkDoneTxtState: () -> Unit) :
                     binding.tvCloseHour.text = "00:00"
                     binding.tvTotalTime.text = "0시간"
 
+                    /** 휴무일 체크되었을 때 해당 position 입력 true*/
+                    data.inputState = true
+                    checkDoneTxtState()
+                    Log.d("test", "휴무일 눌렀을 때 휴무일 true 24시간 false")
+
                     Log.d("test", binding.tvTotalTime.text.toString())
                 } else {
                     data.restState = false
@@ -156,10 +193,8 @@ class RunningTimeAdapter(val checkDoneTxtState: () -> Unit) :
                     binding.clClose.isEnabled = true
 
                     // 둘다 체크 x 면
-                    if (data.restState == false && data.allDayState == false) {
-                        data.inputState = false
-                        checkDoneTxtState()
-                    }
+                    data.inputState = !(!data.restState && !data.allDayState)
+                    checkDoneTxtState()
                 }
             }
 
@@ -208,6 +243,8 @@ class RunningTimeAdapter(val checkDoneTxtState: () -> Unit) :
             }
         }
     }
+
+
 
     companion object {
         private val timeDiffUtil = object : DiffUtil.ItemCallback<TimeData>() {
