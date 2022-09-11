@@ -85,9 +85,11 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_open"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="134"
+            android:clickable="true"
             android:background="@drawable/selector_run_time"
             android:paddingHorizontal="17dp"
             android:paddingVertical="14dp">
@@ -109,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="00:00"
+                android:textColor="@color/gray6_cecece"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_open_txt"
@@ -123,9 +126,11 @@
             android:src="@drawable/ic_running_time_wave"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_close"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="134"
+            android:clickable="true"
             android:background="@drawable/selector_run_time"
             android:paddingHorizontal="17dp"
             android:paddingVertical="14dp">
@@ -135,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
-                android:text="오픈시간"
+                android:text="마감시간"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tv_close_hour"
                 app:layout_constraintStart_toStartOf="parent"
@@ -147,6 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="00:00"
+                android:textColor="@color/gray6_cecece"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_close_txt"
@@ -164,9 +170,18 @@
         android:textColor="@color/text2_a3a3a3"
         android:letterSpacing="-0.03"
         android:layout_marginBottom="17dp"
+        android:gravity="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_running_time"
         app:layout_constraintEnd_toEndOf="@id/ll_running_time"
         android:layout_marginTop="8dp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/gray4_ededed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

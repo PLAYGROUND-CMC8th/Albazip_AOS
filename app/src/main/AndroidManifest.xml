@@ -162,6 +162,8 @@
         <activity android:name=".src.register.manager.moreinfo.InputPlaceMoreBetaActivity"
             android:exported="true"/>
 
+        <activity android:name=".src.register.manager.moreinfo.RunningTimeActivity"/>
+
     </application>
 
 
