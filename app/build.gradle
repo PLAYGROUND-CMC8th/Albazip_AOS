@@ -99,9 +99,9 @@ dependencies {
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3'
 
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha02"
     // LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.0-alpha01"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.0-alpha02"
     // Coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
 }
