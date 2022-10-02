@@ -18,6 +18,7 @@ import com.playground.albazip.src.home.manager.data.GetAllMHomeResponse
 import com.playground.albazip.src.home.manager.opened.HomeOpenedChildFragment
 import com.playground.albazip.src.home.manager.opened.network.GetAllMFragmentView
 import com.playground.albazip.src.home.manager.opened.network.GetMAllHomeInfoService
+import com.playground.albazip.src.home.manager.worklist.ui.AddTogetherWorkListActivity
 import com.playground.albazip.src.splash.CheckRightTokenService
 import com.playground.albazip.src.splash.GetCheckRightTokenFragmentView
 import com.playground.albazip.src.splash.GetRightTokenResponse
@@ -42,10 +43,23 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 전체보기 (소통창 화면으로 이동)
+        initAllCommunityBtn()
+        initAddWorkBtn()
+    }
+
+    // 전체보기 버튼 (소통창 화면으로 이동)
+    private fun initAllCommunityBtn() {
         binding.tvShowCommunity.setOnClickListener {
             requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.manager_main_btm_nav).menu.getItem(1).isChecked=true
             requireActivity().supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm,MCommunityFragment()).commit()
+        }
+    }
+
+    // 할 일 추가 버튼
+    private fun initAddWorkBtn() {
+        binding.floatAddWorkBtn.setOnClickListener {
+            val nextIntent = Intent(requireContext(), AddTogetherWorkListActivity::class.java)
+            startActivity(nextIntent)
         }
     }
 
