@@ -1,6 +1,7 @@
 package com.playground.albazip.config
 
 import android.app.Application
+import android.util.Log
 import com.playground.albazip.util.PreferenceUtil
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,6 +33,8 @@ class ApplicationClass: Application()  {
 
         // sharedPreference
         prefs = PreferenceUtil(applicationContext)
+
+        Log.d("crycry", "와이 안되는 거누 띠리리리리릴ㄹ")
 
         // 레트로핏 인스턴스 생성
         initRetrofitInstance()

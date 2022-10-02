@@ -1,4 +1,4 @@
-package com.playground.albazip.src.register.manager
+package com.playground.albazip.src.register.manager.place
 
 import android.app.Activity
 import android.content.Intent
@@ -14,6 +14,7 @@ import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.data.network.response.SearchPlaceResponse
 import com.playground.albazip.databinding.ActivitySearchPlaceBinding
+import com.playground.albazip.src.register.manager.SearchPlaceRetrofitInterface
 import com.playground.albazip.src.register.manager.adapter.SearchResultVPAdpater
 import com.playground.albazip.src.register.manager.data.local.PlaceData
 import net.daum.mf.map.api.MapPOIItem

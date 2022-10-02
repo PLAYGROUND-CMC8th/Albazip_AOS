@@ -1,4 +1,4 @@
-package com.playground.albazip.src.register.manager
+package com.playground.albazip.src.register.manager.place
 
 import android.content.Intent
 import android.graphics.Color
@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRegisterPlaceBinding
+import com.playground.albazip.src.register.manager.InputBNumActivity
 import com.playground.albazip.src.register.manager.custom.TypeBottomSheetDialog
 
 class RegisterPlaceActivity :
@@ -78,7 +79,7 @@ class RegisterPlaceActivity :
             // 매장 장소 정보 넘기기
             val registerDataList :ArrayList<String> = arrayListOf(placeName,placeType,placeAdress)
 
-            val nextIntent = Intent(this,InputBNumActivity::class.java)
+            val nextIntent = Intent(this, InputBNumActivity::class.java)
 
             nextIntent.putExtra("registerDataList",registerDataList)
 
