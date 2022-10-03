@@ -107,21 +107,13 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp">
 
-                        <CheckBox
-                            android:id="@+id/cb_running_time_checkbox"
+                        <ImageView
+                            android:id="@+id/iv_checkbox_running_time_checkbox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:background="@drawable/selector_circle_yellow_checkbox"
-                            android:button="@android:color/transparent"
+                            android:background="@drawable/ic_circle_check_inactive"
                             android:checked="false"/>
-
-                        <View
-                            android:id="@+id/view_running_check"
-                            android:background="@android:color/black"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:clickable="true"/>
                     </FrameLayout>
 
                     <TextView

@@ -6,12 +6,13 @@ import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateSetWorkerTimeBinding
 import com.playground.albazip.src.register.manager.moreinfo.adater.RunningTimeAdapter
 import com.playground.albazip.src.update.setworker.adapter.WorkerTimeAdapter
+import com.playground.albazip.src.update.setworker.custom.SetAllWorkTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.setworker.custom.SetWorkerTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.setworker.custom.WorkTimeCancelBottomSheetDialog
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 
 class UpdateSetWorkerTimeActivity :
-    BaseActivity<ActivityUpdateSetWorkerTimeBinding>(ActivityUpdateSetWorkerTimeBinding::inflate), SetWorkerTimePickerBottomSheetDialog.BottomSheetClickListener {
+    BaseActivity<ActivityUpdateSetWorkerTimeBinding>(ActivityUpdateSetWorkerTimeBinding::inflate), SetWorkerTimePickerBottomSheetDialog.BottomSheetClickListener, SetAllWorkTimePickerBottomSheetDialog.BottomSheetClickListener {
 
     private lateinit var workerTimeAdapter: WorkerTimeAdapter
     var workerTimeList = mutableListOf<WorkerTimeData>()
@@ -23,6 +24,8 @@ class UpdateSetWorkerTimeActivity :
         initBackEvent()
 
         setEachWorkerTime()
+
+        initAllTimeBtnEvent()
     }
 
     // Adapter 초기화 (요일 입력)
@@ -101,4 +104,21 @@ class UpdateSetWorkerTimeActivity :
 
         workerTimeAdapter.setLayoutAfterTimeSelected(displayTime,flag,position)
     }
+
+    /** 근무시간 일괄적용 클릭 이벤트*/
+    private fun initAllTimeBtnEvent() {
+        binding.ivCheckboxRunningTimeCheckbox.setOnClickListener {
+            SetAllWorkTimePickerBottomSheetDialog().show(supportFragmentManager, "all_time_event")
+        }
+    }
+
+    override fun onTimeAllTimeSelected(
+        h: String,
+        m: String,
+        totalTime: String,
+        checkBoxState: Boolean
+    ) {
+
+    }
+
 }
