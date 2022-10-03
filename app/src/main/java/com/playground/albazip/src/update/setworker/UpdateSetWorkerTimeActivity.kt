@@ -58,11 +58,13 @@ class UpdateSetWorkerTimeActivity :
     private fun initBackEvent() {
         binding.ivRunningTimeBackBtn.setOnClickListener {
 
-            if (workerTimeAdapter.checkIfListNull()) { // 체크된게 없으면 리스트 띄우기
+            if (!workerTimeAdapter.checkIfListNull()) { // 체크된게 없으면 리스트 띄우기
                 WorkTimeCancelBottomSheetDialog { finishEvent() }.show(
                     supportFragmentManager,
                     "set_worker_time_cancel"
                 )
+            } else {
+                finishEvent()
             }
         }
     }
@@ -85,7 +87,7 @@ class UpdateSetWorkerTimeActivity :
                         supportFragmentManager,
                         "set_open_hour"
                     )
-                } else { // 마감 시간 선택
+                } else if (timeFlags == 1) { // 마감 시간 선택
                     SetWorkerTimePickerBottomSheetDialog(
                         1,
                         position
@@ -93,6 +95,10 @@ class UpdateSetWorkerTimeActivity :
                         supportFragmentManager,
                         "set_open_hour"
                     )
+                } else { // 모든 버튼이 꺼져서 일괄적용 버튼도 꺼주는 로직
+                    // 체크 뷰 꺼놓기
+                    Glide.with(binding.root).load(R.drawable.ic_circle_check_inactive)
+                        .into(binding.ivCheckboxRunningTimeCheckbox)
                 }
             }
         })
@@ -162,5 +168,4 @@ class UpdateSetWorkerTimeActivity :
             .into(binding.ivCheckboxRunningTimeCheckbox)
 
     }
-
 }

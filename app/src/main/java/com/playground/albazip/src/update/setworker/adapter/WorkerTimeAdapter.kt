@@ -55,6 +55,19 @@ class WorkerTimeAdapter(
 
                     binding.llWorkerTime.visibility = View.GONE
                     binding.tvTotalTime.visibility = View.GONE
+
+
+                    // 비활성화 될 때마다 전체가 비활성화 됐는지 체크하고
+                    // 전체가 비활성화라면 -> activity 에서 버튼을 꺼준다.
+                    for (i in 0..6) {
+                        if (itemList[i].isSelected == true) {
+                            break
+                        } else {
+                            onWorkerTimeItemClickListener.onWorkerTimeItemClick(it, adapterPosition, 2)
+                        }
+                    }
+
+
                 } else { // 비활성화 -> 활성화
                     binding.ivCheckboxDay.isSelected = true
                     workerTimeData.isSelected = true
@@ -218,4 +231,5 @@ class WorkerTimeAdapter(
 
         notifyItemChanged(position)
     }
+
 }
