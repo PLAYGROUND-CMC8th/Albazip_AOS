@@ -1,6 +1,7 @@
 package com.playground.albazip.src.update.setworker.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -184,9 +185,30 @@ class WorkerTimeAdapter(
 
     /** 선택한 요소들의 정보를 받기 위한 함수
      *  이는 완료버튼을 눌렀을 때 서버와 통신할 데이터를 넘겨받기 위함이다.*/
-    fun getSelectedList() {
+    fun getSelectedList(): MutableList<Int> {
+        val checkedPositionList = mutableListOf<Int>()
+        for (i in itemList.indices) {
+            if (itemList[i].isSelected == true) { // 선택된 요소들 체크해서
+                checkedPositionList.add(i) // 리스트에 넣어주기
+            }
+        }
 
-        notifyDataSetChanged()
+        Log.d("kite", "getItemList: $checkedPositionList")
+
+        return checkedPositionList
+    }
+
+    fun setSelectedList(allOpenTime: String, allCloseTime: String, allTotalTime: String) {
+
+        for (position in getSelectedList()) {
+            itemList[position].openTime = allOpenTime
+            itemList[position].closeTime = allCloseTime
+            itemList[position].totalTime = allTotalTime
+
+            Log.d("kite",position.toString())
+
+            notifyItemChanged(position)
+        }
     }
 
     /** 개별 시간 요소를 완료한 후의 UI 변경 작업

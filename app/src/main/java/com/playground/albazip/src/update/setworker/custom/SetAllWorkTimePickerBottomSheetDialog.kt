@@ -32,6 +32,7 @@ class SetAllWorkTimePickerBottomSheetDialog : BottomSheetDialogFragment(),
 
         setLayout()
         initTimeDialog()
+        initConfirmEvent()
 
         return binding.root
     }
@@ -144,8 +145,26 @@ class SetAllWorkTimePickerBottomSheetDialog : BottomSheetDialogFragment(),
 
     }
 
+    //  확인 버튼 이벤트
+    private fun initConfirmEvent() {
+        binding.btnConfirm.setOnClickListener {
+            val allOpenHour = binding.tvOpenHour.text.toString()
+            val allCloseHour = binding.tvCloseHour.text.toString()
+            val allTotalTime = binding.tvTotalTime.text.toString()
+            // 데이터를 액티비티에 넘기기
+            bottomSheetClickListener.onTimeAllTimeSelected(
+                allOpenHour,
+                allCloseHour,
+                allTotalTime,
+                true,
+            )
+            // 종료
+            dismiss()
+        }
+    }
+
     // activity 에 전달된 변수들
     interface BottomSheetClickListener {
-        fun onTimeAllTimeSelected(h: String, m: String, totalTime: String, checkBoxState: Boolean)
+        fun onTimeAllTimeSelected(allOpenHour: String, allCloseHour: String, allTotalTime: String, checkBoxState: Boolean)
     }
 }
