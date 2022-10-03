@@ -9,11 +9,12 @@ import com.bumptech.glide.Glide
 import com.playground.albazip.R
 import com.playground.albazip.databinding.ItemUpdateRvSetWorkerTimeBinding
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
+import com.playground.albazip.util.GetTimeDiffUtil
 
 
 class WorkerTimeAdapter(
     workerTimeList: MutableList<WorkerTimeData>,
-    val context:Context
+    val context: Context
 ) :
     RecyclerView.Adapter<WorkerTimeAdapter.WorkerTimeViewHolder>() {
 
@@ -70,17 +71,45 @@ class WorkerTimeAdapter(
 
             // 텍스트 설정
             if (workerTimeData.openTime != "00:00") {
-                binding.tvOpenHour.setTextColor(context.resources.getColor(R.color.text4_343434,null))
+                binding.tvOpenHour.setTextColor(
+                    context.resources.getColor(
+                        R.color.text4_343434,
+                        null
+                    )
+                )
             } else {
-                binding.tvOpenHour.setTextColor(context.resources.getColor(R.color.gray5_e2e2e2,null))
+                binding.tvOpenHour.setTextColor(
+                    context.resources.getColor(
+                        R.color.gray5_e2e2e2,
+                        null
+                    )
+                )
             }
 
             if (workerTimeData.closeTime != "00:00") {
-                binding.tvCloseHour.setTextColor(context.resources.getColor(R.color.text4_343434,null))
+                binding.tvCloseHour.setTextColor(
+                    context.resources.getColor(
+                        R.color.text4_343434,
+                        null
+                    )
+                )
             } else {
-                binding.tvCloseHour.setTextColor(context.resources.getColor(R.color.gray5_e2e2e2,null))
+                binding.tvCloseHour.setTextColor(
+                    context.resources.getColor(
+                        R.color.gray5_e2e2e2,
+                        null
+                    )
+                )
             }
 
+            // totalTime 설정
+            if (workerTimeData.openTime != "00:00" && workerTimeData.closeTime != "00:00") {
+                GetTimeDiffUtil().getTimeDiff(
+                    binding.tvOpenHour,
+                    binding.tvCloseHour,
+                    binding.tvTotalTime
+                )
+            }
 
             binding.clOpen.setOnClickListener { // 오픈
                 onWorkerTimeItemClickListener.onWorkerTimeItemClick(it, adapterPosition, 0)
@@ -162,7 +191,7 @@ class WorkerTimeAdapter(
 
     /** 개별 시간 요소를 완료한 후의 UI 변경 작업
      * */
-    fun setLayoutAfterTimeSelected(displayTime:String, flag: Int, position: Int) {
+    fun setLayoutAfterTimeSelected(displayTime: String, flag: Int, position: Int) {
 
         if (flag == 0) { // 오픈 시간
             itemList[position].openTime = displayTime
