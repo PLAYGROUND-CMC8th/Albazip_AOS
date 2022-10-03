@@ -74,8 +74,7 @@ class WorkerTimeAdapter(
                             )
 
                             // 완료 버튼 비활성화
-                            (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled =
-                                false
+                            (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled = false
                         }
                     }
 
@@ -89,13 +88,14 @@ class WorkerTimeAdapter(
                     binding.llWorkerTime.visibility = View.VISIBLE
                     binding.tvTotalTime.visibility = View.VISIBLE
 
+                    // 뷰 초기화
+                    binding.tvOpenHour.text = "00:00"
+                    binding.tvCloseHour.text = "00:00"
+                    binding.tvTotalTime.text = "0시간"
 
                     // 생성되면 일단 비활성화 시키기 (-> 들어간 값이 없기 때문이다.)
-                    if (workerTimeData.openTime == workerTimeData.closeTime) {
-                        // 완료 버튼 비활성화
-                        (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled =
-                            false
-                    }
+                    (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled =
+                        workerTimeData.openTime != workerTimeData.closeTime
 
                 }
             }
