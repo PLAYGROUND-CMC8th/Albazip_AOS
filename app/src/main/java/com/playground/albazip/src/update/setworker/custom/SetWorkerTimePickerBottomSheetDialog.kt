@@ -13,7 +13,8 @@ import java.lang.Exception
 
 class SetWorkerTimePickerBottomSheetDialog(// 타이틀 선택
     var timeFlag: Int, // 오픈 0, 마감 1
-    var position:Int // 몇 번째 요소를 선택한건지
+    var position:Int, // 몇 번째 요소를 선택한건지
+    private val doAfterOk: () -> Unit
 ) : BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogFragmentTimeBinding
@@ -58,6 +59,7 @@ class SetWorkerTimePickerBottomSheetDialog(// 타이틀 선택
                 position
             )
 
+            doAfterOk()
             dismiss()
         }
 

@@ -1,7 +1,6 @@
 package com.playground.albazip.src.update.setworker.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -193,8 +192,6 @@ class WorkerTimeAdapter(
             }
         }
 
-        Log.d("kite", "getItemList: $checkedPositionList")
-
         return checkedPositionList
     }
 
@@ -204,8 +201,6 @@ class WorkerTimeAdapter(
             itemList[position].openTime = allOpenTime
             itemList[position].closeTime = allCloseTime
             itemList[position].totalTime = allTotalTime
-
-            Log.d("kite",position.toString())
 
             notifyItemChanged(position)
         }

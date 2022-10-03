@@ -78,18 +78,33 @@ class UpdateSetWorkerTimeActivity :
             WorkerTimeAdapter.OnWorkerTimeItemClickListener {
             override fun onWorkerTimeItemClick(view: View, position: Int, timeFlags: Int) {
                 if (timeFlags == 0) { // 오픈 시간 선택
-                    SetWorkerTimePickerBottomSheetDialog(0, position).show(
+                    SetWorkerTimePickerBottomSheetDialog(
+                        0,
+                        position
+                    ) { checkIsAllTimeSame(0) }.show(
                         supportFragmentManager,
                         "set_open_hour"
                     )
                 } else { // 마감 시간 선택
-                    SetWorkerTimePickerBottomSheetDialog(1, position).show(
+                    SetWorkerTimePickerBottomSheetDialog(
+                        1,
+                        position
+                    ) { checkIsAllTimeSame(1) }.show(
                         supportFragmentManager,
                         "set_open_hour"
                     )
                 }
             }
         })
+    }
+
+    // 모든 시간 적용 뷰 확인
+    private fun checkIsAllTimeSame(timeFlags: Int) {
+        if (!workerTimeAdapter.checkIfListSame(timeFlags)) { // 시간이 달라졌다면
+            // 체크 뷰 꺼놓기 -> 일괄적용 해제!
+            Glide.with(binding.root).load(R.drawable.ic_circle_check_inactive)
+                .into(binding.ivCheckboxRunningTimeCheckbox)
+        }
     }
 
     override fun onTimeSelected(h: String, m: String, flag: Int, position: Int) {
