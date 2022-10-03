@@ -87,13 +87,6 @@ class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragment
             startActivity(nextIntent)
         }
 
-        // 업무 추가 액티비티
-        binding.ibtnAdd.setOnClickListener {
-            val nextIntent = Intent(requireContext(), AddTogetherWorkListActivity::class.java)
-            startActivity(nextIntent)
-            //AddWorkBottomSheetDialog().show(parentFragmentManager, "addwork")
-        }
-
         // 매장 선택화면으로 이동
         binding.rlChooseShop.setOnClickListener {
             val nextIntent = Intent(requireContext(), HomeShopListActivity::class.java)

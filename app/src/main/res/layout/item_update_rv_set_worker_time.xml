@@ -5,214 +5,148 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
+
     <LinearLayout
-        android:id="@+id/ll_set_worker_time_days"
-        android:layout_width="match_parent"
+        android:id="@+id/ll_check"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginVertical="24dp"
+        android:layout_marginTop="29dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <CheckBox
-            android:id="@+id/cb_selected_day"
+            android:id="@+id/cb_day"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@drawable/selector_circle_yellow_checkbox"
             android:button="@android:color/transparent" />
 
         <TextView
-            android:id="@+id/tv_days"
+            android:id="@+id/tv_day"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold_otf"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:textStyle="bold"
+            android:gravity="center"
             android:letterSpacing="-0.03"
             android:lineSpacingExtra="7sp"
             android:text="수요일"
             android:textColor="@color/text4_343434"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            android:textSize="16sp" />
     </LinearLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_set_worker_time_detail"
+    <LinearLayout
+        android:id="@+id/ll_running_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@id/ll_set_worker_time_days"
-        app:layout_constraintStart_toStartOf="@id/ll_set_worker_time_days"
-        app:layout_constraintTop_toBottomOf="@id/ll_set_worker_time_days">
+        android:orientation="horizontal"
+        android:layout_marginTop="14dp"
+        app:layout_constraintEnd_toEndOf="@id/ll_check"
+        app:layout_constraintStart_toStartOf="@id/ll_check"
+        app:layout_constraintTop_toBottomOf="@id/ll_check">
 
-        <LinearLayout
-            android:id="@+id/ll_check"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_open"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <CheckBox
-                android:id="@+id/cb_rest_day"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@drawable/selector_circle_yellow_checkbox"
-                android:button="@android:color/transparent" />
+            android:layout_weight="134"
+            android:clickable="true"
+            android:background="@drawable/selector_run_time"
+            android:paddingHorizontal="17dp"
+            android:paddingVertical="14dp">
 
             <TextView
-                android:id="@+id/tv_rest_day"
+                android:id="@+id/tv_open_txt"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:fontFamily="@font/roboto_regular_otf"
-                android:gravity="center"
-                android:letterSpacing="-0.03"
-                android:lineSpacingExtra="7sp"
-                android:text="@string/common_rest_day"
-                android:textColor="@color/text4_343434"
-                android:textSize="16sp" />
-
-            <CheckBox
-                android:id="@+id/cb_24_hour"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="12dp"
-                android:background="@drawable/selector_circle_yellow_checkbox"
-                android:button="@android:color/transparent" />
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:text="오픈시간"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_open_hour"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_24_hour"
+                android:id="@+id/tv_open_hour"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:fontFamily="@font/roboto_regular_otf"
-                android:gravity="center"
-                android:letterSpacing="-0.03"
-                android:lineSpacingExtra="7sp"
-                android:text="@string/common_24_hour"
-                android:textColor="@color/text4_343434"
-                android:textSize="16sp" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="00:00"
+                android:textColor="@color/gray6_cecece"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_open_txt"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_running_time"
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="44"
+            android:paddingHorizontal="11dp"
+            android:src="@drawable/ic_running_time_wave"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_close"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@id/ll_check"
-            app:layout_constraintStart_toStartOf="@id/ll_check"
-            app:layout_constraintTop_toBottomOf="@id/ll_check">
+            android:layout_weight="134"
+            android:clickable="true"
+            android:background="@drawable/selector_run_time"
+            android:paddingHorizontal="17dp"
+            android:paddingVertical="14dp">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_open"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tv_close_txt"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="134"
-                android:background="@drawable/selector_run_time"
-                android:clickable="true"
-                android:paddingHorizontal="17dp"
-                android:paddingVertical="14dp">
+                android:layout_marginEnd="6dp"
+                android:text="마감시간"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_close_hour"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_open_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    android:text="오픈시간"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tv_open_hour"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_open_hour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="00:00"
-                    android:textColor="@color/gray6_cecece"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_open_txt"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="44"
-                android:paddingHorizontal="11dp"
-                android:src="@drawable/ic_running_time_wave" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_close"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tv_close_hour"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="134"
-                android:background="@drawable/selector_run_time"
-                android:clickable="true"
-                android:paddingHorizontal="17dp"
-                android:paddingVertical="14dp">
+                android:layout_marginStart="6dp"
+                android:text="00:00"
+                android:textColor="@color/gray6_cecece"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_close_txt"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_close_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    android:text="마감시간"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tv_close_hour"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tv_total_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="8시간"
+        android:fontFamily="@font/roboto_medium_otf"
+        android:textSize="12sp"
+        android:textColor="@color/text2_a3a3a3"
+        android:letterSpacing="-0.03"
+        android:layout_marginBottom="17dp"
+        android:gravity="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_running_time"
+        app:layout_constraintEnd_toEndOf="@id/ll_running_time"
+        android:layout_marginTop="8dp" />
 
-                <TextView
-                    android:id="@+id/tv_close_hour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="00:00"
-                    android:textColor="@color/gray6_cecece"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_close_txt"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_total_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="17dp"
-            android:fontFamily="@font/roboto_medium_otf"
-            android:gravity="end"
-            android:letterSpacing="-0.03"
-            android:text="8시간"
-            android:textColor="@color/text2_a3a3a3"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/ll_running_time"
-            app:layout_constraintTop_toBottomOf="@id/ll_running_time" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/gray4_ededed"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/gray4_ededed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

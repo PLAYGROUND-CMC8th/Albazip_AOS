@@ -50,6 +50,9 @@ class WHomeFragment :
             ).commit()
         }
 
+        // 알바생은 업무추가 버튼 끄기
+        binding.floatAddWorkBtn.visibility = View.GONE
+
     }
 
     override fun onResume() {
