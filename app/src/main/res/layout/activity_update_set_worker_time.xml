@@ -118,7 +118,7 @@
 
                         <View
                             android:id="@+id/view_running_check"
-                            android:background="@android:color/transparent"
+                            android:background="@android:color/black"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:clickable="true"/>
@@ -141,7 +141,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_running_time_days"
+                android:id="@+id/rv_worker_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

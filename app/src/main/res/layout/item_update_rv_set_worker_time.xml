@@ -5,45 +5,57 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginVertical="29dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
     <LinearLayout
         android:id="@+id/ll_check"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
         android:orientation="horizontal"
         android:layout_marginHorizontal="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <CheckBox
-            android:id="@+id/cb_day"
+        <ImageView
+            android:id="@+id/iv_checkbox_day"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:background="@drawable/selector_circle_yellow_checkbox"
-            android:button="@android:color/transparent" />
+            android:background="@drawable/ic_circle_check_inactive"/>
 
         <TextView
             android:id="@+id/tv_day"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:textStyle="bold"
             android:gravity="center"
             android:letterSpacing="-0.03"
             android:lineSpacingExtra="7sp"
             android:text="수요일"
+            android:layout_gravity="center"
             android:textColor="@color/text4_343434"
             android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_running_time"
-        android:layout_width="0dp"
+        android:id="@+id/ll_worker_time"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="14dp"
+        android:visibility="gone"
+        android:layout_marginHorizontal="24dp"
+        android:animateLayoutChanges="true"
         app:layout_constraintEnd_toEndOf="@id/ll_check"
         app:layout_constraintStart_toStartOf="@id/ll_check"
         app:layout_constraintTop_toBottomOf="@id/ll_check">
@@ -127,19 +139,23 @@
 
     <TextView
         android:id="@+id/tv_total_time"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="8시간"
+        android:text="0시간"
+        android:layout_marginHorizontal="24dp"
         android:fontFamily="@font/roboto_medium_otf"
         android:textSize="12sp"
+        android:visibility="gone"
+        android:animateLayoutChanges="true"
         android:textColor="@color/text2_a3a3a3"
         android:letterSpacing="-0.03"
-        android:layout_marginBottom="17dp"
         android:gravity="end"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_running_time"
-        app:layout_constraintEnd_toEndOf="@id/ll_running_time"
+        app:layout_constraintTop_toBottomOf="@id/ll_worker_time"
+        app:layout_constraintEnd_toEndOf="@id/ll_worker_time"
         android:layout_marginTop="8dp" />
+
+    </LinearLayout>
 
     <View
         android:layout_width="0dp"
