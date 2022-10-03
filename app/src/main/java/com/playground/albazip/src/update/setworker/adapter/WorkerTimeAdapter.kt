@@ -1,9 +1,11 @@
 package com.playground.albazip.src.update.setworker.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.playground.albazip.R
@@ -24,7 +26,7 @@ class WorkerTimeAdapter(
     private lateinit var onWorkerTimeItemClickListener: OnWorkerTimeItemClickListener
 
     interface OnWorkerTimeItemClickListener {
-        fun onWorkerTimeItemClick(view: View, position: Int, timeFlag: Int)
+        fun onWorkerTimeItemClick(view: View, position: Int, flag: Int)
     }
 
     fun setOnWorkerTimeItemClickListener(listener: OnWorkerTimeItemClickListener) {
@@ -56,14 +58,24 @@ class WorkerTimeAdapter(
                     binding.llWorkerTime.visibility = View.GONE
                     binding.tvTotalTime.visibility = View.GONE
 
-
-                    // 비활성화 될 때마다 전체가 비활성화 됐는지 체크하고
-                    // 전체가 비활성화라면 -> activity 에서 버튼을 꺼준다.
+                    /**
+                    비활성화 될 때마다 전체가 비활성화 됐는지 체크하고
+                    전체가 비활성화라면 -> activity 에서 버튼을 꺼준다.
+                    완료 버튼 역시 비활성화
+                     */
                     for (i in 0..6) {
                         if (itemList[i].isSelected == true) {
                             break
                         } else {
-                            onWorkerTimeItemClickListener.onWorkerTimeItemClick(it, adapterPosition, 2)
+                            onWorkerTimeItemClickListener.onWorkerTimeItemClick(
+                                it,
+                                adapterPosition,
+                                2
+                            )
+
+                            // 완료 버튼 비활성화
+                            (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled =
+                                false
                         }
                     }
 
@@ -76,6 +88,15 @@ class WorkerTimeAdapter(
 
                     binding.llWorkerTime.visibility = View.VISIBLE
                     binding.tvTotalTime.visibility = View.VISIBLE
+
+
+                    // 생성되면 일단 비활성화 시키기 (-> 들어간 값이 없기 때문이다.)
+                    if (workerTimeData.openTime == workerTimeData.closeTime) {
+                        // 완료 버튼 비활성화
+                        (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled =
+                            false
+                    }
+
                 }
             }
         }
@@ -115,14 +136,23 @@ class WorkerTimeAdapter(
                 )
             }
 
-            // totalTime 설정
+            // totalTime 설정 -> 0시간이 아닐 때
             if (workerTimeData.openTime != "00:00" && workerTimeData.closeTime != "00:00") {
                 GetTimeDiffUtil().getTimeDiff(
                     binding.tvOpenHour,
                     binding.tvCloseHour,
                     binding.tvTotalTime
                 )
+
+                // 완료 버튼 활성화
+                (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled =
+                    true
+            } else {
+                // 완료 버튼 비활성화
+                (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled =
+                    false
             }
+
 
             binding.clOpen.setOnClickListener { // 오픈
                 onWorkerTimeItemClickListener.onWorkerTimeItemClick(it, adapterPosition, 0)
@@ -176,7 +206,7 @@ class WorkerTimeAdapter(
 
         // 출근 시간 체크
         if (timeFlag == 0) {
-            for (i in 0..6) {
+            for (i in 0..5) {
                 if (itemList[i].openTime != itemList[i + 1].openTime) {
                     return false
                 }
@@ -231,5 +261,4 @@ class WorkerTimeAdapter(
 
         notifyItemChanged(position)
     }
-
 }

@@ -78,8 +78,8 @@ class UpdateSetWorkerTimeActivity :
     private fun setEachWorkerTime() {
         workerTimeAdapter.setOnWorkerTimeItemClickListener(object :
             WorkerTimeAdapter.OnWorkerTimeItemClickListener {
-            override fun onWorkerTimeItemClick(view: View, position: Int, timeFlags: Int) {
-                if (timeFlags == 0) { // 오픈 시간 선택
+            override fun onWorkerTimeItemClick(view: View, position: Int, jobFlags: Int) {
+                if (jobFlags == 0) { // 오픈 시간 선택
                     SetWorkerTimePickerBottomSheetDialog(
                         0,
                         position
@@ -87,7 +87,7 @@ class UpdateSetWorkerTimeActivity :
                         supportFragmentManager,
                         "set_open_hour"
                     )
-                } else if (timeFlags == 1) { // 마감 시간 선택
+                } else if (jobFlags == 1) { // 마감 시간 선택
                     SetWorkerTimePickerBottomSheetDialog(
                         1,
                         position
@@ -95,7 +95,7 @@ class UpdateSetWorkerTimeActivity :
                         supportFragmentManager,
                         "set_open_hour"
                     )
-                } else { // 모든 버튼이 꺼져서 일괄적용 버튼도 꺼주는 로직
+                } else if(jobFlags == 2){ // 모든 버튼이 꺼져서 일괄적용 버튼도 꺼주는 로직
                     // 체크 뷰 꺼놓기
                     Glide.with(binding.root).load(R.drawable.ic_circle_check_inactive)
                         .into(binding.ivCheckboxRunningTimeCheckbox)
