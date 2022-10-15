@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.playground.albazip.R
 import com.playground.albazip.databinding.ItemRvRunningTimeBinding
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 
@@ -72,6 +71,13 @@ class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeVi
             binding.cbRestDay.isSelected = restState
             binding.cb24Hour.isSelected = time24State
 
+            // 24시간이 체크되었다면
+            if (time24State) {
+                binding.tvTotalTime.text = "24시간"
+            } else if(restState) { // 휴무체크
+                binding.tvTotalTime.text = "0시간"
+            }
+
             // 한쪽이라도 체크 상태면 -> ui 잠금
             if (restState || time24State) {
                 binding.apply {
@@ -79,9 +85,8 @@ class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeVi
                     clOpen.isEnabled = false
                     clClose.isEnabled = false
 
-                    // 텍스트 비활성화
-                    myData?.openInputState = false
-                    myData?.closeInoutState = false
+                    tvOpenHour.isEnabled = false
+                    tvCloseHour.isEnabled = false
                 }
             }
 
@@ -91,6 +96,9 @@ class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeVi
                     // 터치 활성화 및 배경 활성화
                     clOpen.isEnabled = true
                     clClose.isEnabled = true
+
+                    tvOpenHour.isEnabled = true
+                    tvCloseHour.isEnabled = true
                 }
 
             }
@@ -100,30 +108,23 @@ class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeVi
         private fun setTimeEvent() {
             // 오픈 시간 설정
             binding.clOpen.setOnClickListener {
-                itemClickListener.onClick(it,adapterPosition,0)
+                itemClickListener.onClick(it, adapterPosition, 0)
             }
 
             // 마감 시간 설정
             binding.clClose.setOnClickListener {
-                itemClickListener.onClick(it,adapterPosition,1)
+                itemClickListener.onClick(it, adapterPosition, 1)
             }
         }
 
-        /** 시간 설정에 따른 UI를 변경해주는 함수 */
-        fun setTimeUI(data: RunningTimeData) {
-            if (data.openInputState) {
-                binding.apply {
-                    tvOpenHour.setTextColor(binding.root.resources.getColor(R.color.text4_343434,null))
-                    tvOpenHour.text = data.openTime
-                }
-            } else {
-                binding.apply {
-                    tvOpenHour.setTextColor(binding.root.resources.getColor(R.color.gray6_cecece,null))
-                }
+
+        fun setTimeTxtUI(data: RunningTimeData) {
+            if (data.openInputFlag) {
+                binding.tvOpenHour.isEnabled = true
             }
 
-            if (data.closeInoutState) {
-
+            if (data.closeInputFlag) {
+                binding.tvCloseHour.isEnabled = true
             }
         }
     }
@@ -141,10 +142,9 @@ class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeVi
 
     override fun onBindViewHolder(holder: RunningTimeViewHolder, position: Int) {
         holder.onBind(runningTimeItemList[position])
-        holder.setTimeUI(runningTimeItemList[position])
+        holder.setTimeTxtUI(runningTimeItemList[position])
     }
 
 
     override fun getItemCount(): Int = runningTimeItemList.size
-
 }
