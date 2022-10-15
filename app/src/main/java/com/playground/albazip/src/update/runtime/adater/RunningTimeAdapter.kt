@@ -8,7 +8,7 @@ import com.playground.albazip.databinding.ItemRvRunningTimeBinding
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
-class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeViewHolder>() {
+class RunningTimeAdapter(private val setAllCheckBtnOff: () -> Unit) : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeViewHolder>() {
     var runningTimeItemList = mutableListOf<RunningTimeData>()
     private lateinit var itemClickListener: OnItemClickListener
 
@@ -55,6 +55,8 @@ class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeVi
                 }
                 myData?.restState = myData?.restState != true
                 setBtnUI(myData?.restState!!, myData?.time24State!!)
+
+                setAllCheckBtnOff()
             }
             // 24시간 버튼 클릭
             binding.cb24Hour.setOnClickListener {
@@ -63,6 +65,8 @@ class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeVi
                 }
                 myData?.time24State = myData?.time24State != true
                 setBtnUI(myData?.restState!!, myData?.time24State!!)
+
+                setAllCheckBtnOff()
             }
         }
 

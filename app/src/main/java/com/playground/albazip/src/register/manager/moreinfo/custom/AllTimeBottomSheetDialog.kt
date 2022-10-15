@@ -34,8 +34,20 @@ class AllTimeBottomSheetDialog() : BottomSheetDialogFragment(),
 
         init24HourBtn() // 24시간 영업함수
         initTimeDialog() // 시간 설정 다이얼로그
+        initConfirmBtn() // 확인버튼 이벤트
 
         return binding.root
+    }
+
+    private fun initConfirmBtn() {
+        binding.btnConfirm.setOnClickListener {
+            bottomSheetClickListener.onTimeAllTimeSelected(
+                binding.tvOpenHour.text.toString(),
+                binding.tvCloseHour.text.toString(),
+                binding.tvTotalTime.text.toString()
+            )
+            dismiss()
+        }
     }
 
     // 24시간 영업 함수
@@ -104,7 +116,7 @@ class AllTimeBottomSheetDialog() : BottomSheetDialogFragment(),
     }
 
     interface BottomSheetClickListener {
-        fun onTimeAllTimeSelected(h: String, m: String, totalTime: String, checkBoxState: Boolean)
+        fun onTimeAllTimeSelected(oTime:String, eTime:String, totalTime: String)
     }
 
     // 개별 시간 선택 함수
@@ -177,8 +189,12 @@ class AllTimeBottomSheetDialog() : BottomSheetDialogFragment(),
 
         // 시간차 텍스트 설정
         binding.apply {
-            if (tvCloseHour.isEnabled && tvOpenHour.isEnabled){
-                GetTimeDiffUtil().getTimeDiff(binding.tvOpenHour, binding.tvCloseHour, binding.tvTotalTime)
+            if (tvCloseHour.isEnabled && tvOpenHour.isEnabled) {
+                GetTimeDiffUtil().getTimeDiff(
+                    binding.tvOpenHour,
+                    binding.tvCloseHour,
+                    binding.tvTotalTime
+                )
             }
         }
 

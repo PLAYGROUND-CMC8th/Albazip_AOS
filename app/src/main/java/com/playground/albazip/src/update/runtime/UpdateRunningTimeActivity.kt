@@ -33,12 +33,17 @@ class UpdateRunningTimeActivity :
                 // 바텀시트 띄우기
                 AllTimeBottomSheetDialog().show(supportFragmentManager, "allTimePicker")
             }
+
+            cbRunningTimeCheckbox.setOnClickListener{ // 껐을 때
+                // 막는 뷰 생성
+                viewRunningCheck.visibility = View.VISIBLE
+            }
         }
     }
 
     // 어댑터 초기화
     private fun initAdapter() {
-        runTimeAdapter = RunningTimeAdapter()
+        runTimeAdapter = RunningTimeAdapter{setAllCheckBtnOff()}
         runTimeAdapter.runningTimeItemList.addAll(
             listOf(
                 RunningTimeData("월"), RunningTimeData("화"),
@@ -160,6 +165,7 @@ class UpdateRunningTimeActivity :
 
         }
 
+        setAllCheckBtnOff()
         runTimeAdapter.notifyItemChanged(selectedItemPosition)
     }
 
@@ -190,12 +196,33 @@ class UpdateRunningTimeActivity :
 
     // 전체 설정 뷰 바텀 클릭 이벤트
     override fun onTimeAllTimeSelected(
-        h: String,
-        m: String,
-        totalTime: String,
-        checkBoxState: Boolean
+        oTime: String,
+        cTime: String,
+        tTime: String,
     ) {
+        if (tTime == "24시간") {
+            for (i in runTimeAdapter.runningTimeItemList.indices) {
+                runTimeAdapter.set24Hour(i)
+                runTimeAdapter.runningTimeItemList[i].time24State = true
+            }
+        } else {
+            for (i in runTimeAdapter.runningTimeItemList.indices) {
+                runTimeAdapter.runningTimeItemList[i].apply {
+                    openTime = oTime
+                    closeTime = cTime
+                    totalTime = tTime
+                }
+            }
+        }
 
+        binding.viewRunningCheck.visibility = View.GONE
+        binding.cbRunningTimeCheckbox.isSelected = true
+
+        runTimeAdapter.notifyDataSetChanged()
     }
 
+    fun setAllCheckBtnOff() {
+        binding.viewRunningCheck.visibility = View.VISIBLE
+        binding.cbRunningTimeCheckbox.isSelected = false
+    }
 }
