@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_days"
         app:layout_constraintTop_toBottomOf="@id/tv_days">
 
-        <CheckBox
+        <ImageButton
             android:id="@+id/cb_rest_day"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -51,7 +51,7 @@
             android:textColor="@color/text4_343434"
             android:textSize="16sp" />
 
-        <CheckBox
+        <ImageButton
             android:id="@+id/cb_24_hour"
             android:layout_width="24dp"
             android:layout_height="24dp"

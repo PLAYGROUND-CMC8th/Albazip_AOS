@@ -169,7 +169,8 @@
             android:name=".src.register.manager.moreinfo.InputPlaceMoreBetaActivity"
             android:exported="true" />
 
-        <activity android:name=".src.register.manager.moreinfo.RunningTimeActivity" />
+        <activity android:name=".src.update.runtime.UpdateRunningTimeActivity"
+            android:exported="true"/>
 
         <activity
             android:name=".src.update.setworker.UpdateAddWorkerOneActivity"

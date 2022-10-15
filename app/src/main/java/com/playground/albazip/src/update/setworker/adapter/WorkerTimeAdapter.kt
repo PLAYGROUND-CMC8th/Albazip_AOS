@@ -83,15 +83,6 @@ class WorkerTimeAdapter(
                     binding.llWorkerTime.visibility = View.VISIBLE
                     binding.tvTotalTime.visibility = View.VISIBLE
 
-                    // 뷰 초기화
-                    workerTimeData.openTime = "00:00"
-                    workerTimeData.closeTime = "00:00"
-                    workerTimeData.totalTime = "0시간"
-
-                    binding.tvOpenHour.text = "00:00"
-                    binding.tvCloseHour.text ="00:00"
-                    binding.tvTotalTime.text = "0시간"
-
                     binding.tvOpenHour.setTextColor(
                         context.resources.getColor(
                             R.color.gray5_e2e2e2,
@@ -215,7 +206,7 @@ class WorkerTimeAdapter(
         }
         // 퇴근 시간 체크
         else {
-            for (i in 0..6) {
+            for (i in 0..5) {
                 if (itemList[i].closeTime != itemList[i + 1].closeTime) {
                     return false
                 }
@@ -259,5 +250,18 @@ class WorkerTimeAdapter(
         }
 
         notifyItemChanged(position)
+    }
+
+    /** 일괄 선택 완료 후 개별 요소의 시간을 변경 했을 때
+     *  */
+    fun checkChangeAfterAllSelected() {
+        // 개별 요소가 변경된 것이 있다면 -> 비활성화
+
+    }
+
+    /** 선택된 요일과 시간이 모두가 같아졌는지 체크
+     * */
+    fun isSelectedDateTimeSame(){
+        // 모두 같다면 모든 시간이 같아요 버튼 활성화
     }
 }
