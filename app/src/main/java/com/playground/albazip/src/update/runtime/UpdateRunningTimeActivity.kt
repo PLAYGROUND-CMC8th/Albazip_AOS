@@ -5,6 +5,7 @@ import android.view.View
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRunningTimeBinding
 import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
+import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 
@@ -79,11 +80,37 @@ class UpdateRunningTimeActivity :
 
         if (flag == 0) { // 오픈시간 텍스트 설정
             runTimeAdapter.runningTimeItemList[selectedItemPosition].apply {
+
+                // 마감타임이 00:00이 아닐 때
+                // getTransTime()d == 마감타임이면
+                // 24시간 체크 여부를 묻는 다이얼로그를 띄운다.
+                if (closeTime != "00:00") {
+                    if (getTransTime() == closeTime) {
+                        Confirm24HourBottomSheetDialog(0,
+                            { doAfterConfirm() }, { doAfterCancelOpen() }, { doAfterCancelClose() }).show(
+                            supportFragmentManager,
+                            "check_open_24_confirm"
+                        )
+                    }
+                }
+
                 openTime = getTransTime()
                 openInputFlag = true
+
             }
         } else { // 마감시간 텍스트 설정
             runTimeAdapter.runningTimeItemList[selectedItemPosition].apply {
+
+                if (openTime != "00:00") {
+                    if (getTransTime() == openTime) {
+                        Confirm24HourBottomSheetDialog(1,
+                            { doAfterConfirm() }, { doAfterCancelOpen() }, { doAfterCancelClose() }).show(
+                            supportFragmentManager,
+                            "check_close_24_confirm"
+                        )
+                    }
+                }
+
                 closeTime = getTransTime()
                 closeInputFlag = true
             }
@@ -91,4 +118,21 @@ class UpdateRunningTimeActivity :
 
         runTimeAdapter.notifyItemChanged(selectedItemPosition)
     }
+
+    // 24시간으로 설정하기
+    private fun doAfterConfirm() {
+        runTimeAdapter.set24Hour(selectedItemPosition)
+        runTimeAdapter.notifyItemChanged(selectedItemPosition)
+    }
+
+    // 오픈 시간 재설정 -> 바텀시트 다시 띄우기
+    private fun doAfterCancelOpen() {
+
+    }
+
+    // 마감 시간 재설정 -> 바텀시트 다시 띄우기
+    private fun doAfterCancelClose() {
+
+    }
+
 }

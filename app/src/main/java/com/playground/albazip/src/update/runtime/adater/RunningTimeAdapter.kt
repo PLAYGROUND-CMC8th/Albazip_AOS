@@ -127,6 +127,20 @@ class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeVi
                 binding.tvCloseHour.isEnabled = true
             }
         }
+
+        // 24시간 설정시 UI 대응
+        fun set24HourUI(data: RunningTimeData) {
+            if (data.openTime == "00:00" && data.closeTime == "00:00" && data.totalTime == "24시간") {
+                binding.apply {
+                    cb24Hour.isSelected = true
+                    clOpen.isEnabled = false
+                    clClose.isEnabled = false
+
+                    tvOpenHour.isEnabled = false
+                    tvCloseHour.isEnabled = false
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RunningTimeViewHolder {
@@ -143,8 +157,20 @@ class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeVi
     override fun onBindViewHolder(holder: RunningTimeViewHolder, position: Int) {
         holder.onBind(runningTimeItemList[position])
         holder.setTimeTxtUI(runningTimeItemList[position])
+
+        holder.set24HourUI(runningTimeItemList[position])
     }
 
 
     override fun getItemCount(): Int = runningTimeItemList.size
+
+
+    fun set24Hour(selectedItemPosition:Int) {
+        runningTimeItemList[selectedItemPosition].apply {
+            totalTime = "24시간"
+            openTime = "00:00"
+            closeTime = "00:00"
+        }
+
+    }
 }

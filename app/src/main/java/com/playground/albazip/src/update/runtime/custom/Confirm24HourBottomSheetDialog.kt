@@ -1,3 +1,5 @@
+package com.playground.albazip.src.update.runtime.custom
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
