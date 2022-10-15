@@ -1,5 +1,7 @@
 package com.playground.albazip.src.update.runtime.data
 
+import java.io.Serializable
+
 data class RunningTimeData(
     val day: String,
 
@@ -12,4 +14,4 @@ data class RunningTimeData(
 
     var openInputFlag: Boolean = false,
     var closeInputFlag: Boolean = false
-)
+):Serializable

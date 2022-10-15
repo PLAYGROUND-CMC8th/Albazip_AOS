@@ -1,24 +1,69 @@
 package com.playground.albazip.src.update.runtime
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityInputPlaceMoreBetaBinding
 import com.playground.albazip.src.register.manager.custom.PayDayBottomSheetDialog
+import com.playground.albazip.src.update.runtime.data.OpenScheduleData
+import com.playground.albazip.src.update.runtime.data.RunningTimeData
 
 class InputPlaceMoreBetaActivity :
     BaseActivity<ActivityInputPlaceMoreBetaBinding>(ActivityInputPlaceMoreBetaBinding::inflate),
     PayDayBottomSheetDialog.BottomSheetClickListener {
+
+    // 영업시간 입력완료 플래그
+    private var runningTimeFlag: Boolean = false
 
     // 급여 플래그
     private var payDayFlag: Boolean = false
 
     // 공휴일 정보 플래그
     private var restDayInfoFlag: Boolean = false
+
+    // 스케쥴 리스트
+    var openScheduleList = arrayListOf<OpenScheduleData>()
+
+    // rv 리스트
+    var rvList = arrayListOf<RunningTimeData>()
+
+    private val startActivityForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                runningTimeFlag = it.data!!.getBooleanExtra("runningTimeFlag", false)
+
+                rvList = it.data!!.getSerializableExtra("adapterList") as ArrayList<RunningTimeData>
+
+                openScheduleList =
+                    it.data!!.getSerializableExtra("openScheduleList") as ArrayList<OpenScheduleData>
+                setVisibility()
+
+                Log.d("kite",runningTimeFlag.toString())
+                Log.d("kite",openScheduleList.toString())
+            }
+        }
+
+    private fun setVisibility() {
+        if (runningTimeFlag) {
+            binding.apply {
+                tvInputPlaceInputDone.visibility = View.VISIBLE
+                ivInputPlaceCheck.visibility = View.VISIBLE
+            }
+        } else {
+            binding.apply {
+                tvInputPlaceInputDone.visibility = View.INVISIBLE
+                ivInputPlaceCheck.visibility = View.INVISIBLE
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +100,11 @@ class InputPlaceMoreBetaActivity :
     // 매장영업시간 설정 화면으로 이동
     private fun initRunningTimeBtn() {
         binding.tvInputPlaceSetRunTimeBtn.setOnClickListener {
-            startActivity(Intent(this, UpdateRunningTimeActivity::class.java))
+            val nextIntent = Intent(this, UpdateRunningTimeActivity::class.java)
+            nextIntent.putExtra("openScheduleList", openScheduleList)
+            nextIntent.putExtra("adapterList",rvList)
+            nextIntent.putExtra("runningTimeFlag", false)
+            startActivityForResult.launch(nextIntent)
         }
     }
 

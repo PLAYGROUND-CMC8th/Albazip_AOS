@@ -1,5 +1,6 @@
 package com.playground.albazip.src.update.runtime
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.playground.albazip.config.BaseActivity
@@ -9,7 +10,8 @@ import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
 import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
-import com.playground.albazip.src.update.setworker.custom.RunningTimeCancelBottomSheetDialog
+import com.playground.albazip.src.update.runtime.custom.RunningTimeCancelBottomSheetDialog
+import com.playground.albazip.src.update.runtime.data.OpenScheduleData
 import com.playground.albazip.util.GetTimeDiffUtil
 
 class UpdateRunningTimeActivity :
@@ -20,18 +22,66 @@ class UpdateRunningTimeActivity :
     private lateinit var runTimeAdapter: RunningTimeAdapter
     private var selectedItemPosition = -1
 
+    // 매장 스케쥴 리스트
+    var openScheduleList = arrayListOf<OpenScheduleData>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initAllSettingEvent()
         initAdapter()
+        initRvInfo()
         initBackEvent()
+        initBtnDoneEvent()
+    }
+
+    // 이전뷰에서 받아온 정보 리사이클러뷰에 넣어주기
+    private fun initRvInfo() {
+        if (intent.hasExtra("adapterList")) {
+            val rvList =  intent.getSerializableExtra("adapterList") as MutableList<RunningTimeData>
+            if (rvList.isNotEmpty()) {
+                runTimeAdapter.runningTimeItemList = rvList
+                binding.tvRunningTimeDone.isEnabled = true
+            }
+        }
+    }
+
+    // 완료 이벤트
+    private fun initBtnDoneEvent() {
+        binding.tvRunningTimeDone.setOnClickListener {
+
+            val runningTimeList = runTimeAdapter.runningTimeItemList
+            val openTimeList = runningTimeList.filterNot { it.restState }
+
+            for (i in openTimeList.indices) {
+                openScheduleList.add(
+                    OpenScheduleData(
+                        runningTimeList[i].openTime!!.replace(":", ""),
+                        runningTimeList[i].closeTime!!.replace(":", ""),
+                        runningTimeList[i].day
+                    )
+                )
+            }
+
+            val returnIntent = Intent()
+            returnIntent.putExtra("openScheduleList", openScheduleList)
+            returnIntent.putExtra(
+                "adapterList",
+                runTimeAdapter.runningTimeItemList as ArrayList<RunningTimeData>
+            )
+            returnIntent.putExtra("runningTimeFlag", true)
+            setResult(RESULT_OK, returnIntent)
+            finish()
+        }
     }
 
     // 뒤로가기 이벤트
     private fun initBackEvent() {
         binding.ivRunningTimeBackBtn.setOnClickListener {
-            RunningTimeCancelBottomSheetDialog(getUnSelectedDays()).show(supportFragmentManager,"back_dialog")
+            RunningTimeCancelBottomSheetDialog(getUnSelectedDays()).show(
+                supportFragmentManager,
+                "back_dialog"
+            )
         }
     }
 
@@ -263,7 +313,8 @@ class UpdateRunningTimeActivity :
 
     fun getUnSelectedDays(): MutableList<String> {
 
-       val noRestList = runTimeAdapter.runningTimeItemList.filter { it.totalTime.equals("0시간") }.filter { !it.restState }
+        val noRestList = runTimeAdapter.runningTimeItemList.filter { it.totalTime.equals("0시간") }
+            .filter { !it.restState }
 
         val unSelectedDayStringList = mutableListOf<String>()
 

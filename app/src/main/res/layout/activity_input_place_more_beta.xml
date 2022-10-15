@@ -1,133 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+    android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_input_place_more_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_input_place_more_back_btn"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:src="@drawable/ic_back_arrow"
             android:layout_marginStart="6dp"
             android:paddingHorizontal="10dp"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_input_place_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/input_place_more_title"
-        android:textColor="@color/text4_343434"
-        android:fontFamily="@font/roboto_bold_otf"
-        android:textSize="24sp"
         android:layout_marginHorizontal="36dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/roboto_bold_otf"
+        android:text="@string/input_place_more_title"
+        android:textColor="@color/text4_343434"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_input_place_more_bar" />
 
     <LinearLayout
         android:id="@+id/ll_input_place_txt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="36dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/tv_input_place_title"
         app:layout_constraintStart_toStartOf="@id/tv_input_place_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_input_place_title"
-        app:layout_constraintEnd_toEndOf="@id/tv_input_place_title">
+        app:layout_constraintTop_toBottomOf="@id/tv_input_place_title">
 
         <TextView
             android:id="@+id/tv_input_place_running_hour"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:fontFamily="@font/roboto_medium_otf"
             android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="@color/text3_6f6f6f"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="13sp"
-            android:fontFamily="@font/roboto_medium_otf"
-            android:text="@string/input_place_more_running_hour"/>
+            android:text="@string/input_place_more_running_hour"
+            android:textColor="@color/text3_6f6f6f"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_input_place_input_done"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:textColor="@color/alert2_1dbe4e"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="15sp"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/roboto_medium_otf"
-            android:text="@string/input_place_more_input_done"/>
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="15sp"
+            android:text="@string/input_place_more_input_done"
+            android:textColor="@color/alert2_1dbe4e"
+            android:textSize="14sp"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_input_place_check"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:src="@drawable/ic_place_more_check_active"/>
+            android:src="@drawable/ic_place_more_check_active"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv_input_place_set_run_time_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_input_place_more_inactive_10"
-        android:paddingVertical="11dp"
         android:layout_marginTop="14dp"
+        android:background="@drawable/bg_input_place_more_inactive_10"
         android:fontFamily="@font/roboto_bold_otf"
         android:gravity="center"
-        android:textSize="14sp"
-        android:textColor="@color/text3_6f6f6f"
+        android:paddingVertical="11dp"
         android:text="@string/input_place_more_set_running_time"
-        app:layout_constraintStart_toStartOf="@id/ll_input_place_txt"
+        android:textColor="@color/text3_6f6f6f"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/ll_input_place_txt"
-        app:layout_constraintTop_toBottomOf="@id/ll_input_place_txt"/>
+        app:layout_constraintStart_toStartOf="@id/ll_input_place_txt"
+        app:layout_constraintTop_toBottomOf="@id/ll_input_place_txt" />
 
     <LinearLayout
         android:id="@+id/ll_input_place_check_rest_day"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="14dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/tv_input_place_set_run_time_btn"
         app:layout_constraintStart_toStartOf="@id/tv_input_place_set_run_time_btn"
-        app:layout_constraintTop_toBottomOf="@id/tv_input_place_set_run_time_btn"
-        app:layout_constraintEnd_toEndOf="@id/tv_input_place_set_run_time_btn">
+        app:layout_constraintTop_toBottomOf="@id/tv_input_place_set_run_time_btn">
 
 
         <ImageButton
             android:id="@+id/cb_input_place_rest_day"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:gravity="center"
             android:background="@drawable/selector_circle_yellow_checkbox"
             android:button="@android:color/transparent"
-            android:checked="false"/>
+            android:checked="false"
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/tv_input_place_check_same"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text4_343434"
-            android:letterSpacing="-0.03"
-            android:lineSpacingExtra="7sp"
-            android:textSize="16sp"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/roboto_medium_otf"
-            android:text="@string/input_place_more_rest_day"/>
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="7sp"
+            android:text="@string/input_place_more_rest_day"
+            android:textColor="@color/text4_343434"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <TextView
@@ -135,23 +137,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="@string/input_place_more_pay_day"
-        android:textSize="16sp"
         android:fontFamily="@font/roboto_medium_otf"
-        android:textColor="@color/text3_6f6f6f"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="13sp"
-        app:layout_constraintStart_toStartOf="@id/ll_input_place_check_rest_day"
+        android:text="@string/input_place_more_pay_day"
+        android:textColor="@color/text3_6f6f6f"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/ll_input_place_check_rest_day"
-        app:layout_constraintTop_toBottomOf="@id/ll_input_place_check_rest_day"/>
+        app:layout_constraintStart_toStartOf="@id/ll_input_place_check_rest_day"
+        app:layout_constraintTop_toBottomOf="@id/ll_input_place_check_rest_day" />
 
     <RelativeLayout
         android:id="@+id/rl_input_place_more_pay_day"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:paddingVertical="14dp"
         android:background="@drawable/selector_input_place_more_10"
+        android:paddingVertical="14dp"
         app:layout_constraintEnd_toEndOf="@+id/tv_input_place_more_pay_day"
         app:layout_constraintStart_toStartOf="@id/tv_input_place_more_pay_day"
         app:layout_constraintTop_toBottomOf="@id/tv_input_place_more_pay_day">
@@ -173,9 +175,9 @@
             android:id="@+id/tv_select_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/tv_day"
-            android:layout_centerVertical="true"
             android:background="@null"
             android:gravity="center|end"
             android:letterSpacing="-0.03"

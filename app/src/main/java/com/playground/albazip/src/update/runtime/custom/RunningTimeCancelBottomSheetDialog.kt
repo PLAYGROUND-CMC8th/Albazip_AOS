@@ -1,14 +1,11 @@
-package com.playground.albazip.src.update.setworker.custom
+package com.playground.albazip.src.update.runtime.custom
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.playground.albazip.databinding.DialogFragmentCancelRunningTimeBinding
-import com.playground.albazip.databinding.DialogUpdateTimeSetCancelBinding
 
 class RunningTimeCancelBottomSheetDialog(private val noSelectedList:MutableList<String>) :
     BottomSheetDialogFragment() {
