@@ -45,9 +45,6 @@ class InputPlaceMoreBetaActivity :
                 openScheduleList =
                     it.data!!.getSerializableExtra("openScheduleList") as ArrayList<OpenScheduleData>
                 setVisibility()
-
-                Log.d("kite",runningTimeFlag.toString())
-                Log.d("kite",openScheduleList.toString())
             }
         }
 
@@ -63,6 +60,8 @@ class InputPlaceMoreBetaActivity :
                 ivInputPlaceCheck.visibility = View.INVISIBLE
             }
         }
+
+        activateCheck()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,7 +149,7 @@ class InputPlaceMoreBetaActivity :
 
     // 버튼 활성화 여부 체크
     private fun activateCheck() {
-
+        binding.btnNext.isEnabled = runningTimeFlag == true && payDayFlag ==true
     }
 
 }
