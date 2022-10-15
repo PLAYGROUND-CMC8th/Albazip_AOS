@@ -1,5 +1,6 @@
 package com.playground.albazip.src.update.runtime
 
+import RunTimeCancelBottomSheetDialog
 import android.os.Bundle
 import android.view.View
 import com.playground.albazip.config.BaseActivity
@@ -24,6 +25,14 @@ class UpdateRunningTimeActivity :
 
         initAllSettingEvent()
         initAdapter()
+        initBackEvent()
+    }
+
+    // 뒤로가기 이벤트
+    private fun initBackEvent() {
+        binding.ivRunningTimeBackBtn.setOnClickListener {
+            RunTimeCancelBottomSheetDialog().show(supportFragmentManager,"go_back")
+        }
     }
 
     // 일괄 적용 이벤트
