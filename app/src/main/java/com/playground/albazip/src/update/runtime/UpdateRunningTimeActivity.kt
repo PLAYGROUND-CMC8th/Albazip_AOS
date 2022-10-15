@@ -97,6 +97,11 @@ class UpdateRunningTimeActivity :
                 openTime = getTransTime()
                 openInputFlag = true
 
+                // 수동으로 "00:00"을 택하여 24시간을 설정했을때 (단, 마감역시 활성화 된 상태)
+                if (openTime == "00:00" && closeTime == "00:00" && closeInputFlag) {
+                    runTimeAdapter.set24Hour(selectedItemPosition)
+                }
+
             }
         } else { // 마감시간 텍스트 설정
             runTimeAdapter.runningTimeItemList[selectedItemPosition].apply {
@@ -113,7 +118,13 @@ class UpdateRunningTimeActivity :
 
                 closeTime = getTransTime()
                 closeInputFlag = true
+
+                // 수동으로 "00:00"을 택하여 24시간을 설정했을때 (단, 오픈 역시 활성화된 상태)
+                if (openTime == "00:00" && closeTime == "00:00" && openInputFlag) {
+                    runTimeAdapter.set24Hour(selectedItemPosition)
+                }
             }
+
         }
 
         runTimeAdapter.notifyItemChanged(selectedItemPosition)
@@ -127,11 +138,22 @@ class UpdateRunningTimeActivity :
 
     // 오픈 시간 재설정 -> 바텀시트 다시 띄우기
     private fun doAfterCancelOpen() {
+        RunningTimePickerBottomSheetDialog(0).show(
+            supportFragmentManager,
+            "set_open_hour"
+        )
 
+        showCustomToast("마감 시간과 같아요. 시간을 다시 설정해주세요.")
     }
 
     // 마감 시간 재설정 -> 바텀시트 다시 띄우기
     private fun doAfterCancelClose() {
+        RunningTimePickerBottomSheetDialog(1).show(
+            supportFragmentManager,
+            "set_close_hour"
+        )
+
+        showCustomToast("오픈 시간과 같아요. 시간을 다시 설정해주세요.")
 
     }
 
