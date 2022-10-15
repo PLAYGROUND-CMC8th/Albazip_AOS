@@ -8,7 +8,7 @@ import com.playground.albazip.databinding.ItemRvRunningTimeBinding
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
-class RunningTimeAdapter(private val setAllCheckBtnOff: () -> Unit) : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeViewHolder>() {
+class RunningTimeAdapter(private val setAllCheckBtnOff: () -> Unit, private val checkDoneBtnState: () -> Unit) : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeViewHolder>() {
     var runningTimeItemList = mutableListOf<RunningTimeData>()
     private lateinit var itemClickListener: OnItemClickListener
 
@@ -57,6 +57,7 @@ class RunningTimeAdapter(private val setAllCheckBtnOff: () -> Unit) : RecyclerVi
                 setBtnUI(myData?.restState!!, myData?.time24State!!)
 
                 setAllCheckBtnOff()
+
             }
             // 24시간 버튼 클릭
             binding.cb24Hour.setOnClickListener {
@@ -79,8 +80,7 @@ class RunningTimeAdapter(private val setAllCheckBtnOff: () -> Unit) : RecyclerVi
             // 24시간이 체크되었다면
             if (time24State) {
                 binding.tvTotalTime.text = "24시간"
-            } else if(restState) { // 휴무체크
-                binding.tvTotalTime.text = "0시간"
+                myData?.totalTime = "24시간"
             }
 
             // 한쪽이라도 체크 상태면 -> ui 잠금
@@ -92,6 +92,8 @@ class RunningTimeAdapter(private val setAllCheckBtnOff: () -> Unit) : RecyclerVi
 
                     tvOpenHour.isEnabled = false
                     tvCloseHour.isEnabled = false
+
+                    checkDoneBtnState()
                 }
             }
 
@@ -105,11 +107,13 @@ class RunningTimeAdapter(private val setAllCheckBtnOff: () -> Unit) : RecyclerVi
                     tvOpenHour.isEnabled = true
                     tvCloseHour.isEnabled = true
 
+                    tvOpenHour.text = myData?.openTime
+                    tvCloseHour.text = myData?.closeTime
+
                     if (tvOpenHour.text.toString() != "00:00" && tvCloseHour.text.toString() != "00:00"){
                         GetTimeDiffUtil().getTimeDiff(tvOpenHour,tvCloseHour,tvTotalTime) // 총시간 계산해주기
                     }
                 }
-
             }
         }
 
