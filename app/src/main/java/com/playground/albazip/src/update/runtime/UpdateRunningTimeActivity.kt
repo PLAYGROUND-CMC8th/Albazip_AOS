@@ -204,6 +204,7 @@ class UpdateRunningTimeActivity :
             for (i in runTimeAdapter.runningTimeItemList.indices) {
                 runTimeAdapter.set24Hour(i)
                 runTimeAdapter.runningTimeItemList[i].time24State = true
+                runTimeAdapter.runningTimeItemList[i].restState = false
             }
         } else {
             for (i in runTimeAdapter.runningTimeItemList.indices) {
@@ -211,6 +212,12 @@ class UpdateRunningTimeActivity :
                     openTime = oTime
                     closeTime = cTime
                     totalTime = tTime
+
+                    openInputFlag = true
+                    openInputFlag = true
+
+                    time24State = false
+                    restState = false
                 }
             }
         }
