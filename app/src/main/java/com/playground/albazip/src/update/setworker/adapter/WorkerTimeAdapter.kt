@@ -1,11 +1,9 @@
 package com.playground.albazip.src.update.setworker.adapter
 
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.playground.albazip.R
@@ -72,9 +70,6 @@ class WorkerTimeAdapter(
                                 adapterPosition,
                                 2
                             )
-
-                            // 완료 버튼 비활성화
-                            (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled = false
                         }
                     }
 
@@ -89,14 +84,26 @@ class WorkerTimeAdapter(
                     binding.tvTotalTime.visibility = View.VISIBLE
 
                     // 뷰 초기화
+                    workerTimeData.openTime = "00:00"
+                    workerTimeData.closeTime = "00:00"
+                    workerTimeData.totalTime = "0시간"
+
                     binding.tvOpenHour.text = "00:00"
-                    binding.tvCloseHour.text = "00:00"
+                    binding.tvCloseHour.text ="00:00"
                     binding.tvTotalTime.text = "0시간"
 
-                    // 생성되면 일단 비활성화 시키기 (-> 들어간 값이 없기 때문이다.)
-                    (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled =
-                        workerTimeData.openTime != workerTimeData.closeTime
-
+                    binding.tvOpenHour.setTextColor(
+                        context.resources.getColor(
+                            R.color.gray5_e2e2e2,
+                            null
+                        )
+                    )
+                    binding.tvCloseHour.setTextColor(
+                            context.resources.getColor(
+                                R.color.gray5_e2e2e2,
+                                null
+                            )
+                            )
                 }
             }
         }
@@ -143,14 +150,6 @@ class WorkerTimeAdapter(
                     binding.tvCloseHour,
                     binding.tvTotalTime
                 )
-
-                // 완료 버튼 활성화
-                (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled =
-                    true
-            } else {
-                // 완료 버튼 비활성화
-                (context as Activity).findViewById<TextView>(R.id.tv_set_work_time_done).isEnabled =
-                    false
             }
 
 
