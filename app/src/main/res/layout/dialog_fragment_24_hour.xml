@@ -55,7 +55,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-            <CheckBox
+            <ImageButton
                 android:id="@+id/cb_24_hour"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -114,7 +114,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:text="00:00"
-                    android:textColor="@color/gray5_e2e2e2"
+                    android:enabled="false"
+                    android:textColor="@color/selector_tv_runtime"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tv_open_txt"
@@ -154,7 +155,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:text="00:00"
-                    android:textColor="@color/gray5_e2e2e2"
+                    android:enabled="false"
+                    android:textColor="@color/selector_tv_runtime"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tv_close_txt"

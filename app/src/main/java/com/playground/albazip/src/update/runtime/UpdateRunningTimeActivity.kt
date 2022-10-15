@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRunningTimeBinding
+import com.playground.albazip.src.register.manager.moreinfo.custom.AllTimeBottomSheetDialog
 import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
 import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
@@ -12,7 +13,8 @@ import com.playground.albazip.util.GetTimeDiffUtil
 
 class UpdateRunningTimeActivity :
     BaseActivity<ActivityRunningTimeBinding>(ActivityRunningTimeBinding::inflate),
-    RunningTimePickerBottomSheetDialog.BottomSheetClickListener {
+    RunningTimePickerBottomSheetDialog.BottomSheetClickListener,
+    AllTimeBottomSheetDialog.BottomSheetClickListener {
 
     private lateinit var runTimeAdapter: RunningTimeAdapter
     private var selectedItemPosition = -1
@@ -20,7 +22,18 @@ class UpdateRunningTimeActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initAllSettingEvent()
         initAdapter()
+    }
+
+    // 일괄 적용 이벤트
+    private fun initAllSettingEvent() {
+        binding.apply {
+            viewRunningCheck.setOnClickListener { // 막는 뷰를 눌렀을 때
+                // 바텀시트 띄우기
+                AllTimeBottomSheetDialog().show(supportFragmentManager, "allTimePicker")
+            }
+        }
     }
 
     // 어댑터 초기화
@@ -83,7 +96,7 @@ class UpdateRunningTimeActivity :
             runTimeAdapter.runningTimeItemList[selectedItemPosition].apply {
 
                 // 마감타임이 00:00이 아닐 때
-                // getTransTime()d == 마감타임이면
+                // getTransTime() == 마감타임이면
                 // 24시간 체크 여부를 묻는 다이얼로그를 띄운다.
                 if (closeTime != "00:00") {
                     if (getTransTime() == closeTime) {
@@ -102,8 +115,6 @@ class UpdateRunningTimeActivity :
 
                 openTime = getTransTime()
                 openInputFlag = true
-
-//                runTimeAdapter.notifyItemChanged(selectedItemPosition)
 
                 // 수동으로 "00:00"을 택하여 24시간을 설정했을때 (단, 마감역시 활성화 된 상태여야함)
                 if (closeInputFlag) {
@@ -135,8 +146,6 @@ class UpdateRunningTimeActivity :
 
                 closeTime = getTransTime()
                 closeInputFlag = true
-
-                //               runTimeAdapter.notifyItemChanged(selectedItemPosition)
 
                 // 수동으로 "00:00"을 택하여 24시간을 설정했을때 (단, 오픈 역시 활성화된 상태여야 함)
                 if (openInputFlag) {
@@ -177,6 +186,16 @@ class UpdateRunningTimeActivity :
         )
 
         showCustomToast("오픈 시간과 같아요. 시간을 다시 설정해주세요.")
+    }
+
+    // 전체 설정 뷰 바텀 클릭 이벤트
+    override fun onTimeAllTimeSelected(
+        h: String,
+        m: String,
+        totalTime: String,
+        checkBoxState: Boolean
+    ) {
+
     }
 
 }
