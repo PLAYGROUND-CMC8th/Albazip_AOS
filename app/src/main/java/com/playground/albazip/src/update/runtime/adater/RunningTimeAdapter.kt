@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.databinding.ItemRvRunningTimeBinding
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
+import com.playground.albazip.util.GetTimeDiffUtil
 
 class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeViewHolder>() {
     var runningTimeItemList = mutableListOf<RunningTimeData>()
@@ -90,7 +91,7 @@ class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeVi
                 }
             }
 
-            // 둘다 체크 안된 상태면 -> ui 잠금해제
+            // 둘다 체크 안된 상태면 -> ui 잠금해제 => 총시간 다시 계산
             if (!restState && !time24State) {
                 binding.apply {
                     // 터치 활성화 및 배경 활성화
@@ -99,6 +100,10 @@ class RunningTimeAdapter : RecyclerView.Adapter<RunningTimeAdapter.RunningTimeVi
 
                     tvOpenHour.isEnabled = true
                     tvCloseHour.isEnabled = true
+
+                    if (tvOpenHour.text.toString() != "00:00" && tvCloseHour.text.toString() != "00:00"){
+                        GetTimeDiffUtil().getTimeDiff(tvOpenHour,tvCloseHour,tvTotalTime) // 총시간 계산해주기
+                    }
                 }
 
             }

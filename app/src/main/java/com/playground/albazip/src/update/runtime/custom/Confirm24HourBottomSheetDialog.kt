@@ -19,9 +19,8 @@ class Confirm24HourBottomSheetDialog(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DialogFragmentConfirm24HourBinding.inflate(inflater, container, false)
-
 
         // 다시 설정 버튼
         binding.btnCancel.setOnClickListener {
@@ -39,6 +38,7 @@ class Confirm24HourBottomSheetDialog(
             doAfterConfirm() // 24시간 설정
             dismiss()
         }
+
 
         return binding.root
     }

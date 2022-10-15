@@ -8,6 +8,7 @@ import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
 import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
+import com.playground.albazip.util.GetTimeDiffUtil
 
 class UpdateRunningTimeActivity :
     BaseActivity<ActivityRunningTimeBinding>(ActivityRunningTimeBinding::inflate),
@@ -86,8 +87,13 @@ class UpdateRunningTimeActivity :
                 // 24시간 체크 여부를 묻는 다이얼로그를 띄운다.
                 if (closeTime != "00:00") {
                     if (getTransTime() == closeTime) {
-                        Confirm24HourBottomSheetDialog(0,
-                            { doAfterConfirm() }, { doAfterCancelOpen() }, { doAfterCancelClose() }).show(
+                        val check24ConfirmDialog = Confirm24HourBottomSheetDialog(0,
+                            { doAfterConfirm() },
+                            { doAfterCancelOpen() },
+                            { doAfterCancelClose() })
+
+                        check24ConfirmDialog.isCancelable = false
+                        check24ConfirmDialog.show(
                             supportFragmentManager,
                             "check_open_24_confirm"
                         )
@@ -97,19 +103,30 @@ class UpdateRunningTimeActivity :
                 openTime = getTransTime()
                 openInputFlag = true
 
-                // 수동으로 "00:00"을 택하여 24시간을 설정했을때 (단, 마감역시 활성화 된 상태)
-                if (openTime == "00:00" && closeTime == "00:00" && closeInputFlag) {
-                    runTimeAdapter.set24Hour(selectedItemPosition)
-                }
+//                runTimeAdapter.notifyItemChanged(selectedItemPosition)
 
+                // 수동으로 "00:00"을 택하여 24시간을 설정했을때 (단, 마감역시 활성화 된 상태여야함)
+                if (closeInputFlag) {
+                    if (openTime == "00:00" && closeTime == "00:00") {
+                        runTimeAdapter.set24Hour(selectedItemPosition)
+                    } else {
+                        runTimeAdapter.runningTimeItemList[selectedItemPosition].totalTime =
+                            GetTimeDiffUtil().getTimeDiffTxt(getTransTime(), closeTime!!)
+                    }
+                }
             }
         } else { // 마감시간 텍스트 설정
             runTimeAdapter.runningTimeItemList[selectedItemPosition].apply {
 
                 if (openTime != "00:00") {
                     if (getTransTime() == openTime) {
-                        Confirm24HourBottomSheetDialog(1,
-                            { doAfterConfirm() }, { doAfterCancelOpen() }, { doAfterCancelClose() }).show(
+                        val check24ConfirmDialog = Confirm24HourBottomSheetDialog(1,
+                            { doAfterConfirm() },
+                            { doAfterCancelOpen() },
+                            { doAfterCancelClose() })
+
+                        check24ConfirmDialog.isCancelable = false
+                        check24ConfirmDialog.show(
                             supportFragmentManager,
                             "check_close_24_confirm"
                         )
@@ -119,9 +136,16 @@ class UpdateRunningTimeActivity :
                 closeTime = getTransTime()
                 closeInputFlag = true
 
-                // 수동으로 "00:00"을 택하여 24시간을 설정했을때 (단, 오픈 역시 활성화된 상태)
-                if (openTime == "00:00" && closeTime == "00:00" && openInputFlag) {
-                    runTimeAdapter.set24Hour(selectedItemPosition)
+                //               runTimeAdapter.notifyItemChanged(selectedItemPosition)
+
+                // 수동으로 "00:00"을 택하여 24시간을 설정했을때 (단, 오픈 역시 활성화된 상태여야 함)
+                if (openInputFlag) {
+                    if (openTime == "00:00" && closeTime == "00:00") {
+                        runTimeAdapter.set24Hour(selectedItemPosition)
+                    } else {
+                        runTimeAdapter.runningTimeItemList[selectedItemPosition].totalTime =
+                            GetTimeDiffUtil().getTimeDiffTxt(openTime!!, getTransTime())
+                    }
                 }
             }
 
@@ -142,7 +166,6 @@ class UpdateRunningTimeActivity :
             supportFragmentManager,
             "set_open_hour"
         )
-
         showCustomToast("마감 시간과 같아요. 시간을 다시 설정해주세요.")
     }
 
@@ -154,7 +177,6 @@ class UpdateRunningTimeActivity :
         )
 
         showCustomToast("오픈 시간과 같아요. 시간을 다시 설정해주세요.")
-
     }
 
 }
