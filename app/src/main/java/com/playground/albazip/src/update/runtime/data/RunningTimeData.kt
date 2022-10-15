@@ -6,5 +6,7 @@ data class RunningTimeData(
     var time24State :Boolean = false,
     var openTime: String? = "00:00",
     var closeTime: String? = "00:00",
-    var totalTime: String? = "00:00",
+    var totalTime: String? = "0시간",
+    var openInputState:Boolean = false,
+    var closeInoutState:Boolean = false,
 )

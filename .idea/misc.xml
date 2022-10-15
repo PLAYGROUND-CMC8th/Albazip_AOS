@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1503623188405797" />
         <entry key="app/src/main/res/drawable/bg_input_place_more.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/bg_input_place_more_active.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/bg_input_place_more_inactive.xml" value="0.154" />
@@ -44,12 +45,18 @@
         <entry key="app/src/main/res/layout/activity_running_time.xml" value="0.17555938037865748" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.1484375" />
         <entry key="app/src/main/res/layout/activity_search_place.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_set_worker_time2.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_update_add_worker_one.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_update_input_place_more_info.xml" value="0.2111111111111111" />
         <entry key="app/src/main/res/layout/activity_update_set_worker_time.xml" value="0.165" />
         <entry key="app/src/main/res/layout/bg_cnt_read_popup.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/child_fragment_card_code.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/child_fragment_card_position_info.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/child_fragment_card_to_do_list.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/child_fragment_home_opened.xml" value="0.1578125" />
+        <entry key="app/src/main/res/layout/child_fragment_my_info.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/child_fragment_no_worker_list.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/child_fragment_worker_list.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/child_fragment_wrote.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/dialog_fragment_24_hour.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_fragment_add_worklist.xml" value="0.24375" />
@@ -81,6 +88,7 @@
         <entry key="app/src/main/res/layout/fragment_m_community.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/fragment_m_mypage.xml" value="0.14322916666666666" />
         <entry key="app/src/main/res/layout/item_rv_running_time.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/item_rv_worker_card.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/item_update_rv_set_worker_time.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_update_rv_worker_time.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/item_vp_search_result.xml" value="0.24375" />
