@@ -1,8 +1,6 @@
 package com.playground.albazip.src.update.runtime
 
-import RunTimeCancelBottomSheetDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRunningTimeBinding
@@ -11,6 +9,7 @@ import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
 import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
+import com.playground.albazip.src.update.setworker.custom.RunningTimeCancelBottomSheetDialog
 import com.playground.albazip.util.GetTimeDiffUtil
 
 class UpdateRunningTimeActivity :
@@ -32,7 +31,7 @@ class UpdateRunningTimeActivity :
     // 뒤로가기 이벤트
     private fun initBackEvent() {
         binding.ivRunningTimeBackBtn.setOnClickListener {
-            RunTimeCancelBottomSheetDialog().show(supportFragmentManager,"go_back")
+            RunningTimeCancelBottomSheetDialog(getUnSelectedDays()).show(supportFragmentManager,"back_dialog")
         }
     }
 
@@ -44,7 +43,7 @@ class UpdateRunningTimeActivity :
                 AllTimeBottomSheetDialog().show(supportFragmentManager, "allTimePicker")
             }
 
-            cbRunningTimeCheckbox.setOnClickListener{ // 껐을 때
+            cbRunningTimeCheckbox.setOnClickListener { // 껐을 때
                 // 막는 뷰 생성
                 viewRunningCheck.visibility = View.VISIBLE
             }
@@ -53,7 +52,7 @@ class UpdateRunningTimeActivity :
 
     // 어댑터 초기화
     private fun initAdapter() {
-        runTimeAdapter = RunningTimeAdapter({setAllCheckBtnOff()},{checkDoneState()})
+        runTimeAdapter = RunningTimeAdapter({ setAllCheckBtnOff() }, { checkDoneState() })
         runTimeAdapter.runningTimeItemList.addAll(
             listOf(
                 RunningTimeData("월"), RunningTimeData("화"),
@@ -257,7 +256,21 @@ class UpdateRunningTimeActivity :
     // 일괄 적용 완료 후
     // 각각 버튼 이벤트 클릭후 (오픈시간 받기, 마감시간 받기, // 휴무일 체크, 24시간 체크)
     fun checkDoneState() {
-        val noRestList = runTimeAdapter.runningTimeItemList.filterNot { it.restState } // 휴무일로 선택되지 않은 버튼들에 대하여
+        val noRestList =
+            runTimeAdapter.runningTimeItemList.filterNot { it.restState } // 휴무일로 선택되지 않은 버튼들에 대하여
         binding.tvRunningTimeDone.isEnabled = !noRestList.any { it.totalTime.equals("0시간") }
+    }
+
+    fun getUnSelectedDays(): MutableList<String> {
+
+       val noRestList = runTimeAdapter.runningTimeItemList.filter { it.totalTime.equals("0시간") }.filter { !it.restState }
+
+        val unSelectedDayStringList = mutableListOf<String>()
+
+        for (i in noRestList.indices) {
+            unSelectedDayStringList.add(noRestList[i].day)
+        }
+
+        return unSelectedDayStringList
     }
 }

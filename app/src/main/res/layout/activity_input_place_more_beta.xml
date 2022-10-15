@@ -108,7 +108,7 @@
         app:layout_constraintEnd_toEndOf="@id/tv_input_place_set_run_time_btn">
 
 
-        <CheckBox
+        <ImageButton
             android:id="@+id/cb_input_place_rest_day"
             android:layout_width="24dp"
             android:layout_height="24dp"
