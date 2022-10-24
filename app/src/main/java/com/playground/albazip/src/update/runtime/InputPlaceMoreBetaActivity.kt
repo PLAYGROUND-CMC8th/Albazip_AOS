@@ -10,11 +10,17 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.playground.albazip.R
+import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityInputPlaceMoreBetaBinding
+import com.playground.albazip.src.main.ManagerMainActivity
+import com.playground.albazip.src.onboard.manager.ManagerOnBoardingActivity
 import com.playground.albazip.src.register.manager.custom.PayDayBottomSheetDialog
 import com.playground.albazip.src.update.runtime.data.OpenScheduleData
+import com.playground.albazip.src.update.runtime.data.RequestMSignUp
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
+import com.playground.albazip.src.update.runtime.service.RegisterService
+import com.playground.albazip.util.enqueueUtil
 
 class InputPlaceMoreBetaActivity :
     BaseActivity<ActivityInputPlaceMoreBetaBinding>(ActivityInputPlaceMoreBetaBinding::inflate),
@@ -75,11 +81,38 @@ class InputPlaceMoreBetaActivity :
         checkRestDayEvent()
     }
 
-    // 온보딩 화면으로 이동
+    // 서버통신 후 온보딩 이벤트로 이동
     private fun moveToOnBoardingPage() {
         binding.btnNext.setOnClickListener {
+            //val registerDataList: ArrayList<String> =
+            //    intent.getSerializableExtra("registerDataList") as ArrayList<String>
 
+            val holidayList = mutableListOf("월","화","수","목","금","토","일")
 
+            for (i in openScheduleList.indices) {
+                if (holidayList.contains(openScheduleList[i].day)){
+                    holidayList.remove(openScheduleList[i].day)
+                }
+            }
+
+            if (restDayInfoFlag){
+                holidayList.add("공휴일")
+            }
+
+            Log.d("suba",openScheduleList.toString())
+            Log.d("suba",holidayList.toString())
+
+            /*tryPostMSignUp(
+                RequestMSignUp(
+                    name = registerDataList[0],
+                    type = registerDataList[1],
+                    address = registerDataList[2],
+                    registerNumber = registerDataList[3],
+                    ownerName = registerDataList[4],
+                    holiday = ,
+                    openSchedule = openScheduleList
+                )
+            )*/
         }
     }
 
@@ -101,7 +134,7 @@ class InputPlaceMoreBetaActivity :
         binding.tvInputPlaceSetRunTimeBtn.setOnClickListener {
             val nextIntent = Intent(this, UpdateRunningTimeActivity::class.java)
             nextIntent.putExtra("openScheduleList", openScheduleList)
-            nextIntent.putExtra("adapterList",rvList)
+            nextIntent.putExtra("adapterList", rvList)
             nextIntent.putExtra("runningTimeFlag", false)
             startActivityForResult.launch(nextIntent)
         }
@@ -149,7 +182,57 @@ class InputPlaceMoreBetaActivity :
 
     // 버튼 활성화 여부 체크
     private fun activateCheck() {
-        binding.btnNext.isEnabled = runningTimeFlag == true && payDayFlag ==true
+        binding.btnNext.isEnabled = runningTimeFlag == true && payDayFlag == true
+    }
+
+    // 서버 통신 시도
+    private fun tryPostMSignUp(requestMSignUp: RequestMSignUp) {
+        val registerService: RegisterService =
+            ApplicationClass.sRetrofit.create(RegisterService::class.java)
+        val token = ApplicationClass.prefs.getString("X-ACCESS-TOKEN", "0")
+        val call = registerService.postSignUpManager(token, requestMSignUp)
+        call.enqueueUtil(
+            getResultCode = { it.code },
+            onSuccess200 = {
+                Log.d("juya",it.message.toString())
+
+                showCustomToast("관리자 가입 완료")
+
+                ApplicationClass.prefs.setInt("mBoardingFlags",0)
+                val mBoardingFlags = ApplicationClass.prefs.getInt("mBoardingFlags",0)
+                ApplicationClass.prefs.setString(ApplicationClass.X_ACCESS_TOKEN, it.data.token)
+
+                // 저장된 Flag값이 0이면 온보딩
+                if(mBoardingFlags == 0){
+                    ApplicationClass.prefs.setInt("jobFlags",1)
+                    val nextIntent = Intent(this, ManagerOnBoardingActivity::class.java)
+                    startActivity(nextIntent)
+                    finishAffinity()
+
+                }else{ // 저장된 Flag 1이면 관리자 홈으로 바로 이동
+                    ApplicationClass.prefs.setInt("jobFlags",1)
+                    val nextIntent = Intent(this, ManagerMainActivity::class.java)
+                    startActivity(nextIntent)
+                    finishAffinity()
+                }
+
+            },
+
+            onError200 = {
+                Log.d("juya",it.message.toString())
+
+                if(it.message ==  "필수 정보가 부족합니다."){
+                    showCustomToast("필수 정보가 부족합니다.")
+                }
+                else if (it.message == "이미 존재하는 매장입니다.") {
+                    showCustomToast("이미 존재하는 매장입니다.")
+                }
+            },
+
+            onError400 = {
+                Log.d("juya",it.message.toString())
+            }
+        )
     }
 
 }

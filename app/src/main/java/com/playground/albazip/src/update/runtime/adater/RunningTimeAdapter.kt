@@ -81,6 +81,12 @@ class RunningTimeAdapter(private val setAllCheckBtnOff: () -> Unit, private val 
             if (time24State) {
                 binding.tvTotalTime.text = "24시간"
                 myData?.totalTime = "24시간"
+
+                binding.tvOpenHour.isEnabled = false
+                binding.tvCloseHour.isEnabled = false
+
+                myData?.openInputFlag = false
+                myData?.closeInputFlag = false
             }
 
             // 한쪽이라도 체크 상태면 -> ui 잠금
@@ -92,6 +98,9 @@ class RunningTimeAdapter(private val setAllCheckBtnOff: () -> Unit, private val 
 
                     tvOpenHour.isEnabled = false
                     tvCloseHour.isEnabled = false
+
+                    myData?.openInputFlag = false
+                    myData?.closeInputFlag = false
 
                     checkDoneBtnState()
                 }
@@ -109,6 +118,10 @@ class RunningTimeAdapter(private val setAllCheckBtnOff: () -> Unit, private val 
 
                     tvOpenHour.text = myData?.openTime
                     tvCloseHour.text = myData?.closeTime
+
+                    myData?.openInputFlag = false
+                    myData?.closeInputFlag = false
+
 
                     if (tvOpenHour.text.toString() != "00:00" && tvCloseHour.text.toString() != "00:00"){
                         GetTimeDiffUtil().getTimeDiff(tvOpenHour,tvCloseHour,tvTotalTime) // 총시간 계산해주기
@@ -180,9 +193,9 @@ class RunningTimeAdapter(private val setAllCheckBtnOff: () -> Unit, private val 
 
     fun set24Hour(selectedItemPosition:Int) {
         runningTimeItemList[selectedItemPosition].apply {
-            totalTime = "24시간"
             openTime = "00:00"
             closeTime = "00:00"
+            totalTime = "24시간"
         }
 
     }

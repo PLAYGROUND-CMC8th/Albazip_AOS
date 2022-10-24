@@ -16,6 +16,7 @@ import com.playground.albazip.src.register.manager.network.BNameFragmentView
 import com.playground.albazip.src.register.manager.network.BNameService
 import com.playground.albazip.src.register.manager.network.BNumFragmentView
 import com.playground.albazip.src.register.manager.network.BNumService
+import com.playground.albazip.src.update.runtime.InputPlaceMoreBetaActivity
 
 class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding::inflate),BNumFragmentView,BNameFragmentView {
 
@@ -273,7 +274,7 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
             )
 
             // 화면이동
-            val nextIntent = Intent(this, InputPlaceMoreActivity::class.java)
+            val nextIntent = Intent(this, InputPlaceMoreBetaActivity::class.java)
             nextIntent.putExtra("registerDataList",registerDataList)
             startActivity(nextIntent)
         }else{

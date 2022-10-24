@@ -185,8 +185,7 @@ class UpdateRunningTimeActivity :
                     if (openTime == "00:00" && closeTime == "00:00") {
                         runTimeAdapter.set24Hour(selectedItemPosition)
                     } else {
-                        runTimeAdapter.runningTimeItemList[selectedItemPosition].totalTime =
-                            GetTimeDiffUtil().getTimeDiffTxt(getTransTime(), closeTime!!)
+                        totalTime = GetTimeDiffUtil().getTimeDiffTxt(getTransTime(), closeTime!!)
                     }
                 }
             }
@@ -216,10 +215,10 @@ class UpdateRunningTimeActivity :
                     if (openTime == "00:00" && closeTime == "00:00") {
                         runTimeAdapter.set24Hour(selectedItemPosition)
                     } else {
-                        runTimeAdapter.runningTimeItemList[selectedItemPosition].totalTime =
-                            GetTimeDiffUtil().getTimeDiffTxt(openTime!!, getTransTime())
+                        totalTime = GetTimeDiffUtil().getTimeDiffTxt(openTime!!, getTransTime())
                     }
                 }
+
             }
 
         }
@@ -243,7 +242,7 @@ class UpdateRunningTimeActivity :
             supportFragmentManager,
             "set_open_hour"
         )
-        showCustomToast("마감 시간과 같아요. 시간을 다시 설정해주세요.")
+        
     }
 
     // 마감 시간 재설정 -> 바텀시트 다시 띄우기
@@ -253,7 +252,6 @@ class UpdateRunningTimeActivity :
             "set_close_hour"
         )
 
-        showCustomToast("오픈 시간과 같아요. 시간을 다시 설정해주세요.")
     }
 
     // 전체 설정 뷰 바텀 클릭 이벤트
@@ -264,13 +262,14 @@ class UpdateRunningTimeActivity :
     ) {
         if (tTime == "24시간") {
             for (i in runTimeAdapter.runningTimeItemList.indices) {
-                runTimeAdapter.set24Hour(i)
                 runTimeAdapter.runningTimeItemList[i].apply {
                     time24State = true
                     restState = false
+
                     openInputFlag = true
                     closeInputFlag = true
                 }
+                runTimeAdapter.set24Hour(i)
             }
         } else {
             for (i in runTimeAdapter.runningTimeItemList.indices) {
@@ -279,22 +278,22 @@ class UpdateRunningTimeActivity :
                     closeTime = cTime
                     totalTime = tTime
 
-                    openInputFlag = true
-                    closeInputFlag = true
-
                     time24State = false
                     restState = false
+
+                    openInputFlag = true
+                    closeInputFlag = true
 
                 }
             }
         }
 
+        runTimeAdapter.notifyDataSetChanged()
+
         binding.viewRunningCheck.visibility = View.GONE
         binding.cbRunningTimeCheckbox.isSelected = true
 
         checkDoneState()
-
-        runTimeAdapter.notifyDataSetChanged()
     }
 
     fun setAllCheckBtnOff() {
