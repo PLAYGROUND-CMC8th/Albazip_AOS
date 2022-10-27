@@ -38,7 +38,7 @@
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1578125" />
         <entry key="app/src/main/res/layout/activity_input_place_more.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_input_place_more_alpha.xml" value="0.1421875" />
-        <entry key="app/src/main/res/layout/activity_input_place_more_beta.xml" value="0.39520958083832336" />
+        <entry key="app/src/main/res/layout/activity_input_place_more_beta.xml" value="0.2944008650180109" />
         <entry key="app/src/main/res/layout/activity_register_join.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_register_place.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_run_time.xml" value="0.1421875" />
@@ -46,6 +46,7 @@
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.1484375" />
         <entry key="app/src/main/res/layout/activity_search_place.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_set_worker_time2.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/activity_up_running_time.xml" value="0.12447916666666667" />
         <entry key="app/src/main/res/layout/activity_update_add_worker_one.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_update_input_place_more_info.xml" value="0.2111111111111111" />
         <entry key="app/src/main/res/layout/activity_update_set_worker_time.xml" value="0.165" />
@@ -58,11 +59,14 @@
         <entry key="app/src/main/res/layout/child_fragment_no_worker_list.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/child_fragment_worker_list.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/child_fragment_wrote.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/child_fragment_wrote_before_update.xml" value="0.19429347826086957" />
         <entry key="app/src/main/res/layout/dialog_fragment_24_hour.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_fragment_add_worklist.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/dialog_fragment_age.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/dialog_fragment_cancel_done.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_cancel_running_time.xml" value="0.24087591240875914" />
         <entry key="app/src/main/res/layout/dialog_fragment_card_position_delete.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_confirm_24_hour.xml" value="0.1956521739130435" />
         <entry key="app/src/main/res/layout/dialog_fragment_delete_co_work.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/dialog_fragment_logout.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/dialog_fragment_m_select_profile.xml" value="0.24375" />
@@ -89,6 +93,7 @@
         <entry key="app/src/main/res/layout/fragment_m_mypage.xml" value="0.14322916666666666" />
         <entry key="app/src/main/res/layout/item_rv_running_time.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_rv_worker_card.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/item_up_rv_running_time.xml" value="0.12447916666666667" />
         <entry key="app/src/main/res/layout/item_update_rv_set_worker_time.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_update_rv_worker_time.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/item_vp_search_result.xml" value="0.24375" />
