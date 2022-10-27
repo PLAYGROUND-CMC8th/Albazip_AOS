@@ -1,5 +1,6 @@
 package com.playground.albazip.src.update.runtime.adater
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +9,11 @@ import com.playground.albazip.databinding.ItemRvRunningTimeBinding
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
-class RunningTimeAdapter() :
+class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
     RecyclerView.Adapter<RunningTimeAdapter.RunningTimeViewHolder>() {
 
     var runningTimeItemList = mutableListOf<RunningTimeData>()
+    var setRunningTimeItemList = mutableListOf<RunningTimeData>()
     private lateinit var itemClickListener: OnItemClickListener
 
     interface OnItemClickListener {
@@ -126,6 +128,7 @@ class RunningTimeAdapter() :
             }
 
             notifyItemChanged(position)
+            setAllCbVisibility(checkIfDiff())
         }
 
         // 7. 24 시간 UI 설정
@@ -153,6 +156,7 @@ class RunningTimeAdapter() :
             }
 
             notifyItemChanged(position)
+            setAllCbVisibility(checkIfDiff())
         }
 
         // 8. 24시간 클릭 시키는 이벤트
@@ -213,6 +217,7 @@ class RunningTimeAdapter() :
         )
 
         notifyItemChanged(position)
+        setAllCbVisibility(checkIfDiff())
     }
 
     // 24 시간으로 뷰 설정
@@ -229,6 +234,69 @@ class RunningTimeAdapter() :
         runningTimeItemList[position].time24State = true
 
         notifyItemChanged(position)
+        setAllCbVisibility(checkIfDiff())
+    }
+
+    // 전체가 24시간으로 설정되었을때
+    fun setAll24Hour(openTime:String,endTime:String,totalTIme:String) {
+        runningTimeItemList.forEach {
+            it.openTime = openTime
+            it.closeTime = endTime
+            it.totalTime = totalTIme
+            it.time24State = true
+            it.restState = false
+        }
+
+        runningTimeItemList.forEach {
+            it.openFlag = false
+            it.closeFlag = false
+        }
+
+        notifyItemRangeChanged(0, runningTimeItemList.size)
+        setAllCbVisibility(checkIfDiff())
+    }
+
+    // 전체가 일반시간으로 설정되었을떄
+    fun setAllTIme(openTime:String,endTime:String,totalTIme:String) {
+        runningTimeItemList.forEach {
+            it.openTime = openTime
+            it.closeTime = endTime
+            it.totalTime = totalTIme
+            it.time24State = false
+            it.restState = false
+        }
+
+        runningTimeItemList.forEach {
+            it.openFlag = true
+            it.closeFlag = true
+        }
+
+        notifyItemRangeChanged(0, runningTimeItemList.size)
+        setAllCbVisibility(checkIfDiff())
+    }
+
+    // 값이 달라진 경우가 있다면
+    private fun checkIfDiff():Boolean {
+
+        setRunningTimeItemList = runningTimeItemList
+
+        setRunningTimeItemList.forEach {
+            it.day = "일"
+        }
+
+        if (setRunningTimeItemList.toMutableSet().size == 1) {
+            return false
+        }
+
+        return true
+    }
+
+    // activity 에 있는 일괄 버튼 비활성화 시키기
+    private fun setAllCbVisibility(isDiff:Boolean) {
+        if (isDiff) {   // 달라진게 있다면
+            Log.d("kite",setRunningTimeItemList.toMutableSet().toString())
+            setBtnVisibilityOff()// 버튼 꺼주기
+        }
     }
 
     companion object {

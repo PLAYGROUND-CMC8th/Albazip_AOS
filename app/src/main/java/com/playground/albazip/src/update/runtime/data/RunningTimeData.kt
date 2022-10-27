@@ -3,7 +3,7 @@ package com.playground.albazip.src.update.runtime.data
 import java.io.Serializable
 
 data class RunningTimeData(
-    val day: String,
+    var day: String?="일",
 
     var restState: Boolean = false,
     var time24State: Boolean = false,

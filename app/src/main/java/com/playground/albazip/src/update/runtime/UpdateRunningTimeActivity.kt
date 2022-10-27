@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRunningTimeBinding
+import com.playground.albazip.src.update.runtime.custom.AllTimeBottomSheetDialog
 import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
 import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
@@ -12,7 +13,8 @@ import com.playground.albazip.util.GetTimeDiffUtil
 
 class UpdateRunningTimeActivity :
     BaseActivity<ActivityRunningTimeBinding>(ActivityRunningTimeBinding::inflate),
-RunningTimePickerBottomSheetDialog.BottomSheetClickListener {
+RunningTimePickerBottomSheetDialog.BottomSheetClickListener,
+AllTimeBottomSheetDialog.BottomSheetClickListener{
 
     private lateinit var runningTimeAdapter: RunningTimeAdapter
 
@@ -23,10 +25,12 @@ RunningTimePickerBottomSheetDialog.BottomSheetClickListener {
         super.onCreate(savedInstanceState)
 
         initAdapter()
+        initBlockView()
+        initAllCheckBtnEvent()
     }
 
     private fun initAdapter() {
-        runningTimeAdapter = RunningTimeAdapter()
+        runningTimeAdapter = RunningTimeAdapter { setAllSameBtnOff() }
         runningTimeAdapter.runningTimeItemList.addAll(
             listOf(
                 RunningTimeData("월"),
@@ -110,5 +114,45 @@ RunningTimePickerBottomSheetDialog.BottomSheetClickListener {
     private fun set24Hour() {
         runningTimeAdapter.init24HourUI(selectedPosition)
     }
+
+
+    // 일괄 적용 클릭 이벤트
+    private fun initBlockView() {
+        binding.viewRunningCheck.setOnClickListener {
+            AllTimeBottomSheetDialog().show(supportFragmentManager, "SET_ALL_TIME")
+        }
+    }
+
+    // 일괄 적용 바텀시트 이벤트
+    override fun onTimeAllTimeSelected(oTime: String, eTime: String, totalTime: String) {
+        binding.viewRunningCheck.visibility = View.GONE
+        binding.cbRunningTimeCheckbox.isSelected = true
+
+        if (totalTime == "24시간") {
+            runningTimeAdapter.setAll24Hour(oTime,eTime,totalTime)
+        } else {
+            runningTimeAdapter.setAllTIme(oTime,eTime,totalTime)
+        }
+    }
+
+
+    // 모든 영업시간 버튼 이벤트
+    private fun initAllCheckBtnEvent() {
+        binding.cbRunningTimeCheckbox.setOnClickListener {
+            if (binding.viewRunningCheck.visibility == View.GONE) { // 없어진 상태라면
+                binding.viewRunningCheck.visibility = View.VISIBLE
+            } else {
+                binding.viewRunningCheck.visibility = View.GONE
+            }
+        }
+    }
+
+    // 동일 시간 명시 버튼 끄기
+    private fun setAllSameBtnOff() {
+        binding.cbRunningTimeCheckbox.isSelected = false
+        binding.viewRunningCheck.visibility = View.VISIBLE
+    }
+
+
 
 }
