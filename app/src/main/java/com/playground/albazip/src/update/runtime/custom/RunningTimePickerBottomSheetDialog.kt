@@ -22,7 +22,7 @@ class RunningTimePickerBottomSheetDialog(// 타이틀 선택
     override fun onAttach(context: Context) {
         super.onAttach(context)
         bottomSheetClickListener = try {
-            parentFragment as BottomSheetClickListener
+            parentFragmentManager as BottomSheetClickListener
         } catch (e: Exception) {
             context as BottomSheetClickListener
         }

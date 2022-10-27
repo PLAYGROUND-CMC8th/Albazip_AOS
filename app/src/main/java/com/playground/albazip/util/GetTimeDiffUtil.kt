@@ -9,6 +9,28 @@ class GetTimeDiffUtil() {
     // 시간 차 계산을 위한 데이터 포맷 선언
     val f: SimpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.KOREA)
 
+    // 보여줄 오픈 시간 , 마감시간 설정
+    fun getDisplayTime(h:String, m:String):String {
+        var displayHour = "00"
+        var displayMinute = "00"
+
+        // ui에 보여지는 시간과 분
+        if (h.length == 1) { // 한자리 숫자일 때는 앞에 "0"을 붙여준다.
+            displayHour = "0$h"
+        } else {
+            displayHour = h
+        }
+
+        if (m.length == 1) {
+            displayMinute = "0$m"
+        } else {
+            displayMinute = m
+        }
+
+        var displayTime = "$displayHour:$displayMinute"
+        return displayTime
+    }
+
     fun getTimeDiffTxt(openTimeTxt: String, closeTimeTxt: String): String {
 
         var totalTimeTxt = ""

@@ -8,10 +8,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.playground.albazip.databinding.DialogFragmentConfirm24HourBinding
 
 class Confirm24HourBottomSheetDialog(
-    private val flag: Int,
     private val doAfterConfirm: () -> Unit,
-    private val doAfterCancelOpen: () -> Unit,
-    private val doAfterCancelClose: () -> Unit
+    private val doAfterCancel: () -> Unit,
 ) : BottomSheetDialogFragment() {
     private lateinit var binding: DialogFragmentConfirm24HourBinding
 
@@ -24,12 +22,7 @@ class Confirm24HourBottomSheetDialog(
 
         // 다시 설정 버튼
         binding.btnCancel.setOnClickListener {
-
-            if (flag == 0) { // 오픈재설정
-                doAfterCancelOpen()
-            } else { // 마감재설정
-                doAfterCancelClose()
-            }
+            doAfterCancel()
             dismiss()
         }
 

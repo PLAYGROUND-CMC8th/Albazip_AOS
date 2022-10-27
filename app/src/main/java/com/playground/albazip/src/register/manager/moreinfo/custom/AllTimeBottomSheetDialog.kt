@@ -147,10 +147,9 @@ class AllTimeBottomSheetDialog() : BottomSheetDialogFragment(),
             binding.apply {
                 if (tvCloseHour.text != "00:00") {
                     if (tvOpenHour.text == tvCloseHour.text) {
-                        val check24ConfirmDialog = Confirm24HourBottomSheetDialog(0,
+                        val check24ConfirmDialog = Confirm24HourBottomSheetDialog(
                             { doAfterConfirm() },
-                            { doAfterCancelOpen() },
-                            { doAfterCancelClose() })
+                            { doAfterCancelClose()})
 
                         check24ConfirmDialog.isCancelable = false
                         check24ConfirmDialog.show(
@@ -170,10 +169,9 @@ class AllTimeBottomSheetDialog() : BottomSheetDialogFragment(),
             binding.apply {
                 if (tvCloseHour.text != "00:00") {
                     if (tvCloseHour.text == tvOpenHour.text) {
-                        val check24ConfirmDialog = Confirm24HourBottomSheetDialog(1,
+                        val check24ConfirmDialog = Confirm24HourBottomSheetDialog(
                             { doAfterConfirm() },
-                            { doAfterCancelOpen() },
-                            { doAfterCancelClose() })
+                            { doAfterCancelOpen() })
 
                         check24ConfirmDialog.isCancelable = false
                         check24ConfirmDialog.show(

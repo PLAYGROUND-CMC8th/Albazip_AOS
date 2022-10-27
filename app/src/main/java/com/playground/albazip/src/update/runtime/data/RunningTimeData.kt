@@ -12,4 +12,7 @@ data class RunningTimeData(
     var closeTime: String? = "00:00",
     var totalTime: String? = "0시간",
 
+    var openFlag:Boolean = false,
+    var closeFlag:Boolean = false
+
 ):Serializable
