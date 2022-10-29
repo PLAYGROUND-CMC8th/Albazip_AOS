@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.databinding.ItemUpdateRvSetWorkerTimeBinding
+import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
@@ -13,7 +14,8 @@ class WorkingTimeAdapter(
     val setBtnVisibilityOn: () -> Unit,
     val setBtnVisibilityOff: () -> Unit,
     private val setDoneOn: () -> Unit,
-    private val setDoneOff: () -> Unit
+    private val setDoneOff: () -> Unit,
+    val workingTimeFlag:Boolean
 ) :
     RecyclerView.Adapter<WorkingTimeAdapter.WorkingTimeViewHolder>() {
 
@@ -45,6 +47,45 @@ class WorkingTimeAdapter(
 
     inner class WorkingTimeViewHolder(val binding: ItemUpdateRvSetWorkerTimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            // 들어오자마자 완료버튼 여부 체크
+            // 이전 액티비티에서의 활동과 관련이 있다.
+            if (workingTimeFlag) {
+                // 입력된 데이터가 모두 일치하면
+                // 모든 시간이 같아요 버튼 활성화
+                val tempList =  mutableListOf<WorkerTimeData>()
+                for (i in workerTimeList.indices) {
+                    val data = workerTimeList[i]
+                    tempList.add(
+                        WorkerTimeData(
+                            "",
+                            data.isSelected,
+                            data.openTime,
+                            data.closeTime,
+                            data.totalTime,
+                            data.openFlag,
+                            data.closeFlag,
+                        )
+                    )
+                }
+
+                if (tempList.filter { it.isSelected == true }.toMutableSet().size == 1) {
+                    setBtnVisibilityOn()
+                }
+                checkIsDone()
+            }
+        }
+
+        fun initView(data: WorkerTimeData) {
+            if (data.isSelected == true) {
+                if (binding.ivCheckboxDay.isSelected)  {
+                    binding.llWorkerTime.visibility = View.VISIBLE
+                    binding.tvTotalTime.visibility = View.VISIBLE
+                    binding.tvDay.isEnabled = true
+                }
+            }
+        }
 
         // 기본 세팅
         fun setItemList(workerTimeData: WorkerTimeData) {
@@ -118,6 +159,8 @@ class WorkingTimeAdapter(
         holder.setCbBox(workerTimeList[position], position)
         holder.setItemTimeEvent(position)
         holder.initItemHourUIAfterInput(workerTimeList[position])
+
+        holder.initView(workerTimeList[position])
     }
 
     override fun getItemCount(): Int = workerTimeList.size
@@ -177,7 +220,7 @@ class WorkingTimeAdapter(
 
     private fun checkIsDone() {
 
-        notifyItemRangeChanged(0, workerTimeList.size)
+        // notifyItemRangeChanged(0, workerTimeList.size)
 
         // 체크 된 게 아예 없을 때
         val checkIsAllEmpty = workerTimeList.all { it.isSelected == false }

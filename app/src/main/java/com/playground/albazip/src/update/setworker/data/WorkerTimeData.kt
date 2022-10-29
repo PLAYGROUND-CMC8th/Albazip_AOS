@@ -3,7 +3,7 @@ package com.playground.albazip.src.update.setworker.data
 import java.io.Serializable
 
 data class WorkerTimeData(
-    val workDay: String,
+    var workDay: String,
     var isSelected: Boolean? = false,
     var openTime: String? = "00:00", var closeTime: String? = "00:00",
 

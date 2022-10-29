@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateSetWorkerTimeBinding
+import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.src.update.setworker.adapter.WorkingTimeAdapter
 import com.playground.albazip.src.update.setworker.custom.SetAllWorkTimePickerBottomSheetDialog
@@ -32,6 +33,25 @@ class UpdateSetWorkerTimeActivity :
         initRVAdapter()
 
         initDoneBtn()
+
+        getIntentRv()
+    }
+
+    // 이미 들어간 데이터가 있다면 다음과 같이 설정
+    private fun getIntentRv() {
+        if(intent.getBooleanExtra("workingTimeFlag",false)) {
+            workingTimeAdapter =
+                WorkingTimeAdapter(
+                    { setDoneBtnVisibilityOn() },
+                    { setDoneBtnVisibilityOff() },
+                    { setDoneOn() },
+                    { setDoneOff() },
+                    true)
+            workingTimeAdapter.workerTimeList = intent.getSerializableExtra("adapterList") as ArrayList<WorkerTimeData>
+            binding.rvWorkerTime.itemAnimator = null
+            binding.rvWorkerTime.adapter = workingTimeAdapter
+            setRvItemClickEvent()
+        }
     }
 
     // 완료 이벤트
@@ -48,7 +68,6 @@ class UpdateSetWorkerTimeActivity :
             returnIntent.putExtra("workingTimeFlag", true)
             setResult(RESULT_OK, returnIntent)
             finish()
-
         }
     }
 
@@ -80,7 +99,8 @@ class UpdateSetWorkerTimeActivity :
                 { setDoneBtnVisibilityOn() },
                 { setDoneBtnVisibilityOff() },
                 { setDoneOn() },
-                { setDoneOff() })
+                { setDoneOff() },
+                false)
         workingTimeAdapter.workerTimeList.addAll(
             listOf(
                 WorkerTimeData("월요일"),
