@@ -1,8 +1,12 @@
 package com.playground.albazip.src.update.setworker
 
 import WorkingTimePickerBottomSheetDialog
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import com.bumptech.glide.Glide
+import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateSetWorkerTimeBinding
 import com.playground.albazip.src.update.setworker.adapter.WorkingTimeAdapter
@@ -12,7 +16,8 @@ import com.playground.albazip.util.GetTimeDiffUtil
 
 class UpdateSetWorkerTimeActivity :
     BaseActivity<ActivityUpdateSetWorkerTimeBinding>(ActivityUpdateSetWorkerTimeBinding::inflate),
-    WorkingTimePickerBottomSheetDialog.BottomSheetClickListener, SetAllWorkTimePickerBottomSheetDialog.BottomSheetClickListener {
+    WorkingTimePickerBottomSheetDialog.BottomSheetClickListener,
+    SetAllWorkTimePickerBottomSheetDialog.BottomSheetClickListener {
 
     private lateinit var workingTimeAdapter: WorkingTimeAdapter
     var selectedPosition = -1
@@ -30,7 +35,7 @@ class UpdateSetWorkerTimeActivity :
             if (workingTimeAdapter.isNoneSelected()) {
                 showCustomToast("시간을 설정할 근무일을 선택해주세요.")
             } else {
-                SetAllWorkTimePickerBottomSheetDialog().show(supportFragmentManager,"SET_ALL_TIME")
+                SetAllWorkTimePickerBottomSheetDialog().show(supportFragmentManager, "SET_ALL_TIME")
             }
         }
     }
@@ -117,12 +122,15 @@ class UpdateSetWorkerTimeActivity :
         }
     }
 
+    // 선택 시간 일괄 변경
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onTimeAllTimeSelected(
         allOpenHour: String,
         allCloseHour: String,
         allTotalTime: String,
     ) {
-
+        Glide.with(this).load(resources.getDrawable(R.drawable.ic_circle_check_active,null)).into(binding.ivCheckboxRunningTimeCheckbox)
+        workingTimeAdapter.setAllTime(allOpenHour, allCloseHour, allTotalTime)
     }
 
 }

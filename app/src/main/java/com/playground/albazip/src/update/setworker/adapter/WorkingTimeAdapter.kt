@@ -141,4 +141,27 @@ class WorkingTimeAdapter() :
         }
         return false
     }
+
+
+    // 전체가 일반시간으로 설정되었을떄
+    fun setAllTime(allOpenHour: String, allCloseHour: String, allTotalTime: String) {
+
+        // 선택된 요일의 시간을 바꿔준다.
+        for (i in workerTimeList.indices) {
+            if (workerTimeList[i].isSelected == true) {
+                workerTimeList[i].apply {
+                    openTime = allOpenHour
+                    closeTime = allCloseHour
+                    totalTime = allTotalTime
+
+                    openFlag = true
+                    closeFlag = true
+                }
+            }
+        }
+
+       notifyItemRangeChanged(0, workerTimeList.size)
+    }
+
+
 }
