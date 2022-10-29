@@ -132,7 +132,13 @@ class WorkingTimeAdapter() :
         )
 
         notifyItemChanged(position)
-        // setAllCbVisibility(checkIfDiff())
-        // checkIsDone()
+    }
+
+    // 선택 된 게 아무 것도 없을 때
+    fun isNoneSelected(): Boolean {
+        if(workerTimeList.all { it.isSelected == false }){
+            return true
+        }
+        return false
     }
 }

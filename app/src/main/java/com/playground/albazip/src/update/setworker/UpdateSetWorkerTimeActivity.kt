@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.view.View
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateSetWorkerTimeBinding
-import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
 import com.playground.albazip.src.update.setworker.adapter.WorkingTimeAdapter
+import com.playground.albazip.src.update.setworker.custom.SetAllWorkTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
 class UpdateSetWorkerTimeActivity :
     BaseActivity<ActivityUpdateSetWorkerTimeBinding>(ActivityUpdateSetWorkerTimeBinding::inflate),
-    WorkingTimePickerBottomSheetDialog.BottomSheetClickListener {
+    WorkingTimePickerBottomSheetDialog.BottomSheetClickListener, SetAllWorkTimePickerBottomSheetDialog.BottomSheetClickListener {
 
     private lateinit var workingTimeAdapter: WorkingTimeAdapter
     var selectedPosition = -1
@@ -20,7 +20,19 @@ class UpdateSetWorkerTimeActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initAllSameBtn()
         initRVAdapter()
+    }
+
+    // 모든 근무 시간이 같아요
+    private fun initAllSameBtn() {
+        binding.ivCheckboxRunningTimeCheckbox.setOnClickListener {
+            if (workingTimeAdapter.isNoneSelected()) {
+                showCustomToast("시간을 설정할 근무일을 선택해주세요.")
+            } else {
+                SetAllWorkTimePickerBottomSheetDialog().show(supportFragmentManager,"SET_ALL_TIME")
+            }
+        }
     }
 
     private fun initRVAdapter() {
@@ -103,6 +115,14 @@ class UpdateSetWorkerTimeActivity :
                 showCustomToast("출근 시간과 같아요. 시간을 다시 설정해주세요.")
             }
         }
+    }
+
+    override fun onTimeAllTimeSelected(
+        allOpenHour: String,
+        allCloseHour: String,
+        allTotalTime: String,
+    ) {
+
     }
 
 }

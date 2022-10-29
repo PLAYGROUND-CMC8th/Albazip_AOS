@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.playground.albazip.R
 import com.playground.albazip.databinding.DialogFragment24HourBinding
 import com.playground.albazip.util.GetTimeDiffUtil
 
@@ -14,6 +14,9 @@ class SetAllWorkTimePickerBottomSheetDialog : BottomSheetDialogFragment(),
     SetAllWorkNextTimePickerBottomSheetDialog.BottomSheetClickListener {
     private lateinit var binding: DialogFragment24HourBinding
     lateinit var bottomSheetClickListener: BottomSheetClickListener
+
+    var openFlag = false
+    var closeFlag = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -27,7 +30,7 @@ class SetAllWorkTimePickerBottomSheetDialog : BottomSheetDialogFragment(),
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DialogFragment24HourBinding.inflate(inflater, container, false)
 
         setLayout()
@@ -69,81 +72,69 @@ class SetAllWorkTimePickerBottomSheetDialog : BottomSheetDialogFragment(),
 
     /** 다음 바텀시트 클릭 이벤트에서 시간을 받아온 후 레이아웃을 세팅해준다.*/
     override fun onTimeSelected(h: String, m: String, flag: Int) {
-        var displayHour = "00"
-        var displayMinute = "00"
+        val displayTime = GetTimeDiffUtil().getDisplayTime(h, m)
 
-        // ui에 보여지는 시간과 분
-        if (h.length == 1) { // 한자리 숫자일 때는 앞에 "0"을 붙여준다.
-            displayHour = "0$h"
-        } else {
-            displayHour = h
-        }
-
-        if (m.length == 1) {
-            displayMinute = "0$m"
-        } else {
-            displayMinute = m
-        }
-
-        var displayTime = "$displayHour:$displayMinute"
-
-        setTimeLayOut(displayTime, flag)
-    }
-
-    private fun setTimeLayOut(displayTime: String, flag: Int) {
-        if (flag == 0) {
+        if (flag == 0) { // 오픈시간 설정
             binding.tvOpenHour.text = displayTime
-        } else {
+            binding.tvOpenHour.isEnabled = true
+            openFlag = true
+
+            if (closeFlag) {
+                GetTimeDiffUtil().getTimeDiff(
+                    binding.tvOpenHour,
+                    binding.tvCloseHour,
+                    binding.tvTotalTime
+                )
+            }
+
+            // 마감시간이 활성화 되어 있을 때 -> 24시간 여부 체크
+            if (binding.tvCloseHour.isEnabled) {
+                areYou24Hour(0)
+            }
+
+
+        } else { // 마감시간 설정
             binding.tvCloseHour.text = displayTime
+            binding.tvCloseHour.isEnabled = true
+            closeFlag = true
+
+            if (openFlag) {
+                GetTimeDiffUtil().getTimeDiff(
+                    binding.tvOpenHour,
+                    binding.tvCloseHour,
+                    binding.tvTotalTime
+                )
+            }
+
+            // 오픈시간이 활성화 되어 있을 때 -> 24시간 여부 체크
+            if (binding.tvOpenHour.isEnabled) {
+                areYou24Hour(1)
+            }
         }
 
-        // 텍스트 설정
-        if (binding.tvOpenHour.text != "00:00") {
-            binding.tvOpenHour.setTextColor(
-                requireContext().resources.getColor(
-                    R.color.text4_343434,
-                    null
-                )
-            )
-        } else {
-            binding.tvOpenHour.setTextColor(
-                requireContext().resources.getColor(
-                    R.color.gray5_e2e2e2,
-                    null
-                )
-            )
-        }
-
-        if (binding.tvCloseHour.text != "00:00") {
-            binding.tvCloseHour.setTextColor(
-                requireContext().resources.getColor(
-                    R.color.text4_343434,
-                    null
-                )
-            )
-        } else {
-            binding.tvCloseHour.setTextColor(
-                requireContext().resources.getColor(
-                    R.color.gray5_e2e2e2,
-                    null
-                )
-            )
-        }
-
-        // totalTime 설정
-        if (binding.tvOpenHour.text != "00:00" && binding.tvCloseHour.text != "00:00") {
-            GetTimeDiffUtil().getTimeDiff(
-                binding.tvOpenHour,
-                binding.tvCloseHour,
-                binding.tvTotalTime
-            )
-
-            binding.btnConfirm.isEnabled = true // 다음버튼 활성화
-        } else {
-            binding.btnConfirm.isEnabled = false // 다음버튼 비활성화
-        }
-
+        checkBtnState()
     }
+
+    // 시간이 같을 때 24시간 설정 여부 묻기
+    private fun areYou24Hour(flags: Int) {
+        // 시간이 같을 때 24시간 여부 묻기
+        if (binding.tvTotalTime.text == "0시간") {
+            if (flags == 0) { // 출근 다시 받기
+                SetAllWorkNextTimePickerBottomSheetDialog(0).show(
+                    childFragmentManager,
+                    "SET_START_HOUR"
+                )
+                Toast.makeText(requireContext(), "퇴근 시간과 같아요. 시간을 다시 설정해주세요.", Toast.LENGTH_SHORT).show()
+            } else { // 퇴근 다시 받기
+                SetAllWorkNextTimePickerBottomSheetDialog(1).show(
+                    childFragmentManager,
+                    "SET_END_HOUR"
+                )
+                Toast.makeText(requireContext(), "출근 시간과 같아요. 시간을 다시 설정해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
     //  확인 버튼 이벤트
     private fun initConfirmEvent() {
@@ -156,15 +147,18 @@ class SetAllWorkTimePickerBottomSheetDialog : BottomSheetDialogFragment(),
                 allOpenHour,
                 allCloseHour,
                 allTotalTime,
-                true,
             )
             // 종료
             dismiss()
         }
     }
 
+    private fun checkBtnState() {
+        binding.btnConfirm.isEnabled = binding.tvTotalTime.text != "0시간"
+    }
+
     // activity 에 전달된 변수들
     interface BottomSheetClickListener {
-        fun onTimeAllTimeSelected(allOpenHour: String, allCloseHour: String, allTotalTime: String, checkBoxState: Boolean)
+        fun onTimeAllTimeSelected(allOpenHour: String, allCloseHour: String, allTotalTime: String)
     }
 }
