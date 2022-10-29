@@ -4,6 +4,4 @@
         android:state_selected="true" />
     <item android:drawable="@drawable/rectangle_fill_white_radius_gray_16"
         android:state_selected="false"/>
-    <item android:drawable="@drawable/rectangle_fill_white_radius_gray_16"
-        android:state_enabled="true" />
 </selector>
