@@ -12,7 +12,8 @@ import com.playground.albazip.util.GetTimeDiffUtil
 class RunningTimeAdapter(
     val setBtnVisibilityOff: () -> Unit,
     val setDoneOn: () -> Unit,
-    val setDoneOff: () -> Unit
+    val setDoneOff: () -> Unit,
+    val runningTimeFlag:Boolean
 ) :
     RecyclerView.Adapter<RunningTimeAdapter.RunningTimeViewHolder>() {
 
@@ -29,6 +30,26 @@ class RunningTimeAdapter(
 
     inner class RunningTimeViewHolder(private val binding: ItemRvRunningTimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            // 들어오자마자 완료버튼 여부 체크
+            // 이전 액티비티에서의 활동과 관련이 있다.
+            if (runningTimeFlag) {
+                checkIsDone()
+            }
+        }
+
+        fun restFromActivity(data: RunningTimeData) {
+            if (data.restState) {
+                binding.cbRestDay.isSelected = true
+
+                binding.clOpen.isEnabled = false
+                binding.clClose.isEnabled = false
+
+                binding.tvOpenHour.isEnabled = false
+                binding.tvCloseHour.isEnabled = false
+            }
+        }
 
         // 1. 기본 UI 를 설정한다.
         fun onBind(data: RunningTimeData) {
@@ -199,6 +220,7 @@ class RunningTimeAdapter(
         holder.setRestDayBtnEvent(position)
         holder.set24HourBtnEvent(position)
         holder.initGet24HourSelected(runningTimeItemList[position], position)
+        holder.restFromActivity(runningTimeItemList[position])
     }
 
     override fun getItemCount(): Int = runningTimeItemList.size

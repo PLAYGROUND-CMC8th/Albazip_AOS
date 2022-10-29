@@ -1,6 +1,8 @@
 package com.playground.albazip.src.update.runtime
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRunningTimeBinding
@@ -30,6 +32,24 @@ class UpdateRunningTimeActivity :
         initAllCheckBtnEvent()
 
         initBackBtn()
+        initDoneBtnEvent()
+
+        getIntentRv()
+
+        Log.d("kite",runningTimeAdapter.runningTimeItemList.toString())
+    }
+
+    // 이미 들어간 데이터가 있다면 다음과 같이 설정
+    private fun getIntentRv() {
+        if(intent.getBooleanExtra("runningTimeFlag",false)) {
+            runningTimeAdapter = RunningTimeAdapter({ setAllSameBtnOff() },
+                { setDoneBtnVisibilityOn() },
+                { setDoneBtnVisibilityOff() }, true)
+            runningTimeAdapter.runningTimeItemList = intent.getSerializableExtra("adapterList") as ArrayList<RunningTimeData>
+            binding.rvRunningTimeDays.itemAnimator = null
+            binding.rvRunningTimeDays.adapter = runningTimeAdapter
+            setRvItemClickEvent()
+        }
     }
 
     private fun initBackBtn() {
@@ -41,7 +61,7 @@ class UpdateRunningTimeActivity :
     private fun initAdapter() {
         runningTimeAdapter = RunningTimeAdapter({ setAllSameBtnOff() },
             { setDoneBtnVisibilityOn() },
-            { setDoneBtnVisibilityOff() })
+            { setDoneBtnVisibilityOff() }, false)
         runningTimeAdapter.runningTimeItemList.addAll(
             listOf(
                 RunningTimeData("월"),
@@ -186,6 +206,25 @@ class UpdateRunningTimeActivity :
     // 완료 버튼 비활성화
     private fun setDoneBtnVisibilityOff() {
         binding.tvRunningTimeDone.isEnabled = false
+    }
+
+    // 완료 버튼 이벤트
+    private fun initDoneBtnEvent() {
+        binding.tvRunningTimeDone.setOnClickListener {
+            val returnIntent = Intent()
+
+            val openScheduleList = runningTimeAdapter.runningTimeItemList.filter { it.restState == false }
+            val adapterList = runningTimeAdapter.runningTimeItemList
+
+            returnIntent.putExtra("openScheduleList", openScheduleList as ArrayList<RunningTimeData>)
+            returnIntent.putExtra(
+                "adapterList",
+                adapterList as ArrayList<RunningTimeData>
+            )
+            returnIntent.putExtra("runningTimeFlag", true)
+            setResult(RESULT_OK, returnIntent)
+            finish()
+        }
     }
 
 }

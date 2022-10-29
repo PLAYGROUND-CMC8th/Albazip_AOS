@@ -87,11 +87,11 @@ class InputPlaceMoreBetaActivity :
             //val registerDataList: ArrayList<String> =
             //    intent.getSerializableExtra("registerDataList") as ArrayList<String>
 
-            val holidayList = mutableListOf("월","화","수","목","금","토","일")
+            val holidayList = mutableListOf<String>()
 
-            for (i in openScheduleList.indices) {
-                if (holidayList.contains(openScheduleList[i].day)){
-                    holidayList.remove(openScheduleList[i].day)
+            for (i in rvList.indices) {
+                if (rvList[i].restState) {
+                    holidayList.add(rvList[i].day.toString())
                 }
             }
 
@@ -135,7 +135,7 @@ class InputPlaceMoreBetaActivity :
             val nextIntent = Intent(this, UpdateRunningTimeActivity::class.java)
             nextIntent.putExtra("openScheduleList", openScheduleList)
             nextIntent.putExtra("adapterList", rvList)
-            nextIntent.putExtra("runningTimeFlag", false)
+            nextIntent.putExtra("runningTimeFlag", runningTimeFlag)
             startActivityForResult.launch(nextIntent)
         }
     }
