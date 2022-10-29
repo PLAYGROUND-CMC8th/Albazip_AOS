@@ -3,6 +3,9 @@ package com.playground.albazip.src.update.setworker
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.playground.albazip.config.BaseActivity
@@ -13,6 +16,7 @@ import com.playground.albazip.src.update.runtime.data.OpenScheduleData
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.src.update.setworker.dialog.RestTimeInfoBottomSheetDialog
+import java.text.DecimalFormat
 
 class UpdateAddWorkerOneActivity :
     BaseActivity<ActivityUpdateAddWorkerOneBinding>(ActivityUpdateAddWorkerOneBinding::inflate),
@@ -20,11 +24,11 @@ class UpdateAddWorkerOneActivity :
 
     private var positionState = false
     private var partState = false
-    private var workTimeState = false
     private var restTimeState = false
     private var payState = false
 
     var workingTimeFlag = false
+
     var rvList = arrayListOf<WorkerTimeData>()
 
     private val startActivityForResult =
@@ -53,6 +57,7 @@ class UpdateAddWorkerOneActivity :
         initRestInfoBottomSheet()
 
         initPayPicker()
+        initPayEvent()
 
         initSelectWorkingTimeBtn()
     }
@@ -67,16 +72,19 @@ class UpdateAddWorkerOneActivity :
                     btnMonToFri.isSelected = true
                     btnSatToSun.isSelected = false
                 }
+
+                checkBtnState()
             }
 
             btnSatToSun.setOnClickListener {
                 if (btnSatToSun.isSelected) {
                     btnSatToSun.isSelected = false
                 } else {
-                    positionState = true
                     btnSatToSun.isSelected = true
                     btnMonToFri.isSelected = false
                 }
+
+                checkBtnState()
             }
         }
     }
@@ -93,6 +101,8 @@ class UpdateAddWorkerOneActivity :
                     btnMiddle.isSelected = false
                     btnClose.isSelected = false
                 }
+
+                checkBtnState()
             }
 
             btnMiddle.setOnClickListener {
@@ -104,6 +114,8 @@ class UpdateAddWorkerOneActivity :
                     btnOpen.isSelected = false
                     btnClose.isSelected = false
                 }
+
+                checkBtnState()
             }
 
             btnClose.setOnClickListener {
@@ -115,6 +127,8 @@ class UpdateAddWorkerOneActivity :
                     btnOpen.isSelected = false
                     btnMiddle.isSelected = false
                 }
+
+                checkBtnState()
             }
         }
     }
@@ -133,6 +147,8 @@ class UpdateAddWorkerOneActivity :
                     btn60Min.isSelected = false
                     btn90Min.isSelected = false
                 }
+
+                checkBtnState()
             }
 
             // 30분
@@ -146,6 +162,8 @@ class UpdateAddWorkerOneActivity :
                     btn60Min.isSelected = false
                     btn90Min.isSelected = false
                 }
+
+                checkBtnState()
             }
 
             // 60 분
@@ -159,6 +177,8 @@ class UpdateAddWorkerOneActivity :
                     btn30Min.isSelected = false
                     btn90Min.isSelected = false
                 }
+
+                checkBtnState()
             }
 
             // 90 분
@@ -172,6 +192,8 @@ class UpdateAddWorkerOneActivity :
                     btn30Min.isSelected = false
                     btn60Min.isSelected = false
                 }
+
+                checkBtnState()
             }
         }
     }
@@ -207,6 +229,52 @@ class UpdateAddWorkerOneActivity :
             nextIntent.putExtra("workingTimeFlag", workingTimeFlag)
             startActivityForResult.launch(nextIntent)
         }
+    }
+
+    // 급여 (,) 붙이기
+    private fun initPayEvent() {
+        var result = ""
+        val decimalFormat: DecimalFormat = DecimalFormat("#,###")
+        binding.etPayment.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!TextUtils.isEmpty(s.toString()) && !s.toString().equals(result)) {
+                    result = decimalFormat.format((s.toString().replace(",", "").toDouble()))
+                    binding.etPayment.setText(result)
+                    binding.etPayment.setSelection(result.length)
+                }
+
+                if (s?.toString()?.isNotEmpty() == true) {
+                    payState = true
+                    checkBtnState()
+                } else {
+                    payState = false
+                    checkBtnState()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+    }
+
+
+    private fun checkFlags() {
+        val positionBtnList = mutableListOf(binding.btnMonToFri, binding.btnSatToSun)
+        val partBtnList = mutableListOf(binding.btnOpen,binding.btnMiddle,binding.btnClose)
+        val restTimeBtnList = mutableListOf(binding.btnNoRest,binding.btn30Min,binding.btn60Min,binding.btn90Min)
+
+        positionState = positionBtnList.any{ it.isSelected }
+        partState = partBtnList.any { it.isSelected }
+        restTimeState = restTimeBtnList.any { it.isSelected }
+    }
+
+    private fun checkBtnState() {
+        checkFlags()
+        binding.tvNext.isEnabled =
+            positionState && partState && restTimeState && payState && workingTimeFlag
     }
 
 }

@@ -52,7 +52,7 @@
                 android:enabled="false"
                 android:letterSpacing="-0.03"
                 android:text="다음"
-                android:textColor="#adadad"
+                android:textColor="@color/selector_tv_done"
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
