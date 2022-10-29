@@ -1,5 +1,7 @@
 package com.playground.albazip.src.update.setworker.data
 
+import java.io.Serializable
+
 data class WorkerTimeData(
     val workDay: String,
     var isSelected: Boolean? = false,
@@ -9,4 +11,4 @@ data class WorkerTimeData(
 
     var openFlag:Boolean = false,
     var closeFlag:Boolean = false
-)
+):Serializable

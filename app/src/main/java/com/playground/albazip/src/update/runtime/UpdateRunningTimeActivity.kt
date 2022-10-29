@@ -54,7 +54,11 @@ class UpdateRunningTimeActivity :
 
     private fun initBackBtn() {
         binding.ivRunningTimeBackBtn.setOnClickListener {
-            RunningTimeCancelBottomSheetDialog().show(supportFragmentManager, "BACK_BTN")
+            if (intent.getBooleanExtra("runningTimeFlag",false)) {
+                finish()
+            } else {
+                RunningTimeCancelBottomSheetDialog().show(supportFragmentManager, "BACK_BTN")
+            }
         }
     }
 

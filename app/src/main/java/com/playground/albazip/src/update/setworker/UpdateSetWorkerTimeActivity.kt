@@ -2,12 +2,14 @@ package com.playground.albazip.src.update.setworker
 
 import WorkingTimePickerBottomSheetDialog
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateSetWorkerTimeBinding
+import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.src.update.setworker.adapter.WorkingTimeAdapter
 import com.playground.albazip.src.update.setworker.custom.SetAllWorkTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.setworker.custom.WorkTimeCancelBottomSheetDialog
@@ -28,12 +30,36 @@ class UpdateSetWorkerTimeActivity :
         initBackBtnEvent()
         initAllSameBtn()
         initRVAdapter()
+
+        initDoneBtn()
+    }
+
+    // 완료 이벤트
+    private fun initDoneBtn() {
+        binding.tvSetWorkTimeDone.setOnClickListener {
+            val returnIntent = Intent()
+
+            val adapterList = workingTimeAdapter.workerTimeList
+
+            returnIntent.putExtra(
+                "adapterList",
+                adapterList as ArrayList<WorkerTimeData>
+            )
+            returnIntent.putExtra("workingTimeFlag", true)
+            setResult(RESULT_OK, returnIntent)
+            finish()
+
+        }
     }
 
     // 뒤로가기 이벤트
     private fun initBackBtnEvent() {
         binding.ivRunningTimeBackBtn.setOnClickListener {
-            WorkTimeCancelBottomSheetDialog { finish() }.show(supportFragmentManager, "BACK_EVENT")
+            if (intent.getBooleanExtra("workingTimeFlag",false)) {
+                finish()
+            } else {
+                WorkTimeCancelBottomSheetDialog { finish() }.show(supportFragmentManager, "BACK_EVENT")
+            }
         }
     }
 

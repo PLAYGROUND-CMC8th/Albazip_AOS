@@ -1,19 +1,46 @@
 package com.playground.albazip.src.update.setworker
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateAddWorkerOneBinding
 import com.playground.albazip.src.mypage.manager.custom.PayUnitBottomSheetDialog
+import com.playground.albazip.src.update.runtime.UpdateRunningTimeActivity
+import com.playground.albazip.src.update.runtime.data.OpenScheduleData
+import com.playground.albazip.src.update.runtime.data.RunningTimeData
+import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.src.update.setworker.dialog.RestTimeInfoBottomSheetDialog
 
 class UpdateAddWorkerOneActivity :
-    BaseActivity<ActivityUpdateAddWorkerOneBinding>(ActivityUpdateAddWorkerOneBinding::inflate), PayUnitBottomSheetDialog.BottomSheetClickListener {
+    BaseActivity<ActivityUpdateAddWorkerOneBinding>(ActivityUpdateAddWorkerOneBinding::inflate),
+    PayUnitBottomSheetDialog.BottomSheetClickListener {
 
     private var positionState = false
     private var partState = false
     private var workTimeState = false
     private var restTimeState = false
     private var payState = false
+
+    var workingTimeFlag = false
+    var rvList = arrayListOf<WorkerTimeData>()
+
+    private val startActivityForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                workingTimeFlag = it.data!!.getBooleanExtra("workingTimeFlag", false)
+
+                rvList = it.data!!.getSerializableExtra("adapterList") as ArrayList<WorkerTimeData>
+
+                if (workingTimeFlag) {
+                    binding.llWorkingDone.visibility = View.VISIBLE
+                } else {
+                    binding.llWorkingDone.visibility = View.GONE
+                }
+            }
+        }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +53,8 @@ class UpdateAddWorkerOneActivity :
         initRestInfoBottomSheet()
 
         initPayPicker()
+
+        initSelectWorkingTimeBtn()
     }
 
     // 포지션 선택 이벤트
@@ -158,13 +187,26 @@ class UpdateAddWorkerOneActivity :
     private fun initPayPicker() {
         // 급여 종류 picker
         binding.rlPayOne.setOnClickListener {
-            PayUnitBottomSheetDialog(binding.tvSelectedPayUnit.text.toString()).show(supportFragmentManager, "unitPicker")
+            PayUnitBottomSheetDialog(binding.tvSelectedPayUnit.text.toString()).show(
+                supportFragmentManager,
+                "unitPicker"
+            )
         }
     }
 
     // 페이 선택 텍스트 받기
     override fun onItemSelected(text: String) {
         binding.tvSelectedPayUnit.text = text
+    }
+
+    // 근무일 선택하기
+    private fun initSelectWorkingTimeBtn() {
+        binding.btnSelectWorkDay.setOnClickListener {
+            val nextIntent = Intent(this, UpdateSetWorkerTimeActivity::class.java)
+            nextIntent.putExtra("adapterList", rvList)
+            nextIntent.putExtra("workingTimeFlag", workingTimeFlag)
+            startActivityForResult.launch(nextIntent)
+        }
     }
 
 }

@@ -71,8 +71,8 @@ class WorkingTimeAdapter(
                         setViewVisibility(true)
                     }
 
-                    checkIsDone()
                     setAllCbVisibility(checkIfDiff())
+                    checkIsDone()
                 }
             }
         }
@@ -176,6 +176,9 @@ class WorkingTimeAdapter(
     }
 
     private fun checkIsDone() {
+
+        notifyItemRangeChanged(0, workerTimeList.size)
+
         // 체크 된 게 아예 없을 때
         val checkIsAllEmpty = workerTimeList.all { it.isSelected == false }
 
@@ -184,18 +187,18 @@ class WorkingTimeAdapter(
             workerTimeList.filter { it.isSelected == true }.any { it.totalTime == "0시간" }
 
         val noOpenInit =
-            workerTimeList.filter { it.isSelected == true }.any { it.openTime == "00:00" }
+            workerTimeList.filter { it.isSelected == true }.filter { it.closeTime != "00:00" }.filter { it.openFlag }.any { it.openTime == "00:00" }
         val noCloseInit =
-            workerTimeList.filter { it.isSelected == true }.any {it.closeTime == "00:00"}
+            workerTimeList.filter { it.isSelected == true }.filter { it.openTime != "00:00" }.filter { it.closeFlag }.any {it.closeTime == "00:00"}
 
         if (checkIsAllEmpty) {
             setDoneOff()
         } else if (checkIsZeroTime) {
             setDoneOff()
         } else if (noOpenInit){
-            setDoneOff()
+            setDoneOn()
         } else if (noCloseInit) {
-            setDoneOff()
+            setDoneOn()
         } else {
             setDoneOn()
         }
