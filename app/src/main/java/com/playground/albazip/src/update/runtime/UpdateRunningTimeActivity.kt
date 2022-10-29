@@ -7,14 +7,15 @@ import com.playground.albazip.databinding.ActivityRunningTimeBinding
 import com.playground.albazip.src.update.runtime.custom.AllTimeBottomSheetDialog
 import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
 import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
+import com.playground.albazip.src.update.runtime.custom.RunningTimeCancelBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
 class UpdateRunningTimeActivity :
     BaseActivity<ActivityRunningTimeBinding>(ActivityRunningTimeBinding::inflate),
-RunningTimePickerBottomSheetDialog.BottomSheetClickListener,
-AllTimeBottomSheetDialog.BottomSheetClickListener{
+    RunningTimePickerBottomSheetDialog.BottomSheetClickListener,
+    AllTimeBottomSheetDialog.BottomSheetClickListener {
 
     private lateinit var runningTimeAdapter: RunningTimeAdapter
 
@@ -27,10 +28,20 @@ AllTimeBottomSheetDialog.BottomSheetClickListener{
         initAdapter()
         initBlockView()
         initAllCheckBtnEvent()
+
+        initBackBtn()
+    }
+
+    private fun initBackBtn() {
+        binding.ivRunningTimeBackBtn.setOnClickListener {
+            RunningTimeCancelBottomSheetDialog().show(supportFragmentManager, "BACK_BTN")
+        }
     }
 
     private fun initAdapter() {
-        runningTimeAdapter = RunningTimeAdapter ({ setAllSameBtnOff() }, {setDoneBtnVisibilityOn()}, {setDoneBtnVisibilityOff()})
+        runningTimeAdapter = RunningTimeAdapter({ setAllSameBtnOff() },
+            { setDoneBtnVisibilityOn() },
+            { setDoneBtnVisibilityOff() })
         runningTimeAdapter.runningTimeItemList.addAll(
             listOf(
                 RunningTimeData("월"),
@@ -55,8 +66,14 @@ AllTimeBottomSheetDialog.BottomSheetClickListener{
                 selectedPosition = position // 어떤 아이템이 선택되었는지 포시션 받기
 
                 when (tag) {
-                    "SET_OPEN_HOUR" -> RunningTimePickerBottomSheetDialog(0).show(supportFragmentManager,"SET_OPEN_HOUR")
-                    "SET_CLOSE_HOUR" -> RunningTimePickerBottomSheetDialog(1).show(supportFragmentManager,"SET_CLOSE_HOUR")
+                    "SET_OPEN_HOUR" -> RunningTimePickerBottomSheetDialog(0).show(
+                        supportFragmentManager,
+                        "SET_OPEN_HOUR"
+                    )
+                    "SET_CLOSE_HOUR" -> RunningTimePickerBottomSheetDialog(1).show(
+                        supportFragmentManager,
+                        "SET_CLOSE_HOUR"
+                    )
                 }
 
             }
@@ -87,13 +104,19 @@ AllTimeBottomSheetDialog.BottomSheetClickListener{
     }
 
     // 시간이 같을 때 24시간 설정 여부 묻기
-    private fun areYou24Hour(flags:Int) {
+    private fun areYou24Hour(flags: Int) {
         // 시간이 같을 때 24시간 여부 묻기
         if (runningTimeAdapter.runningTimeItemList[selectedPosition].totalTime == "0시간") {
             if (flags == 0) {
-                Confirm24HourBottomSheetDialog({set24Hour()},{showOpenDialogAgain()}).show(supportFragmentManager, "ARE_YOU_24")
-            }else {
-                Confirm24HourBottomSheetDialog({set24Hour()},{showCloseDialogAgain()}).show(supportFragmentManager, "ARE_YOU_24")
+                Confirm24HourBottomSheetDialog({ set24Hour() }, { showOpenDialogAgain() }).show(
+                    supportFragmentManager,
+                    "ARE_YOU_24"
+                )
+            } else {
+                Confirm24HourBottomSheetDialog({ set24Hour() }, { showCloseDialogAgain() }).show(
+                    supportFragmentManager,
+                    "ARE_YOU_24"
+                )
             }
         } else {
             runningTimeAdapter.runningTimeItemList[selectedPosition].time24State = false
@@ -103,11 +126,11 @@ AllTimeBottomSheetDialog.BottomSheetClickListener{
 
     // 24시간 확인 여부를 묻는 다이얼로그 대응 함수
     private fun showOpenDialogAgain() {
-        RunningTimePickerBottomSheetDialog(0).show(supportFragmentManager,"SET_OPEN_HOUR")
+        RunningTimePickerBottomSheetDialog(0).show(supportFragmentManager, "SET_OPEN_HOUR")
     }
 
     private fun showCloseDialogAgain() {
-        RunningTimePickerBottomSheetDialog(1).show(supportFragmentManager,"SET_CLOSE_HOUR")
+        RunningTimePickerBottomSheetDialog(1).show(supportFragmentManager, "SET_CLOSE_HOUR")
     }
 
     // 총시간 24 시간으로 설정하기
@@ -131,9 +154,9 @@ AllTimeBottomSheetDialog.BottomSheetClickListener{
         initAdapter()
 
         if (totalTime == "24시간") {
-            runningTimeAdapter.setAll24Hour(oTime,eTime,totalTime)
+            runningTimeAdapter.setAll24Hour(oTime, eTime, totalTime)
         } else {
-            runningTimeAdapter.setAllTIme(oTime,eTime,totalTime)
+            runningTimeAdapter.setAllTIme(oTime, eTime, totalTime)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.playground.albazip.src.update.runtime.adater
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,11 @@ import com.playground.albazip.databinding.ItemRvRunningTimeBinding
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
-class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit, val setDoneOn: () -> Unit, val setDoneOff: () -> Unit) :
+class RunningTimeAdapter(
+    val setBtnVisibilityOff: () -> Unit,
+    val setDoneOn: () -> Unit,
+    val setDoneOff: () -> Unit
+) :
     RecyclerView.Adapter<RunningTimeAdapter.RunningTimeViewHolder>() {
 
     var runningTimeItemList = mutableListOf<RunningTimeData>()
@@ -240,7 +245,7 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit, val setDoneOn: () 
     }
 
     // 전체가 24시간으로 설정되었을때
-    fun setAll24Hour(openTime:String,endTime:String,totalTIme:String) {
+    fun setAll24Hour(openTime: String, endTime: String, totalTIme: String) {
         runningTimeItemList.forEach {
             it.openTime = openTime
             it.closeTime = endTime
@@ -260,7 +265,7 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit, val setDoneOn: () 
     }
 
     // 전체가 일반시간으로 설정되었을떄
-    fun setAllTIme(openTime:String,endTime:String,totalTIme:String) {
+    fun setAllTIme(openTime: String, endTime: String, totalTIme: String) {
         runningTimeItemList.forEach {
             it.openTime = openTime
             it.closeTime = endTime
@@ -280,10 +285,28 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit, val setDoneOn: () 
     }
 
     // 값이 달라진 경우가 있다면
-    private fun checkIfDiff():Boolean {
+    private fun checkIfDiff(): Boolean {
 
-        val tempList= runningTimeItemList
-        tempList.forEach { it.allTimeFlag = true }
+        val tempList = mutableListOf<RunningTimeData>()
+
+        for (i in runningTimeItemList.indices) {
+            val data = runningTimeItemList[i]
+            tempList.add(
+                RunningTimeData(
+                    "",
+                    data.restState,
+                    data.time24State,
+                    data.openTime,
+                    data.closeTime,
+                    data.totalTime,
+                    data.openFlag,
+                    data.closeFlag,
+                    data.allTimeFlag
+                )
+            )
+        }
+
+        Log.d("kite",tempList.toMutableSet().toString())
 
         if (tempList.toMutableSet().size == 1) {
             return false
@@ -293,7 +316,7 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit, val setDoneOn: () 
     }
 
     // activity 에 있는 일괄 버튼 비활성화 시키기
-    private fun setAllCbVisibility(isDiff:Boolean) {
+    private fun setAllCbVisibility(isDiff: Boolean) {
         if (isDiff) {   // 달라진게 있다면
             setBtnVisibilityOff()// 버튼 꺼주기
         }
@@ -303,7 +326,8 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit, val setDoneOn: () 
     fun checkIsDone() {
 
         // 0시간 이고, 휴무일이 체크 되었을 때
-        val checkIfZeroAndRest = runningTimeItemList.filter { it.totalTime == "0시간" }.filter { it.restState }
+        val checkIfZeroAndRest =
+            runningTimeItemList.filter { it.totalTime == "0시간" }.filter { it.restState }
         // 0시간 일 때
         val checkIfAllZero = runningTimeItemList.filter { it.totalTime == "0시간" }
 

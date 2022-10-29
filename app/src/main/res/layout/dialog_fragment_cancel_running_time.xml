@@ -33,6 +33,7 @@
         android:text="설정하지 않은 요일: 목, 금, 토, 일"
         android:textColor="#a3a3a3"
         android:textSize="14sp"
+        android:visibility="gone"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="@id/tv_title"
         app:layout_constraintStart_toStartOf="@id/tv_title"
@@ -48,12 +49,12 @@
         android:gravity="center_horizontal"
         android:letterSpacing="-0.03"
         android:lineSpacingExtra="8sp"
-        android:text="설정 중이던 내용은 저장되지 않아요. 그래도 작업을\n중단하고 나가시겠어요?"
+        android:text="설정중이던 내용은 저장되지 않아요.\n그래도 작업을 중단하고 나가시겠어요?"
         android:textColor="#6f6f6f"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_date" />
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -61,7 +62,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="36dp"
         android:background="@drawable/btn_custom_white_cancel"
@@ -79,7 +80,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="36dp"
         android:background="@drawable/btn_custom_black_ok"

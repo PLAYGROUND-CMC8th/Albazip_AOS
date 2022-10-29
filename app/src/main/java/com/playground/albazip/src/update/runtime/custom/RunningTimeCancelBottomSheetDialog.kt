@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.playground.albazip.databinding.DialogFragmentCancelRunningTimeBinding
 
-class RunningTimeCancelBottomSheetDialog(private val noSelectedList:MutableList<String>) :
+class RunningTimeCancelBottomSheetDialog() :
     BottomSheetDialogFragment() {
 
     private var _binding: DialogFragmentCancelRunningTimeBinding? = null
@@ -26,11 +26,11 @@ class RunningTimeCancelBottomSheetDialog(private val noSelectedList:MutableList<
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initTxtView()
+        // initTxtView()
         initBtnEvent()
     }
 
-    private fun initTxtView(){
+    /*private fun initTxtView(){
         var noSelectedDayString = ""
 
         for (text in noSelectedList) {
@@ -39,7 +39,7 @@ class RunningTimeCancelBottomSheetDialog(private val noSelectedList:MutableList<
 
         noSelectedDayString = noSelectedDayString.substring(0,noSelectedDayString.lastIndex-1)
         binding.tvDate.text = "설정하지 않은 요일:$noSelectedDayString"
-    }
+    }*/
 
     // 버튼이벤트
     private fun initBtnEvent() {
