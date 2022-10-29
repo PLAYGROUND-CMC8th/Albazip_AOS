@@ -13,9 +13,6 @@ import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateAddWorkerOneBinding
 import com.playground.albazip.src.mypage.manager.custom.PayUnitBottomSheetDialog
-import com.playground.albazip.src.update.runtime.UpdateRunningTimeActivity
-import com.playground.albazip.src.update.runtime.data.OpenScheduleData
-import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.src.update.setworker.dialog.RestTimeInfoBottomSheetDialog
 import java.text.DecimalFormat
@@ -45,6 +42,8 @@ class UpdateAddWorkerOneActivity :
                 } else {
                     binding.llWorkingDone.visibility = View.GONE
                 }
+
+                checkBtnState()
             }
         }
 
@@ -266,9 +265,16 @@ class UpdateAddWorkerOneActivity :
                     payState = false
                     checkBtnState()
                 }
+
+                // 포커스 넣기
+                binding.rlPayTwo.background = ContextCompat.getDrawable(
+                    this@UpdateAddWorkerOneActivity,
+                    R.drawable.rectangle_fill_white_radius_yellow_15
+                )
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+            }
         })
 
     }
@@ -285,6 +291,12 @@ class UpdateAddWorkerOneActivity :
     }
 
     private fun checkBtnState() {
+
+        binding.rlPayTwo.background = ContextCompat.getDrawable(
+            this@UpdateAddWorkerOneActivity,
+            R.drawable.rectangle_fill_white_radius_gray_15
+        )
+
         checkFlags()
         binding.tvNext.isEnabled =
             positionState && partState && restTimeState && payState && workingTimeFlag
