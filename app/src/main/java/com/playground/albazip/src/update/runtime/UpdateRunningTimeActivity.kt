@@ -128,6 +128,8 @@ AllTimeBottomSheetDialog.BottomSheetClickListener{
         binding.viewRunningCheck.visibility = View.GONE
         binding.cbRunningTimeCheckbox.isSelected = true
 
+        initAdapter()
+
         if (totalTime == "24시간") {
             runningTimeAdapter.setAll24Hour(oTime,eTime,totalTime)
         } else {
@@ -152,7 +154,5 @@ AllTimeBottomSheetDialog.BottomSheetClickListener{
         binding.cbRunningTimeCheckbox.isSelected = false
         binding.viewRunningCheck.visibility = View.VISIBLE
     }
-
-
 
 }

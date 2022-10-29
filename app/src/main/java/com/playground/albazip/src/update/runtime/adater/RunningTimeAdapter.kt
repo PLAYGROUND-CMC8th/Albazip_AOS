@@ -1,6 +1,5 @@
 package com.playground.albazip.src.update.runtime.adater
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
     RecyclerView.Adapter<RunningTimeAdapter.RunningTimeViewHolder>() {
 
     var runningTimeItemList = mutableListOf<RunningTimeData>()
-    var setRunningTimeItemList = mutableListOf<RunningTimeData>()
     private lateinit var itemClickListener: OnItemClickListener
 
     interface OnItemClickListener {
@@ -278,13 +276,10 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
     // 값이 달라진 경우가 있다면
     private fun checkIfDiff():Boolean {
 
-        setRunningTimeItemList = runningTimeItemList
+        val tempList= runningTimeItemList
+        tempList.forEach { it.allTimeFlag = true }
 
-        setRunningTimeItemList.forEach {
-            it.day = "일"
-        }
-
-        if (setRunningTimeItemList.toMutableSet().size == 1) {
+        if (tempList.toMutableSet().size == 1) {
             return false
         }
 
@@ -294,7 +289,6 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
     // activity 에 있는 일괄 버튼 비활성화 시키기
     private fun setAllCbVisibility(isDiff:Boolean) {
         if (isDiff) {   // 달라진게 있다면
-            Log.d("kite",setRunningTimeItemList.toMutableSet().toString())
             setBtnVisibilityOff()// 버튼 꺼주기
         }
     }
