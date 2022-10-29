@@ -3,7 +3,6 @@ package com.playground.albazip.src.update.setworker
 import WorkingTimePickerBottomSheetDialog
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.playground.albazip.R
@@ -41,7 +40,7 @@ class UpdateSetWorkerTimeActivity :
     }
 
     private fun initRVAdapter() {
-        workingTimeAdapter = WorkingTimeAdapter()
+        workingTimeAdapter = WorkingTimeAdapter({setDoneOn()},{setDoneOff()})
         workingTimeAdapter.workerTimeList.addAll(
             listOf(
                 WorkerTimeData("월요일"),
@@ -131,6 +130,14 @@ class UpdateSetWorkerTimeActivity :
     ) {
         Glide.with(this).load(resources.getDrawable(R.drawable.ic_circle_check_active,null)).into(binding.ivCheckboxRunningTimeCheckbox)
         workingTimeAdapter.setAllTime(allOpenHour, allCloseHour, allTotalTime)
+    }
+
+    private fun setDoneOn() {
+        binding.tvSetWorkTimeDone.isEnabled = true
+    }
+
+    private fun setDoneOff() {
+        binding.tvSetWorkTimeDone.isEnabled = false
     }
 
 }

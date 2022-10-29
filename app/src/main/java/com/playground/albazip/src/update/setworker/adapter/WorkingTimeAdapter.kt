@@ -9,7 +9,10 @@ import com.playground.albazip.databinding.ItemUpdateRvSetWorkerTimeBinding
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
-class WorkingTimeAdapter() :
+class WorkingTimeAdapter(
+    private val setDoneOn: () -> Unit,
+    private val setDoneOff: () -> Unit
+) :
     RecyclerView.Adapter<WorkingTimeAdapter.WorkingTimeViewHolder>() {
 
     private lateinit var binding: ItemUpdateRvSetWorkerTimeBinding
@@ -56,7 +59,7 @@ class WorkingTimeAdapter() :
         fun setCbBox(data: WorkerTimeData, position: Int) {
             binding.apply {
                 ivCheckboxDay.setOnClickListener {
-                    if(ivCheckboxDay.isSelected) { // 활성화 된 상태라면
+                    if (ivCheckboxDay.isSelected) { // 활성화 된 상태라면
                         ivCheckboxDay.isSelected = false
                         data.isSelected = false
                         setViewVisibility(false)
@@ -65,6 +68,8 @@ class WorkingTimeAdapter() :
                         data.isSelected = true
                         setViewVisibility(true)
                     }
+
+                    checkIsDone()
                 }
             }
         }
@@ -107,7 +112,7 @@ class WorkingTimeAdapter() :
 
     override fun onBindViewHolder(holder: WorkingTimeAdapter.WorkingTimeViewHolder, position: Int) {
         holder.setItemList(workerTimeList[position])
-        holder.setCbBox(workerTimeList[position],position)
+        holder.setCbBox(workerTimeList[position], position)
         holder.setItemTimeEvent(position)
         holder.initItemHourUIAfterInput(workerTimeList[position])
     }
@@ -132,11 +137,12 @@ class WorkingTimeAdapter() :
         )
 
         notifyItemChanged(position)
+        checkIsDone()
     }
 
     // 선택 된 게 아무 것도 없을 때
     fun isNoneSelected(): Boolean {
-        if(workerTimeList.all { it.isSelected == false }){
+        if (workerTimeList.all { it.isSelected == false }) {
             return true
         }
         return false
@@ -160,8 +166,34 @@ class WorkingTimeAdapter() :
             }
         }
 
-       notifyItemRangeChanged(0, workerTimeList.size)
+        notifyItemRangeChanged(0, workerTimeList.size)
+        checkIsDone()
     }
 
+    private fun checkIsDone() {
+        // 체크 된 게 아예 없을 때
+        val checkIsAllEmpty = workerTimeList.all { it.isSelected == false }
 
+        // 체크가 되었는데 시간이 0시간일 때
+        val checkIsZeroTime =
+            workerTimeList.filter { it.isSelected == true }.any { it.totalTime == "0시간" }
+
+        val noOpenInit =
+            workerTimeList.filter { it.isSelected == true }.any { it.openTime == "00:00" }
+        val noCloseInit =
+            workerTimeList.filter { it.isSelected == true }.any {it.closeTime == "00:00"}
+
+        if (checkIsAllEmpty) {
+            setDoneOff()
+        } else if (checkIsZeroTime) {
+            setDoneOff()
+        } else if (noOpenInit){
+            setDoneOff()
+        } else if (noCloseInit) {
+            setDoneOff()
+        } else {
+            setDoneOn()
+        }
+
+    }
 }
