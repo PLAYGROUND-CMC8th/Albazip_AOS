@@ -8,6 +8,8 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateAddWorkerOneBinding
 import com.playground.albazip.src.mypage.manager.custom.PayUnitBottomSheetDialog
@@ -213,12 +215,23 @@ class UpdateAddWorkerOneActivity :
                 supportFragmentManager,
                 "unitPicker"
             )
+
+            // 포커스 넣기
+            binding.rlPayOne.background = ContextCompat.getDrawable(
+                this@UpdateAddWorkerOneActivity,
+                R.drawable.rectangle_fill_white_radius_yellow_15
+            )
         }
     }
 
     // 페이 선택 텍스트 받기
     override fun onItemSelected(text: String) {
         binding.tvSelectedPayUnit.text = text
+
+        binding.rlPayOne.background = ContextCompat.getDrawable(
+            this,
+            R.drawable.rectangle_fill_white_radius_gray_15
+        )
     }
 
     // 근무일 선택하기

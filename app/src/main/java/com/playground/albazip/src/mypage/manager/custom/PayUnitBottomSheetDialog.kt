@@ -30,6 +30,8 @@ class PayUnitBottomSheetDialog(currentSelect:String) : BottomSheetDialogFragment
     ): View? {
         binding = DialogFragmentPayUnitBinding.inflate(inflater, container, false)
 
+        isCancelable = false
+
         // 가장 최근에 선택한 배경색 받아오기
         when(myCurrentSelect){
             "시급" -> {binding.rlRowOne.setBackgroundColor(Color.parseColor("#fffaea"))}
