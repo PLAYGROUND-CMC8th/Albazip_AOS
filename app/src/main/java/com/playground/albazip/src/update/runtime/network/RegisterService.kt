@@ -1,7 +1,7 @@
-package com.playground.albazip.src.update.runtime.service
+package com.playground.albazip.src.update.runtime.network
 
-import com.playground.albazip.src.update.runtime.data.RequestMSignUp
-import com.playground.albazip.src.update.runtime.data.ResponseMSignUp
+import com.playground.albazip.src.update.runtime.network.RequestMSignUp
+import com.playground.albazip.src.update.runtime.network.ResponseMSignUp
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header

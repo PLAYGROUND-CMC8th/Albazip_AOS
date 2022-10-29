@@ -6,8 +6,8 @@ import android.util.Log
 import android.view.View
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRunningTimeBinding
-import com.playground.albazip.src.update.runtime.custom.AllTimeBottomSheetDialog
 import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
+import com.playground.albazip.src.update.runtime.custom.AllTimeBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.RunningTimeCancelBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
@@ -73,7 +73,7 @@ class UpdateRunningTimeActivity :
                 RunningTimeData("수요일"),
                 RunningTimeData("목요일"),
                 RunningTimeData("금요일"),
-                RunningTimeData("토요알"),
+                RunningTimeData("토요일"),
                 RunningTimeData("일요일"),
             )
         )

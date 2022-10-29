@@ -32,6 +32,7 @@ import com.playground.albazip.src.mypage.manager.workerlist.ui.AddWorkerOneActiv
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.playground.albazip.src.update.setworker.UpdateAddWorkerOneActivity
 
 class MMyPageFragment :
     BaseFragment<FragmentMMypageBinding>(FragmentMMypageBinding::bind, R.layout.fragment_m_mypage),
@@ -92,7 +93,7 @@ class MMyPageFragment :
                     .setBackgroundTint(Color.parseColor("#5b5b5b"))
                     .show()
             }else{
-                val nextIntent = Intent(requireContext(),AddWorkerOneActivity::class.java)
+                val nextIntent = Intent(requireContext(),UpdateAddWorkerOneActivity::class.java)
                 startActivity(nextIntent)
             }
         }

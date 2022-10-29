@@ -16,10 +16,10 @@ import com.playground.albazip.databinding.ActivityInputPlaceMoreBetaBinding
 import com.playground.albazip.src.main.ManagerMainActivity
 import com.playground.albazip.src.onboard.manager.ManagerOnBoardingActivity
 import com.playground.albazip.src.register.manager.custom.PayDayBottomSheetDialog
-import com.playground.albazip.src.update.runtime.data.OpenScheduleData
-import com.playground.albazip.src.update.runtime.data.RequestMSignUp
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
-import com.playground.albazip.src.update.runtime.service.RegisterService
+import com.playground.albazip.src.update.runtime.network.OpenSchedule
+import com.playground.albazip.src.update.runtime.network.RegisterService
+import com.playground.albazip.src.update.runtime.network.RequestMSignUp
 import com.playground.albazip.util.enqueueUtil
 
 class InputPlaceMoreBetaActivity :
@@ -36,7 +36,7 @@ class InputPlaceMoreBetaActivity :
     private var restDayInfoFlag: Boolean = false
 
     // 스케쥴 리스트
-    var openScheduleList = arrayListOf<OpenScheduleData>()
+    var openScheduleList = arrayListOf<RunningTimeData>()
 
     // rv 리스트
     var rvList = arrayListOf<RunningTimeData>()
@@ -49,7 +49,7 @@ class InputPlaceMoreBetaActivity :
                 rvList = it.data!!.getSerializableExtra("adapterList") as ArrayList<RunningTimeData>
 
                 openScheduleList =
-                    it.data!!.getSerializableExtra("openScheduleList") as ArrayList<OpenScheduleData>
+                    it.data!!.getSerializableExtra("openScheduleList") as ArrayList<RunningTimeData>
                 setVisibility()
             }
         }
@@ -79,6 +79,15 @@ class InputPlaceMoreBetaActivity :
         initPayEvent()
 
         checkRestDayEvent()
+
+        initBackBtn()
+    }
+
+    // 뒤로가기 버튼 이벤트
+    private fun initBackBtn() {
+        binding.ivInputPlaceMoreBackBtn.setOnClickListener {
+            finish()
+        }
     }
 
     // 서버통신 후 온보딩 이벤트로 이동
@@ -86,33 +95,38 @@ class InputPlaceMoreBetaActivity :
         binding.btnNext.setOnClickListener {
             //val registerDataList: ArrayList<String> =
             //    intent.getSerializableExtra("registerDataList") as ArrayList<String>
+            val registerDataList:ArrayList<String> = intent.getSerializableExtra("registerDataList") as ArrayList<String>
 
             val holidayList = mutableListOf<String>()
-
             for (i in rvList.indices) {
                 if (rvList[i].restState) {
-                    holidayList.add(rvList[i].day.toString())
+                    holidayList.add(rvList[i].day.toString().substring(0,1))
                 }
             }
-
             if (restDayInfoFlag){
                 holidayList.add("공휴일")
             }
 
-            Log.d("suba",openScheduleList.toString())
-            Log.d("suba",holidayList.toString())
+            // 서버로 넘겨줄 스케줄 리스트
+            val openScheduleListToServer = arrayListOf<OpenSchedule>()
+            for (i in openScheduleList.indices) {
+                val data = openScheduleList[i]
+                openScheduleListToServer.add(i, OpenSchedule(data.day!!.substring(0,1),data.openTime!!.replace(":",""),data.closeTime!!.replace(":","")))
+            }
 
-            /*tryPostMSignUp(
+
+            tryPostMSignUp(
                 RequestMSignUp(
                     name = registerDataList[0],
                     type = registerDataList[1],
                     address = registerDataList[2],
                     registerNumber = registerDataList[3],
                     ownerName = registerDataList[4],
-                    holiday = ,
-                    openSchedule = openScheduleList
+                    holiday = holidayList,
+                    openSchedule = openScheduleListToServer,
+                    payday = binding.tvSelectDay.text.toString()
                 )
-            )*/
+            )
         }
     }
 

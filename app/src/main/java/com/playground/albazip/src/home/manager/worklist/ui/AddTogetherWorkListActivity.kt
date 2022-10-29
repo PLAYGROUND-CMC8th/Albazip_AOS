@@ -57,8 +57,8 @@ class AddTogetherWorkListActivity:BaseActivity<ActivityAddTogehterWorkListBindin
                 for (i in 0 until todoAdapter.itemCount) {
                     taskList.add(
                         PostCoTask(
-                            todoAdapter.itemList[i].titleTxt,
-                            todoAdapter.itemList[i].contextTxt
+                            todoAdapter.itemList[i].title,
+                            todoAdapter.itemList[i].context
                         )
                     )
                 }
@@ -78,13 +78,13 @@ class AddTogetherWorkListActivity:BaseActivity<ActivityAddTogehterWorkListBindin
 
             for (i in 0 until todoAdapter.itemCount){
                 // 타이틀 o 하지만 내용 x
-                if(todoAdapter.itemList[i].titleTxt.isEmpty() && todoAdapter.itemList[i].contextTxt.isNotEmpty()){
+                if(todoAdapter.itemList[i].title.isEmpty() && todoAdapter.itemList[i].context.isNotEmpty()){
                     showCustomToast("작성이 미완료된 업무가 있습니다!")
                     stopFlags = 1 // 멈춰!
                 }
 
                 // 타이틀 내용 몽땅 x
-                if(todoAdapter.itemList[i].titleTxt.isEmpty() && todoAdapter.itemList[i].contextTxt.isEmpty()){
+                if(todoAdapter.itemList[i].title.isEmpty() && todoAdapter.itemList[i].context.isEmpty()){
                     showCustomToast("작성이 미완료된 업무가 있습니다!")
                     stopFlags = 1
                 }

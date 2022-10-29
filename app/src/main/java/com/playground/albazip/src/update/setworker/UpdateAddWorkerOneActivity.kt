@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -13,8 +14,11 @@ import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateAddWorkerOneBinding
 import com.playground.albazip.src.mypage.manager.custom.PayUnitBottomSheetDialog
+import com.playground.albazip.src.mypage.manager.workerlist.ui.AddWorkerTwoActivity
+import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.src.update.setworker.dialog.RestTimeInfoBottomSheetDialog
+import com.playground.albazip.src.update.setworker.network.RequestAddPosition
 import java.text.DecimalFormat
 
 class UpdateAddWorkerOneActivity :
@@ -24,9 +28,17 @@ class UpdateAddWorkerOneActivity :
     private var positionState = false
     private var partState = false
     private var restTimeState = false
-    private var payState = false
+    private var payState = true
 
     var workingTimeFlag = false
+
+
+    var rank = "알바생"
+    var title = ""
+    var breakTime = ""
+    var salary = ""
+    var salaryType = ""
+    var workSchedule = arrayListOf<RequestAddPosition.WorkSchedule>()
 
     var rvList = arrayListOf<WorkerTimeData>()
 
@@ -61,6 +73,32 @@ class UpdateAddWorkerOneActivity :
         initPayEvent()
 
         initSelectWorkingTimeBtn()
+
+        initNextBtn()
+        initBackBtn()
+    }
+
+    // 다음 버튼
+    private fun initNextBtn() {
+        binding.tvNext.setOnClickListener {
+            val workerStringList: ArrayList<String> =
+                arrayListOf("알바생", title, breakTime, salary, salaryType)
+
+            // 근무자 추가 두 번째 화면으로 이동
+            val nextIntent = Intent(this, AddWorkerTwoActivity::class.java)
+            nextIntent.putExtra("workerStringList", workerStringList)
+            nextIntent.putExtra("workSchedule",workSchedule as ArrayList<RequestAddPosition.WorkSchedule>)
+            // 입력정보 넘겨주기
+            startActivity(nextIntent)
+            finish()
+        }
+    }
+
+    // 뒤로가기 버튼
+    private fun initBackBtn() {
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     // 포지션 선택 이벤트
@@ -282,12 +320,40 @@ class UpdateAddWorkerOneActivity :
 
     private fun checkFlags() {
         val positionBtnList = mutableListOf(binding.btnMonToFri, binding.btnSatToSun)
-        val partBtnList = mutableListOf(binding.btnOpen,binding.btnMiddle,binding.btnClose)
-        val restTimeBtnList = mutableListOf(binding.btnNoRest,binding.btn30Min,binding.btn60Min,binding.btn90Min)
+        val partBtnList = mutableListOf(binding.btnOpen, binding.btnMiddle, binding.btnClose)
+        val restTimeBtnList =
+            mutableListOf(binding.btnNoRest, binding.btn30Min, binding.btn60Min, binding.btn90Min)
 
-        positionState = positionBtnList.any{ it.isSelected }
+        positionState = positionBtnList.any { it.isSelected }
         partState = partBtnList.any { it.isSelected }
         restTimeState = restTimeBtnList.any { it.isSelected }
+    }
+
+    // 다음 액티비티에 넘겨줄 데이터들 받아놓기
+    private fun getIntentData() {
+        val positionBtnList = mutableListOf(binding.btnMonToFri, binding.btnSatToSun)
+        val partBtnList = mutableListOf(binding.btnOpen, binding.btnMiddle, binding.btnClose)
+        val restTimeBtnList =
+            mutableListOf(binding.btnNoRest, binding.btn30Min, binding.btn60Min, binding.btn90Min)
+
+        title = positionBtnList.filter { it.isSelected }[0].text
+            .toString() + partBtnList.filter { it.isSelected }[0].text.toString()
+        breakTime = restTimeBtnList.filter { it.isSelected }[0].text.toString()
+        salary = binding.etPayment.text.toString()
+        salaryType = binding.tvSelectedPayUnit.text.toString()
+
+        val selectedRv = rvList.filter { it.isSelected == true }
+
+        for (i in selectedRv.indices) {
+            val data = selectedRv[i]
+            workSchedule.add(
+                RequestAddPosition.WorkSchedule(
+                    data.workDay.substring(0, 1),
+                    data.openTime!!.replace(":",""),
+                    data.closeTime!!.replace(":","")
+                )
+            )
+        }
     }
 
     private fun checkBtnState() {
@@ -298,8 +364,13 @@ class UpdateAddWorkerOneActivity :
         )
 
         checkFlags()
-        binding.tvNext.isEnabled =
-            positionState && partState && restTimeState && payState && workingTimeFlag
+
+        if (positionState && partState && restTimeState && payState && workingTimeFlag) {
+            binding.tvNext.isEnabled = true
+            getIntentData()
+        } else {
+            binding.tvNext.isEnabled = false
+        }
     }
 
 }

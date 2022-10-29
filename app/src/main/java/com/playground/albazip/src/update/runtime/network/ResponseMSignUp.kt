@@ -1,4 +1,4 @@
-package com.playground.albazip.src.update.runtime.data
+package com.playground.albazip.src.update.runtime.network
 
 import com.playground.albazip.config.BaseResponse
 

@@ -39,7 +39,7 @@
             android:name="com.playground.albazip.src.onboard.manager.ManagerOnBoardingActivity"
             android:exported="true" />
         <activity
-            android:name="com.playground.albazip.src.register.manager.place.InputPlaceMoreActivity"
+            android:name="com.playground.albazip.src.register.manager.InputPlaceMoreActivity"
             android:exported="true" />
 
         <meta-data
@@ -172,12 +172,9 @@
         <activity android:name=".src.update.runtime.UpdateRunningTimeActivity"
             android:exported="true"/>
 
-        <activity
-            android:name=".src.update.setworker.UpdateAddWorkerOneActivity"
-            android:exported="true" />
-        <activity
-            android:name=".src.update.setworker.UpdateSetWorkerTimeActivity"
-            android:exported="true" />
+       <activity android:name=".src.update.setworker.UpdateAddWorkerOneActivity"
+           android:exported="true"/>
+        <activity android:name=".src.update.setworker.UpdateSetWorkerTimeActivity" />
 
     </application>
 

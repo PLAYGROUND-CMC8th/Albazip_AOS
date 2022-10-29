@@ -102,7 +102,8 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
             ApplicationClass.prefs.setString("login_shop_name", "")
       //  }
         // 영업상태
-        var status = response.data.shopInfo.status
+        // TODO: 응?? 왜 안되지 ??
+        val status = response.data.shopInfo.status
 
         // 영업상태 체크
         if(status == 0){ // 영업전

@@ -22,7 +22,7 @@ class ManagerMainActivity :
 
         backPressCloseHandler = BackPressCloseHandler(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MHomeFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MMyPageFragment())
             .commitAllowingStateLoss()
 
 
