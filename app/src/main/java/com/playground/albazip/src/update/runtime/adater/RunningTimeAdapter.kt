@@ -8,7 +8,7 @@ import com.playground.albazip.databinding.ItemRvRunningTimeBinding
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
-class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
+class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit, val setDoneOn: () -> Unit, val setDoneOff: () -> Unit) :
     RecyclerView.Adapter<RunningTimeAdapter.RunningTimeViewHolder>() {
 
     var runningTimeItemList = mutableListOf<RunningTimeData>()
@@ -127,6 +127,7 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
 
             notifyItemChanged(position)
             setAllCbVisibility(checkIfDiff())
+            checkIsDone()
         }
 
         // 7. 24 시간 UI 설정
@@ -155,6 +156,7 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
 
             notifyItemChanged(position)
             setAllCbVisibility(checkIfDiff())
+            checkIsDone()
         }
 
         // 8. 24시간 클릭 시키는 이벤트
@@ -216,6 +218,7 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
 
         notifyItemChanged(position)
         setAllCbVisibility(checkIfDiff())
+        checkIsDone()
     }
 
     // 24 시간으로 뷰 설정
@@ -233,6 +236,7 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
 
         notifyItemChanged(position)
         setAllCbVisibility(checkIfDiff())
+        checkIsDone()
     }
 
     // 전체가 24시간으로 설정되었을때
@@ -252,6 +256,7 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
 
         notifyItemRangeChanged(0, runningTimeItemList.size)
         setAllCbVisibility(checkIfDiff())
+        checkIsDone()
     }
 
     // 전체가 일반시간으로 설정되었을떄
@@ -271,6 +276,7 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
 
         notifyItemRangeChanged(0, runningTimeItemList.size)
         setAllCbVisibility(checkIfDiff())
+        checkIsDone()
     }
 
     // 값이 달라진 경우가 있다면
@@ -291,6 +297,25 @@ class RunningTimeAdapter(val setBtnVisibilityOff: () -> Unit) :
         if (isDiff) {   // 달라진게 있다면
             setBtnVisibilityOff()// 버튼 꺼주기
         }
+    }
+
+    // 기입이 모두 완료되었는지 체크하는 함수
+    fun checkIsDone() {
+
+        // 0시간 이고, 휴무일이 체크 되었을 때
+        val checkIfZeroAndRest = runningTimeItemList.filter { it.totalTime == "0시간" }.filter { it.restState }
+        // 0시간 일 때
+        val checkIfAllZero = runningTimeItemList.filter { it.totalTime == "0시간" }
+
+        // 모두 0시간인 경우에서 휴무일 체크된 경우를 뺀다. 이때 0보다 크면 모순이므로 안된다.
+        val checkResult = checkIfAllZero - checkIfZeroAndRest
+
+        if (checkResult.isEmpty()) { // 정상 입력
+            setDoneOn()
+        } else { // 입력 부족
+            setDoneOff()
+        }
+
     }
 
     companion object {

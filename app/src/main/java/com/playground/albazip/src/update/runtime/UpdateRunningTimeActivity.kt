@@ -30,7 +30,7 @@ AllTimeBottomSheetDialog.BottomSheetClickListener{
     }
 
     private fun initAdapter() {
-        runningTimeAdapter = RunningTimeAdapter { setAllSameBtnOff() }
+        runningTimeAdapter = RunningTimeAdapter ({ setAllSameBtnOff() }, {setDoneBtnVisibilityOn()}, {setDoneBtnVisibilityOff()})
         runningTimeAdapter.runningTimeItemList.addAll(
             listOf(
                 RunningTimeData("월"),
@@ -153,6 +153,16 @@ AllTimeBottomSheetDialog.BottomSheetClickListener{
     private fun setAllSameBtnOff() {
         binding.cbRunningTimeCheckbox.isSelected = false
         binding.viewRunningCheck.visibility = View.VISIBLE
+    }
+
+    // 완료 버튼 활성화
+    private fun setDoneBtnVisibilityOn() {
+        binding.tvRunningTimeDone.isEnabled = true
+    }
+
+    // 완료 버튼 비활성화
+    private fun setDoneBtnVisibilityOff() {
+        binding.tvRunningTimeDone.isEnabled = false
     }
 
 }
