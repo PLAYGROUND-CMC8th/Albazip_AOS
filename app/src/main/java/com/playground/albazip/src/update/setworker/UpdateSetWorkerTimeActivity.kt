@@ -40,7 +40,12 @@ class UpdateSetWorkerTimeActivity :
     }
 
     private fun initRVAdapter() {
-        workingTimeAdapter = WorkingTimeAdapter({setDoneOn()},{setDoneOff()})
+        workingTimeAdapter =
+            WorkingTimeAdapter(
+                { setDoneBtnVisibilityOn() },
+                { setDoneBtnVisibilityOff() },
+                { setDoneOn() },
+                { setDoneOff() })
         workingTimeAdapter.workerTimeList.addAll(
             listOf(
                 WorkerTimeData("월요일"),
@@ -128,7 +133,7 @@ class UpdateSetWorkerTimeActivity :
         allCloseHour: String,
         allTotalTime: String,
     ) {
-        Glide.with(this).load(resources.getDrawable(R.drawable.ic_circle_check_active,null)).into(binding.ivCheckboxRunningTimeCheckbox)
+        setDoneBtnVisibilityOn()
         workingTimeAdapter.setAllTime(allOpenHour, allCloseHour, allTotalTime)
     }
 
@@ -140,4 +145,15 @@ class UpdateSetWorkerTimeActivity :
         binding.tvSetWorkTimeDone.isEnabled = false
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun setDoneBtnVisibilityOff() {
+        Glide.with(this).load(resources.getDrawable(R.drawable.ic_circle_check_inactive, null))
+            .into(binding.ivCheckboxRunningTimeCheckbox)
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun setDoneBtnVisibilityOn() {
+        Glide.with(this).load(resources.getDrawable(R.drawable.ic_circle_check_active, null))
+            .into(binding.ivCheckboxRunningTimeCheckbox)
+    }
 }

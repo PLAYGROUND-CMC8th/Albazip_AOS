@@ -10,6 +10,8 @@ import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
 class WorkingTimeAdapter(
+    val setBtnVisibilityOn: () -> Unit,
+    val setBtnVisibilityOff: () -> Unit,
     private val setDoneOn: () -> Unit,
     private val setDoneOff: () -> Unit
 ) :
@@ -70,6 +72,7 @@ class WorkingTimeAdapter(
                     }
 
                     checkIsDone()
+                    setAllCbVisibility(checkIfDiff())
                 }
             }
         }
@@ -137,6 +140,7 @@ class WorkingTimeAdapter(
         )
 
         notifyItemChanged(position)
+        setAllCbVisibility(checkIfDiff())
         checkIsDone()
     }
 
@@ -167,6 +171,7 @@ class WorkingTimeAdapter(
         }
 
         notifyItemRangeChanged(0, workerTimeList.size)
+        setAllCbVisibility(checkIfDiff())
         checkIsDone()
     }
 
@@ -195,5 +200,45 @@ class WorkingTimeAdapter(
             setDoneOn()
         }
 
+    }
+
+    // 값이 달라진 경우가 있다면
+    private fun checkIfDiff(): Boolean {
+
+        val tempList = mutableListOf<WorkerTimeData>()
+
+        for (i in workerTimeList.indices) {
+            val data = workerTimeList[i]
+            tempList.add(
+                WorkerTimeData(
+                    "",
+                    data.isSelected,
+                    data.openTime,
+                    data.closeTime,
+
+                    data.totalTime,
+                    data.openFlag,
+                    data.closeFlag
+                )
+            )
+        }
+
+
+        if (tempList.toMutableSet().size == 1 && tempList.toMutableSet().any{it.isSelected == true}) {
+            return false
+        }
+
+        if (tempList.toMutableSet().size == 2 && tempList.toMutableSet().any { it.isSelected == false}) {
+            return false
+        }
+
+        return true
+    }
+
+    // activity 에 있는 일괄 버튼 비활성화 시키기
+    private fun setAllCbVisibility(isDiff: Boolean) {
+        if (isDiff) {   // 달라진게 있다면
+            setBtnVisibilityOff()// 버튼 꺼주기
+        }
     }
 }
