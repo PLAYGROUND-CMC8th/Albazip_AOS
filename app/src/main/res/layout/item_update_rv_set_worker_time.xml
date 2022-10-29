@@ -30,7 +30,7 @@
             android:id="@+id/iv_checkbox_day"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:background="@drawable/ic_circle_check_inactive"/>
+            android:background="@drawable/selector_circle_yellow_checkbox"/>
 
         <TextView
             android:id="@+id/tv_day"
@@ -42,8 +42,9 @@
             android:letterSpacing="-0.03"
             android:lineSpacingExtra="7sp"
             android:text="수요일"
+            android:enabled="false"
             android:layout_gravity="center"
-            android:textColor="@color/text4_343434"
+            android:textColor="@color/selector_tv_day"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -88,7 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="00:00"
-                android:textColor="@color/gray6_cecece"
+                android:enabled="false"
+                android:textColor="@color/selector_tv_runtime"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_open_txt"
@@ -129,7 +131,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="00:00"
-                android:textColor="@color/gray6_cecece"
+                android:enabled="false"
+                android:textColor="@color/selector_tv_runtime"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_close_txt"

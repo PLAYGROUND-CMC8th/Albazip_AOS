@@ -1,40 +1,31 @@
 package com.playground.albazip.src.update.setworker
 
+import WorkingTimePickerBottomSheetDialog
 import android.os.Bundle
 import android.view.View
-import com.bumptech.glide.Glide
-import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateSetWorkerTimeBinding
-import com.playground.albazip.src.update.setworker.adapter.WorkerTimeAdapter
-import com.playground.albazip.src.update.setworker.custom.SetAllWorkTimePickerBottomSheetDialog
-import com.playground.albazip.src.update.setworker.custom.SetWorkerTimePickerBottomSheetDialog
-import com.playground.albazip.src.update.setworker.custom.WorkTimeCancelBottomSheetDialog
+import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
+import com.playground.albazip.src.update.setworker.adapter.WorkingTimeAdapter
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
+import com.playground.albazip.util.GetTimeDiffUtil
 
 class UpdateSetWorkerTimeActivity :
     BaseActivity<ActivityUpdateSetWorkerTimeBinding>(ActivityUpdateSetWorkerTimeBinding::inflate),
-    SetWorkerTimePickerBottomSheetDialog.BottomSheetClickListener,
-    SetAllWorkTimePickerBottomSheetDialog.BottomSheetClickListener {
+    WorkingTimePickerBottomSheetDialog.BottomSheetClickListener {
 
-    private lateinit var workerTimeAdapter: WorkerTimeAdapter
-    var workerTimeList = mutableListOf<WorkerTimeData>()
+    private lateinit var workingTimeAdapter: WorkingTimeAdapter
+    var selectedPosition = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initRvAdapter()
-        initBackEvent()
-
-        setEachWorkerTime()
-
-        initAllTimeBtnEvent()
+        initRVAdapter()
     }
 
-    // Adapter 초기화 (요일 입력)
-    private fun initRvAdapter() {
-
-        workerTimeList.addAll(
+    private fun initRVAdapter() {
+        workingTimeAdapter = WorkingTimeAdapter()
+        workingTimeAdapter.workerTimeList.addAll(
             listOf(
                 WorkerTimeData("월요일"),
                 WorkerTimeData("화요일"),
@@ -45,127 +36,73 @@ class UpdateSetWorkerTimeActivity :
                 WorkerTimeData("일요일")
             )
         )
+        binding.rvWorkerTime.adapter = workingTimeAdapter
+        binding.rvWorkerTime.animation = null
+        binding.rvWorkerTime.itemAnimator = null
 
-        workerTimeAdapter = WorkerTimeAdapter(workerTimeList, this)
-        binding.rvWorkerTime.adapter = workerTimeAdapter
-
-        binding.rvWorkerTime.itemAnimator = null // 리사이클러뷰 애니메이션 없애기
+        setRvItemClickEvent()
     }
 
+    private fun setRvItemClickEvent() {
+        workingTimeAdapter.setItemClickListener(object : WorkingTimeAdapter.OnItemClickListener {
+            override fun onClick(v: View, position: Int, tag: String) {
 
-    /** 뒤로가기 버튼 클릭
-     * 만약에 리스트들이 모두 비어있으면 경고 바텀시트를 띄워준다.*/
-    private fun initBackEvent() {
-        binding.ivRunningTimeBackBtn.setOnClickListener {
+                selectedPosition = position // 어떤 아이템이 선택되었는지 포시션 받기
 
-            if (!workerTimeAdapter.checkIfListNull()) { // 체크된게 없으면 리스트 띄우기
-                WorkTimeCancelBottomSheetDialog { finishEvent() }.show(
-                    supportFragmentManager,
-                    "set_worker_time_cancel"
-                )
-            } else {
-                finishEvent()
-            }
-        }
-    }
-
-    private fun finishEvent() {
-        finish()
-    }
-
-    /** 개별 시간 선택 이벤트
-     *  */
-    private fun setEachWorkerTime() {
-        workerTimeAdapter.setOnWorkerTimeItemClickListener(object :
-            WorkerTimeAdapter.OnWorkerTimeItemClickListener {
-            override fun onWorkerTimeItemClick(view: View, position: Int, jobFlags: Int) {
-                if (jobFlags == 0) { // 오픈 시간 선택
-                    SetWorkerTimePickerBottomSheetDialog(
-                        0,
-                        position
-                    ) { checkIsAllTimeSame(0) }.show(
+                when (tag) {
+                    "SET_START_HOUR" -> WorkingTimePickerBottomSheetDialog(0).show(
                         supportFragmentManager,
-                        "set_open_hour"
+                        "SET_START_HOUR"
                     )
-                } else if (jobFlags == 1) { // 마감 시간 선택
-                    SetWorkerTimePickerBottomSheetDialog(
-                        1,
-                        position
-                    ) { checkIsAllTimeSame(1) }.show(
+                    "SET_END_HOUR" -> WorkingTimePickerBottomSheetDialog(1).show(
                         supportFragmentManager,
-                        "set_open_hour"
+                        "SET_END_HOUR"
                     )
-                } else if(jobFlags == 2){ // 모든 버튼이 꺼져서 일괄적용 버튼도 꺼주는 로직
-                    // 체크 뷰 꺼놓기
-                    Glide.with(binding.root).load(R.drawable.ic_circle_check_inactive)
-                        .into(binding.ivCheckboxRunningTimeCheckbox)
                 }
+
             }
         })
     }
 
-    // 모든 시간 적용 뷰 확인
-    private fun checkIsAllTimeSame(timeFlags: Int) {
-        if (!workerTimeAdapter.checkIfListSame(timeFlags)) { // 시간이 달라졌다면
-            // 체크 뷰 꺼놓기 -> 일괄적용 해제!
-            Glide.with(binding.root).load(R.drawable.ic_circle_check_inactive)
-                .into(binding.ivCheckboxRunningTimeCheckbox)
-        }
-    }
+    override fun onTimeSelected(h: String, m: String, flag: Int) {
+        val displayTime = GetTimeDiffUtil().getDisplayTime(h, m)
 
-    override fun onTimeSelected(h: String, m: String, flag: Int, position: Int) {
+        if (flag == 0) { // 오픈시간 설정
+            workingTimeAdapter.setItemTimeUI(0, selectedPosition, displayTime)
 
-        var displayHour = "00"
-        var displayMinute = "00"
+            // 마감시간이 활성화 되어 있을 때 -> 24시간 여부 체크
+            if (workingTimeAdapter.workerTimeList[selectedPosition].closeFlag) {
+                areYou24Hour(0)
+            }
 
-        // ui에 보여지는 시간과 분
-        if (h.length == 1) { // 한자리 숫자일 때는 앞에 "0"을 붙여준다.
-            displayHour = "0$h"
-        } else {
-            displayHour = h
-        }
+        } else { // 마감시간 설정
+            workingTimeAdapter.setItemTimeUI(1, selectedPosition, displayTime)
 
-        if (m.length == 1) {
-            displayMinute = "0$m"
-        } else {
-            displayMinute = m
-        }
-
-        var displayTime = "$displayHour:$displayMinute"
-
-        workerTimeAdapter.setLayoutAfterTimeSelected(displayTime, flag, position)
-    }
-
-    /** 근무시간 일괄적용 클릭 이벤트
-     * 체크된 요일이 하나도 없으면 "시간을 설정할 근무일을 선택해주세요." 토스트 메세지
-     * 정상이벤트면 바텀시트 띄우기*/
-    private fun initAllTimeBtnEvent() {
-        binding.ivCheckboxRunningTimeCheckbox.setOnClickListener {
-            if (workerTimeAdapter.checkIfListNull()) {
-                showCustomToast("시간을 설정할 근무일을 선택해주세요.")
-            } else {
-                SetAllWorkTimePickerBottomSheetDialog().show(
-                    supportFragmentManager,
-                    "all_time_event"
-                )
+            // 오픈시간이 활성화 되어 있을 때 -> 24시간 여부 체크
+            if (workingTimeAdapter.workerTimeList[selectedPosition].openFlag) {
+                areYou24Hour(1)
             }
         }
     }
 
-    override fun onTimeAllTimeSelected(
-        allOpenHour: String,
-        allCloseHour: String,
-        allTotalTime: String,
-        checkBoxState: Boolean
-    ) {
-        // 일괄 적용이 완료된 이벤트면
-        if (checkBoxState) { // 체크된 요소들에게 데이터 넣어주기
-            workerTimeAdapter.setSelectedList(allOpenHour, allCloseHour, allTotalTime)
+    // 시간이 같을 때 재설정하게 하기
+    private fun areYou24Hour(flags: Int) {
+        // 시간이 같을 때 24시간 여부 묻기
+        if (workingTimeAdapter.workerTimeList[selectedPosition].totalTime == "0시간") {
+            if (flags == 0) { // 출근 다시 받기
+                WorkingTimePickerBottomSheetDialog(0).show(
+                    supportFragmentManager,
+                    "SET_START_HOUR"
+                )
+                showCustomToast("퇴근 시간과 같아요. 시간을 다시 설정해주세요.")
+            } else { // 퇴근 다시 받기
+                WorkingTimePickerBottomSheetDialog(1).show(
+                    supportFragmentManager,
+                    "SET_END_HOUR"
+                )
+                showCustomToast("출근 시간과 같아요. 시간을 다시 설정해주세요.")
+            }
         }
-
-        // 체크 뷰 켜놓기
-        Glide.with(binding.root).load(R.drawable.ic_circle_check_active)
-            .into(binding.ivCheckboxRunningTimeCheckbox)
-
     }
+
 }

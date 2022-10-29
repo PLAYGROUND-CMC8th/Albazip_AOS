@@ -64,13 +64,13 @@ class UpdateRunningTimeActivity :
             { setDoneBtnVisibilityOff() }, false)
         runningTimeAdapter.runningTimeItemList.addAll(
             listOf(
-                RunningTimeData("월"),
-                RunningTimeData("화"),
-                RunningTimeData("수"),
-                RunningTimeData("목"),
-                RunningTimeData("금"),
-                RunningTimeData("토"),
-                RunningTimeData("일"),
+                RunningTimeData("월요일"),
+                RunningTimeData("화요일"),
+                RunningTimeData("수요일"),
+                RunningTimeData("목요일"),
+                RunningTimeData("금요일"),
+                RunningTimeData("토요알"),
+                RunningTimeData("일요일"),
             )
         )
         binding.rvRunningTimeDays.itemAnimator = null
