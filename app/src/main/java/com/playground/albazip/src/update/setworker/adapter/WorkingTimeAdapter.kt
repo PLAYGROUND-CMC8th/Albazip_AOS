@@ -1,12 +1,10 @@
 package com.playground.albazip.src.update.setworker.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.databinding.ItemUpdateRvSetWorkerTimeBinding
-import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
@@ -230,18 +228,18 @@ class WorkingTimeAdapter(
             workerTimeList.filter { it.isSelected == true }.any { it.totalTime == "0시간" }
 
         val noOpenInit =
-            workerTimeList.filter { it.isSelected == true }.filter { it.closeTime != "00:00" }.filter { it.openFlag }.any { it.openTime == "00:00" }
+            workerTimeList.filter { it.isSelected == true }.filter { it.closeTime != "00:00" }.filter { !it.openFlag }.any { it.openTime == "00:00" }
         val noCloseInit =
-            workerTimeList.filter { it.isSelected == true }.filter { it.openTime != "00:00" }.filter { it.closeFlag }.any {it.closeTime == "00:00"}
+            workerTimeList.filter { it.isSelected == true }.filter { it.openTime != "00:00" }.filter { !it.closeFlag }.any {it.closeTime == "00:00"}
 
         if (checkIsAllEmpty) {
             setDoneOff()
         } else if (checkIsZeroTime) {
             setDoneOff()
         } else if (noOpenInit){
-            setDoneOn()
+            setDoneOff()
         } else if (noCloseInit) {
-            setDoneOn()
+            setDoneOff()
         } else {
             setDoneOn()
         }
