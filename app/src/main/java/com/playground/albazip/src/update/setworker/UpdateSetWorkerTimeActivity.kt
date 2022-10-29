@@ -10,6 +10,7 @@ import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateSetWorkerTimeBinding
 import com.playground.albazip.src.update.setworker.adapter.WorkingTimeAdapter
 import com.playground.albazip.src.update.setworker.custom.SetAllWorkTimePickerBottomSheetDialog
+import com.playground.albazip.src.update.setworker.custom.WorkTimeCancelBottomSheetDialog
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
@@ -24,8 +25,16 @@ class UpdateSetWorkerTimeActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initBackBtnEvent()
         initAllSameBtn()
         initRVAdapter()
+    }
+
+    // 뒤로가기 이벤트
+    private fun initBackBtnEvent() {
+        binding.ivRunningTimeBackBtn.setOnClickListener {
+            WorkTimeCancelBottomSheetDialog { finish() }.show(supportFragmentManager, "BACK_EVENT")
+        }
     }
 
     // 모든 근무 시간이 같아요
