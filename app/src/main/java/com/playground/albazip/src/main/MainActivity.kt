@@ -6,7 +6,6 @@ import android.os.Bundle
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityMainBinding
 import com.playground.albazip.src.login.LoginActivity
-import com.playground.albazip.src.login.ReInputPhoneActivity
 import com.playground.albazip.src.register.common.RegisterActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
