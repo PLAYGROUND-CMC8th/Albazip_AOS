@@ -24,7 +24,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         // ScreenToFull().fullScreen(this)
 
         // 회원가입 화면으로 이동
-        binding.btnRegister.setOnClickListener {
+        binding.tvRegister.setOnClickListener {
             val nextIntent = Intent(this, RegisterActivity::class.java)
             startActivity(nextIntent)
         }
@@ -35,11 +35,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             startActivity(nextIntent)
         }
 
-        // 비밀번호 변경 화면으로 이동
-        binding.tvPwSet.setOnClickListener {
-            val nextIntent = Intent(this,ReInputPhoneActivity::class.java)
-            startActivity(nextIntent)
-        }
     }
 
 }
