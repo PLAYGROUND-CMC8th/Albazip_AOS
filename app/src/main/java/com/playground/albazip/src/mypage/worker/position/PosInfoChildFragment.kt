@@ -9,7 +9,7 @@ import com.playground.albazip.src.mypage.worker.init.data.PositionInfo
 import java.text.DecimalFormat
 
 // 근무자 > 포지션 탭
-class PosInfoChildFragment(val positionInfo:PositionInfo,val intentPosition:String) : BaseFragment<ChildFragmentPosInfoBinding>(
+class PosInfoChildFragment(val positionInfo:PositionInfo, private val intentPosition:String) : BaseFragment<ChildFriagmentPosInfoBinding>(
     ChildFragmentPosInfoBinding::bind,
     R.layout.child_fragment_pos_info
 ) {
@@ -49,24 +49,7 @@ class PosInfoChildFragment(val positionInfo:PositionInfo,val intentPosition:Stri
             }
         }
 
-        // 급여 단위 표시
-        //DecimalFormat 객체 선언 실시 (소수점 표시 안함)
-        val t_dec_up = DecimalFormat("#,###")
-        var salary = t_dec_up.format(getPositionInfo.salary)
-
-
-        // 근무시간
-        binding.tvWorkTime.text = getPositionInfo.startTime.substring(0,2) + ":" + getPositionInfo.startTime.substring(2,4) + " ~ " + getPositionInfo.endTime.substring(0,2) +
-                ":"+getPositionInfo.endTime.substring(2,4) + " 까지 (총 " + workTime
-
-        // 휴게시간
-        binding.tvRestTime.text = "휴게시간 " + getPositionInfo.breakTime
-
-        // 근무요일
-        binding.tvWorkingDay.text = getPositionInfo.workDay
-
-        // 급여
-        binding.tvSalary.text = salaryType + " " + salary + "원"
+        //
 
     }
 }

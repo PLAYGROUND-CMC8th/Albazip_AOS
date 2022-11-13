@@ -176,7 +176,6 @@
        <activity android:name=".src.update.setworker.UpdateAddWorkerOneActivity"
            android:exported="true"/>
         <activity android:name=".src.update.setworker.UpdateSetWorkerTimeActivity" />
-        <activity android:name=".src.splash.PermissionCheckActivity"/>
 
     </application>
 

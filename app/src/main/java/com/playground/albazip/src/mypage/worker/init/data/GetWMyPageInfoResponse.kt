@@ -47,14 +47,24 @@ data class WorkInfo(
 
 /////////////// PostInfo
 data class PositionInfo(
-    @SerializedName("startTime") val startTime: String,
-    @SerializedName("endTime") val endTime: String,
-    @SerializedName("workTime") val workTime: String,
-    @SerializedName("workDay") val workDay: String,
-    @SerializedName("breakTime") val breakTime: String,
-    @SerializedName("salaryType") val salaryType: Int,
-    @SerializedName("salary") val salary: Int,
-)
+    val code: String,
+    val data: Data,
+    val message: String
+) {
+    data class Data(
+        val breakTime: String,
+        val salary: String,
+        val salaryType: Int,
+        val workSchedule: List<WorkSchedule>,
+    ) {
+        data class WorkSchedule(
+            val day: String,
+            val endTime: String,
+            val startTime: String
+        )
+    }
+}
+
 
 ////////////// WBoardInfo
 data class WBoardInfo(

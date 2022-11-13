@@ -1,12 +1,17 @@
 package com.playground.albazip.src.splash
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Base64
 import android.util.Log
+import com.kakao.util.maps.helper.Utility
 import com.playground.albazip.config.ApplicationClass.Companion.prefs
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivitySplashBinding
@@ -17,6 +22,9 @@ import com.playground.albazip.src.main.WorkerMainActivity
 import com.playground.albazip.src.onboard.manager.ManagerOnBoardingActivity
 import com.playground.albazip.src.onboard.worker.WorkerOnBoardingActivity
 import com.playground.albazip.util.PermissionSupport
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import java.util.Base64.getEncoder
 
 
 @SuppressLint("CustomSplashScreen")
