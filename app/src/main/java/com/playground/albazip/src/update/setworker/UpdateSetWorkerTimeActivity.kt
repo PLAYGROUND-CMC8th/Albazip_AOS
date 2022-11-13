@@ -4,11 +4,14 @@ import WorkingTimePickerBottomSheetDialog
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateSetWorkerTimeBinding
+import com.playground.albazip.src.mypage.manager.workerlist.editposition.network.EditPositionInfoData
+import com.playground.albazip.src.mypage.worker.init.data.PositionInfo
 import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.src.update.setworker.adapter.WorkingTimeAdapter
@@ -51,6 +54,55 @@ class UpdateSetWorkerTimeActivity :
             binding.rvWorkerTime.itemAnimator = null
             binding.rvWorkerTime.adapter = workingTimeAdapter
             setRvItemClickEvent()
+        }
+
+        if (intent.hasExtra("_workSchedule")) {
+            val _workSchedule = intent.getSerializableExtra("_workSchedule") as ArrayList<EditPositionInfoData.WorkSchedule>
+
+            workingTimeAdapter =
+                WorkingTimeAdapter(
+                    { setDoneBtnVisibilityOn() },
+                    { setDoneBtnVisibilityOff() },
+                    { setDoneOn() },
+                    { setDoneOff() },
+                    true)
+            workingTimeAdapter.workerTimeList.addAll(
+                listOf(
+                    WorkerTimeData("월요일"),
+                    WorkerTimeData("화요일"),
+                    WorkerTimeData("수요일"),
+                    WorkerTimeData("목요일"),
+                    WorkerTimeData("금요일"),
+                    WorkerTimeData("토요일"),
+                    WorkerTimeData("일요일")
+                )
+            )
+
+            for (i in workingTimeAdapter.workerTimeList.indices) {
+                for (j in _workSchedule.indices) {
+                    if (workingTimeAdapter.workerTimeList[i].workDay.contains(_workSchedule[j].day)) { // 선택된 요일이 있다면
+                        workingTimeAdapter.workerTimeList[i].isSelected = true
+
+                        val startTime =  _workSchedule[j].startTime.substring(0,2) + ":" + _workSchedule[j].startTime.substring(2,4)
+                        val endTime =  _workSchedule[j].endTime.substring(0,2) + ":" + _workSchedule[j].endTime.substring(2,4)
+
+                        workingTimeAdapter.workerTimeList[i].openTime = startTime
+                        workingTimeAdapter.workerTimeList[i].closeTime = endTime
+                        workingTimeAdapter.workerTimeList[i].openFlag = true
+                        workingTimeAdapter.workerTimeList[i].closeFlag = true
+                        workingTimeAdapter.workerTimeList[i].totalTime = GetTimeDiffUtil().getTimeDiffTxt(startTime,endTime)
+                    }
+                }
+            }
+
+            workingTimeAdapter.notifyDataSetChanged()
+
+            binding.rvWorkerTime.itemAnimator = null
+            binding.rvWorkerTime.adapter = workingTimeAdapter
+            setRvItemClickEvent()
+
+            Log.d("kite",workingTimeAdapter.workerTimeList.toString())
+            Log.d("kite",_workSchedule.toString())
         }
     }
 

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -42,6 +41,7 @@ class EditWorkerOneActivity :
     var salary = ""
     var salaryType = ""
     var workSchedule = arrayListOf<EditPositionInfoData.WorkSchedule>()
+    var _workSchedule = arrayListOf<EditPositionInfoData.WorkSchedule>()
 
     var rvList = arrayListOf<WorkerTimeData>()
 
@@ -281,6 +281,7 @@ class EditWorkerOneActivity :
     private fun initSelectWorkingTimeBtn() {
         binding.btnSelectWorkDay.setOnClickListener {
             val nextIntent = Intent(this, UpdateSetWorkerTimeActivity::class.java)
+            nextIntent.putExtra("_workSchedule",_workSchedule)
             nextIntent.putExtra("adapterList", rvList)
             nextIntent.putExtra("workingTimeFlag", workingTimeFlag)
             startActivityForResult.launch(nextIntent)
@@ -417,8 +418,12 @@ class EditWorkerOneActivity :
         }
 
         binding.etPayment.setText(salary)
+        binding.rlPayTwo.background = ContextCompat.getDrawable(
+            this@EditWorkerOneActivity,
+            R.drawable.rectangle_fill_white_radius_gray_15
+        )
 
-        workSchedule = data.workSchedule
+        _workSchedule = data.workSchedule
 
     }
 

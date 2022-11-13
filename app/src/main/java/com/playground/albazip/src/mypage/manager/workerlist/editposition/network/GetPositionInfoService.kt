@@ -10,6 +10,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
+import java.io.Serializable
 
 class GetPositionInfoService(val view: GetPositionInfoFragmentView) {
 
@@ -64,11 +65,11 @@ data class EditPositionInfoData(
         val day: String,
         val endTime: String,
         val startTime: String
-    )
+    ): Serializable
 }
 
 data class EditTaskLists(
     @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String,
     @SerializedName("content") val content: String
-)
+):Serializable
