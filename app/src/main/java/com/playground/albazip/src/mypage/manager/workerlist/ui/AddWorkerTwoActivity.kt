@@ -81,11 +81,11 @@ class AddWorkerTwoActivity :
                 //    break
                 //}else{
                 val postRequest = RequestAddPosition(
-                    rank = workerDataList[0].toString(),
-                    title = workerDataList[1].toString(),
-                    breakTime = workerDataList[2].toString(),
-                    salary = workerDataList[3].toString(),
-                    salaryType = workerDataList[4].toString(),
+                    rank = workerDataList[0],
+                    title = workerDataList[1],
+                    breakTime = workerDataList[2],
+                    salary = workerDataList[3],
+                    salaryType = workerDataList[4],
                     workSchedule = workSchedule,
                     taskLists = taskList
                 )

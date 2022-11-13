@@ -5,6 +5,9 @@ import java.io.Serializable
 
 data class RequestAddPosition(
     val breakTime: String,
+    val startTime: String ?= "",
+    val endTime: String ?= "",
+    val workTime:  String ?= "",
     val rank: String,
     val salary: String,
     val salaryType: String,
