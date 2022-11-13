@@ -76,8 +76,8 @@ class CardNoWorkerFragment(val positionId: Int) : BaseFragment<FragmentCardInfoB
         tabTextStyle()
 
         // 서버통신 시작
-        EmptyWorkerService(this).tryGetEmptyCard(getPositionId)
-        showLoadingDialog(requireContext())
+        //EmptyWorkerService(this).tryGetEmptyCard(getPositionId)
+        //showLoadingDialog(requireContext())
     }
 
     private fun init() {
@@ -131,6 +131,13 @@ class CardNoWorkerFragment(val positionId: Int) : BaseFragment<FragmentCardInfoB
                 tv.setTypeface(null, style)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 서버통신 시작
+        EmptyWorkerService(this).tryGetEmptyCard(getPositionId)
+        showLoadingDialog(requireContext())
     }
 
     // 서버 통신 성공

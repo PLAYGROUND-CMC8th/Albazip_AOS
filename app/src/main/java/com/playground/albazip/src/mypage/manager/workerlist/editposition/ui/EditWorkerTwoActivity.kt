@@ -1,7 +1,6 @@
 package com.playground.albazip.src.mypage.manager.workerlist.editposition.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,7 +45,6 @@ class EditWorkerTwoActivity :
                 intent.getSerializableExtra("workSchedule") as ArrayList<RequestAddPosition.WorkSchedule>
             workSchedule.toMutableSet().toMutableList()
 
-            Log.d("kite", workSchedule.toString())
             todoAdapter.notifyItemRangeChanged(0, todoAdapter.itemList.size + 1)
 
             val salaryType = when (workerDataList[4]) {
@@ -81,8 +79,6 @@ class EditWorkerTwoActivity :
 
                 showLoadingDialog(this)
                 PostPositionInfoService(this).tryPostPositionInfo(intentPositionId, postRequest)
-
-                Log.d("kite", postRequest.toString())
             } else {
                 //val workerDataList :ArrayList<Any> = arrayListOf(rank,title,startTime,endTime,workDays,breakTime,salary,salaryType)
                 if (taskList.isEmpty()) {
@@ -99,9 +95,6 @@ class EditWorkerTwoActivity :
                     showLoadingDialog(this)
                     PostPositionInfoService(this).tryPostPositionInfo(intentPositionId, postRequest)
 
-                    Log.d("kite", postRequest.toString())
-
-                    Log.d("kite", intentPositionId.toString())
                 }
             }
 
@@ -152,8 +145,6 @@ class EditWorkerTwoActivity :
     // 근무자 편집 성공
     override fun onPostPositionInfoSuccess(response: BaseResponse) {
         dismissLoadingDialog()
-
-        Log.d("kite", response.message.toString())
 
         finish()
     }
