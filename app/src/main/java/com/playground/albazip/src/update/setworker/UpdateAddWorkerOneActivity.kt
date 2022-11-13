@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -15,7 +14,6 @@ import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateAddWorkerOneBinding
 import com.playground.albazip.src.mypage.manager.custom.PayUnitBottomSheetDialog
 import com.playground.albazip.src.mypage.manager.workerlist.ui.AddWorkerTwoActivity
-import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.src.update.setworker.dialog.RestTimeInfoBottomSheetDialog
 import com.playground.albazip.src.update.setworker.network.RequestAddPosition
