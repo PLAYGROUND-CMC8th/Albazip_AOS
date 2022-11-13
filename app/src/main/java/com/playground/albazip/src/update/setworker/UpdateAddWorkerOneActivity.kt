@@ -88,6 +88,7 @@ class UpdateAddWorkerOneActivity :
             val nextIntent = Intent(this, AddWorkerTwoActivity::class.java)
             nextIntent.putExtra("workerStringList", workerStringList)
             nextIntent.putExtra("workSchedule",workSchedule as ArrayList<RequestAddPosition.WorkSchedule>)
+
             // 입력정보 넘겨주기
             startActivity(nextIntent)
             finish()

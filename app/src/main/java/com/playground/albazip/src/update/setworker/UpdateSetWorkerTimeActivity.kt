@@ -65,6 +65,7 @@ class UpdateSetWorkerTimeActivity :
                 "adapterList",
                 adapterList as ArrayList<WorkerTimeData>
             )
+
             returnIntent.putExtra("workingTimeFlag", true)
             setResult(RESULT_OK, returnIntent)
             finish()

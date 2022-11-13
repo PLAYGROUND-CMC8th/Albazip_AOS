@@ -58,13 +58,12 @@ class AddWorkerTwoActivity :
                 intent.getSerializableExtra("workerStringList") as ArrayList<String>
             val workSchedule: ArrayList<RequestAddPosition.WorkSchedule> =
                 intent.getSerializableExtra("workSchedule") as ArrayList<RequestAddPosition.WorkSchedule>
+            workSchedule.toMutableSet().toMutableList()
 
             todoAdapter.notifyItemRangeChanged(0, todoAdapter.itemList.size + 1)
 
             var taskList = ArrayList<TodoData>()
             taskList = todoAdapter.itemList
-
-            Log.d("kite",taskList.toString())
 
             // recyclerview 데이터가 하나라도 존재할 때
             if (binding.rvToDoList.isNotEmpty()) {
