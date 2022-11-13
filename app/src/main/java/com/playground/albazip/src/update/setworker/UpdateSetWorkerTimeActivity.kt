@@ -4,16 +4,12 @@ import WorkingTimePickerBottomSheetDialog
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityUpdateSetWorkerTimeBinding
 import com.playground.albazip.src.mypage.manager.workerlist.editposition.network.EditPositionInfoData
-import com.playground.albazip.src.mypage.worker.init.data.PositionInfo
-import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
-import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.src.update.setworker.adapter.WorkingTimeAdapter
 import com.playground.albazip.src.update.setworker.custom.SetAllWorkTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.setworker.custom.WorkTimeCancelBottomSheetDialog
@@ -100,9 +96,6 @@ class UpdateSetWorkerTimeActivity :
             binding.rvWorkerTime.itemAnimator = null
             binding.rvWorkerTime.adapter = workingTimeAdapter
             setRvItemClickEvent()
-
-            Log.d("kite",workingTimeAdapter.workerTimeList.toString())
-            Log.d("kite",_workSchedule.toString())
         }
     }
 
@@ -119,6 +112,26 @@ class UpdateSetWorkerTimeActivity :
             )
 
             returnIntent.putExtra("workingTimeFlag", true)
+
+            if (intent.hasExtra("_workSchedule")) {
+
+                val workSchedule =  arrayListOf<EditPositionInfoData.WorkSchedule>()
+
+                val selectedRv = adapterList.filter { it.isSelected == true }
+
+                for (i in selectedRv.indices) {
+                    val data = selectedRv[i]
+                    workSchedule.add(
+                        EditPositionInfoData.WorkSchedule(
+                            data.workDay.substring(0, 1),
+                            data.openTime!!.replace(":", ""),
+                            data.closeTime!!.replace(":", "")
+                        )
+                    )
+                }
+                returnIntent.putExtra("_workSchedule", workSchedule)
+            }
+
             setResult(RESULT_OK, returnIntent)
             finish()
         }

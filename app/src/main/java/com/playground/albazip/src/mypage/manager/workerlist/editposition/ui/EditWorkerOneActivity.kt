@@ -52,6 +52,10 @@ class EditWorkerOneActivity :
 
                 rvList = it.data!!.getSerializableExtra("adapterList") as ArrayList<WorkerTimeData>
 
+                if (it.data!!.hasExtra("_workSchedule")) {
+                    _workSchedule = it.data!!.getSerializableExtra("_workSchedule") as ArrayList<EditPositionInfoData.WorkSchedule>
+                }
+
                 if (workingTimeFlag) {
                     binding.llWorkingDone.visibility = View.VISIBLE
                 } else {
