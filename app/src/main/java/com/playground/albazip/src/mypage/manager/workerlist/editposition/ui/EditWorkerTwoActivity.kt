@@ -1,6 +1,7 @@
 package com.playground.albazip.src.mypage.manager.workerlist.editposition.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import com.playground.albazip.databinding.ActivityEditWorkerTwoBinding
 import com.playground.albazip.src.mypage.manager.adapter.EditTodoListAdapter
 import com.playground.albazip.src.mypage.manager.workerlist.data.local.EditTodoData
 import com.playground.albazip.src.mypage.manager.workerlist.editposition.network.*
+import com.playground.albazip.src.update.setworker.network.RequestAddPosition
 
 class EditWorkerTwoActivity:BaseActivity<ActivityEditWorkerTwoBinding>(ActivityEditWorkerTwoBinding::inflate),
     GetPositionInfoFragmentView,PostPositionInfoFragmentView {
@@ -24,106 +26,76 @@ class EditWorkerTwoActivity:BaseActivity<ActivityEditWorkerTwoBinding>(ActivityE
         val intentPositionId = intent.getIntExtra("positionId",0)
         GetPositionInfoService(this).tryGetPositionInfo(intentPositionId)
         showLoadingDialog(this)
+    }
 
+    private fun initAdapter() {
+        val intentPositionId = intent.getIntExtra("positionId",0)
 
         // 뒤로가기
-        binding.ibtnBack.setOnClickListener { 
+        binding.ibtnBack.setOnClickListener {
             finish()
         }
 
         // 편집완료
         binding.tvNext.setOnClickListener {
 
-            // 이전 클래스에서 정보 받아오기
-            val workerDataList: ArrayList<Any> =
-                intent.getSerializableExtra("workerDataList") as ArrayList<Any>
+            val workerDataList: ArrayList<String> =
+                intent.getSerializableExtra("workerStringList") as ArrayList<String>
+            val workSchedule: ArrayList<RequestAddPosition.WorkSchedule> =
+                intent.getSerializableExtra("workSchedule") as ArrayList<RequestAddPosition.WorkSchedule>
+            workSchedule.toMutableSet().toMutableList()
 
-            val taskList = ArrayList<PostEditTaskLists>()
-            todoAdapter.notifyDataSetChanged()
+            Log.d("kite",workSchedule.toString())
+            todoAdapter.notifyItemRangeChanged(0, todoAdapter.itemList.size + 1)
 
-            if (todoAdapter.itemList.isNotEmpty()) {
-                for (i in 0 until todoAdapter.itemCount) {
-                    taskList.add(
-                        PostEditTaskLists(
-                            null,
-                            todoAdapter.itemList[i].titleTxt,
-                            todoAdapter.itemList[i].contextTxt
-                        )
-                    )
-                }
-            }
-
-            var getSalaryType = workerDataList[7].toString()
-            when(getSalaryType){
-                "시급" -> {getSalaryType = "0"}
-                "주급" -> {getSalaryType = "1"}
-                "월급" -> {getSalaryType = "2"}
-            }
+            var taskList = ArrayList<EditTodoData>()
+            taskList = todoAdapter.itemList
 
             // recyclerview 데이터가 하나라도 존재할 때
-            if(binding.rvToDoList.isNotEmpty()){
+            if (binding.rvToDoList.isNotEmpty()) {
                 // title 값 체크하고 서버통신
-                for(i in 0 until todoAdapter.itemCount) {
-                if (todoAdapter.itemList[i].titleTxt.isEmpty()) { // '제목'부분이 비어있다면
-                    showCustomToast("작성이 미완료된 업무가 있습니다!")
-                    break
-                }  else{
-
+                //for(i in 0 until todoAdapter.itemCount) {
+                //if (todoAdapter.itemList[i].titleTxt.isEmpty()) { // '제목'부분이 비어있다면
+                //    showCustomToast("작성이 미완료된 업무가 있습니다!")
+                //    break
+                //}else{
                 val postRequest = PostEditWorkerRequest(
-                    rank = workerDataList[0].toString(),
-                    title = workerDataList[1].toString(),
-                    startTime = workerDataList[2].toString(),
-                    endTime = workerDataList[3].toString(),
-                    workDay = workerDataList[4] as ArrayList<String>,
-                    breakTime = workerDataList[5].toString(),
-                    salary = workerDataList[6].toString().replace(",",""),
-                    salaryType = getSalaryType,
+                    rank = workerDataList[0],
+                    title = workerDataList[1],
+                    breakTime = workerDataList[2],
+                    salary = workerDataList[3].replace(",",""),
+                    salaryType = workerDataList[4].toInt(),
+                    workSchedule = workSchedule,
                     taskList = taskList
                 )
 
-                    PostPositionInfoService(this).tryPostPositionInfo(intentPositionId,postRequest)
-                    showLoadingDialog(this)
+                showLoadingDialog(this)
+                PostPositionInfoService(this).tryPostPositionInfo(intentPositionId,postRequest)
 
-                 }
-                }
-            }
-
-            /*else {
+                Log.d("kite",postRequest.toString())
+            } else {
                 //val workerDataList :ArrayList<Any> = arrayListOf(rank,title,startTime,endTime,workDays,breakTime,salary,salaryType)
                 if (taskList.isEmpty()) {
                     val postRequest = PostEditWorkerRequest(
-                        rank = workerDataList[0].toString(),
-                        title = workerDataList[1].toString(),
-                        startTime = workerDataList[2].toString(),
-                        endTime = workerDataList[3].toString(),
-                        workDay = workerDataList[4] as ArrayList<String>,
-                        breakTime = workerDataList[5].toString(),
-                        salary = workerDataList[6].toString().replace(",",""),
-                        salaryType = getSalaryType,
-                        taskList = taskList
+                        rank = workerDataList[0],
+                        title = workerDataList[1],
+                        breakTime = workerDataList[2],
+                        salary = workerDataList[3].replace(",",""),
+                        salaryType = workerDataList[4].toInt(),
+                        workSchedule = workSchedule,
+                        taskList = null
                     )
 
-                    PostPositionInfoService(this).tryPostPositionInfo(intentPositionId,postRequest)
                     showLoadingDialog(this)
+                    PostPositionInfoService(this).tryPostPositionInfo(intentPositionId,postRequest)
 
+                    Log.d("kite",postRequest.toString())
+
+                    Log.d("kite",intentPositionId.toString())
                 }
-            }*/
-
+            }
 
         }
-
-        //toDoList = taskList as ArrayList<EditTodoData>
-
-        // recyclerview 연결
-//        todoAdapter = EditTodoListAdapter(toDoList,this@EditWorkerTwoActivity)
-//
-//        // 리사이클러 뷰 타입 설정
-//        // 만든 어댑터 recyclerview에 연결
-//        val linearLayoutManager = LinearLayoutManager(this)
-//        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-//        binding.rvToDoList.layoutManager = linearLayoutManager
-//
-//        binding.rvToDoList.adapter = todoAdapter
 
         // 업무추가 버튼 누르면 recyclerview 등장
         binding.clAddToDo.setOnClickListener {
@@ -135,7 +107,6 @@ class EditWorkerTwoActivity:BaseActivity<ActivityEditWorkerTwoBinding>(ActivityE
             todoAdapter.notifyDataSetChanged()
         }
     }
-
     override fun onGetPositionInfoSuccess(response: GetPositionInfoResponse) {
         dismissLoadingDialog()
 
@@ -154,6 +125,7 @@ class EditWorkerTwoActivity:BaseActivity<ActivityEditWorkerTwoBinding>(ActivityE
 
         binding.rvToDoList.adapter = todoAdapter
 
+        initAdapter()
     }
 
     override fun onGetPositionInfoFailure(message: String) {

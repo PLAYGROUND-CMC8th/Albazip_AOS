@@ -98,7 +98,7 @@ class CardPositionChildFragment(positionInfo: PositionInfo, flags: Int, position
         }
 
         binding.tvSalary.text =
-            salaryType + DecimalFormat("#,###").format(getPositionInfo.salary.toInt()) + "원"
+            salaryType + " " + DecimalFormat("#,###").format(getPositionInfo.salary.toInt()) + "원"
     }
 
     override fun onItemSelected(isDeleteClicked: Boolean) {

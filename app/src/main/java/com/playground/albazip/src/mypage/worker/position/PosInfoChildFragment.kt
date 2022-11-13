@@ -54,6 +54,6 @@ class PosInfoChildFragment(val positionInfo: PositionInfo, private val intentPos
         }
 
         binding.tvSalary.text =
-            salaryType + DecimalFormat("#,###").format(positionInfo.salary.toInt()) + "원"
+            salaryType + " " + DecimalFormat("#,###").format(positionInfo.salary.toInt()) + "원"
     }
 }

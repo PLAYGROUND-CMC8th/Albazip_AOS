@@ -1,6 +1,5 @@
 package com.playground.albazip.src.update.setworker.network
 
-import android.os.Parcelable
 import com.playground.albazip.src.mypage.manager.workerlist.data.local.TodoData
 import java.io.Serializable
 
@@ -24,3 +23,4 @@ data class RequestAddPosition(
         val endTime: String,
     ):Serializable
 }
+

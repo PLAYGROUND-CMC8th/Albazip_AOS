@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -108,10 +109,11 @@ class EditWorkerOneActivity :
 
             // 근무자 추가 두 번째 화면으로 이동
             val nextIntent = Intent(this, EditWorkerTwoActivity::class.java)
+            nextIntent.putExtra("positionId", intent.getIntExtra("positionId", 0))
             nextIntent.putExtra("workerStringList", workerStringList)
             nextIntent.putExtra(
                 "workSchedule",
-                workSchedule as ArrayList<RequestAddPosition.WorkSchedule>
+                _workSchedule as ArrayList<RequestAddPosition.WorkSchedule>
             )
 
             // 입력정보 넘겨주기
