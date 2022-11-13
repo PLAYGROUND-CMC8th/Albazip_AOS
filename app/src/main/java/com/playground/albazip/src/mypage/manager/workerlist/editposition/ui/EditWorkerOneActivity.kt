@@ -28,12 +28,12 @@ class EditWorkerOneActivity :
     PayUnitBottomSheetDialog.BottomSheetClickListener,
     GetPositionInfoFragmentView {
 
-    private var positionState = false
-    private var partState = false
-    private var restTimeState = false
+    private var positionState = true
+    private var partState = true
+    private var restTimeState = true
     private var payState = true
 
-    var workingTimeFlag = false
+    var workingTimeFlag = true
 
     var rank = "알바생"
     var title = ""
