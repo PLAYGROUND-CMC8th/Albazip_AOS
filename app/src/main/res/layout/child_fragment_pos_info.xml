@@ -58,6 +58,7 @@
 
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_work_schedule"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -71,7 +72,7 @@
                         app:layout_constraintStart_toStartOf="@id/tv_working_day"
                         app:layout_constraintTop_toBottomOf="@id/tv_working_day"
                         tools:itemCount="7"
-                        tools:listitem="@layout/item_rv_postiion_info" />
+                        tools:listitem="@layout/item_rv_work_schedule" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

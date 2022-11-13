@@ -6,50 +6,54 @@ import com.playground.albazip.R
 import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.ChildFragmentPosInfoBinding
 import com.playground.albazip.src.mypage.worker.init.data.PositionInfo
+import com.playground.albazip.src.mypage.worker.position.adapter.WorkScheduleAdapter
 import java.text.DecimalFormat
 
 // 근무자 > 포지션 탭
-class PosInfoChildFragment(val positionInfo:PositionInfo, private val intentPosition:String) : BaseFragment<ChildFriagmentPosInfoBinding>(
-    ChildFragmentPosInfoBinding::bind,
-    R.layout.child_fragment_pos_info
-) {
+class PosInfoChildFragment(val positionInfo: PositionInfo, private val intentPosition: String) :
+    BaseFragment<ChildFragmentPosInfoBinding>(
+        ChildFragmentPosInfoBinding::bind,
+        R.layout.child_fragment_pos_info
+    ) {
 
-    // 서버에서 정보 받아오기
-    val getPositionInfo = positionInfo
-    val getIntentPositionTxt = intentPosition
+    private lateinit var workScheduleAdapter: WorkScheduleAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setWorkingDayUI()
+        setRestTimeUI()
+        setSalaryUI()
+    }
 
-        // 상단 텍스트 포지션 정보 받아오기
-        binding.tvPosition.text = getIntentPositionTxt
+    // 근무일
+    private fun setWorkingDayUI() {
+        workScheduleAdapter = WorkScheduleAdapter()
+        workScheduleAdapter.scheduleList = positionInfo.workSchedule
+        binding.rvWorkSchedule.adapter = workScheduleAdapter
+    }
 
-        // 월급 타입
+    // 쉬는시간
+    private fun setRestTimeUI() {
+        binding.tvRestDay.text = positionInfo.breakTime
+    }
+
+    // 페이
+    private fun setSalaryUI() {
         var salaryType = ""
-        when(positionInfo.salaryType){
-            0 -> { salaryType = "시급"}
-            1 -> {salaryType = "주급"}
-            2 -> {salaryType = "월급"}
-        }
-
-        // 총 근무시간
-        var workTime = ""
-        if(getPositionInfo.workTime.substring(2,4) == "00"){ // 1시간, 12시간
-            if(getPositionInfo.workTime.substring(0,1)=="0"){
-                workTime = getPositionInfo.workTime.substring(1,2)+"시간)" // 1시간
-            }else{
-                workTime = getPositionInfo.workTime.substring(0,2)+"시간)" // 12시간
+        when (positionInfo.salaryType) {
+            0 -> {
+                salaryType = "시급"
             }
-        }else{
-            if(getPositionInfo.workTime.substring(0,1)=="0"){
-                workTime = getPositionInfo.workTime.substring(1,2)+"시간 "+ getPositionInfo.workTime.substring(2,4)+"분)" // 1시간 30분
-            }else{
-                workTime = getPositionInfo.workTime.substring(0,2)+"시간 "+ getPositionInfo.workTime.substring(2,4)+"분)" // 12시간 30분
+            1 -> {
+                salaryType = "주급"
+            }
+            2 -> {
+                salaryType = "월급"
             }
         }
 
-        //
-
+        binding.tvSalary.text =
+            salaryType + DecimalFormat("#,###").format(positionInfo.salary.toInt()) + "원"
     }
 }
