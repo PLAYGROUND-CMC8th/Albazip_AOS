@@ -19,7 +19,8 @@ import com.playground.albazip.src.register.manager.network.BNumFragmentView
 import com.playground.albazip.src.register.manager.network.BNumService
 import com.playground.albazip.src.update.runtime.InputPlaceMoreBetaActivity
 
-class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding::inflate),BNumFragmentView {
+class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding::inflate),
+    BNumFragmentView {
 
     // 사업자 정보 인증 단계
     var certifyState = 1
@@ -83,7 +84,10 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
                 if (s.length == 12) { // 활성화
                     binding.btnNext.isEnabled = true
                     binding.btnNext.background =
-                        ContextCompat.getDrawable(this@InputBNumActivity, R.drawable.btn_main_yellow_fill_rounded)
+                        ContextCompat.getDrawable(
+                            this@InputBNumActivity,
+                            R.drawable.btn_main_yellow_fill_rounded
+                        )
                     binding.btnNext.setTextColor(Color.parseColor("#343434"))
                     binding.ivInputCheck.setImageDrawable(
                         ContextCompat.getDrawable(
@@ -94,7 +98,10 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
                 } else { // 비활성화
                     binding.btnNext.isEnabled = false
                     binding.btnNext.background =
-                        ContextCompat.getDrawable(this@InputBNumActivity, R.drawable.btn_disable_yellow_fill_rounded)
+                        ContextCompat.getDrawable(
+                            this@InputBNumActivity,
+                            R.drawable.btn_disable_yellow_fill_rounded
+                        )
                     binding.btnNext.setTextColor(Color.parseColor("#adadad"))
                     binding.ivInputCheck.setImageDrawable(
                         ContextCompat.getDrawable(
@@ -115,7 +122,7 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
         binding.btnNext.setOnClickListener {
 
             // 인증 번호 존재하는 지 여부 먼저 판단 (1단계)
-            if(certifyState == 1) {
+            if (certifyState == 1) {
 
                 showLoadingDialog(this)
 
@@ -123,7 +130,7 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
             }
 
             // 인증 번호와 성함이 일치하는지 여부 판단 (2단계)
-            if(certifyState == 2){
+            if (certifyState == 2) {
 
                 showLoadingDialog(this)
 
@@ -131,11 +138,22 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
                 // BNameService(this).tryGetBName(binding.etInputBnum.text.toString(),binding.etInputName.text.toString())
             }
         }
+
+        removeErrorField()
+
     }
+
+    private fun removeErrorField() {
+        binding.etInputBnum.setOnClickListener {
+            if (binding.warningTv.visibility == View.VISIBLE) binding.warningTv.visibility =
+                View.INVISIBLE
+        }
+    }
+
 
     override fun onGetBNumSuccess(response: BNumResponse) {
         dismissLoadingDialog()
-        if(response.message == "사업자등번호가 존재합니다.") {
+        if (response.message == "사업자등번호가 존재합니다.") {
             // 경고 텍스트 지우기
             binding.warningTv.visibility = View.INVISIBLE
 
@@ -155,7 +173,8 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
             binding.btnNext.isEnabled = false
              */
 
-            val registerDataList:ArrayList<String> = intent.getSerializableExtra("registerDataList") as ArrayList<String>
+            val registerDataList: ArrayList<String> =
+                intent.getSerializableExtra("registerDataList") as ArrayList<String>
 
             //  사업자 번호
             registerDataList.add(binding.etInputBnum.text.toString())
@@ -167,10 +186,10 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
 
             // 화면이동
             val nextIntent = Intent(this, InputPlaceMoreBetaActivity::class.java)
-            nextIntent.putExtra("registerDataList",registerDataList)
+            nextIntent.putExtra("registerDataList", registerDataList)
             startActivity(nextIntent)
 
-        }else{
+        } else {
 
             // 경고 배경으로 바꾸기
             binding.rlBnumInput.background = ContextCompat.getDrawable(
@@ -190,7 +209,7 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
     }
 
     // focus 감지
-    fun onFocus(){
+    fun onFocus() {
         binding.etInputBnum.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus)
                 binding.rlBnumInput.background = ContextCompat.getDrawable(
