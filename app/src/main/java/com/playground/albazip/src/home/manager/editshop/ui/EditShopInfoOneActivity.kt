@@ -6,33 +6,28 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
 import androidx.core.content.ContextCompat
 import com.playground.albazip.R
+import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityEditShopInfoOneBinding
 import com.playground.albazip.src.home.manager.editshop.network.GetEditShopInfoFragmentView
 import com.playground.albazip.src.home.manager.editshop.network.GetEditShopInfoResponse
 import com.playground.albazip.src.home.manager.editshop.network.GetEditShopInfoService
+import com.playground.albazip.src.home.manager.service.MHomeService
 import com.playground.albazip.src.register.manager.custom.TypeBottomSheetDialog
+import com.playground.albazip.src.update.runtime.network.RegisterService
+import com.playground.albazip.util.enqueueUtil
 
 class EditShopInfoOneActivity :
     BaseActivity<ActivityEditShopInfoOneBinding>(ActivityEditShopInfoOneBinding::inflate),
-    TypeBottomSheetDialog.BottomSheetClickListener,GetEditShopInfoFragmentView {
+    TypeBottomSheetDialog.BottomSheetClickListener {
 
     var name_flags: Boolean = true
     var place_type_flags: Boolean = true
     var main_place_flags: Boolean = true
-
-    /// 서버 통신에서 받아올 데이터
-    // 휴무일
-    var holiday = ArrayList<String>()
-    // 시작시간
-    var startTime =""
-    // 종료시간
-    var endTime = ""
-    // 월급날
-    var payDay = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +35,8 @@ class EditShopInfoOneActivity :
         // 포커스 감지 함수
         onFocus()
 
-        val positionId = intent.getIntExtra("positionId",0)
-        GetEditShopInfoService(this).tryGetEditShopInfo(positionId)
-        showLoadingDialog(this)
+        val positionId = intent.getIntExtra("positionId", 0)
+        tryGetEditShopInfo(positionId)
 
         binding.ibtnBack.setOnClickListener {
             finish()
@@ -81,13 +75,12 @@ class EditShopInfoOneActivity :
                 binding.etLocationMain.text.toString() + " " + binding.etLocationSub.text.toString()
 
             // 매장 정보 넘기기
-            val registerDataList: ArrayList<String> = arrayListOf(placeName, placeType, placeAdress,startTime,endTime,payDay)
+            val registerDataList: ArrayList<String> = arrayListOf(placeName, placeType, placeAdress)
 
             val nextIntent = Intent(this, EditShopInfoTwoActivity::class.java)
 
             nextIntent.putExtra("registerDataList", registerDataList)
-            nextIntent.putExtra("holiday",holiday)
-            nextIntent.putExtra("positionId",positionId)
+            nextIntent.putExtra("positionId", positionId)
 
             startActivity(nextIntent)
         }
@@ -218,31 +211,22 @@ class EditShopInfoOneActivity :
         }
     }
 
-    // 매장 정보 조회 성공
-    override fun onGetEditShopInfoSuccess(response: GetEditShopInfoResponse) {
-        dismissLoadingDialog()
+    private fun tryGetEditShopInfo(positionId: Int) {
+        val mHomeService: MHomeService =
+            ApplicationClass.sRetrofit.create(MHomeService::class.java)
+        val token = ApplicationClass.prefs.getString("X-ACCESS-TOKEN", "0")
+        val call = mHomeService.getEditShopInfo(token, 63)
+        call.enqueueUtil(
+            getResultCode = { it.code },
+            onSuccess200 = {
+                binding.etName.setText(it.data.name) // 매장명
+                binding.tvType.text = it.data.type // 업종선택
+                binding.etLocationMain.setText(it.data.address) // 주소
+            },
 
-        // 매장명
-        binding.etName.setText(response.data.name)
-
-        // 업종선택
-        binding.tvType.text = response.data.type
-
-        // 주소
-        binding.etLocationMain.setText(response.data.address)
-
-        // 휴무일
-        holiday = response.data.holiday
-        // 시작시간
-        startTime = response.data.startTime
-        // 마감시간
-        endTime = response.data.endTime
-        // 월급날
-        payDay = response.data.payday
-    }
-
-    // 매장 정보 조회 실패
-    override fun onGetEditShopInfoFailure(message: String) {
-        dismissLoadingDialog()
+            onError400 = {
+                showCustomToast(it.message.toString())
+            }
+        )
     }
 }

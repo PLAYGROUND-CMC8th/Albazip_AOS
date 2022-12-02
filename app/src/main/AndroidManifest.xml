@@ -140,7 +140,8 @@
         <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.editposition.ui.EditWorkerOneActivity" />
         <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.editposition.ui.EditWorkerTwoActivity" />
 
-        <activity android:name="com.playground.albazip.src.home.manager.editshop.ui.EditShopInfoOneActivity" />
+        <activity android:name="com.playground.albazip.src.home.manager.editshop.ui.EditShopInfoOneActivity"
+            android:exported="true"/>
         <activity android:name="com.playground.albazip.src.home.manager.editshop.ui.EditShopInfoTwoActivity" />
 
         <activity android:name="com.playground.albazip.src.home.manager.editshop.ui.DelShopActivity" />
