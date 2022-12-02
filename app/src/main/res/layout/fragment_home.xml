@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="36dp"
+                android:layout_marginBottom="48dp"
                 android:background="@color/white">
 
 
@@ -96,13 +96,11 @@
 
                     </RelativeLayout>
 
-
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/vp_home_communicate"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clipToPadding="false" />
-
 
                 </RelativeLayout>
 
@@ -112,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     app:dotsColor="#ebebeb"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="48dp"
                     app:dotsCornerRadius="8dp"
                     app:dotsSize="4dp"
                     app:dotsSpacing="4dp"
