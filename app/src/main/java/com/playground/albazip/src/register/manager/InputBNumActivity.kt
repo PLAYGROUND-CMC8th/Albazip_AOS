@@ -39,6 +39,35 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
         // 포커스 여부 반환(배경 색 변경)
         onFocus()
 
+        // 텍스트 배경색 변경
+        setEditTextVisible()
+
+        // 다음 버튼 클릭
+        binding.btnNext.setOnClickListener {
+
+            // 인증 번호 존재하는 지 여부 먼저 판단 (1단계)
+            if (certifyState == 1) {
+
+                showLoadingDialog(this)
+
+                BNumService(this).tryGetBNum(binding.etInputBnum.text.toString())
+            }
+
+            // 인증 번호와 성함이 일치하는지 여부 판단 (2단계)
+            if (certifyState == 2) {
+
+                showLoadingDialog(this)
+
+                //showCustomToast(binding.etInputBnum.text.toString() + binding.etInputName.text.toString())
+                // BNameService(this).tryGetBName(binding.etInputBnum.text.toString(),binding.etInputName.text.toString())
+            }
+        }
+
+        removeErrorField()
+
+    }
+
+    private fun setEditTextVisible() {
         //  사업자 번호 자동으로 "-" 붙이기
         var _beforeLength: Int = 0
         var _afterLength: Int = 0
@@ -50,6 +79,11 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                binding.rlBnumInput.background = ContextCompat.getDrawable(
+                    this@InputBNumActivity,
+                    R.drawable.rectagnle_yellow_radius
+                )
 
                 _afterLength = s!!.length
 
@@ -116,37 +150,23 @@ class InputBNumActivity : BaseActivity<ActivityBnumBinding>(ActivityBnumBinding:
             override fun afterTextChanged(s: Editable?) {}
 
         })
-
-
-        // 다음 버튼 클릭
-        binding.btnNext.setOnClickListener {
-
-            // 인증 번호 존재하는 지 여부 먼저 판단 (1단계)
-            if (certifyState == 1) {
-
-                showLoadingDialog(this)
-
-                BNumService(this).tryGetBNum(binding.etInputBnum.text.toString())
-            }
-
-            // 인증 번호와 성함이 일치하는지 여부 판단 (2단계)
-            if (certifyState == 2) {
-
-                showLoadingDialog(this)
-
-                //showCustomToast(binding.etInputBnum.text.toString() + binding.etInputName.text.toString())
-                // BNameService(this).tryGetBName(binding.etInputBnum.text.toString(),binding.etInputName.text.toString())
-            }
-        }
-
-        removeErrorField()
-
     }
 
     private fun removeErrorField() {
         binding.etInputBnum.setOnClickListener {
-            if (binding.warningTv.visibility == View.VISIBLE) binding.warningTv.visibility =
-                View.INVISIBLE
+            if (binding.warningTv.visibility == View.VISIBLE) {
+                // 경고 텍스트 지우기
+                binding.warningTv.visibility = View.INVISIBLE
+
+                // 배경 기본으로 재변경(오류 났을 때 없애기 위함)
+                binding.rlBnumInput.background = ContextCompat.getDrawable(
+                    this@InputBNumActivity,
+                    R.drawable.rectangle_custom_white_radius
+                )
+
+                onFocus()
+                setEditTextVisible()
+            }
         }
     }
 
