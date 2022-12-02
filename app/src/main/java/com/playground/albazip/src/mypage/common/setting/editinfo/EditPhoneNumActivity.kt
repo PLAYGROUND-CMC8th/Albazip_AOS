@@ -453,17 +453,21 @@ class EditPhoneNumActivity :
     override fun onEditPhoneNumPostSuccess(response: BaseResponse) {
         dismissLoadingDialog()
         // 화면 전환
-        showCustomToast("전화번호 변경 성공")
-        // 로그인 flag 변경(로그아웃)
-        ApplicationClass.prefs.setInt("loginFlags",0)
-        // token 비우기
-        ApplicationClass.prefs.setString("X-ACCESS-TOKEN","")
+        if (response.code == 400) {
+            showCustomToast("사용자 휴대폰번호 변경에 오류가 발생했습니다.")
+        } else {
+            showCustomToast("전화번호 변경 성공")
+            // 로그인 flag 변경(로그아웃)
+            ApplicationClass.prefs.setInt("loginFlags", 0)
+            // token 비우기
+            ApplicationClass.prefs.setString("X-ACCESS-TOKEN", "")
 
-        // 메인 화면으로 이동
-        val mainIntent = Intent(this, MainActivity::class.java)
-        startActivity(mainIntent)
-        // 이전 엑티비티 모두 종료
-        finishAffinity()
+            // 메인 화면으로 이동
+            val mainIntent = Intent(this, MainActivity::class.java)
+            startActivity(mainIntent)
+            // 이전 엑티비티 모두 종료
+            finishAffinity()
+        }
     }
 
     override fun onEditPhoneNumFailure(message: String) {
