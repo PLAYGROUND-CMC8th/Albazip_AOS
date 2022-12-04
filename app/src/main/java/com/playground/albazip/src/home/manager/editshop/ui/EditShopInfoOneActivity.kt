@@ -215,7 +215,7 @@ class EditShopInfoOneActivity :
         val mHomeService: MHomeService =
             ApplicationClass.sRetrofit.create(MHomeService::class.java)
         val token = ApplicationClass.prefs.getString("X-ACCESS-TOKEN", "0")
-        val call = mHomeService.getEditShopInfo(token, 63)
+        val call = mHomeService.getEditShopInfo(token, positionId)
         call.enqueueUtil(
             getResultCode = { it.code },
             onSuccess200 = {
