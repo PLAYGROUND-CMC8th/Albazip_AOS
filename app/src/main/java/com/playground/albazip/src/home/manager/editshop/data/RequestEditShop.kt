@@ -12,7 +12,7 @@ data class RequestEditShop(
 ) {
     data class OpenSchedule(
         val day: String,
+        val startTime: String,
         val endTime: String,
-        val startTime: String
     )
 }

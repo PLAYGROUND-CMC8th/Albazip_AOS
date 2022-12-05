@@ -75,6 +75,17 @@ class EditShopInfoTwoActivity :
             val registerDataList =
                 intent.getSerializableExtra("registerDataList") as ArrayList<String>
 
+            // 쉬는날
+            val holidayList = mutableListOf<String>()
+            for (i in rvList.indices) {
+                if (rvList[i].restState) {
+                    holidayList.add(rvList[i].day.toString().substring(0,1))
+                }
+            }
+            if (binding.cbInputPlaceRestDay.isSelected){ // 공휴일 버튼이 체크되어 있으면
+                holidayList.add("공휴일") // 공휴일 추가
+            }
+
             // 서버로 넘겨줄 스케줄 리스트
             val openScheduleListToServer = arrayListOf<RequestEditShop.OpenSchedule>()
             for (i in openScheduleList.indices) {
@@ -87,11 +98,6 @@ class EditShopInfoTwoActivity :
                         data.closeTime!!.replace(":", "")
                     )
                 )
-            }
-
-            // 공휴일 버튼 체크되어있으면 -> 추가
-            if (binding.cbInputPlaceRestDay.isSelected) {
-                holidayList.add("공휴일")
             }
 
             val body = RequestEditShop(
@@ -191,6 +197,8 @@ class EditShopInfoTwoActivity :
                     if (data.startTime == "0000" && data.endTime == "0000") {
                         openScheduleList[index].time24State = true
                         openScheduleList[index].totalTime = "24시간"
+                        openScheduleList[index].openFlag = false
+                        openScheduleList[index].closeFlag = false
                     }
                 }
 
