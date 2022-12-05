@@ -35,8 +35,6 @@ class UpdateRunningTimeActivity :
         initDoneBtnEvent()
 
         getIntentRv()
-
-        Log.d("kite",runningTimeAdapter.runningTimeItemList.toString())
     }
 
     // 이미 들어간 데이터가 있다면 다음과 같이 설정

@@ -3,17 +3,19 @@ package com.playground.albazip.src.home.manager.editshop.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.playground.albazip.R
 import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityEditShopInfoTwoBinding
+import com.playground.albazip.src.home.manager.editshop.data.RequestEditShop
 import com.playground.albazip.src.home.manager.service.MHomeService
+import com.playground.albazip.src.main.ManagerMainActivity
 import com.playground.albazip.src.register.manager.custom.PayDayBottomSheetDialog
 import com.playground.albazip.src.update.runtime.UpdateRunningTimeActivity
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
+import com.playground.albazip.util.GetTimeDiffUtil
 import com.playground.albazip.util.enqueueUtil
 
 class EditShopInfoTwoActivity :
@@ -50,24 +52,15 @@ class EditShopInfoTwoActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        tryGetEditShopInfo(63)
+        val positionId = intent.getIntExtra("positionId", 0)
+        tryGetEditShopInfo(positionId)
 
         initBackEvent()
-        getPrevInfo()
         initDoneBtnEvent()
 
         initRunningTimeBtn()
         checkRestDayEvent()
         setPayBtn()
-    }
-
-    // 기존 정보 받아오기
-    private fun getPrevInfo() {
-        val registerDataList = intent.getSerializableExtra("registerDataList") as ArrayList<String>
-        val positionId = intent.getIntExtra("positionId", 0)
-        //  가게이름 registerDataList[0]
-        // 타입 registerDataList[1]
-        // 주소 registerDataList[2]
     }
 
     private fun initBackEvent() {
@@ -78,9 +71,41 @@ class EditShopInfoTwoActivity :
 
     private fun initDoneBtnEvent() {
         binding.tvNext.setOnClickListener {
-            Log.d("kite", openScheduleList.toString())
+            val positionId = intent.getIntExtra("positionId", 0)
+            val registerDataList =
+                intent.getSerializableExtra("registerDataList") as ArrayList<String>
+
+            // 서버로 넘겨줄 스케줄 리스트
+            val openScheduleListToServer = arrayListOf<RequestEditShop.OpenSchedule>()
+            for (i in openScheduleList.indices) {
+                val data = openScheduleList[i]
+                openScheduleListToServer.add(
+                    i,
+                    RequestEditShop.OpenSchedule(
+                        data.day!!.substring(0, 1),
+                        data.openTime!!.replace(":", ""),
+                        data.closeTime!!.replace(":", "")
+                    )
+                )
+            }
+
+            // 공휴일 버튼 체크되어있으면 -> 추가
+            if (binding.cbInputPlaceRestDay.isSelected) {
+                holidayList.add("공휴일")
+            }
+
+            val body = RequestEditShop(
+                name = registerDataList[0],
+                type = registerDataList[1],
+                address = registerDataList[2],
+                holiday = holidayList,
+                payday = binding.tvSelectDay.text.toString(),
+                openSchedule = openScheduleListToServer,
+            )
+            tryPostEditShopInfo(positionId, body)
         }
     }
+
 
     private fun initRunningTimeBtn() {
         binding.tvInputPlaceSetRunTimeBtn.setOnClickListener {
@@ -142,30 +167,38 @@ class EditShopInfoTwoActivity :
             onSuccess200 = {
                 holidayList = it.data.holiday // 공휴일 설정
 
+                openScheduleList.apply {
+                    add(RunningTimeData(day = "월요일", openTime = "0000", closeTime = "0000", openFlag = true, closeFlag = true))
+                    add(RunningTimeData(day = "화요일", openTime = "0000", closeTime = "0000", openFlag = true, closeFlag = true))
+                    add(RunningTimeData(day = "수요일", openTime = "0000", closeTime = "0000", openFlag = true, closeFlag = true))
+                    add(RunningTimeData(day = "목요일", openTime = "0000", closeTime = "0000", openFlag = true, closeFlag = true))
+                    add(RunningTimeData(day = "금요일", openTime = "0000", closeTime = "0000", openFlag = true, closeFlag = true))
+                    add(RunningTimeData(day = "토요일", openTime = "0000", closeTime = "0000", openFlag = true, closeFlag = true))
+                    add(RunningTimeData(day = "일요일", openTime = "0000", closeTime = "0000", openFlag = true, closeFlag = true))
+                }
+
                 for (index in it.data.openSchedule.indices) {
                     val data = it.data.openSchedule[index]
 
-                    openScheduleList.add(
-                        RunningTimeData(
-                            openTime = data.startTime,
-                            closeTime = data.endTime,
-                            day = data.day,
+                    if (openScheduleList[index].day!!.contains(data.day)) {
+                        openScheduleList[index].apply {
+                            openTime = data.startTime
+                            closeTime = data.endTime
+                        }
+                    }
 
-                            openFlag = true,
-                            closeFlag = true
-                        )
-                    )
-
+                    // 24시 설정
+                    if (data.startTime == "0000" && data.endTime == "0000") {
+                        openScheduleList[index].time24State = true
+                        openScheduleList[index].totalTime = "24시간"
+                    }
                 }
 
-                for (data in holidayList) { // 24시간 버튼 설정
-                    for (index in openScheduleList.indices) {
-                        if (openScheduleList[index].day != data
-                            && openScheduleList[index].openTime == "0000"
-                            && openScheduleList[index].closeTime == "0000"
-                        ) {
-                            openScheduleList[index].time24State = true
-                        } else {
+                for (index in openScheduleList.indices) {
+                    // 공휴일 설정
+                    for (i in holidayList.indices) {
+                        if (openScheduleList[index].day!! == holidayList[i] + "요일") {
+                            openScheduleList[index].time24State = false
                             openScheduleList[index].restState = true
                         }
                     }
@@ -173,8 +206,8 @@ class EditShopInfoTwoActivity :
 
                 binding.tvSelectDay.text = it.data.payday  // 급여일
 
-                binding.cbInputPlaceRestDay.isSelected = it.data.holiday.contains("공휴일") // 공휴일 버튼 세팅
-
+                binding.cbInputPlaceRestDay.isSelected =
+                    it.data.holiday.contains("공휴일") // 공휴일 버튼 세팅
 
                 // runningTimeRv 세팅
                 setRunningTimeRv()
@@ -188,11 +221,31 @@ class EditShopInfoTwoActivity :
 
     private fun setRunningTimeRv() {
         rvList = openScheduleList
-
         rvList.forEach {
-            it.openTime = it.openTime?.substring(0,2) + ":" + it.openTime?.substring(2,4)
-            it.closeTime = it.closeTime?.substring(0,2) + ":" + it.closeTime?.substring(2,4)
-        }
+            it.openTime = it.openTime?.substring(0, 2) + ":" + it.openTime?.substring(2, 4)
+            it.closeTime = it.closeTime?.substring(0, 2) + ":" + it.closeTime?.substring(2, 4)
+            it.totalTime = GetTimeDiffUtil().getTimeDiffTxt(it.openTime!!, it.closeTime!!)
 
+            if (it.time24State) it.totalTime = "24시간"
+        }
+    }
+
+    private fun tryPostEditShopInfo(positionId: Int, body: RequestEditShop) {
+        val mHomeService: MHomeService =
+            ApplicationClass.sRetrofit.create(MHomeService::class.java)
+        val token = ApplicationClass.prefs.getString("X-ACCESS-TOKEN", "0")
+        val call = mHomeService.postEditShopInfo(token, positionId, body)
+        call.enqueueUtil(
+            getResultCode = { it.code },
+            onSuccess200 = {
+                showCustomToast("매장 정보가 변경되었습니다")
+                val nextIntent = Intent(this, ManagerMainActivity::class.java)
+                startActivity(nextIntent)
+                finishAffinity()
+            },
+            onError400 = {
+                showCustomToast(it.message.toString())
+            }
+        )
     }
 }
