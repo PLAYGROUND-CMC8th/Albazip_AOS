@@ -159,6 +159,7 @@ class EditShopInfoTwoActivity :
     override fun onItemSelected(text: String) {
         // 급여 입력 flag on
         payDayFlag = true
+        binding.tvSelectDay.text = text
         // 포커스 제거
         removeFocus()
     }
