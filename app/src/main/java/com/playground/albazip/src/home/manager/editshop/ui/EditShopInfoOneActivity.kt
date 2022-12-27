@@ -59,6 +59,7 @@ class EditShopInfoOneActivity :
         }
 
         // 텍스트 굵기 변화
+        binding.tvType.setTypeface(null, Typeface.BOLD) // 업종 선택
         chageToBold(binding.etName)
         chageToBold(binding.etLocationMain)
         chageToBold(binding.etLocationSub)

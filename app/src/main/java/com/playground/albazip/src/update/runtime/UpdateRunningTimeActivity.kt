@@ -1,9 +1,12 @@
 package com.playground.albazip.src.update.runtime
 
 import android.content.Intent
+import android.database.DataSetObserver
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRunningTimeBinding
 import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
@@ -13,6 +16,7 @@ import com.playground.albazip.src.update.runtime.custom.RunningTimeCancelBottomS
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
+import okhttp3.internal.filterList
 
 class UpdateRunningTimeActivity :
     BaseActivity<ActivityRunningTimeBinding>(ActivityRunningTimeBinding::inflate),
@@ -39,31 +43,49 @@ class UpdateRunningTimeActivity :
 
     // 이미 들어간 데이터가 있다면 다음과 같이 설정
     private fun getIntentRv() {
-        if(intent.getBooleanExtra("runningTimeFlag",false)) {
-            runningTimeAdapter = RunningTimeAdapter({ setAllSameBtnOff() },
+        if (intent.getBooleanExtra("runningTimeFlag", false)) {
+            runningTimeAdapter = RunningTimeAdapter(
+                { setAllSameBtnOff() },
                 { setDoneBtnVisibilityOn() },
-                { setDoneBtnVisibilityOff() }, true)
-            runningTimeAdapter.runningTimeItemList = intent.getSerializableExtra("adapterList") as ArrayList<RunningTimeData>
+                { setDoneBtnVisibilityOff() }, true
+            )
+            runningTimeAdapter.runningTimeItemList =
+                intent.getSerializableExtra("adapterList") as ArrayList<RunningTimeData>
             binding.rvRunningTimeDays.itemAnimator = null
             binding.rvRunningTimeDays.adapter = runningTimeAdapter
             setRvItemClickEvent()
         }
     }
 
+    // 데이터 변경 감지
+    private fun hasDataChanged(): Boolean {
+        var hasDataChanged: Boolean = false
+        val oldRv = runningTimeAdapter.runningTimeItemList
+        if (intent.hasExtra("runningTimeFlag")) {
+           runningTimeAdapter.notifyDataSetChanged()
+            hasDataChanged = oldRv == runningTimeAdapter.runningTimeItemList
+        }
+
+        return hasDataChanged
+    }
+
     private fun initBackBtn() {
         binding.ivRunningTimeBackBtn.setOnClickListener {
-            if (intent.getBooleanExtra("runningTimeFlag",false)) {
-                finish()
+            if (!hasDataChanged()) { // 이전 데이터와 바뀐 데이터가 없으면
+                finish() // 그냥 종료
             } else {
                 RunningTimeCancelBottomSheetDialog().show(supportFragmentManager, "BACK_BTN")
             }
         }
     }
 
+
     private fun initAdapter() {
-        runningTimeAdapter = RunningTimeAdapter({ setAllSameBtnOff() },
+        runningTimeAdapter = RunningTimeAdapter(
+            { setAllSameBtnOff() },
             { setDoneBtnVisibilityOn() },
-            { setDoneBtnVisibilityOff() }, false)
+            { setDoneBtnVisibilityOff() }, false
+        )
         runningTimeAdapter.runningTimeItemList.addAll(
             listOf(
                 RunningTimeData("월요일"),
@@ -215,10 +237,14 @@ class UpdateRunningTimeActivity :
         binding.tvRunningTimeDone.setOnClickListener {
             val returnIntent = Intent()
 
-            val openScheduleList = runningTimeAdapter.runningTimeItemList.filter { it.restState == false }
+            val openScheduleList =
+                runningTimeAdapter.runningTimeItemList.filter { it.restState == false }
             val adapterList = runningTimeAdapter.runningTimeItemList
 
-            returnIntent.putExtra("openScheduleList", openScheduleList as ArrayList<RunningTimeData>)
+            returnIntent.putExtra(
+                "openScheduleList",
+                openScheduleList as ArrayList<RunningTimeData>
+            )
             returnIntent.putExtra(
                 "adapterList",
                 adapterList as ArrayList<RunningTimeData>
