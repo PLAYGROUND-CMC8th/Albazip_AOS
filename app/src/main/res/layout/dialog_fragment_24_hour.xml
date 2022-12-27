@@ -30,7 +30,6 @@
         android:letterSpacing="-0.02"
         android:lineSpacingExtra="5sp"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/roboto_medium_otf"
         app:layout_constraintStart_toStartOf="@id/tv_24_hour_title"
         app:layout_constraintEnd_toEndOf="@id/tv_24_hour_title"
         app:layout_constraintTop_toBottomOf="@id/tv_24_hour_title"
