@@ -99,7 +99,7 @@ class WorkingTimeAdapter(
         // 1. 활성화(열리기) - 비활성화(닫히기)
         fun setCbBox(data: WorkerTimeData, position: Int) {
             binding.apply {
-                ivCheckboxDay.setOnClickListener {
+                rootCl.setOnClickListener {
                     if (ivCheckboxDay.isSelected) { // 활성화 된 상태라면
                         ivCheckboxDay.isSelected = false
                         data.isSelected = false

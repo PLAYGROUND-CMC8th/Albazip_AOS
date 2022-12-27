@@ -150,7 +150,7 @@ class UpdateSetWorkerTimeActivity :
 
     // 모든 근무 시간이 같아요
     private fun initAllSameBtn() {
-        binding.ivCheckboxRunningTimeCheckbox.setOnClickListener {
+        binding.clRunningTimeSame.setOnClickListener {
             if (workingTimeAdapter.isNoneSelected()) {
                 showCustomToast("시간을 설정할 근무일을 선택해주세요.")
             } else {
