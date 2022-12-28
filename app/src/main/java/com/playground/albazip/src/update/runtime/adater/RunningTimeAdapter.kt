@@ -4,16 +4,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.databinding.ItemRvRunningTimeBinding
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
+import kotlin.properties.Delegates
 
 class RunningTimeAdapter(
     val setBtnVisibilityOff: () -> Unit,
     val setDoneOn: () -> Unit,
     val setDoneOff: () -> Unit,
-    val runningTimeFlag:Boolean
+    val runningTimeFlag: Boolean
 ) :
     RecyclerView.Adapter<RunningTimeAdapter.RunningTimeViewHolder>() {
 
@@ -329,8 +331,6 @@ class RunningTimeAdapter(
             )
         }
 
-        Log.d("kite",tempList.toMutableSet().toString())
-
         if (tempList.toMutableSet().size == 1) {
             return false
         }
@@ -363,6 +363,33 @@ class RunningTimeAdapter(
             setDoneOff()
         }
 
+    }
+
+    fun isAllDataSame(): Boolean {
+        var isDataSame = true
+        for (i in 0 until runningTimeItemList.size - 1) {
+            if (runningTimeItemList[i].openTime != runningTimeItemList[i + 1].openTime) {
+                isDataSame = false
+                break
+            }
+            if (runningTimeItemList[i].closeTime != runningTimeItemList[i + 1].closeTime) {
+                isDataSame = false
+                break
+            }
+            if (runningTimeItemList[i].totalTime != runningTimeItemList[i + 1].totalTime) {
+                isDataSame = false
+                break
+            }
+            if (runningTimeItemList[i].restState != runningTimeItemList[i + 1].restState) {
+                isDataSame = false
+                break
+            }
+            if (runningTimeItemList[i].time24State != runningTimeItemList[i + 1].time24State) {
+                isDataSame = false
+                break
+            }
+        }
+        return isDataSame
     }
 
     companion object {

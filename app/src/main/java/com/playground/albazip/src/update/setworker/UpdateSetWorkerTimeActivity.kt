@@ -140,11 +140,11 @@ class UpdateSetWorkerTimeActivity :
     // 뒤로가기 이벤트
     private fun initBackBtnEvent() {
         binding.ivRunningTimeBackBtn.setOnClickListener {
-            if (intent.getBooleanExtra("workingTimeFlag",false)) {
+            //if (intent.getBooleanExtra("workingTimeFlag",false)) {
                 finish()
-            } else {
-                WorkTimeCancelBottomSheetDialog { finish() }.show(supportFragmentManager, "BACK_EVENT")
-            }
+            //} else {
+            //    WorkTimeCancelBottomSheetDialog { finish() }.show(supportFragmentManager, "BACK_EVENT")
+            //}
         }
     }
 

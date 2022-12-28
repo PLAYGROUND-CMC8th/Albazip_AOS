@@ -8,7 +8,6 @@ import com.playground.albazip.databinding.ActivityRunningTimeBinding
 import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
 import com.playground.albazip.src.update.runtime.custom.AllTimeBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
-import com.playground.albazip.src.update.runtime.custom.RunningTimeCancelBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
@@ -19,6 +18,7 @@ class UpdateRunningTimeActivity :
     AllTimeBottomSheetDialog.BottomSheetClickListener {
 
     private lateinit var runningTimeAdapter: RunningTimeAdapter
+    private lateinit var oldRv:MutableList<RunningTimeData>
 
     var selectedPosition = -1
 
@@ -28,12 +28,19 @@ class UpdateRunningTimeActivity :
 
         initAdapter()
         initBlockView()
-        initAllCheckBtnEvent()
+        // initAllCheckBtnEvent()
 
         initBackBtn()
         initDoneBtnEvent()
 
         getIntentRv()
+        isAllDataSame()
+
+    }
+
+    // 모든 시간 동일한지 UI 체크해주기
+    private fun isAllDataSame() {
+        binding.cbRunningTimeCheckbox.isSelected = runningTimeAdapter.isAllDataSame()
     }
 
     // 이미 들어간 데이터가 있다면 다음과 같이 설정
@@ -44,36 +51,25 @@ class UpdateRunningTimeActivity :
                 { setDoneBtnVisibilityOn() },
                 { setDoneBtnVisibilityOff() }, true
             )
+
             runningTimeAdapter.runningTimeItemList =
                 intent.getSerializableExtra("adapterList") as ArrayList<RunningTimeData>
+
             binding.rvRunningTimeDays.itemAnimator = null
             binding.rvRunningTimeDays.adapter = runningTimeAdapter
             setRvItemClickEvent()
         }
     }
 
-    // 데이터 변경 감지
-    private fun hasDataChanged(): Boolean {
-        var hasDataChanged: Boolean = false
-        val oldRv = runningTimeAdapter.runningTimeItemList
-        if (intent.hasExtra("runningTimeFlag")) {
-           runningTimeAdapter.notifyDataSetChanged()
-            hasDataChanged = oldRv == runningTimeAdapter.runningTimeItemList
-        }
-
-        return hasDataChanged
-    }
-
     private fun initBackBtn() {
         binding.ivRunningTimeBackBtn.setOnClickListener {
-            if (!hasDataChanged()) { // 이전 데이터와 바뀐 데이터가 없으면
+            //if () { // 이전 데이터와 바뀐 데이터가 없으면
                 finish() // 그냥 종료
-            } else {
-                RunningTimeCancelBottomSheetDialog().show(supportFragmentManager, "BACK_BTN")
-            }
+            //} else {
+             //   RunningTimeCancelBottomSheetDialog().show(supportFragmentManager, "BACK_BTN")
+            //}
         }
     }
-
 
     private fun initAdapter() {
         runningTimeAdapter = RunningTimeAdapter(
@@ -180,14 +176,14 @@ class UpdateRunningTimeActivity :
 
     // 일괄 적용 클릭 이벤트
     private fun initBlockView() {
-        binding.viewRunningCheck.setOnClickListener {
+        binding.clRunningTimeSame.setOnClickListener {
             AllTimeBottomSheetDialog().show(supportFragmentManager, "SET_ALL_TIME")
         }
     }
 
     // 일괄 적용 바텀시트 이벤트
     override fun onTimeAllTimeSelected(oTime: String, eTime: String, totalTime: String) {
-        binding.viewRunningCheck.visibility = View.GONE
+        // binding.viewRunningCheck.visibility = View.GONE
         binding.cbRunningTimeCheckbox.isSelected = true
 
         initAdapter()
@@ -201,7 +197,7 @@ class UpdateRunningTimeActivity :
 
 
     // 모든 영업시간 버튼 이벤트
-    private fun initAllCheckBtnEvent() {
+    /*private fun initAllCheckBtnEvent() {
         binding.cbRunningTimeCheckbox.setOnClickListener {
             if (binding.viewRunningCheck.visibility == View.GONE) { // 없어진 상태라면
                 binding.viewRunningCheck.visibility = View.VISIBLE
@@ -209,12 +205,12 @@ class UpdateRunningTimeActivity :
                 binding.viewRunningCheck.visibility = View.GONE
             }
         }
-    }
+    }*/
 
     // 동일 시간 명시 버튼 끄기
     private fun setAllSameBtnOff() {
         binding.cbRunningTimeCheckbox.isSelected = false
-        binding.viewRunningCheck.visibility = View.VISIBLE
+        //binding.viewRunningCheck.visibility = View.VISIBLE
     }
 
     // 완료 버튼 활성화
