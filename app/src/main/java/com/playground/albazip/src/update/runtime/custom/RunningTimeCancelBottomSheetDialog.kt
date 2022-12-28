@@ -17,7 +17,7 @@ class RunningTimeCancelBottomSheetDialog() :
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = DialogFragmentCancelRunningTimeBinding.inflate(layoutInflater)
         return binding.root

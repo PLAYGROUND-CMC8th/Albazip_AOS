@@ -214,6 +214,7 @@ class RunningTimeAdapter(
     }
 
     override fun onBindViewHolder(holder: RunningTimeViewHolder, position: Int) {
+        holder.setIsRecyclable(false)
         holder.onBind(runningTimeItemList[position])
         holder.setItemTimeEvent(position)
         holder.initItemHourUIAfterInput(runningTimeItemList[position])

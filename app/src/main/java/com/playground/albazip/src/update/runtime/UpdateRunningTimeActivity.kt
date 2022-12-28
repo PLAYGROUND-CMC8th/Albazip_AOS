@@ -1,12 +1,8 @@
 package com.playground.albazip.src.update.runtime
 
 import android.content.Intent
-import android.database.DataSetObserver
 import android.os.Bundle
-import android.provider.ContactsContract.Data
-import android.util.Log
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRunningTimeBinding
 import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
@@ -16,7 +12,6 @@ import com.playground.albazip.src.update.runtime.custom.RunningTimeCancelBottomS
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
-import okhttp3.internal.filterList
 
 class UpdateRunningTimeActivity :
     BaseActivity<ActivityRunningTimeBinding>(ActivityRunningTimeBinding::inflate),
