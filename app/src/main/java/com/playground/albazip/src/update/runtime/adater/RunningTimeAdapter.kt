@@ -84,7 +84,7 @@ class RunningTimeAdapter(
 
         // 4. 휴무일 버튼 이벤트
         fun setRestDayBtnEvent(position: Int) {
-            binding.cbRestDay.setOnClickListener {
+            binding.llRestDay.setOnClickListener {
                 if (it.isSelected) {
                     it.isSelected = false
                     runningTimeItemList[position].restState = false
@@ -103,7 +103,7 @@ class RunningTimeAdapter(
 
         // 5. 24 시간 버튼 이벤트
         fun set24HourBtnEvent(position: Int) {
-            binding.cb24Hour.setOnClickListener {
+            binding.ll24Hour.setOnClickListener {
                 if (it.isSelected) {
                     it.isSelected = false
                     runningTimeItemList[position].time24State = false

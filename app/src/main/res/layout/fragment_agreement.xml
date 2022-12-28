@@ -35,14 +35,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:clickable="true"
         app:layout_constraintStart_toStartOf="@id/tv_title"
         app:layout_constraintTop_toBottomOf="@id/tv_title">
 
-        <CheckBox
+        <ImageView
             android:id="@+id/cb_agree_all"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:focusable="false"
             android:layout_centerVertical="true"
             android:background="@drawable/ic_check_box_state"
             android:button="@android:color/transparent" />
@@ -70,7 +70,7 @@
         android:background="#efefef"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rl_agree_all"/>
+        app:layout_constraintTop_toBottomOf="@id/rl_agree_all" />
 
     <RelativeLayout
         android:id="@+id/rl_age"
@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_title"
         app:layout_constraintTop_toBottomOf="@id/view_divider">
 
-        <CheckBox
+        <ImageView
             android:id="@+id/cb_age"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -119,27 +119,33 @@
             android:clickable="true"
             android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/cb_service"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_check_box_state"
-                android:button="@android:color/transparent" />
-
-            <TextView
-                android:id="@+id/tv_service"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_toEndOf="@id/cb_service"
-                android:fontFamily="@font/roboto_medium_otf"
-                android:gravity="center_vertical"
-                android:paddingEnd="10dp"
-                android:text="(필수) 서비스 이용약관 동의"
-                android:textColor="@color/customBlack"
-                android:textSize="14sp"
-                android:textStyle="normal" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/cb_service"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_check_box_state"
+                    android:button="@android:color/transparent" />
+
+                <TextView
+                    android:id="@+id/tv_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@id/cb_service"
+                    android:fontFamily="@font/roboto_medium_otf"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="10dp"
+                    android:text="(필수) 서비스 이용약관 동의"
+                    android:textColor="@color/customBlack"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -166,12 +172,12 @@
 
         <LinearLayout
             android:id="@+id/ll_collect"
-            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:orientation="horizontal">
 
-            <CheckBox
+            <ImageView
                 android:id="@+id/cb_collect"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -188,7 +194,7 @@
                 android:fontFamily="@font/roboto_medium_otf"
                 android:gravity="center_vertical"
                 android:paddingEnd="10dp"
-                android:text="(필수) 서비스 이용약관 동의"
+                android:text="(필수) 개인정보 수집 및 이용 동의"
                 android:textColor="@color/customBlack"
                 android:textSize="14sp"
                 android:textStyle="normal" />
