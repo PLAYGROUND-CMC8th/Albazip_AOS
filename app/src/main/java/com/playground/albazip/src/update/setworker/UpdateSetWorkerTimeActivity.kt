@@ -12,7 +12,6 @@ import com.playground.albazip.databinding.ActivityUpdateSetWorkerTimeBinding
 import com.playground.albazip.src.mypage.manager.workerlist.editposition.network.EditPositionInfoData
 import com.playground.albazip.src.update.setworker.adapter.WorkingTimeAdapter
 import com.playground.albazip.src.update.setworker.custom.SetAllWorkTimePickerBottomSheetDialog
-import com.playground.albazip.src.update.setworker.custom.WorkTimeCancelBottomSheetDialog
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
@@ -191,12 +190,15 @@ class UpdateSetWorkerTimeActivity :
 
                 selectedPosition = position // 어떤 아이템이 선택되었는지 포시션 받기
 
+                val openHour = workingTimeAdapter.workerTimeList[selectedPosition].openTime!!.split(":")
+                val closeHour = workingTimeAdapter.workerTimeList[selectedPosition].closeTime!!.split(":")
+
                 when (tag) {
-                    "SET_START_HOUR" -> WorkingTimePickerBottomSheetDialog(0).show(
+                    "SET_START_HOUR" -> WorkingTimePickerBottomSheetDialog(0,openHour[0].toInt(),openHour[1].toInt()).show(
                         supportFragmentManager,
                         "SET_START_HOUR"
                     )
-                    "SET_END_HOUR" -> WorkingTimePickerBottomSheetDialog(1).show(
+                    "SET_END_HOUR" -> WorkingTimePickerBottomSheetDialog(1,closeHour[0].toInt(),closeHour[1].toInt()).show(
                         supportFragmentManager,
                         "SET_END_HOUR"
                     )
@@ -232,13 +234,15 @@ class UpdateSetWorkerTimeActivity :
         // 시간이 같을 때 24시간 여부 묻기
         if (workingTimeAdapter.workerTimeList[selectedPosition].totalTime == "0시간") {
             if (flags == 0) { // 출근 다시 받기
-                WorkingTimePickerBottomSheetDialog(0).show(
+                val openHour = workingTimeAdapter.workerTimeList[selectedPosition].openTime!!.split(":")
+                WorkingTimePickerBottomSheetDialog(0,openHour[0].toInt(),openHour[1].toInt()).show(
                     supportFragmentManager,
                     "SET_START_HOUR"
                 )
                 showCustomToast("퇴근 시간과 같아요. 시간을 다시 설정해주세요.")
             } else { // 퇴근 다시 받기
-                WorkingTimePickerBottomSheetDialog(1).show(
+                val closeHour = workingTimeAdapter.workerTimeList[selectedPosition].closeTime!!.split(":")
+                WorkingTimePickerBottomSheetDialog(1,closeHour[0].toInt(),closeHour[1].toInt()).show(
                     supportFragmentManager,
                     "SET_END_HOUR"
                 )

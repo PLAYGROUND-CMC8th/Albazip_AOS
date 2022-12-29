@@ -55,7 +55,9 @@ class SetAllWorkTimePickerBottomSheetDialog : BottomSheetDialogFragment(),
     private fun initTimeDialog() {
         // 오픈 선택
         binding.clOpen.setOnClickListener {
-            SetAllWorkNextTimePickerBottomSheetDialog(0).show(
+            val openHour = binding.tvOpenHour.text.split(":")[0].toInt()
+            val openMin = binding.tvOpenHour.text.split(":")[1].toInt()
+            SetAllWorkNextTimePickerBottomSheetDialog(0, openHour, openMin).show(
                 childFragmentManager,
                 "openAllTimePicker"
             )
@@ -63,7 +65,9 @@ class SetAllWorkTimePickerBottomSheetDialog : BottomSheetDialogFragment(),
 
         // 마감 선택
         binding.clClose.setOnClickListener {
-            SetAllWorkNextTimePickerBottomSheetDialog(1).show(
+            val closeHour = binding.tvCloseHour.text.split(":")[0].toInt()
+            val closeMin = binding.tvCloseHour.text.split(":")[1].toInt()
+            SetAllWorkNextTimePickerBottomSheetDialog(1, closeHour, closeMin).show(
                 childFragmentManager,
                 "closeAllTimePicker"
             )
@@ -120,13 +124,17 @@ class SetAllWorkTimePickerBottomSheetDialog : BottomSheetDialogFragment(),
         // 시간이 같을 때 24시간 여부 묻기
         if (binding.tvTotalTime.text == "0시간") {
             if (flags == 0) { // 출근 다시 받기
-                SetAllWorkNextTimePickerBottomSheetDialog(0).show(
+                val openHour = binding.tvOpenHour.text.split(":")[0].toInt()
+                val openMin = binding.tvOpenHour.text.split(":")[1].toInt()
+                SetAllWorkNextTimePickerBottomSheetDialog(0,openHour,openMin).show(
                     childFragmentManager,
                     "SET_START_HOUR"
                 )
                 Toast.makeText(requireContext(), "퇴근 시간과 같아요. 시간을 다시 설정해주세요.", Toast.LENGTH_SHORT).show()
             } else { // 퇴근 다시 받기
-                SetAllWorkNextTimePickerBottomSheetDialog(1).show(
+                val closeHour = binding.tvCloseHour.text.split(":")[0].toInt()
+                val closeMin = binding.tvCloseHour.text.split(":")[1].toInt()
+                SetAllWorkNextTimePickerBottomSheetDialog(1,closeHour,closeMin).show(
                     childFragmentManager,
                     "SET_END_HOUR"
                 )

@@ -14,7 +14,9 @@ import java.lang.Exception
 class SetWorkerTimePickerBottomSheetDialog(// 타이틀 선택
     var timeFlag: Int, // 오픈 0, 마감 1
     var position:Int, // 몇 번째 요소를 선택한건지
-    private val doAfterOk: () -> Unit
+    private val doAfterOk: () -> Unit,
+    var mHour:Int,
+    var mMin:Int,
 ) : BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogFragmentTimeBinding
@@ -83,8 +85,8 @@ class SetWorkerTimePickerBottomSheetDialog(// 타이틀 선택
         // 피커 생성
         binding.timePicker.apply {
             descendantFocusability = TimePicker.FOCUS_BLOCK_DESCENDANTS
-            hour = 0
-            minute = 0
+            hour = mHour
+            minute = mMin
         }
 
 
