@@ -3,11 +3,13 @@ package com.playground.albazip.src.update.runtime
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRunningTimeBinding
 import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
 import com.playground.albazip.src.update.runtime.custom.AllTimeBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.Confirm24HourBottomSheetDialog
+import com.playground.albazip.src.update.runtime.custom.RunningTimeCancelBottomSheetDialog
 import com.playground.albazip.src.update.runtime.custom.RunningTimePickerBottomSheetDialog
 import com.playground.albazip.src.update.runtime.data.RunningTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
@@ -18,10 +20,9 @@ class UpdateRunningTimeActivity :
     AllTimeBottomSheetDialog.BottomSheetClickListener {
 
     private lateinit var runningTimeAdapter: RunningTimeAdapter
-    private lateinit var oldRv:MutableList<RunningTimeData>
 
     var selectedPosition = -1
-
+    var hasDataChanged = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,7 @@ class UpdateRunningTimeActivity :
         getIntentRv()
         isAllDataSame()
 
+        checkingDataChanged()
     }
 
     // 모든 시간 동일한지 UI 체크해주기
@@ -61,13 +63,27 @@ class UpdateRunningTimeActivity :
         }
     }
 
+    private fun checkingDataChanged() {
+        runningTimeAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                super.onChanged()
+                hasDataChanged = true
+            }
+
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+                super.onItemRangeChanged(positionStart, itemCount)
+                hasDataChanged = true
+            }
+        })
+    }
+
     private fun initBackBtn() {
         binding.ivRunningTimeBackBtn.setOnClickListener {
-            //if () { // 이전 데이터와 바뀐 데이터가 없으면
+            if (!hasDataChanged) { // 이전 데이터와 바뀐 데이터가 없으면
                 finish() // 그냥 종료
-            //} else {
-             //   RunningTimeCancelBottomSheetDialog().show(supportFragmentManager, "BACK_BTN")
-            //}
+            } else {
+                RunningTimeCancelBottomSheetDialog().show(supportFragmentManager, "BACK_BTN")
+            }
         }
     }
 
@@ -104,16 +120,25 @@ class UpdateRunningTimeActivity :
                 val openHour = openTime?.get(0)!!.toInt()
                 val openMin = openTime[1].toInt()
 
-                val closeTime = runningTimeAdapter.runningTimeItemList[position].closeTime?.split(":")
+                val closeTime =
+                    runningTimeAdapter.runningTimeItemList[position].closeTime?.split(":")
                 val closeHour = closeTime?.get(0)!!.toInt()
                 val closeMin = closeTime[1].toInt()
 
                 when (tag) {
-                    "SET_OPEN_HOUR" -> RunningTimePickerBottomSheetDialog(0,openHour,openMin).show(
+                    "SET_OPEN_HOUR" -> RunningTimePickerBottomSheetDialog(
+                        0,
+                        openHour,
+                        openMin
+                    ).show(
                         supportFragmentManager,
                         "SET_OPEN_HOUR"
                     )
-                    "SET_CLOSE_HOUR" -> RunningTimePickerBottomSheetDialog(1,closeHour,closeMin).show(
+                    "SET_CLOSE_HOUR" -> RunningTimePickerBottomSheetDialog(
+                        1,
+                        closeHour,
+                        closeMin
+                    ).show(
                         supportFragmentManager,
                         "SET_CLOSE_HOUR"
                     )
@@ -151,14 +176,20 @@ class UpdateRunningTimeActivity :
         // 시간이 같을 때 24시간 여부 묻기
         if (runningTimeAdapter.runningTimeItemList[selectedPosition].totalTime == "0시간") {
             if (flags == 0) {
-                val openTime = runningTimeAdapter.runningTimeItemList[selectedPosition].openTime?.split(":")
-                Confirm24HourBottomSheetDialog({ set24Hour() }, { showOpenDialogAgain(openTime!!) }).show(
+                val openTime =
+                    runningTimeAdapter.runningTimeItemList[selectedPosition].openTime?.split(":")
+                Confirm24HourBottomSheetDialog(
+                    { set24Hour() },
+                    { showOpenDialogAgain(openTime!!) }).show(
                     supportFragmentManager,
                     "ARE_YOU_24"
                 )
             } else {
-                val closeTime = runningTimeAdapter.runningTimeItemList[selectedPosition].closeTime?.split(":")
-                Confirm24HourBottomSheetDialog({ set24Hour() }, { showCloseDialogAgain(closeTime!!) }).show(
+                val closeTime =
+                    runningTimeAdapter.runningTimeItemList[selectedPosition].closeTime?.split(":")
+                Confirm24HourBottomSheetDialog(
+                    { set24Hour() },
+                    { showCloseDialogAgain(closeTime!!) }).show(
                     supportFragmentManager,
                     "ARE_YOU_24"
                 )
@@ -170,16 +201,22 @@ class UpdateRunningTimeActivity :
     }
 
     // 24시간 확인 여부를 묻는 다이얼로그 대응 함수
-    private fun showOpenDialogAgain(openTime:List<String>) {
+    private fun showOpenDialogAgain(openTime: List<String>) {
         val openHour = openTime[0].toInt()
         val openMin = openTime[1].toInt()
-        RunningTimePickerBottomSheetDialog(0,openHour,openMin).show(supportFragmentManager, "SET_OPEN_HOUR")
+        RunningTimePickerBottomSheetDialog(0, openHour, openMin).show(
+            supportFragmentManager,
+            "SET_OPEN_HOUR"
+        )
     }
 
-    private fun showCloseDialogAgain(closeTime:List<String>) {
+    private fun showCloseDialogAgain(closeTime: List<String>) {
         val closeHour = closeTime[0].toInt()
         val closeMin = closeTime[1].toInt()
-        RunningTimePickerBottomSheetDialog(1,closeHour,closeMin).show(supportFragmentManager, "SET_CLOSE_HOUR")
+        RunningTimePickerBottomSheetDialog(1, closeHour, closeMin).show(
+            supportFragmentManager,
+            "SET_CLOSE_HOUR"
+        )
     }
 
     // 총시간 24 시간으로 설정하기
