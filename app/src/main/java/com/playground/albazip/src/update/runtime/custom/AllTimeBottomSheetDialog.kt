@@ -44,14 +44,20 @@ class AllTimeBottomSheetDialog() : BottomSheetDialogFragment(),
         // 오픈시간 설정
         binding.apply {
             clOpen.setOnClickListener {
-                RunningTimeAllTimePickerBottomSheetDialog(0).show(
+                val mOpenHour = binding.tvOpenHour.text.toString().split(":")[0].toInt()
+                val mOpenMin = binding.tvOpenHour.text.toString().split(":")[1].toInt()
+
+                RunningTimeAllTimePickerBottomSheetDialog(0,mOpenHour,mOpenMin).show(
                     childFragmentManager,
                     "ALL_OPEN_TIME_PICKER"
                 )
             }
 
             clClose.setOnClickListener {
-                RunningTimeAllTimePickerBottomSheetDialog(1).show(
+                val mCloseHour = binding.tvCloseHour.text.toString().split(":")[0].toInt()
+                val mCloseMin = binding.tvCloseHour.text.toString().split(":")[1].toInt()
+
+                RunningTimeAllTimePickerBottomSheetDialog(1,mCloseHour,mCloseMin).show(
                     childFragmentManager,
                     "ALL_CLOSE_TIME_PICKER"
                 )
@@ -152,7 +158,10 @@ class AllTimeBottomSheetDialog() : BottomSheetDialogFragment(),
 
     // 오픈 시간 재설정 함수
     private fun showOpenDialogAgain() {
-        RunningTimeAllTimePickerBottomSheetDialog(0).show(
+        val mOpenHour = binding.tvOpenHour.text.toString().split(":")[0].toInt()
+        val mOpenMin = binding.tvOpenHour.text.toString().split(":")[1].toInt()
+
+        RunningTimeAllTimePickerBottomSheetDialog(0, mOpenHour, mOpenMin).show(
             childFragmentManager,
             "ALL_OPEN_TIME_PICKER"
         )
@@ -160,7 +169,10 @@ class AllTimeBottomSheetDialog() : BottomSheetDialogFragment(),
 
     // 마감 시간 재설정 함수
     private fun showCloseDialogAgain() {
-        RunningTimeAllTimePickerBottomSheetDialog(1).show(
+        val mCloseHour = binding.tvCloseHour.text.toString().split(":")[0].toInt()
+        val mCloseMin = binding.tvCloseHour.text.toString().split(":")[1].toInt()
+
+        RunningTimeAllTimePickerBottomSheetDialog(1, mCloseHour, mCloseMin).show(
             childFragmentManager,
             "ALL_CLOSE_TIME_PICKER"
         )

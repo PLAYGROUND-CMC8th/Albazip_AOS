@@ -10,8 +10,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.playground.albazip.databinding.DialogFragmentTimeBinding
 import java.lang.Exception
 
-class RunningTimePickerBottomSheetDialog(// 타이틀 선택
-    var flag: Int // 오픈 0, 마감 1
+class RunningTimePickerBottomSheetDialog(
+// 타이틀 선택
+    var flag: Int, // 오픈 0, 마감 1
+    var mHour: Int,
+    var mMin: Int,
 ) : BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogFragmentTimeBinding
@@ -73,14 +76,12 @@ class RunningTimePickerBottomSheetDialog(// 타이틀 선택
     }
 
     private fun callTimePicker() {
-
         // 피커 생성
         binding.timePicker.apply {
             descendantFocusability = TimePicker.FOCUS_BLOCK_DESCENDANTS
-            hour = 0
-            minute = 0
+            hour = mHour
+            minute = mMin
         }
-
 
         // 선택한 시간을 받아오는 함수
         binding.timePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
