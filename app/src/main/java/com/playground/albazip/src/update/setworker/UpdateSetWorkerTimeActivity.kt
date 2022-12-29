@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseActivity
@@ -12,6 +13,7 @@ import com.playground.albazip.databinding.ActivityUpdateSetWorkerTimeBinding
 import com.playground.albazip.src.mypage.manager.workerlist.editposition.network.EditPositionInfoData
 import com.playground.albazip.src.update.setworker.adapter.WorkingTimeAdapter
 import com.playground.albazip.src.update.setworker.custom.SetAllWorkTimePickerBottomSheetDialog
+import com.playground.albazip.src.update.setworker.custom.WorkTimeCancelBottomSheetDialog
 import com.playground.albazip.src.update.setworker.data.WorkerTimeData
 import com.playground.albazip.util.GetTimeDiffUtil
 
@@ -22,6 +24,7 @@ class UpdateSetWorkerTimeActivity :
 
     private lateinit var workingTimeAdapter: WorkingTimeAdapter
     var selectedPosition = -1
+    var hasDataChanged = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,7 @@ class UpdateSetWorkerTimeActivity :
         initDoneBtn()
 
         getIntentRv()
+        checkingDataChanged()
     }
 
     // 이미 들어간 데이터가 있다면 다음과 같이 설정
@@ -136,14 +140,28 @@ class UpdateSetWorkerTimeActivity :
         }
     }
 
+    private fun checkingDataChanged() {
+        workingTimeAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                super.onChanged()
+                hasDataChanged = true
+            }
+
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+                super.onItemRangeChanged(positionStart, itemCount)
+                hasDataChanged = true
+            }
+        })
+    }
+
     // 뒤로가기 이벤트
     private fun initBackBtnEvent() {
         binding.ivRunningTimeBackBtn.setOnClickListener {
-            //if (intent.getBooleanExtra("workingTimeFlag",false)) {
+            if (!hasDataChanged) {
                 finish()
-            //} else {
-            //    WorkTimeCancelBottomSheetDialog { finish() }.show(supportFragmentManager, "BACK_EVENT")
-            //}
+            } else {
+               WorkTimeCancelBottomSheetDialog { finish() }.show(supportFragmentManager, "BACK_EVENT")
+            }
         }
     }
 
