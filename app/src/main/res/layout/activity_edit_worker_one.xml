@@ -479,7 +479,7 @@
                             android:inputType="number"
                             android:letterSpacing="-0.03"
                             android:maxLength="15"
-                            android:text="9,160"
+                            android:text="9,620"
                             android:textColor="#343434"
                             android:textSize="18sp"
                             android:textStyle="bold" />
