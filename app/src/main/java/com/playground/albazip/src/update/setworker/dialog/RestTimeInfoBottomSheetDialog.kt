@@ -17,7 +17,7 @@ class RestTimeInfoBottomSheetDialog() :
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = DialogFragmentRestTimeInfoBinding.inflate(layoutInflater)
         return binding.root
@@ -26,12 +26,17 @@ class RestTimeInfoBottomSheetDialog() :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initBottomSheetTxt()
         initBtnEvent()
+    }
+
+    private fun initBottomSheetTxt() {
+        binding.btnCancel.text = "확인"
     }
 
     // 버튼이벤트
     private fun initBtnEvent() {
-        // 취소
+        // 확인
         binding.btnCancel.setOnClickListener {
             dismiss()
         }
