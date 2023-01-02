@@ -104,6 +104,13 @@ class WorkingTimeAdapter(
                         ivCheckboxDay.isSelected = false
                         data.isSelected = false
                         setViewVisibility(false)
+
+                        /*data.apply {
+                            openTime = "00:00"
+                            closeTime = "00:00"
+                            totalTime = "0시간"
+                        }
+                        notifyDataSetChanged()*/
                     } else { // 비활성화 된 상태라면
                         ivCheckboxDay.isSelected = true
                         data.isSelected = true
@@ -153,6 +160,7 @@ class WorkingTimeAdapter(
     }
 
     override fun onBindViewHolder(holder: WorkingTimeAdapter.WorkingTimeViewHolder, position: Int) {
+        holder.setIsRecyclable(false)
         holder.setItemList(workerTimeList[position])
         holder.setCbBox(workerTimeList[position], position)
         holder.setItemTimeEvent(position)

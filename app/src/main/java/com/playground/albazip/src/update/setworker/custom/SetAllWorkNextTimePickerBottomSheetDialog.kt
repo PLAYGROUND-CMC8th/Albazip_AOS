@@ -85,6 +85,8 @@ class SetAllWorkNextTimePickerBottomSheetDialog(// 타이틀 선택
             minute = mMin
         }
 
+        selectedHour = mHour
+        selectedMinute = mMin
 
         // 선택한 시간을 받아오는 함수
         binding.timePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
