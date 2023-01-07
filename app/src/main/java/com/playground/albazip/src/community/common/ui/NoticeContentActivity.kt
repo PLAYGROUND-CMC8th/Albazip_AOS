@@ -2,6 +2,7 @@ package com.playground.albazip.src.community.common.ui
 
 import android.os.Bundle
 import android.security.identity.ResultData
+import android.util.Log
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import com.bumptech.glide.Glide
@@ -90,6 +91,7 @@ class NoticeContentActivity :
                 )
             )
         }
+
         BoardIVAdapter(imgList, this)
 
         boardIVAdapter = BoardIVAdapter(imgList, this)
@@ -109,7 +111,7 @@ class NoticeContentActivity :
         }
 
         doneWorkerCntAdapter = DoneWorkerCntAdapter(
-            workerCntList,
+            workerCntList.toMutableSet().toMutableList() as ArrayList,
             this@NoticeContentActivity
         )
         popUpBinding.rvDoneWorkerList.adapter = doneWorkerCntAdapter

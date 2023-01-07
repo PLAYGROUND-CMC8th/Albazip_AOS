@@ -6,6 +6,7 @@ import android.view.View
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.ChildFragmentNoWorkerListBinding
+import com.playground.albazip.src.update.setworker.UpdateAddWorkerOneActivity
 
 class NoWorkerListChildFragment : BaseFragment<ChildFragmentNoWorkerListBinding>(
     ChildFragmentNoWorkerListBinding::bind,
@@ -15,7 +16,7 @@ class NoWorkerListChildFragment : BaseFragment<ChildFragmentNoWorkerListBinding>
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnAddWorker.setOnClickListener {
-            val nextIntent = Intent(requireContext(), AddWorkerOneActivity::class.java)
+            val nextIntent = Intent(requireContext(), UpdateAddWorkerOneActivity::class.java)
             startActivity(nextIntent)
         }
 

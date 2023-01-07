@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null">
+
+    <TextView
+        android:id="@+id/tv_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="8sp"
+        android:layout_marginTop="36dp"
+        android:text="근무시간 설정이 완료되지 않았어요."
+        android:textColor="@color/text4_343434"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_dialog_sub_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="8sp"
+        android:layout_marginTop="8dp"
+        android:text="설정중이던 내용은 저장되지 않아요.\n
+그래도 작업을 중단하고 나가시겠어요?"
+        android:textColor="#6f6f6f"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_dialog_title" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="취소"
+        android:textStyle="bold"
+        android:textColor="@color/customBlack"
+        android:background="@drawable/btn_custom_white_cancel"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="36dp"
+        android:layout_marginTop="32dp"
+        android:stateListAnimator="@null"
+        app:layout_constraintTop_toBottomOf="@id/tv_dialog_sub_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_out"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_out"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="나가기"
+        android:textStyle="bold"
+        android:stateListAnimator="@null"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_custom_black_ok"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="36dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_dialog_sub_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_cancel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

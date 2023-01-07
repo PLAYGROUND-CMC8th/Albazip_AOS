@@ -35,11 +35,11 @@ class EditTodoListAdapter(val itemList: ArrayList<EditTodoData>, val context: Co
 
         holder.setIsRecyclable(false)
 
-        binding.etToDoName.setText(itemList[position].titleTxt)
+        binding.etToDoName.setText(itemList[position].title)
         binding.etToDoName.addTextChangedListener(titleTextWatcher(position))
 
 
-        binding.etToDoExplain.setText(itemList[position].contextTxt)
+        binding.etToDoExplain.setText(itemList[position].content)
         binding.etToDoExplain.addTextChangedListener(contentTextWatcher(position))
 
 
@@ -94,7 +94,7 @@ class EditTodoListAdapter(val itemList: ArrayList<EditTodoData>, val context: Co
         override fun afterTextChanged(p0: Editable?) {}
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            itemList[position].titleTxt = p0.toString()
+            itemList[position].title = p0.toString()
         }
     }
 
@@ -102,7 +102,7 @@ class EditTodoListAdapter(val itemList: ArrayList<EditTodoData>, val context: Co
         override fun afterTextChanged(p0: Editable?) {}
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            itemList[position].contextTxt = p0.toString()
+            itemList[position].content = p0.toString()
         }
     }
 

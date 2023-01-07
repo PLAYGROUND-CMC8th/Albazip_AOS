@@ -1,5 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1503623188405797" />
+        <entry key="app/src/main/res/drawable/bg_input_place_more.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/bg_input_place_more_active.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/bg_input_place_more_inactive.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/bg_run_time_active.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/bg_run_time_inactive.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/bg_selector_rest_long.xml" value="0.1355" />
+        <entry key="app/src/main/res/drawable/btn_disable_yellow_fill_rounded.xml" value="0.153" />
+        <entry key="app/src/main/res/drawable/btn_fill_ffffff_raidus_efefef_10.xml" value="0.171" />
+        <entry key="app/src/main/res/drawable/btn_input_place_more_register.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/fill_white_radius_gray_20.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/ic_menu_home_active.xml" value="0.1235" />
+        <entry key="app/src/main/res/drawable/menu_community_selector.xml" value="0.1235" />
+        <entry key="app/src/main/res/drawable/menu_home_selector.xml" value="0.1235" />
+        <entry key="app/src/main/res/drawable/rectangle_fill_custom_black_15.xml" value="0.145" />
+        <entry key="app/src/main/res/drawable/rectangle_fill_custom_black_radius_40.xml" value="0.145" />
+        <entry key="app/src/main/res/drawable/selector_circle_yellow_checkbox.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable/selector_input_place_checkbox.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/selector_input_place_more_10.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/selector_run_time.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/selector_time_btn.xml" value="0.153" />
+        <entry key="app/src/main/res/drawable/selector_time_checkbox.xml" value="0.143" />
+        <entry key="app/src/main/res/font/custom_font_family.xml" value="0.27395833333333336" />
+        <entry key="app/src/main/res/font/font_family.xml" value="0.27291666666666664" />
+        <entry key="app/src/main/res/font/roboto_bold.xml" value="0.27395833333333336" />
+        <entry key="app/src/main/res/font/roboto_medium.xml" value="0.27395833333333336" />
+        <entry key="app/src/main/res/layout/activity_add_personal_work_list.xml" value="0.13020833333333334" />
+        <entry key="app/src/main/res/layout/activity_add_shop_more_info.xml" value="0.14114583333333333" />
+        <entry key="app/src/main/res/layout/activity_add_worker_one.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/activity_add_worker_two.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/activity_bnum.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_edit_shop_info_one.xml" value="0.1421875" />
+        <entry key="app/src/main/res/layout/activity_edit_shop_info_two.xml" value="0.1421875" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.1578125" />
+        <entry key="app/src/main/res/layout/activity_input_place_more.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_input_place_more_alpha.xml" value="0.1421875" />
+        <entry key="app/src/main/res/layout/activity_input_place_more_beta.xml" value="0.2944008650180109" />
+        <entry key="app/src/main/res/layout/activity_register_join.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_register_place.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_run_time.xml" value="0.1421875" />
+        <entry key="app/src/main/res/layout/activity_running_time.xml" value="0.17555938037865748" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.1484375" />
+        <entry key="app/src/main/res/layout/activity_search_place.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_set_worker_time2.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/activity_up_running_time.xml" value="0.12447916666666667" />
+        <entry key="app/src/main/res/layout/activity_update_add_worker_one.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_update_input_place_more_info.xml" value="0.2111111111111111" />
+        <entry key="app/src/main/res/layout/activity_update_set_worker_time.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/bg_cnt_read_popup.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/child_fragment_card_code.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/child_fragment_card_position_info.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/child_fragment_card_to_do_list.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/child_fragment_home_opened.xml" value="0.1578125" />
+        <entry key="app/src/main/res/layout/child_fragment_my_info.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/child_fragment_no_worker_list.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/child_fragment_worker_list.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/child_fragment_wrote.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/child_fragment_wrote_before_update.xml" value="0.19429347826086957" />
+        <entry key="app/src/main/res/layout/dialog_fragment_24_hour.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog_fragment_add_worklist.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_age.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_cancel_done.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_cancel_running_time.xml" value="0.24087591240875914" />
+        <entry key="app/src/main/res/layout/dialog_fragment_card_position_delete.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_confirm_24_hour.xml" value="0.1956521739130435" />
+        <entry key="app/src/main/res/layout/dialog_fragment_delete_co_work.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_logout.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_m_select_profile.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_notice_delete.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_notice_menu_for_m.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_notice_menu_for_w.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_pay_unit.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_report_reason.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_request_work_out.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_response_work_out.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_response_work_out_real.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_rest_time_info.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/dialog_fragment_time.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_type.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_undo_done_work.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_fragment_w_select_profile.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_todo_all_done.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/dialog_update_set_time_info.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/dialog_update_time_set_cancel.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/fragment_agreement.xml" value="0.228125" />
+        <entry key="app/src/main/res/layout/fragment_card_info.xml" value="0.228125" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_m_community.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/fragment_m_mypage.xml" value="0.14322916666666666" />
+        <entry key="app/src/main/res/layout/item_rv_running_time.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/item_rv_worker_card.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/item_up_rv_running_time.xml" value="0.12447916666666667" />
+        <entry key="app/src/main/res/layout/item_update_rv_set_worker_time.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_update_rv_worker_time.xml" value="0.24322916666666666" />
+        <entry key="app/src/main/res/layout/item_vp_search_result.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/test_hello.xml" value="0.24270833333333333" />
+        <entry key="app/src/main/res/menu/menu_main_btm_nav.xml" value="0.24375" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

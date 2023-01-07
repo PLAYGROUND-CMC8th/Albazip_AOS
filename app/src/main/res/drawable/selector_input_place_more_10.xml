@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/bg_input_place_more_active_10" android:state_checked="true" android:state_selected="true" />
+    <item android:drawable="@drawable/bg_input_place_more_inactive_10" android:state_checked="false" android:state_selected="false" />
+
+</selector>

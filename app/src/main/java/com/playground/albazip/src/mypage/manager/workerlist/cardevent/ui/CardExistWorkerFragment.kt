@@ -22,6 +22,7 @@ import com.playground.albazip.src.mypage.manager.workerlist.outworker.custom.Res
 import com.playground.albazip.src.mypage.worker.init.data.PositionInfo
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.playground.albazip.src.mypage.manager.workerlist.cardevent.network.EmptyWorkerService
 
 // 카드에 근무자 존재
 class CardExistWorkerFragment(val positionId:Int,val outStatus:Int):
@@ -75,8 +76,8 @@ class CardExistWorkerFragment(val positionId:Int,val outStatus:Int):
         }
 
         // 서버통신 시작
-        ExistWorkerService(this).tryGetExistCard(getPositionId)
-        showLoadingDialog(requireContext())
+        //ExistWorkerService(this).tryGetExistCard(getPositionId)
+        //showLoadingDialog(requireContext())
 
 
     }
@@ -132,6 +133,13 @@ class CardExistWorkerFragment(val positionId:Int,val outStatus:Int):
                 tv.setTypeface(null, style)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 서버통신 시작
+        ExistWorkerService(this).tryGetExistCard(getPositionId)
+        showLoadingDialog(requireContext())
     }
 
     override fun onGetSuccess(response: ExistWorkerResponse) {

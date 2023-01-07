@@ -17,7 +17,7 @@
         android:font="@font/roboto_bold"
         android:fontStyle="normal"
         android:fontWeight="700"
-        app:font="@font/roboto_bold"
+        app:font="@font/roboto_bold_otf"
         app:fontStyle="normal"
         app:fontWeight="1000" />
 

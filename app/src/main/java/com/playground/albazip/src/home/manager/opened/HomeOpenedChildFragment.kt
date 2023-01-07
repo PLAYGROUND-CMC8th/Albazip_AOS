@@ -9,11 +9,9 @@ import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.ChildFragmentHomeOpenedBinding
 import com.playground.albazip.src.home.common.ui.HomeAlarmActivity
 import com.playground.albazip.src.home.common.ui.HomeShopListActivity
-import com.playground.albazip.src.home.manager.closed.worklist.ui.HomeMClosedToDoListActivity
 import com.playground.albazip.src.home.manager.data.AllHomeMResult
 import com.playground.albazip.src.home.manager.opened.ui.QRShowingActivity
 import com.playground.albazip.src.home.manager.opened.ui.TodaysWorkerListActivity
-import com.playground.albazip.src.home.manager.worklist.ui.AddTogetherWorkListActivity
 import com.playground.albazip.src.home.manager.worklist.ui.HomeMTodayToDoListActivity
 
 class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragmentHomeOpenedBinding>(
@@ -85,13 +83,6 @@ class HomeOpenedChildFragment(data: AllHomeMResult) : BaseFragment<ChildFragment
         binding.llWorkerList.setOnClickListener {
             val nextIntent = Intent(requireContext(), TodaysWorkerListActivity::class.java)
             startActivity(nextIntent)
-        }
-
-        // 업무 추가 액티비티
-        binding.ibtnAdd.setOnClickListener {
-            val nextIntent = Intent(requireContext(), AddTogetherWorkListActivity::class.java)
-            startActivity(nextIntent)
-            //AddWorkBottomSheetDialog().show(parentFragmentManager, "addwork")
         }
 
         // 매장 선택화면으로 이동

@@ -18,6 +18,7 @@ import com.playground.albazip.src.home.manager.data.GetAllMHomeResponse
 import com.playground.albazip.src.home.manager.opened.HomeOpenedChildFragment
 import com.playground.albazip.src.home.manager.opened.network.GetAllMFragmentView
 import com.playground.albazip.src.home.manager.opened.network.GetMAllHomeInfoService
+import com.playground.albazip.src.home.manager.worklist.ui.AddTogetherWorkListActivity
 import com.playground.albazip.src.splash.CheckRightTokenService
 import com.playground.albazip.src.splash.GetCheckRightTokenFragmentView
 import com.playground.albazip.src.splash.GetRightTokenResponse
@@ -42,10 +43,23 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 전체보기 (소통창 화면으로 이동)
+        initAllCommunityBtn()
+        initAddWorkBtn()
+    }
+
+    // 전체보기 버튼 (소통창 화면으로 이동)
+    private fun initAllCommunityBtn() {
         binding.tvShowCommunity.setOnClickListener {
             requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.manager_main_btm_nav).menu.getItem(1).isChecked=true
             requireActivity().supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm,MCommunityFragment()).commit()
+        }
+    }
+
+    // 할 일 추가 버튼
+    private fun initAddWorkBtn() {
+        binding.floatAddWorkBtn.setOnClickListener {
+            val nextIntent = Intent(requireContext(), AddTogetherWorkListActivity::class.java)
+            startActivity(nextIntent)
         }
     }
 
@@ -88,7 +102,8 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
             ApplicationClass.prefs.setString("login_shop_name", "")
       //  }
         // 영업상태
-        var status = response.data.shopInfo.status
+        // TODO: 응?? 왜 안되지 ??
+        val status = response.data.shopInfo.status
 
         // 영업상태 체크
         if(status == 0){ // 영업전
@@ -118,8 +133,10 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         // 작성된 공지글이 없을 때
         if(noticeList.size == 0){
             binding.rlNoWriteList.visibility =View.VISIBLE
+            binding.tvShowCommunity.visibility = View.GONE
         }else{
             binding.rlNoWriteList.visibility = View.GONE
+            binding.tvShowCommunity.visibility = View.VISIBLE
         }
 
         // viewpager 데이터 받기

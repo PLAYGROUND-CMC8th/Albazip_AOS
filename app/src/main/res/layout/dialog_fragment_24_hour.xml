@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_24_hour_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/text4_343434"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="1sp"
+        android:fontFamily="@font/roboto_bold_otf"
+        android:text="모든 영업시간을 입력해주세요."
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_24_hour_sub_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/text2_a3a3a3"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="5sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/tv_24_hour_title"
+        app:layout_constraintEnd_toEndOf="@id/tv_24_hour_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_24_hour_title"
+        android:text="기존에 입력했던 영업시간은 모두 사라져요."/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_24_hour"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@id/tv_24_hour_sub_title"
+        app:layout_constraintEnd_toEndOf="@id/tv_24_hour_sub_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_24_hour_sub_title">
+
+        <LinearLayout
+            android:id="@+id/ll_check"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageButton
+                android:id="@+id/cb_24_hour"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/selector_circle_yellow_checkbox"
+                android:button="@android:color/transparent" />
+
+            <TextView
+                android:id="@+id/tv_24_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/roboto_regular_otf"
+                android:gravity="center"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="7sp"
+                android:text="@string/common_24_hour"
+                android:textColor="@color/text4_343434"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_running_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="@id/ll_check"
+            app:layout_constraintStart_toStartOf="@id/ll_check"
+            app:layout_constraintTop_toBottomOf="@id/ll_check">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_open"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="134"
+                android:background="@drawable/selector_run_time"
+                android:paddingHorizontal="17dp"
+                android:paddingVertical="14dp">
+
+                <TextView
+                    android:id="@+id/tv_open_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text="오픈시간"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_open_hour"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_open_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="00:00"
+                    android:enabled="false"
+                    android:textColor="@color/selector_tv_runtime"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_open_txt"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="44"
+                android:paddingHorizontal="11dp"
+                android:src="@drawable/ic_running_time_wave"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_close"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="134"
+                android:background="@drawable/selector_run_time"
+                android:paddingHorizontal="17dp"
+                android:paddingVertical="14dp">
+
+                <TextView
+                    android:id="@+id/tv_close_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text="마감시간"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_close_hour"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_close_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="00:00"
+                    android:enabled="false"
+                    android:textColor="@color/selector_tv_runtime"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_close_txt"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_total_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="0시간"
+            android:fontFamily="@font/roboto_medium_otf"
+            android:textSize="12sp"
+            android:textColor="@color/text2_a3a3a3"
+            android:letterSpacing="-0.03"
+            android:gravity="end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_running_time"
+            app:layout_constraintEnd_toEndOf="@id/ll_running_time"
+            android:layout_marginTop="8dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_confirm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/selector_time_btn"
+        android:fontFamily="@font/roboto_bold_otf"
+        android:stateListAnimator="@null"
+        android:text="@string/common_confirm"
+        android:textColor="@color/selector_tv_confirm"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/cl_24_hour"
+        app:layout_constraintStart_toStartOf="@id/cl_24_hour"
+        app:layout_constraintTop_toBottomOf="@id/cl_24_hour" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

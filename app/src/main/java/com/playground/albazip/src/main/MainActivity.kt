@@ -6,7 +6,6 @@ import android.os.Bundle
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityMainBinding
 import com.playground.albazip.src.login.LoginActivity
-import com.playground.albazip.src.login.ReInputPhoneActivity
 import com.playground.albazip.src.register.common.RegisterActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
@@ -14,7 +13,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         // 시스템바 색상 변경
-        window.statusBarColor = Color.parseColor("#ffffff")
+        window.statusBarColor = Color.WHITE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         // ScreenToFull().fullScreen(this)
 
         // 회원가입 화면으로 이동
-        binding.btnRegister.setOnClickListener {
+        binding.tvRegister.setOnClickListener {
             val nextIntent = Intent(this, RegisterActivity::class.java)
             startActivity(nextIntent)
         }
@@ -35,11 +34,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             startActivity(nextIntent)
         }
 
-        // 비밀번호 변경 화면으로 이동
-        binding.tvPwSet.setOnClickListener {
-            val nextIntent = Intent(this,ReInputPhoneActivity::class.java)
-            startActivity(nextIntent)
-        }
     }
 
 }

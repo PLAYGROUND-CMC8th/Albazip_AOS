@@ -25,7 +25,6 @@ class ManagerMainActivity :
         supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MHomeFragment())
             .commitAllowingStateLoss()
 
-
         binding.managerMainBtmNav.run {
             setOnItemSelectedListener {
                 when (it.itemId) {
@@ -57,6 +56,9 @@ class ManagerMainActivity :
             }
         }
 
+        if (intent.hasExtra("fromFlag")) {
+            findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.manager_main_btm_nav).menu.getItem(2).isChecked=true
+        }
 
     }
 

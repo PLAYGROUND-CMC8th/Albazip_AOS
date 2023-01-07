@@ -14,6 +14,7 @@ import com.playground.albazip.config.ApplicationClass.Companion.prefs
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityInputPlaceMoreBinding
 import com.playground.albazip.src.main.ManagerMainActivity
+import com.playground.albazip.src.onboard.manager.ManagerOnBoardingActivity
 import com.playground.albazip.src.register.common.data.remote.PositionRegisterResponse
 import com.playground.albazip.src.register.manager.custom.PayDayBottomSheetDialog
 import com.playground.albazip.src.register.manager.custom.TimePickerBottomSheetDialog
@@ -505,13 +506,14 @@ class InputPlaceMoreActivity :
         if (response.code == 200) {
             showCustomToast("관리자 가입 완료")
 
+            prefs.setInt("mBoardingFlags",0)
             val mBoardingFlags = prefs.getInt("mBoardingFlags",0)
-            ApplicationClass.prefs.setString(ApplicationClass.X_ACCESS_TOKEN, response.tokenData.token)
+            prefs.setString(ApplicationClass.X_ACCESS_TOKEN, response.tokenData.token)
 
             // 저장된 Flag값이 0이면 온보딩
             if(mBoardingFlags == 0){
                 prefs.setInt("jobFlags",1)
-                val nextIntent = Intent(this,ManagerOnBoardingActivity::class.java)
+                val nextIntent = Intent(this, ManagerOnBoardingActivity::class.java)
                 startActivity(nextIntent)
                 finishAffinity()
 

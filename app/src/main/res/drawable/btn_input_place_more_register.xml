@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/rectagnle_fill_yellow_radius_20" android:state_checked="true" android:state_selected="true" />
+    <item android:drawable="@drawable/btn_disable_yellow_fill_rounded" android:state_checked="false" android:state_selected="false" />
+
+</selector>

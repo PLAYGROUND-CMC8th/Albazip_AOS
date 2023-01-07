@@ -1,211 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="#f8f8f8"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="#f8f8f8">
 
 
-        <androidx.core.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
 
             <LinearLayout
+                android:id="@+id/sec_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/rectangle_fill_white_radius_20"
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp">
 
-                <TextView
-                    android:id="@+id/tv_position"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginStart="24dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="#333333"
-                    android:letterSpacing="-0.03"
-                    android:text="평일 마감"/>
-
-
-                <LinearLayout
-                    android:id="@+id/sec_ll"
-                    android:layout_marginHorizontal="24dp"
-                    android:paddingHorizontal="24dp"
-                    android:layout_marginTop="14dp"
-                    android:background="@drawable/rectangle_fill_white_radius_20"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:background="@drawable/rectangle_fill_white_radius_top_20">
 
-                    <RelativeLayout
-                        android:background="@drawable/rectangle_fill_white_radius_top_20"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_work_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="27dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_calendar_24px"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageView
-                            android:id="@+id/iv_clock"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:background="@null"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="37dp"
-                            android:src="@drawable/ic_clock"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginVertical="24dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_toEndOf="@id/iv_clock">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="근무 시간"
-                                android:textStyle="bold"
-                                android:textSize="16sp"
-                                android:textColor="#333333"
-                                android:letterSpacing="-0.03"/>
-
-                            <TextView
-                                android:id="@+id/tv_work_time"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textSize="14sp"
-                                android:textColor="#6f6f6f"
-                                android:letterSpacing="-0.03"
-                                android:lineSpacingExtra="8sp"
-                                android:layout_marginTop="2dp"
-                                tools:text="19:00 ~ 23:00 까지 (총 4시간)"
-                                />
-
-                            <TextView
-                                android:id="@+id/tv_rest_time"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textStyle="normal"
-                                android:textSize="14sp"
-                                android:layout_marginTop="2dp"
-                                android:textColor="#6f6f6f"
-                                android:letterSpacing="-0.03"
-                                android:lineSpacingExtra="8sp"
-                                tools:text="휴게시간 없음"/>
-
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/customWhite"
-                        android:layout_marginHorizontal="24dp"/>
-
-                    <RelativeLayout
-                        android:background="@color/white"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/iv_calendar"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:background="@null"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/ic_calendar"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginVertical="24dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_toEndOf="@id/iv_calendar">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="근무 요일"
-                                android:textStyle="bold"
-                                android:textSize="16sp"
-                                android:textColor="#333333"
-                                android:letterSpacing="-0.03"/>
-
-                            <TextView
-                                android:id="@+id/tv_working_day"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="14sp"
-                                android:textColor="#6f6f6f"
-                                android:letterSpacing="-0.03"
-                                android:lineSpacingExtra="8sp"
-                                android:layout_marginTop="2dp"
-                                tools:text="월  화  수  목  금"
-                                />
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/customWhite"
-                        android:layout_marginHorizontal="24dp"/>
-
-                    <RelativeLayout
-                        android:background="@drawable/rectangle_fill_white_radius_bottom_20"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/iv_money"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:background="@null"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/ic_calendar"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginVertical="24dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_toEndOf="@id/iv_money">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="급여"
-                                android:textStyle="bold"
-                                android:textSize="16sp"
-                                android:textColor="#333333"
-                                android:letterSpacing="-0.03"/>
-
-                            <TextView
-                                android:id="@+id/tv_salary"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="14sp"
-                                android:textColor="#6f6f6f"
-                                android:letterSpacing="-0.03"
-                                android:lineSpacingExtra="8sp"
-                                android:layout_marginTop="2dp"
-                                tools:text="시급 8,800원"
-                                />
-                        </LinearLayout>
+                    <TextView
+                        android:id="@id/tv_working_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:letterSpacing="-0.03"
+                        android:text="근무일"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_work_day"
+                        app:layout_constraintStart_toEndOf="@id/iv_work_day"
+                        app:layout_constraintTop_toTopOf="@id/iv_work_day" />
 
 
-                    </RelativeLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_work_schedule"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="16dp"
+                        android:clipToPadding="false"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tv_working_day"
+                        app:layout_constraintTop_toBottomOf="@id/tv_working_day"
+                        tools:itemCount="7"
+                        tools:listitem="@layout/item_rv_work_schedule" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:background="@color/customWhite" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/iv_clock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="19dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_clock_24px"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_rest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:letterSpacing="-0.03"
+                        android:text="쉬는시간"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_clock"
+                        app:layout_constraintStart_toEndOf="@id/iv_clock"
+                        app:layout_constraintTop_toTopOf="@id/iv_clock" />
+
+                    <TextView
+                        android:id="@+id/tv_rest_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="8sp"
+                        android:textColor="#6f6f6f"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tv_rest"
+                        app:layout_constraintTop_toBottomOf="@id/tv_rest"
+                        tools:text="없음" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:background="@color/customWhite" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_fill_white_radius_bottom_20">
+
+                    <ImageView
+                        android:id="@+id/iv_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="19dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_money_24px"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:letterSpacing="-0.03"
+                        android:text="급여"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_money"
+                        app:layout_constraintStart_toEndOf="@id/iv_money"
+                        app:layout_constraintTop_toTopOf="@id/iv_money" />
+
+                    <TextView
+                        android:id="@+id/tv_salary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="8sp"
+                        android:textColor="#6f6f6f"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tv_money"
+                        app:layout_constraintTop_toBottomOf="@id/tv_money"
+                        tools:text="시급 8,800원" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

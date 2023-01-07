@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.register.manager.SearchPlaceActivity">
+    tools:context=".src.register.manager.place.SearchPlaceActivity">
 
     <ImageButton
         android:id="@+id/iv_back"
@@ -39,7 +39,7 @@
             android:singleLine="true"
             android:background="@null"
             android:textStyle="normal"
-            android:fontFamily="@font/roboto_medium"
+            android:fontFamily="@font/roboto_medium_otf"
             android:hint="매장명+지점 검색"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="13sp"
@@ -152,7 +152,7 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/rectangle_fill_yellow_radius_15"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/roboto_bold_otf"
             android:stateListAnimator="@null"
             android:text="다음"
             android:textColor="@color/customBlack"

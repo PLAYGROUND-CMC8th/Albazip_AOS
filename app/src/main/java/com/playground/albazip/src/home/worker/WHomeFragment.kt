@@ -50,6 +50,9 @@ class WHomeFragment :
             ).commit()
         }
 
+        // 알바생은 업무추가 버튼 끄기
+        binding.floatAddWorkBtn.visibility = View.GONE
+
     }
 
     override fun onResume() {
@@ -116,8 +119,10 @@ class WHomeFragment :
         // 작성된 공지글이 없을 때
         if(noticeList.size == 0){
             binding.rlNoWriteList.visibility =View.VISIBLE
+            binding.tvShowCommunity.visibility = View.GONE
         }else{
             binding.rlNoWriteList.visibility = View.GONE
+            binding.tvShowCommunity.visibility = View.VISIBLE
         }
 
         // indicator 연결

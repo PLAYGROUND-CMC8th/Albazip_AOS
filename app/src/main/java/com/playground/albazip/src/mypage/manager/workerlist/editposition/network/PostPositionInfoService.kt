@@ -3,10 +3,13 @@ package com.playground.albazip.src.mypage.manager.workerlist.editposition.networ
 import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseResponse
 import com.google.gson.annotations.SerializedName
+import com.playground.albazip.src.mypage.manager.workerlist.data.local.EditTodoData
+import com.playground.albazip.src.update.setworker.network.RequestAddPosition
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.*
+import java.io.Serializable
 
 class PostPositionInfoService(val view: PostPositionInfoFragmentView) {
 
@@ -46,17 +49,21 @@ interface PostPositionInfoFragmentView {
     fun onPostPositionInfoFailure(message: String)
 }
 
-data class PostEditWorkerRequest (
-    @SerializedName("rank") val rank : String,
-    @SerializedName("title") val title : String,
-    @SerializedName("startTime") val startTime : String,
-    @SerializedName("endTime") val endTime : String,
-    @SerializedName("workDay") val workDay : ArrayList<String>,
-    @SerializedName("breakTime") val breakTime : String,
-    @SerializedName("salary") val salary : String,
-    @SerializedName("salaryType") val salaryType : String,
-    @SerializedName("taskList") val taskList : ArrayList<PostEditTaskLists>?
-)
+data class PostEditWorkerRequest(
+    val breakTime: String,
+    val rank: String,
+    val salary: String,
+    val salaryType: Int,
+    val taskList: ArrayList<EditTodoData>?,
+    val title: String,
+    val workSchedule: ArrayList<RequestAddPosition.WorkSchedule>
+){
+    data class WorkSchedule(
+        val day: String,
+        val startTime: String,
+        val endTime: String,
+    ): Serializable
+}
 
 data class PostEditTaskLists(
     @SerializedName("id") val id : Int?,

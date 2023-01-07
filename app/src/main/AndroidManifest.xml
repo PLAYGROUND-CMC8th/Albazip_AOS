@@ -4,22 +4,22 @@
     package="com.playground.albazip">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.playground.albazip.config.ApplicationClass"
-        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:exported="false"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_albazip_launcher"
-        android:roundIcon="@mipmap/ic_albazip_launcher_round"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:screenOrientation="portrait"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_albazip_launcher_round"
         android:supportsRtl="true"
-        android:hardwareAccelerated="true"
         android:theme="@style/Theme.Albazip">
 
         <service
@@ -33,56 +33,60 @@
         <activity android:name="com.playground.albazip.src.main.ManagerMainActivity">
 
         </activity>
-        <activity android:name="com.playground.albazip.src.main.WorkerMainActivity" >
+        <activity android:name="com.playground.albazip.src.main.WorkerMainActivity">
 
         </activity>
-        <activity android:name="com.playground.albazip.src.register.manager.ManagerOnBoardingActivity" />
-        <activity android:name="com.playground.albazip.src.register.manager.InputPlaceMoreActivity" >
-
-        </activity>
+        <activity
+            android:name="com.playground.albazip.src.onboard.manager.ManagerOnBoardingActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.playground.albazip.src.register.manager.InputPlaceMoreActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="9b17465bab986538ecc5bcc77361fcd2" />
 
         <activity
-            android:name="com.playground.albazip.src.register.manager.SearchPlaceActivity"
+            android:name="com.playground.albazip.src.register.manager.place.SearchPlaceActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name="com.playground.albazip.src.register.manager.RegisterPlaceActivity" >
+        <activity android:name="com.playground.albazip.src.register.manager.place.RegisterPlaceActivity">
 
         </activity>
         <activity android:name="com.playground.albazip.src.home.common.ui.HomeActivity" />
         <activity android:name="com.playground.albazip.src.login.LoginActivity" />
         <activity android:name="com.playground.albazip.src.register.common.RegisterActivity" />
-        <activity android:name="com.playground.albazip.src.splash.SplashActivity">
+        <activity
+            android:name="com.playground.albazip.src.splash.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.playground.albazip.src.main.MainActivity">
-        </activity>
+        <activity android:name="com.playground.albazip.src.main.MainActivity"></activity>
         <activity android:name="com.playground.albazip.src.register.manager.InputBNumActivity" />
         <activity android:name="com.playground.albazip.src.register.worker.ui.RegisterJoinActivity" />
-        <activity android:name="com.playground.albazip.src.register.worker.ui.WorkerOnBoardingActivity" />
+        <activity android:name="com.playground.albazip.src.onboard.worker.WorkerOnBoardingActivity" />
         <activity android:name="com.playground.albazip.src.home.common.ui.SettingActivity" />
 
 
         <activity android:name="com.playground.albazip.src.mypage.worker.myInfo.ui.LateCheckActivity">
 
         </activity>
-        <activity android:name="com.playground.albazip.src.mypage.worker.myInfo.ui.TogetherWorkActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.worker.myInfo.ui.DoneWorkActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.worker.myInfo.ui.SelectMonthListActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.ui.AddWorkerOneActivity"
+        <activity android:name="com.playground.albazip.src.mypage.worker.myInfo.ui.TogetherWorkActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.worker.myInfo.ui.DoneWorkActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.worker.myInfo.ui.SelectMonthListActivity" />
+        <activity
+            android:name="com.playground.albazip.src.mypage.manager.workerlist.ui.AddWorkerOneActivity"
             android:windowSoftInputMode="adjustResize">
 
         </activity>
-        <activity android:name="com.playground.albazip.src.mypage.worker.myInfo.ui.SelectDayListActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.ui.AddWorkerTwoActivity"
-            android:windowSoftInputMode="adjustPan"
-            >
+        <activity android:name="com.playground.albazip.src.mypage.worker.myInfo.ui.SelectDayListActivity" />
+        <activity
+            android:name="com.playground.albazip.src.mypage.manager.workerlist.ui.AddWorkerTwoActivity"
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
 
@@ -95,67 +99,84 @@
 
         </activity>
 
-        <activity android:name="com.playground.albazip.src.mypage.common.setting.AppNoticeActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.common.setting.editinfo.EditMyInfoActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.common.setting.editinfo.EditPhoneNumActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.common.setting.ServiceLawActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.common.setting.SubScribeActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.common.setting.WithDrawMemberActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.common.setting.WMyPageSettingActivity"/>
+        <activity android:name="com.playground.albazip.src.mypage.common.setting.AppNoticeActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.common.setting.editinfo.EditMyInfoActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.common.setting.editinfo.EditPhoneNumActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.common.setting.ServiceLawActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.common.setting.SubScribeActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.common.setting.WithDrawMemberActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.common.setting.WMyPageSettingActivity" />
 
-        <activity android:name="com.playground.albazip.src.home.manager.opened.ui.QRShowingActivity"/>
-        <activity android:name="com.playground.albazip.src.home.common.ui.HomeAlarmActivity"/>
-        <activity android:name="com.playground.albazip.src.home.manager.opened.ui.TodaysWorkerListActivity"/>
+        <activity android:name="com.playground.albazip.src.home.manager.opened.ui.QRShowingActivity" />
+        <activity android:name="com.playground.albazip.src.home.common.ui.HomeAlarmActivity" />
+        <activity android:name="com.playground.albazip.src.home.manager.opened.ui.TodaysWorkerListActivity" />
 
         <activity android:name="com.playground.albazip.src.home.manager.worklist.ui.HomeMTodayToDoListActivity">
 
         </activity>
 
-        <activity android:name="com.playground.albazip.src.home.worker.opened.QRScanningActivity"
-            android:theme="@style/Theme.Transparent"/>
+        <activity
+            android:name="com.playground.albazip.src.home.worker.opened.QRScanningActivity"
+            android:theme="@style/Theme.Transparent" />
 
-        <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
-            tools:replace="screenOrientation"/>
+            tools:replace="screenOrientation" />
 
-        <activity android:name="com.playground.albazip.src.home.common.ui.HomeShopListActivity"/>
+        <activity android:name="com.playground.albazip.src.home.common.ui.HomeShopListActivity" />
 
-        <activity android:name="com.playground.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity"/>
-        <activity android:name="com.playground.albazip.src.withdraw.ui.DefaultWithDrawActivity"/>
+        <activity android:name="com.playground.albazip.src.home.worker.opened.worklist.ui.HomeWTodayToDoListActivity" />
+        <activity android:name="com.playground.albazip.src.withdraw.ui.DefaultWithDrawActivity" />
 
-        <activity android:name="com.playground.albazip.src.login.ReInputPhoneActivity"/>
-        <activity android:name="com.playground.albazip.src.login.RePWActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.common.setting.editinfo.ManageMyInfoActivity"/>
+        <activity android:name="com.playground.albazip.src.login.ReInputPhoneActivity" />
+        <activity android:name="com.playground.albazip.src.login.RePWActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.common.setting.editinfo.ManageMyInfoActivity" />
 
-        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute.DetailLateCheckActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailDoneWorkActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailSelectMonthListActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailSelectDayListActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.editposition.ui.EditWorkerOneActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.editposition.ui.EditWorkerTwoActivity"/>
+        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.commute.DetailLateCheckActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailDoneWorkActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailSelectMonthListActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.taskinfo.DetailSelectDayListActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.editposition.ui.EditWorkerOneActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.editposition.ui.EditWorkerTwoActivity" />
 
-        <activity android:name="com.playground.albazip.src.home.manager.editshop.ui.EditShopInfoOneActivity"/>
-        <activity android:name="com.playground.albazip.src.home.manager.editshop.ui.EditShopInfoTwoActivity"/>
+        <activity android:name="com.playground.albazip.src.home.manager.editshop.ui.EditShopInfoOneActivity"
+            android:exported="true"/>
+        <activity android:name="com.playground.albazip.src.home.manager.editshop.ui.EditShopInfoTwoActivity" />
 
-        <activity android:name="com.playground.albazip.src.home.manager.editshop.ui.DelShopActivity"/>
-        <activity android:name="com.playground.albazip.src.home.manager.worklist.ui.HomePersonalPositionActivity"/>
+        <activity android:name="com.playground.albazip.src.home.manager.editshop.ui.DelShopActivity" />
+        <activity android:name="com.playground.albazip.src.home.manager.worklist.ui.HomePersonalPositionActivity" />
 
-        <activity android:name="com.playground.albazip.src.home.manager.worklist.ui.AddTogetherWorkListActivity"/>
-        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.cotask.DetailTogetherWorkActivity"/>
-        <activity android:name="com.playground.albazip.src.community.common.ui.NoticeContentActivity"/>
-        <activity android:name="com.playground.albazip.src.community.worker.ui.NoticeWContentActivity"/>
-        <activity android:name="com.playground.albazip.src.community.manager.ui.WriteNoticeActivity"
+        <activity android:name="com.playground.albazip.src.home.manager.worklist.ui.AddTogetherWorkListActivity" />
+        <activity android:name="com.playground.albazip.src.mypage.manager.workerlist.cardevent.detailinfo.cotask.DetailTogetherWorkActivity" />
+        <activity android:name="com.playground.albazip.src.community.common.ui.NoticeContentActivity" />
+        <activity android:name="com.playground.albazip.src.community.worker.ui.NoticeWContentActivity" />
+        <activity
+            android:name="com.playground.albazip.src.community.manager.ui.WriteNoticeActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".src.community.common.ui.PhotoListActivity"/>
-        <activity android:name=".src.community.manager.ui.EditNoticeActivity"/>
-        <activity android:name=".src.community.manager.ui.SearchCoMActivity"
-            android:windowSoftInputMode="adjustNothing"/>
-        <activity android:name=".src.community.worker.ui.SearchCoWActivity"
-            android:windowSoftInputMode="adjustNothing"
-            />
+        <activity android:name=".src.community.common.ui.PhotoListActivity" />
+        <activity android:name=".src.community.manager.ui.EditNoticeActivity" />
+        <activity
+            android:name=".src.community.manager.ui.SearchCoMActivity"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".src.community.worker.ui.SearchCoWActivity"
+            android:windowSoftInputMode="adjustNothing" />
 
-        <activity android:name=".src.home.manager.closed.worklist.ui.HomeMClosedToDoListActivity"/>
-        <activity android:name=".src.home.worker.closed.worklist.ui.HomeWClosedToDoListActivity"/>
+        <activity android:name=".src.home.manager.closed.worklist.ui.HomeMClosedToDoListActivity" />
+        <activity android:name=".src.home.worker.closed.worklist.ui.HomeWClosedToDoListActivity" />
+
+
+        <activity
+            android:name=".src.update.runtime.InputPlaceMoreBetaActivity"
+            android:exported="true" />
+
+        <activity android:name=".src.update.runtime.UpdateRunningTimeActivity"
+            android:exported="true"/>
+
+       <activity android:name=".src.update.setworker.UpdateAddWorkerOneActivity"
+           android:exported="true"/>
+        <activity android:name=".src.update.setworker.UpdateSetWorkerTimeActivity" />
 
     </application>
 

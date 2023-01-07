@@ -36,7 +36,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="center_horizontal"
                 android:letterSpacing="-0.03"
-                android:text="매장정보 편집"
+                android:text="매장정보 수정"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -64,288 +64,125 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-    <TextView
-        android:id="@+id/tv_closed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:letterSpacing="-0.01"
-        android:lineSpacingExtra="13sp"
-        android:text="매장 휴무일"
-        android:layout_marginStart="36dp"
-        android:textColor="#6f6f6f"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb_late" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_no_closed"
-        android:layout_width="65dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/rectangle_fill_white_radius_gray_16"
-        android:text="연중무휴"
-        android:textColor="#6f6f6f"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@id/tv_closed"
-        app:layout_constraintTop_toBottomOf="@id/tv_closed" />
-
     <LinearLayout
-        android:id="@+id/ll_closed"
+        android:id="@+id/ll_input_place_txt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginHorizontal="36dp"
+        android:layout_marginTop="36dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/btn_no_closed"
-        app:layout_constraintTop_toBottomOf="@id/btn_no_closed">
+        app:layout_constraintEnd_toEndOf="@id/tb_late"
+        app:layout_constraintStart_toStartOf="@id/tb_late"
+        app:layout_constraintTop_toBottomOf="@id/tb_late">
 
+        <TextView
+            android:id="@+id/tv_input_place_running_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/roboto_medium_otf"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="13sp"
+            android:text="@string/input_place_more_running_hour"
+            android:textColor="@color/text3_6f6f6f"
+            android:textSize="16sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_mon"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:layout_marginEnd="2dp"
-            android:background="@drawable/oval_fill_white_stroke_gray"
-            android:text="월"
-            android:textColor="#6f6f6f"
-            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_input_place_input_done"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:fontFamily="@font/roboto_medium_otf"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="15sp"
+            android:text="@string/input_place_more_input_done"
+            android:textColor="@color/alert2_1dbe4e"
+            android:textSize="14sp" />
 
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_tue"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:layout_marginEnd="2dp"
-            android:background="@drawable/oval_fill_white_stroke_gray"
-            android:text="화"
-            android:textColor="#6f6f6f"
-            android:textSize="12sp" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_wen"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:layout_marginEnd="2dp"
-            android:background="@drawable/oval_fill_white_stroke_gray"
-            android:text="수"
-            android:textColor="#6f6f6f"
-            android:textSize="12sp" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_thur"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:layout_marginEnd="2dp"
-            android:background="@drawable/oval_fill_white_stroke_gray"
-            android:text="목"
-            android:textColor="#6f6f6f"
-            android:textSize="12sp" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_fri"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:layout_marginEnd="2dp"
-            android:background="@drawable/oval_fill_white_stroke_gray"
-            android:text="금"
-            android:textColor="#6f6f6f"
-            android:textSize="12sp" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_sat"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:layout_marginEnd="2dp"
-            android:background="@drawable/oval_fill_white_stroke_gray"
-            android:text="토"
-            android:textColor="#6f6f6f"
-            android:textSize="12sp" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_sun"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:layout_marginEnd="2dp"
-            android:background="@drawable/oval_fill_white_stroke_gray"
-            android:text="일"
-            android:textColor="#6f6f6f"
-            android:textSize="12sp" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_holiday"
-            android:layout_width="55dp"
-            android:layout_height="31dp"
-            android:background="@drawable/rectangle_fill_white_radius_gray_16"
-            android:text="공휴일"
-            android:textColor="#6f6f6f"
-            android:textSize="12sp" />
-
-
+        <ImageView
+            android:id="@+id/iv_input_place_check"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:src="@drawable/ic_place_more_check_active"
+            android:visibility="visible" />
     </LinearLayout>
 
-
     <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/roboto_medium"
-        android:letterSpacing="-0.01"
-        android:lineSpacingExtra="13sp"
-        android:text="영업시간"
-        android:textColor="#6f6f6f"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        app:layout_constraintStart_toStartOf="@id/tv_closed"
-        app:layout_constraintTop_toBottomOf="@id/ll_closed" />
-
-    <TextView
-        android:id="@+id/tv_start_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="14dp"
-        android:letterSpacing="-0.03"
-        android:text="오픈시간"
-        android:textColor="#a3a3a3"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_time" />
-
-    <TextView
-        android:id="@+id/tv_end_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:letterSpacing="-0.03"
-        android:text="마감시간"
-        android:textColor="#a3a3a3"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/rl_end_time"
-        app:layout_constraintStart_toStartOf="@id/rl_end_time" />
-
-    <RelativeLayout
-        android:id="@+id/rl_start_time"
+        android:id="@+id/tv_input_place_set_run_time_btn"
         android:layout_width="0dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/rectangle_fill_white_radius_gray_15"
-        app:layout_constraintEnd_toStartOf="@id/tv_wave"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_start_time">
-
-        <TextView
-            android:id="@+id/tv_input_start_time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="true"
-            android:letterSpacing="-0.02"
-            android:lineSpacingExtra="-18sp"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:textColor="@color/customBlack"
-            android:textSize="30sp"
-            android:text="00:00" />
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_wave"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/roboto_bold"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/bg_input_place_more_inactive_10"
+        android:fontFamily="@font/roboto_bold_otf"
         android:gravity="center"
-        android:text="~"
-        android:textColor="#c6c6c6"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/rl_start_time"
-        app:layout_constraintEnd_toStartOf="@id/rl_end_time"
-        app:layout_constraintStart_toEndOf="@id/rl_start_time"
-        app:layout_constraintTop_toTopOf="@id/rl_start_time" />
+        android:paddingVertical="11dp"
+        android:text="@string/input_place_more_set_running_time"
+        android:textColor="@color/text3_6f6f6f"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/ll_input_place_txt"
+        app:layout_constraintStart_toStartOf="@id/ll_input_place_txt"
+        app:layout_constraintTop_toBottomOf="@id/ll_input_place_txt" />
 
-    <TextView
-        android:id="@+id/tv_work_hour"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/roboto_medium"
-        android:gravity="end"
-        android:letterSpacing="-0.03"
-        android:text="0시간"
-        android:textAlignment="textEnd"
-        android:textColor="#a3a3a3"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/rl_end_time"
-        app:layout_constraintTop_toBottomOf="@id/rl_end_time" />
-
-    <RelativeLayout
-        android:id="@+id/rl_end_time"
+    <LinearLayout
+        android:id="@+id/ll_input_place_check_rest_day"
         android:layout_width="0dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/rectangle_fill_white_radius_gray_15"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_wave"
-        app:layout_constraintTop_toBottomOf="@id/tv_start_time">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/tv_input_place_set_run_time_btn"
+        app:layout_constraintStart_toStartOf="@id/tv_input_place_set_run_time_btn"
+        app:layout_constraintTop_toBottomOf="@id/tv_input_place_set_run_time_btn">
+
+
+        <ImageButton
+            android:id="@+id/cb_input_place_rest_day"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/selector_circle_yellow_checkbox"
+            android:button="@android:color/transparent"
+            android:checked="false"
+            android:gravity="center" />
 
         <TextView
-            android:id="@+id/tv_input_end_time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="true"
-            android:letterSpacing="-0.02"
-            android:lineSpacingExtra="-18sp"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:textColor="@color/customBlack"
-            android:textSize="30sp"
-            android:text="00:00"/>
-    </RelativeLayout>
+            android:id="@+id/tv_input_place_check_same"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/roboto_medium_otf"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="7sp"
+            android:text="@string/input_place_more_rest_day"
+            android:textColor="@color/text4_343434"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_pay_day"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_input_place_more_pay_day"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
-        android:fontFamily="@font/roboto_medium"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/roboto_medium_otf"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="13sp"
-        android:text="급여일"
-        android:textColor="#6f6f6f"
+        android:text="@string/input_place_more_pay_day"
+        android:textColor="@color/text3_6f6f6f"
         android:textSize="16sp"
-        android:textStyle="normal"
-        app:layout_constraintStart_toStartOf="@id/rl_start_time"
-        app:layout_constraintTop_toBottomOf="@id/rl_start_time" />
+        app:layout_constraintEnd_toEndOf="@id/ll_input_place_check_rest_day"
+        app:layout_constraintStart_toStartOf="@id/ll_input_place_check_rest_day"
+        app:layout_constraintTop_toBottomOf="@id/ll_input_place_check_rest_day" />
 
     <RelativeLayout
-        android:id="@+id/rl_pay_day"
+        android:id="@+id/rl_input_place_more_pay_day"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/rectangle_custom_white_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_pay_day"
-        app:layout_constraintTop_toBottomOf="@id/tv_pay_day">
+        android:background="@drawable/selector_input_place_more_10"
+        android:paddingVertical="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_input_place_more_pay_day"
+        app:layout_constraintStart_toStartOf="@id/tv_input_place_more_pay_day"
+        app:layout_constraintTop_toBottomOf="@id/tv_input_place_more_pay_day">
 
         <TextView
             android:id="@+id/tv_month"
@@ -356,23 +193,24 @@
             android:layout_marginStart="16dp"
             android:letterSpacing="-0.03"
             android:text="매월"
-            android:textColor="#a3a3a3"
+            android:textColor="@color/text2_a3a3a3"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_select_day"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/tv_day"
             android:background="@null"
             android:gravity="center|end"
             android:letterSpacing="-0.03"
-            android:text="1 - 31"
-            android:textColor="@color/customBlack"
-            android:textSize="16sp"
-            android:textStyle="normal" />
+            tools:text="1 - 31"
+            android:textColor="@color/text4_343434"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_day"
@@ -383,12 +221,9 @@
             android:layout_marginEnd="16dp"
             android:letterSpacing="-0.03"
             android:text="일"
-            android:textColor="#a3a3a3"
+            android:textColor="@color/text2_a3a3a3"
             android:textSize="14sp"
             android:textStyle="bold" />
-
-
     </RelativeLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.playground.albazip.config.ApplicationClass.Companion.prefs
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityHomeBinding
-import com.playground.albazip.src.register.manager.SearchPlaceActivity
+import com.playground.albazip.src.register.manager.place.SearchPlaceActivity
 import com.playground.albazip.src.register.worker.ui.RegisterJoinActivity
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
@@ -25,7 +25,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
         // 관리자 가입
         binding.clManager.setOnClickListener {
-            val nextIntent = Intent(this,SearchPlaceActivity::class.java)
+            val nextIntent = Intent(this, SearchPlaceActivity::class.java)
             startActivity(nextIntent)
         }
 

@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.playground.albazip.R
 import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseFragment
@@ -17,15 +18,21 @@ import com.playground.albazip.src.mypage.manager.workerlist.custom.DelPositionBo
 import com.playground.albazip.src.mypage.manager.workerlist.network.DelPositionFragmentView
 import com.playground.albazip.src.mypage.manager.workerlist.network.DelPositionService
 import com.playground.albazip.src.mypage.worker.init.data.PositionInfo
-import com.google.android.material.snackbar.Snackbar
+import com.playground.albazip.src.mypage.worker.position.adapter.WorkScheduleAdapter
 import java.text.DecimalFormat
 
-class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:Int): BaseFragment<ChildFragmentCardPositionInfoBinding>(ChildFragmentCardPositionInfoBinding::bind,
-    R.layout.child_fragment_card_position_info),DelPositionBottomSheetDialog.BottomSheetClickListener,DelPositionFragmentView,PPositionInfoFragmentView {
+class CardPositionChildFragment(positionInfo: PositionInfo, flags: Int, positionId: Int) :
+    BaseFragment<ChildFragmentCardPositionInfoBinding>(
+        ChildFragmentCardPositionInfoBinding::bind,
+        R.layout.child_fragment_card_position_info
+    ), DelPositionBottomSheetDialog.BottomSheetClickListener, DelPositionFragmentView,
+    PPositionInfoFragmentView {
 
     private val getPositionId = positionId
     private val getPositionInfo = positionInfo
     private val getFlags = flags
+
+    private lateinit var workScheduleAdapter: WorkScheduleAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,15 +43,30 @@ class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:
             PPositionInfoService(this).tryGetPositionInfo(getPositionId)
         }
 
-        // 삭제 버튼 이벤트
-        if (getFlags == 0){ // 근무자 부재
+        setWorkingDayUI()
+        setDeleteEvent() // 근무자 삭제 이벤트
+        setRestTimeUI()
+        setSalaryUI()
+
+    }
+
+    // 근무일
+    private fun setWorkingDayUI() {
+        workScheduleAdapter = WorkScheduleAdapter()
+        workScheduleAdapter.scheduleList = getPositionInfo.workSchedule
+        binding.rvWorkSchedule.adapter = workScheduleAdapter
+    }
+
+    // 근무자 삭제 이벤트
+    private fun setDeleteEvent() {
+        if (getFlags == 0) { // 근무자 부재
             binding.rlDeleteBtn.setOnClickListener {
-                DelPositionBottomSheetDialog().show(childFragmentManager,"del_position")
+                DelPositionBottomSheetDialog().show(childFragmentManager, "del_position")
             }
-        }else{ // 근무자 존재
+        } else { // 근무자 존재
             binding.rlDeleteBtn.background = ContextCompat.getDrawable(
-                    requireContext(),
-            R.drawable.rectangle_fill_custom_white_radius_20
+                requireContext(),
+                R.drawable.rectangle_fill_custom_white_radius_20
             )
 
             binding.rlDeleteBtn.setOnClickListener {
@@ -53,54 +75,35 @@ class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:
                     .show()
             }
         }
+    }
 
-        // 월급 타입
+    // 쉬는시간
+    private fun setRestTimeUI() {
+        binding.tvRestDay.text = getPositionInfo.breakTime
+    }
+
+    // 페이
+    private fun setSalaryUI() {
         var salaryType = ""
-        when(getPositionInfo.salaryType){
-            0 -> { salaryType = "시급"}
-            1 -> {salaryType = "주급"}
-            2 -> {salaryType = "월급"}
-        }
-
-        // 총 근무시간
-        var workTime = ""
-        if(getPositionInfo.workTime.substring(2,4) == "00"){ // 1시간, 12시간
-            if(getPositionInfo.workTime.substring(0,1)=="0"){
-                workTime = getPositionInfo.workTime.substring(1,2)+"시간)" // 1시간
-            }else{
-                workTime = getPositionInfo.workTime.substring(0,2)+"시간)" // 12시간
+        when (getPositionInfo.salaryType) {
+            0 -> {
+                salaryType = "시급"
             }
-        }else{
-            if(getPositionInfo.workTime.substring(0,1)=="0"){
-                workTime = getPositionInfo.workTime.substring(1,2)+"시간 "+ getPositionInfo.workTime.substring(2,4)+"분)" // 1시간 30분
-            }else{
-                workTime = getPositionInfo.workTime.substring(0,2)+"시간 "+ getPositionInfo.workTime.substring(2,4)+"분)" // 12시간 30분
+            1 -> {
+                salaryType = "주급"
+            }
+            2 -> {
+                salaryType = "월급"
             }
         }
 
-        // 급여 단위 표시
-        //DecimalFormat 객체 선언 실시 (소수점 표시 안함)
-        val t_dec_up = DecimalFormat("#,###")
-        var salary = t_dec_up.format(getPositionInfo.salary)
-
-        // 근무시간
-        binding.tvWorkTime.text = getPositionInfo.startTime.substring(0,2) + ":" + getPositionInfo.startTime.substring(2,4) + " ~ " + getPositionInfo.endTime.substring(0,2) +
-                ":"+getPositionInfo.endTime.substring(2,4) + " 까지 (총 " + workTime
-
-        // 휴게시간
-        binding.tvRestTime.text = "휴게시간 " + getPositionInfo.breakTime
-
-        // 근무요일
-        binding.tvWorkingDay.text = getPositionInfo.workDay
-
-        // 급여
-        binding.tvSalary.text = salaryType + " " + salary + "원"
-
+        binding.tvSalary.text =
+            salaryType + " " + DecimalFormat("#,###").format(getPositionInfo.salary.toInt()) + "원"
     }
 
     override fun onItemSelected(isDeleteClicked: Boolean) {
         // 바텀시트에서 포지션 삭제버튼 클릭 했을 때
-        if(isDeleteClicked == true){
+        if (isDeleteClicked == true) {
 
             // 포지션 삭제 서버 통신
             DelPositionService(this).tryDelWorkerPosition(getPositionId)
@@ -111,8 +114,9 @@ class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:
     // 포지션 삭제 성공
     override fun onPositionDelSuccess(response: BaseResponse) {
         dismissLoadingDialog()
-        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.manager_main_frm, MMyPageFragment()).commitNow()
-        ApplicationClass.prefs.setInt("backStackState",0) // 백스택 관리
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.manager_main_frm, MMyPageFragment()).commitNow()
+        ApplicationClass.prefs.setInt("backStackState", 0) // 백스택 관리
     }
 
     // 포지션 삭제 실패
@@ -124,47 +128,6 @@ class CardPositionChildFragment(positionInfo: PositionInfo,flags:Int,positionId:
     override fun onGetPositionInfoSuccess(response: GetPPositionInfoResponse) {
         binding.swipelayout.isRefreshing = false
 
-        // 월급 타입
-        var salaryType = ""
-        when(response.data.salaryType){
-            0 -> { salaryType = "시급"}
-            1 -> {salaryType = "주급"}
-            2 -> {salaryType = "월급"}
-        }
-
-        // 총 근무시간
-        var workTime = ""
-        if(response.data.workTime.substring(2,4) == "00"){ // 1시간, 12시간
-            if(response.data.workTime.substring(0,1)=="0"){
-                workTime = response.data.workTime.substring(1,2)+"시간)" // 1시간
-            }else{
-                workTime = response.data.workTime.substring(0,2)+"시간)" // 12시간
-            }
-        }else{
-            if(response.data.workTime.substring(0,1)=="0"){
-                workTime = response.data.workTime.substring(1,2)+"시간 "+ response.data.workTime.substring(2,4)+"분)" // 1시간 30분
-            }else{
-                workTime = response.data.workTime.substring(0,2)+"시간 "+ response.data.workTime.substring(2,4)+"분)" // 12시간 30분
-            }
-        }
-
-        // 급여 단위 표시
-        //DecimalFormat 객체 선언 실시 (소수점 표시 안함)
-        val t_dec_up = DecimalFormat("#,###")
-        var salary = t_dec_up.format(response.data.salary)
-
-        // 근무시간
-        binding.tvWorkTime.text = response.data.startTime.substring(0,2) + ":" + response.data.startTime.substring(2,4) + " ~ " + response.data.endTime.substring(0,2) +
-                ":"+response.data.endTime.substring(2,4) + " 까지 (총 " + workTime
-
-        // 휴게시간
-        binding.tvRestTime.text = "휴게시간 " + response.data.breakTime
-
-        // 근무요일
-        binding.tvWorkingDay.text = response.data.workDay
-
-        // 급여
-        binding.tvSalary.text = salaryType + " " + salary + "원"
 
     }
 

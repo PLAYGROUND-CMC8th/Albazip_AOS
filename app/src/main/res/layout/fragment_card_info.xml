@@ -122,17 +122,17 @@
                         android:id="@+id/tbr_tv_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="편집"
-                        android:textStyle="normal"
-                        android:textSize="16sp"
-                        android:textColor="#343434"
-                        android:letterSpacing="-0.03"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="16dp"
                         android:background="@android:color/transparent"
+                        android:letterSpacing="-0.03"
                         android:scaleType="center"
-                        android:src="@drawable/ic_setting" />
+                        android:src="@drawable/ic_setting"
+                        android:text="편집"
+                        android:textColor="#343434"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
                 </RelativeLayout>
             </Toolbar>
 

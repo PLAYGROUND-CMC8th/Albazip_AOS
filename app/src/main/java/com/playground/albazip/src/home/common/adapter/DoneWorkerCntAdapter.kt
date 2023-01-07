@@ -26,7 +26,7 @@ class DoneWorkerCntAdapter(
     }
 
     override fun onBindViewHolder(holder: DoneWorkerCntHolder, position: Int) {
-
+        holder.setIsRecyclable(false)
         holder.setItemList(itemList[position])
     }
 

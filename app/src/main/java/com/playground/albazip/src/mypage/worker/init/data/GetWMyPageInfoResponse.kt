@@ -13,7 +13,7 @@ data class WMyPageData(
     @SerializedName("myInfo") val myInfo: MyInfo,
     @SerializedName("positionInfo") val positionInfo: PositionInfo,
     @SerializedName("boardInfo") val boardInfo: WBoardInfo
-    )
+)
 
 /// 프로필 정보
 data class ProfileInfo(
@@ -47,14 +47,18 @@ data class WorkInfo(
 
 /////////////// PostInfo
 data class PositionInfo(
-    @SerializedName("startTime") val startTime: String,
-    @SerializedName("endTime") val endTime: String,
-    @SerializedName("workTime") val workTime: String,
-    @SerializedName("workDay") val workDay: String,
-    @SerializedName("breakTime") val breakTime: String,
-    @SerializedName("salaryType") val salaryType: Int,
-    @SerializedName("salary") val salary: Int,
-)
+    val breakTime: String,
+    val salary: String,
+    val salaryType: Int,
+    val workSchedule: List<WorkSchedule>,
+) {
+    data class WorkSchedule(
+        val day: String,
+        val endTime: String,
+        val startTime: String
+    )
+}
+
 
 ////////////// WBoardInfo
 data class WBoardInfo(

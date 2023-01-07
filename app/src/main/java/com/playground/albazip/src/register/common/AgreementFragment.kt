@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckBox
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseFragment
@@ -38,10 +39,10 @@ class AgreementFragment(
 
         // 동의 체크 이벤트
         binding.apply {
-            cbAgreeAll.setOnClickListener { onCheckChanged(cbAgreeAll) }
-            cbAge.setOnClickListener { onCheckChanged(cbAge) }
-            cbService.setOnClickListener { onCheckChanged(cbService) }
-            cbCollect.setOnClickListener { onCheckChanged(cbCollect) }
+            rlAgreeAll.setOnClickListener { onCheckChanged(cbAgreeAll) }
+            rlAge.setOnClickListener { onCheckChanged(cbAge) }
+            llService.setOnClickListener { onCheckChanged(cbService) }
+            llCollect.setOnClickListener { onCheckChanged(cbCollect) }
         }
 
         // 비밀번호 입력 화면으로 이동
@@ -75,36 +76,37 @@ class AgreementFragment(
     override fun onResume() {
         super.onResume()
 
-        if(btnEnabled == true){
+        if(btnEnabled){
             activateBtn()
         }else{
             deActivateBtn()
         }
     }
 
-
-    private fun onCheckChanged(checkBox: CheckBox) {
+    private fun onCheckChanged(iv: ImageView) {
         binding.apply {
-            when (checkBox) {
+            iv.isSelected = !iv.isSelected
+
+            when (iv) {
                 cbAgreeAll -> {
-                    if (cbAgreeAll.isChecked) {
-                        cbAge.isChecked = true
-                        cbService.isChecked = true
-                        cbCollect.isChecked = true
+                    if (cbAgreeAll.isSelected) {
+                        cbAge.isSelected = true
+                        cbService.isSelected = true
+                        cbCollect.isSelected = true
                     } else {
-                        cbAge.isChecked = false
-                        cbService.isChecked = false
-                        cbCollect.isChecked = false
+                        cbAge.isSelected = false
+                        cbService.isSelected = false
+                        cbCollect.isSelected = false
                     }
                 }
                 else -> {
-                    cbAgreeAll.isChecked = (
-                            cbAge.isChecked && cbService.isChecked && cbCollect.isChecked)
+                    cbAgreeAll.isSelected = (
+                            cbAge.isSelected && cbService.isSelected && cbCollect.isSelected)
                 }
             }
 
             // 전체 동의가 되었을 때
-            if (cbAgreeAll.isChecked) { // 활성화
+            if (cbAgreeAll.isSelected) { // 활성화
                 activateBtn()
             } else { // 비활성화
                 deActivateBtn()

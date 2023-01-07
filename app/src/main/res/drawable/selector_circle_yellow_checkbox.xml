@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Unchecked -->
+    <item android:state_selected="false">
+        <layer-list>
+        <item android:drawable="@drawable/ic_circle_check_inactive" />
+        </layer-list>
+    </item>
+    <!-- Checked -->
+    <item android:state_selected="true">
+        <layer-list>
+        <item android:drawable="@drawable/ic_circle_check_active" />
+        </layer-list>
+    </item>
+</selector>

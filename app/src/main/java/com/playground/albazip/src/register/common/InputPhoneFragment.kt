@@ -23,12 +23,15 @@ import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.playground.albazip.src.register.common.network.CommonSignUpService
+import com.playground.albazip.src.update.runtime.network.RegisterService
+import com.playground.albazip.util.enqueueUtil
 import java.util.concurrent.TimeUnit
 
 class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     FragmentInputPhoneBinding::bind,
     R.layout.fragment_input_phone
-),PhoneCheckFragmentView {
+), PhoneCheckFragmentView {
 
     companion object {
         private const val TAG = "PhoneAuthActivity"
@@ -54,25 +57,20 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 
                 // 여기서 타이머 대기
                 showCustomToast("입력시간 초과")
-                Log.d(TAG,"입력시간 초과")
+                Log.d(TAG, "입력시간 초과")
 
                 // 버튼 비활성화
                 binding.btnNext.isEnabled = false
                 binding.btnNext.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.btn_disable_yellow_fill_rounded)
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.btn_disable_yellow_fill_rounded
+                    )
                 binding.btnNext.setTextColor(Color.parseColor("#adadad"))
             }
 
             // 다른 기타 인증이 완료된 상태
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                // This callback will be invoked in two situations:
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verification without
-                //     user action.
-                //Log.d(TAG, "onVerificationCompleted:$credential")
-                //signInWithPhoneAuthCredential(credential)
             }
 
             // 번호 인증 실패 상태
@@ -130,7 +128,7 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
         binding.btnNext.setOnClickListener {
 
             // 인증번호 입력
-            if(binding.etCertify.text.toString().isNotEmpty()) {
+            if (binding.etCertify.text.toString().isNotEmpty()) {
 
                 verifyPhoneNumberWithCode(storedVerificationId, binding.etCertify.text.toString())
                 showLoadingDialog(requireContext())
@@ -172,19 +170,25 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
         }
 
         // 버튼 활성화여부
-        binding.etCertify.addTextChangedListener(object :TextWatcher{
+        binding.etCertify.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s?.length == 6){ // 버튼활성화
+                if (s?.length == 6) { // 버튼활성화
                     binding.btnNext.isEnabled = true
                     binding.btnNext.background =
-                        ContextCompat.getDrawable(requireContext(), R.drawable.btn_main_yellow_fill_rounded)
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.btn_main_yellow_fill_rounded
+                        )
                     binding.btnNext.setTextColor(Color.parseColor("#343434"))
-                }else{ // 버튼비활성화
+                } else { // 버튼비활성화
                     binding.btnNext.isEnabled = false
                     binding.btnNext.background =
-                        ContextCompat.getDrawable(requireContext(), R.drawable.btn_disable_yellow_fill_rounded)
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.btn_disable_yellow_fill_rounded
+                        )
                     binding.btnNext.setTextColor(Color.parseColor("#adadad"))
                 }
             }
@@ -207,11 +211,11 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                 // 텍스트 크기 동적 변경
                 if (s!!.isEmpty()) {
                     binding.etInputPhone.typeface =
-                        ResourcesCompat.getFont(requireContext(), R.font.roboto_medium)
+                        ResourcesCompat.getFont(requireContext(), R.font.roboto_medium_otf)
                     binding.etInputPhone.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16F)
                 } else {
                     binding.etInputPhone.typeface =
-                        ResourcesCompat.getFont(requireContext(), R.font.roboto_bold)
+                        ResourcesCompat.getFont(requireContext(), R.font.roboto_bold_otf)
                     binding.etInputPhone.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18F)
                 }
 
@@ -263,17 +267,17 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
         binding.rlClickableCertify.setOnClickListener {
 
             // edittext에 있는 번호를 받아온다.
-            val getPhoneNum = binding.etInputPhone.text.toString().replace(" ","")
+            val getPhoneNum = binding.etInputPhone.text.toString().replace(" ", "")
             val inputPhoneNum = "+82 " + getPhoneNum
 
             // 휴대폰 번호 중복 체크
             showLoadingDialog(requireContext())
-            PhoneCheckService(this).tryGetPhoneCheck(getPhoneNum,inputPhoneNum)
+            PhoneCheckService(this).tryGetPhoneCheck(getPhoneNum, inputPhoneNum)
         }
 
         // 재전송 버튼
         binding.rlClickableResend.setOnClickListener {
-            val getPhoneNum = binding.etInputPhone.text.toString().replace(" ","")
+            val getPhoneNum = binding.etInputPhone.text.toString().replace(" ", "")
             val inputPhoneNum = "+82 " + getPhoneNum
 
             showCustomToast("인증번호가 재전송되었습니다.")
@@ -284,7 +288,8 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
             mCountDown.start()
 
             // 인증번호 재전송
-            resendVerificationCode(inputPhoneNum, resendToken)
+            showLoadingDialog(requireContext())
+            tryGetPhoneNumCheck(binding.etInputPhone.text.toString().replace(" ",""),inputPhoneNum,1)
         }
     }
 
@@ -316,21 +321,19 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     private val mCountDown: CountDownTimer = object : CountDownTimer(120000, 1000) {
         override fun onTick(p0: Long) {
 
-            if(timer == 120){
+            if (timer == 120) {
                 binding.tvCountDown.text = "2:00"
                 timer--
-            }else if(timer >= 70){
+            } else if (timer >= 70) {
                 binding.tvCountDown.text = "1:${timer - 60}"
                 timer--
-            }
-            else if(timer >59){
+            } else if (timer > 59) {
                 binding.tvCountDown.text = "1:0${timer - 60}"
                 timer--
-            }
-            else if(timer>=10){
-                binding.tvCountDown.text="0:${timer}"
+            } else if (timer >= 10) {
+                binding.tvCountDown.text = "0:${timer}"
                 timer--
-            }else { // "ui" 적으로 통일성을 맞추기 위함
+            } else { // "ui" 적으로 통일성을 맞추기 위함
                 timer--
                 binding.tvCountDown.text = "0:0${timer}"
 
@@ -339,6 +342,7 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                 }
             }
         }
+
         // 타이머가 종료되면 재인증이나 뒤로가기를 대비하기 위해
         // 타이머 초기화
         override fun onFinish() {
@@ -352,7 +356,6 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
         timer = 120
         super.onDestroyView()
     }
-
 
 
     // 핸드폰 인증 시작 함수
@@ -384,6 +387,7 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
         phoneNumber: String,
         token: PhoneAuthProvider.ForceResendingToken?
     ) {
+        dismissLoadingDialog()
         val optionsBuilder = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phoneNumber)       // Phone number to verify
             .setTimeout(120L, TimeUnit.SECONDS) // Timeout and unit
@@ -403,7 +407,7 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
 
-                    Log.d(TAG,"계정 생성 완료")
+                    Log.d(TAG, "계정 생성 완료")
                     task.result?.user
 
                     showCustomToast("인증 성공")
@@ -430,14 +434,17 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
             }
     }
 
-    private fun deleteAccount(){
+    private fun deleteAccount() {
 
         val user = Firebase.auth.currentUser!!
 
-        user.delete().addOnCompleteListener{
-            if(it.isSuccessful){
+        user.delete().addOnCompleteListener {
+            if (it.isSuccessful) {
                 // 유저 전화번호 prefs
-                ApplicationClass.prefs.setString("phone",binding.etInputPhone.text.toString().replace(" ",""))
+                ApplicationClass.prefs.setString(
+                    "phone",
+                    binding.etInputPhone.text.toString().replace(" ", "")
+                )
 
                 // 화면 전환
                 prevFragment =
@@ -452,8 +459,8 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
 
                 transaction?.addToBackStack(null)
                 transaction?.commit()
-            }else{
-                Toast.makeText(requireContext(),"유저정보 삭제 실패 ",Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(requireContext(), "유저정보 삭제 실패 ", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -487,42 +494,67 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     }
 
     // 중복체크 api
-    override fun onGetCheckSuccess(response: PhoneCheckResponse,serverCheckPhoneNum: String,inputPhoneNum:String) {
+    override fun onGetCheckSuccess(
+        response: PhoneCheckResponse,
+        serverCheckPhoneNum: String,
+        inputPhoneNum: String
+    ) {
         dismissLoadingDialog()
 
         // 새로운 휴대폰 번호입니다.
-        if (response.code == 200){
+        if (response.code == 200) {
             binding.tvOverlap.visibility = View.GONE // 경고 텍스트 감추기
 
             binding.rlCertify.visibility = View.VISIBLE
 
-            // 인증 메세지 전송하기
-            startPhoneNumberVerification(inputPhoneNum)
+            // 인증번호 횟수 체크
+            tryGetPhoneNumCheck(binding.etInputPhone.text.toString().replace(" ",""),inputPhoneNum,0)
 
-            // 카운트 다운 시작
-            if(timer != 120) { // 재전송 후 전송 클릭 시 동작 버튼
-                mCountDown.cancel()
-                timer = 120
-            }
-            mCountDown.start()
-            // 다음(인증)버튼 활성화
-            binding.btnNext.isEnabled = true
-
-            // 성공 시
-            // 휴대폰 입력란과 인증버튼 비활성화
-            binding.etInputPhone.isEnabled = false
-            binding.rlClickableCertify.isEnabled = false
-            binding.tvCertify.setTextColor(Color.parseColor("#cecece"))
-
-        }else if(response.code == 202){ // 중복 체크됨
+        } else if (response.code == 202) { // 중복 체크됨
             binding.tvOverlap.visibility = View.VISIBLE // 경고 텍스트 띄우기
         }
     }
 
     override fun onGetCheckfailure(message: String) {
         dismissLoadingDialog()
-        Log.d("error",message)
+        Log.d("error", message)
     }
 
+
+    private fun tryGetPhoneNumCheck(serverCheckPhoneNum: String,phoneNumber: String, flag:Int) {
+        val commonSignUpService: CommonSignUpService =
+            ApplicationClass.sRetrofit.create(CommonSignUpService::class.java)
+        val call = commonSignUpService.getPhoneNumCheck(serverCheckPhoneNum)
+        call.enqueueUtil(
+            getResultCode = { it.code },
+            onSuccess200 = {
+                // 인증 메세지 전송하기
+                if (flag == 1) { // 재전송
+                    resendVerificationCode(phoneNumber, resendToken)
+                } else {
+                    startPhoneNumberVerification(phoneNumber)
+                }
+
+                showCustomToast(it.message.toString())
+
+                // 카운트 다운 시작
+                if (timer != 120) { // 재전송 후 전송 클릭 시 동작 버튼
+                    mCountDown.cancel()
+                    timer = 120
+                }
+                mCountDown.start()
+                // 다음(인증)버튼 활성화
+                binding.btnNext.isEnabled = true
+
+                // 성공 시
+                // 휴대폰 입력란과 인증버튼 비활성화
+                binding.etInputPhone.isEnabled = false
+                binding.rlClickableCertify.isEnabled = false
+                binding.tvCertify.setTextColor(Color.parseColor("#cecece"))
+
+            }, // 5번 가능
+            onError200 = { showCustomToast(it.message.toString()) } // 모두 소진
+        )
+    }
 
 }
