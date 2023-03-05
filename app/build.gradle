@@ -97,6 +97,9 @@ dependencies {
 
     // 모서리 둥근 이미지 뷰
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3'
+
+    // firebaseAnalytics
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 }
 
 apply plugin: 'com.google.gms.google-services'
