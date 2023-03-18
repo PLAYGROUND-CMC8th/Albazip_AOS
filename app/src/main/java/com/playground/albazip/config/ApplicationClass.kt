@@ -1,7 +1,7 @@
 package com.playground.albazip.config
 
 import android.app.Application
-import android.util.Log
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.playground.albazip.util.PreferenceUtil
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,7 +14,7 @@ class ApplicationClass: Application()  {
         const val KAKAO_URL = "https://dapi.kakao.com/"
         const val KAKAO_API_KEY = "KakaoAK de9363698180277fcaae08b7d4bf415c"  // REST API 키
 
-         // const val API_URL = "http://3.140.50.45:3000"  // 테스트 서버(old)
+        // const val API_URL = "http://3.140.50.45:3000"  // 테스트 서버(old)
         const val API_URL = "http://3.140.50.45:3000" // 테스트 서버(new)
         // const val API_URL = "http://18.222.46.235:3000" // 실서버
 
@@ -23,6 +23,9 @@ class ApplicationClass: Application()  {
 
         // sharedPreference : 초기 정보를 받기 위한 prefs 생성
         lateinit var prefs: PreferenceUtil
+
+        // firebaseAnalytics
+        lateinit var firebaseAnalytics: FirebaseAnalytics
 
         // JWT Token Header 키 값
         val X_ACCESS_TOKEN = "X-ACCESS-TOKEN"
@@ -37,6 +40,9 @@ class ApplicationClass: Application()  {
 
         // 레트로핏 인스턴스 생성
         initRetrofitInstance()
+
+        // firebaseAnalytics
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
     }
 

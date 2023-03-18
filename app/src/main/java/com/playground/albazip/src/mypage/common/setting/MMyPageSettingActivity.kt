@@ -2,6 +2,7 @@ package com.playground.albazip.src.mypage.common.setting
 
 import android.content.Intent
 import android.os.Bundle
+import com.playground.albazip.config.ApplicationClass.Companion.firebaseAnalytics
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivitySettingMMyPageBinding
 import com.playground.albazip.src.mypage.common.setting.editinfo.ManageMyInfoActivity

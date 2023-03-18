@@ -7,42 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1045688199883:android:5e4299bd217f993a18c94e",
-        "android_client_info": {
-          "package_name": "com.example.albazip"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1045688199883-bq9f8ft1q2k5d8ib2fp0sn5k8rqfe9of.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC7QonG8n2Y8LPEa1rjULmuhX0a9zsu5WA"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1045688199883-bq9f8ft1q2k5d8ib2fp0sn5k8rqfe9of.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1045688199883-lpras5j1ugc5n6g1ionenhqn9hbf5kjg.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.chobi.Albazip.ios"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:1045688199883:android:dedae04eaf32e31e18c94e",
         "android_client_info": {
           "package_name": "com.playground.albazip"
@@ -55,6 +19,30 @@
           "android_info": {
             "package_name": "com.playground.albazip",
             "certificate_hash": "5b570480c2b1b5ae2db1dcda5af85d468789256a"
+          }
+        },
+        {
+          "client_id": "1045688199883-9k9f73nk56p04607rvo466qel7a6ls2d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.playground.albazip",
+            "certificate_hash": "9f38c9dffcd29400cf02f5aba8945e904eb474c2"
+          }
+        },
+        {
+          "client_id": "1045688199883-iqn7664ptar2u9ps5jk2ralm54f9n0mk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.playground.albazip",
+            "certificate_hash": "04f2235b6ad869e14e728576e11b8ea4cde25fff"
+          }
+        },
+        {
+          "client_id": "1045688199883-utjt4i2fk4idd3b8e5ibb3ub6dck0sj9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.playground.albazip",
+            "certificate_hash": "f39c51ad10a88f8d10022dd6ff54147b23386e4e"
           }
         },
         {
