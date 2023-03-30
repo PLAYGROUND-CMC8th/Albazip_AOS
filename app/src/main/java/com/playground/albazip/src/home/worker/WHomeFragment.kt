@@ -141,7 +141,7 @@ class WHomeFragment :
 
     // 유효 토큰 검사
     override fun onGetTokenSuccess(response: GetRightTokenResponse) {
-        if(response.status == 0){ // 토큰 만료 -> 로그아웃
+        if(response.status == 0 || response.message.equals("보유한 토큰이 만료되었습니다.")){ // 토큰 만료 -> 로그아웃
             // 로그인 flag 변경(로그아웃)
             ApplicationClass.prefs.setInt("loginFlags",0)
             // token 비우기

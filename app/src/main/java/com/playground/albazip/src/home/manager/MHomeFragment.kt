@@ -73,11 +73,11 @@ class MHomeFragment :BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
     override fun onGetTokenSuccess(response: GetRightTokenResponse) {
 
-        if(response.status == 0){ // 토큰 만료 -> 로그아웃
+        if (response.status == 0 || response.message.equals("보유한 토큰이 만료되었습니다.")) { // 토큰 만료 -> 로그아웃
             // 로그인 flag 변경(로그아웃)
-            ApplicationClass.prefs.setInt("loginFlags",0)
+            ApplicationClass.prefs.setInt("loginFlags", 0)
             // token 비우기
-            ApplicationClass.prefs.setString("X-ACCESS-TOKEN","")
+            ApplicationClass.prefs.setString("X-ACCESS-TOKEN", "")
 
             // 메인 화면으로 이동
             val mainIntent = Intent(requireContext(), SplashActivity::class.java)
