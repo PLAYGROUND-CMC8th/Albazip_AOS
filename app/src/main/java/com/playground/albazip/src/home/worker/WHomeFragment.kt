@@ -19,6 +19,7 @@ import com.playground.albazip.src.home.worker.data.GetAllWHomeResponse
 import com.playground.albazip.src.home.worker.network.GetAllWFragmentView
 import com.playground.albazip.src.home.worker.network.GetAllWHomeInfoService
 import com.playground.albazip.src.home.worker.opened.HomeWOpenedFragment
+import com.playground.albazip.src.main.MainActivity
 import com.playground.albazip.src.splash.CheckRightTokenService
 import com.playground.albazip.src.splash.GetCheckRightTokenFragmentView
 import com.playground.albazip.src.splash.GetRightTokenResponse
@@ -71,6 +72,19 @@ class WHomeFragment :
 
         // 매장명 받아오기
         ApplicationClass.prefs.setString("login_shop_name",response.data.shopInfo.name)
+
+        if (response.code == 202) { // 토큰 유효성 체크
+            // 로그인 flag 변경(로그아웃)
+            ApplicationClass.prefs.setInt("loginFlags",0)
+            // token 비우기
+            ApplicationClass.prefs.setString("X-ACCESS-TOKEN","")
+
+            // 메인 화면으로 이동
+            val mainIntent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(mainIntent)
+            // 이전 엑티비티 모두 종료
+            activity?.finishAffinity()
+        }
 
         // 영업상태
         //var status = 1
