@@ -5,10 +5,10 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.playground.albazip.R
+import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.FragmentAgreementBinding
 
@@ -19,11 +19,15 @@ class AgreementFragment(
     FragmentAgreementBinding::bind,
     R.layout.fragment_agreement
 ) {
+    private val logBundle = Bundle()
 
     var btnEnabled: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // log - 진입
+        makeLog(logBundle, "signupAgreement", "init")
 
         // 이용약관 보기
         binding.tvShowService.setOnClickListener {
@@ -47,6 +51,9 @@ class AgreementFragment(
 
         // 비밀번호 입력 화면으로 이동
         binding.btnNext.setOnClickListener {
+
+            // log 다음
+            makeLog(logBundle, "signupAgreement", "next")
 
             prevFragment = activity?.supportFragmentManager?.findFragmentById(R.id.main_fragment)
 

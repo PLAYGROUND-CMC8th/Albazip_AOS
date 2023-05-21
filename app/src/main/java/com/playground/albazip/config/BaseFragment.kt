@@ -61,9 +61,15 @@ abstract class BaseFragment<B : ViewBinding>(
     }
 
     // 꿀벌 다이얼로그 없애기
-    fun dismissBeeLoadingDialog(){
-        if(beeLoadingDialog.isShowing){
+    fun dismissBeeLoadingDialog() {
+        if (beeLoadingDialog.isShowing) {
             beeLoadingDialog.dismiss()
         }
+    }
+
+    // 로그 생성하기
+    fun makeLog(bundle: Bundle, logKey: String, logValue: String) {
+        bundle.putString(logKey, logValue)
+        ApplicationClass.firebaseAnalytics.logEvent(logKey, bundle)
     }
 }
