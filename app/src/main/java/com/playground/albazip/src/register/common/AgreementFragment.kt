@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.playground.albazip.R
-import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.FragmentAgreementBinding
 

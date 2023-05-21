@@ -33,6 +33,8 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     R.layout.fragment_input_phone
 ), PhoneCheckFragmentView {
 
+    private val logBundle = Bundle()
+
     companion object {
         private const val TAG = "PhoneAuthActivity"
     }
@@ -117,6 +119,8 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // log - [전화번호를 입력해주세요] 진입
+        makeLog(logBundle, "signupPhoneNumber", "init")
 
         // [START initialize_auth]
         // Initialize Firebase Auth
@@ -445,6 +449,9 @@ class InputPhoneFragment : BaseFragment<FragmentInputPhoneBinding>(
                     "phone",
                     binding.etInputPhone.text.toString().replace(" ", "")
                 )
+
+                // log - [전화번호를 입력해주세요] 다음
+                makeLog(logBundle, "signupPhoneNumber", "next")
 
                 // 화면 전환
                 prevFragment =
