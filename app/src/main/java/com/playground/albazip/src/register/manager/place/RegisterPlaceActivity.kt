@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.widget.EditText
 import androidx.core.content.ContextCompat
 import com.playground.albazip.R
+import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRegisterPlaceBinding
 import com.playground.albazip.src.register.manager.InputBNumActivity
@@ -24,6 +25,8 @@ class RegisterPlaceActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ApplicationClass.firebaseAnalytics.logEvent("signupStoreInfo", null)
 
         // 뒤로가기 버튼
         binding.btnBack.setOnClickListener {

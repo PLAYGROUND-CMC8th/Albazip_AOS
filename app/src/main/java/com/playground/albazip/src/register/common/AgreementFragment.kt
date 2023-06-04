@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.playground.albazip.R
+import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.FragmentAgreementBinding
 
@@ -18,25 +19,28 @@ class AgreementFragment(
     FragmentAgreementBinding::bind,
     R.layout.fragment_agreement
 ) {
-    private val logBundle = Bundle()
-
     var btnEnabled: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // log - 진입
-        makeLog(logBundle, "signupAgreement", "init")
+        ApplicationClass.firebaseAnalytics.logEvent("signupAgreement", null)
 
         // 이용약관 보기
         binding.tvShowService.setOnClickListener {
-            val uriIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://bronzed-balaur-143.notion.site/42041221d1a6413f84542f571bee6b9c"))
+            val uriIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://bronzed-balaur-143.notion.site/42041221d1a6413f84542f571bee6b9c")
+            )
             startActivity(uriIntent)
         }
 
         // 정보처리 약관 보기
         binding.tvShowCollect.setOnClickListener {
-            val uriIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://bronzed-balaur-143.notion.site/02e8b5a9cf514702977b4e01b82651ca"))
+            val uriIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://bronzed-balaur-143.notion.site/02e8b5a9cf514702977b4e01b82651ca")
+            )
             startActivity(uriIntent)
         }
 
@@ -50,10 +54,6 @@ class AgreementFragment(
 
         // 비밀번호 입력 화면으로 이동
         binding.btnNext.setOnClickListener {
-
-            // log 다음
-            makeLog(logBundle, "signupAgreement", "next")
-
             prevFragment = activity?.supportFragmentManager?.findFragmentById(R.id.main_fragment)
 
             val transaction = activity?.supportFragmentManager?.beginTransaction()?.add(R.id.main_fragment,
@@ -124,14 +124,16 @@ class AgreementFragment(
     // 버튼 활성화 함수
     private fun activateBtn() {
         binding.btnNext.isEnabled = true
-        binding.btnNext.background = ContextCompat.getDrawable(requireContext(), R.drawable.btn_main_yellow_fill_rounded)
+        binding.btnNext.background =
+            ContextCompat.getDrawable(requireContext(), R.drawable.btn_main_yellow_fill_rounded)
         binding.btnNext.setTextColor(Color.parseColor("#343434"))
     }
 
     // 버튼 비활성화 함수
     private fun deActivateBtn() {
         binding.btnNext.isEnabled = false
-        binding.btnNext.background = ContextCompat.getDrawable(requireContext(), R.drawable.btn_disable_yellow_fill_rounded)
+        binding.btnNext.background =
+            ContextCompat.getDrawable(requireContext(), R.drawable.btn_disable_yellow_fill_rounded)
         binding.btnNext.setTextColor(Color.parseColor("#adadad"))
     }
 }

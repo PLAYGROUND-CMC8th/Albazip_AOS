@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.playground.albazip.util.BeeLoadingDialog
 import com.playground.albazip.util.LoadingDialog
 
@@ -65,11 +66,5 @@ abstract class BaseFragment<B : ViewBinding>(
         if (beeLoadingDialog.isShowing) {
             beeLoadingDialog.dismiss()
         }
-    }
-
-    // 로그 생성하기
-    fun makeLog(bundle: Bundle, logKey: String, logValue: String) {
-        bundle.putString(logKey, logValue)
-        ApplicationClass.firebaseAnalytics.logEvent(logKey, bundle)
     }
 }

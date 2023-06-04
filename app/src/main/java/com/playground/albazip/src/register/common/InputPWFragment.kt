@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.playground.albazip.R
+import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.ApplicationClass.Companion.prefs
 import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.FragmentInputPwBinding
@@ -23,6 +24,8 @@ class InputPWFragment : BaseFragment<FragmentInputPwBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ApplicationClass.firebaseAnalytics.logEvent("signupPassword", null)
 
         // 이전 화면으로 이동(번호 입력)
         binding.btnBack.setOnClickListener {

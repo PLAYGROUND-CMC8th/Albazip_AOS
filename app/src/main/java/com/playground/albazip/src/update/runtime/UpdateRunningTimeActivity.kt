@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityRunningTimeBinding
 import com.playground.albazip.src.update.runtime.adater.RunningTimeAdapter
@@ -26,6 +27,8 @@ class UpdateRunningTimeActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ApplicationClass.firebaseAnalytics.logEvent("signupOperatingTime", null)
 
         initAdapter()
         initBlockView()

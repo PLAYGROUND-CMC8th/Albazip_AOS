@@ -45,6 +45,8 @@ class InputPlaceMoreActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        ApplicationClass.firebaseAnalytics.logEvent("signupMoreInfo", null)
+
         // 뒤로가기 버튼
         binding.btnBack.setOnClickListener {
             finish()

@@ -23,6 +23,8 @@ class WorkerOnBoardingActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        ApplicationClass.firebaseAnalytics.logEvent("signupEmployeeOnboarding", null)
+
         var boardList = ArrayList<OnBoardData>()
 
         // 근무자 메인화면으로 이동

@@ -2,6 +2,7 @@ package com.playground.albazip.src.home.common.ui
 
 import android.content.Intent
 import android.os.Bundle
+import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.ApplicationClass.Companion.prefs
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityHomeBinding
@@ -12,6 +13,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ApplicationClass.firebaseAnalytics.logEvent("signupSelectPosition", null)
 
         // 유저 이름 받아오기
         val userFirstName = prefs.getString("userFirstName","유저")

@@ -43,6 +43,8 @@ class SearchPlaceActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        ApplicationClass.firebaseAnalytics.logEvent("signupSearchStoreBefore", null)
+
         // 뒤로가기 버튼
         binding.ivBack.setOnClickListener {
             finish()
@@ -270,12 +272,14 @@ class SearchPlaceActivity :
     private fun showResultBg() {
         binding.clSearchNone.visibility = View.GONE
         binding.rlSearchResult.visibility = View.VISIBLE
+        ApplicationClass.firebaseAnalytics.logEvent("signupSearchStoreAfter", null)
     }
 
     // 검색 결과 x 뷰그룹
     private fun showNoneBg() {
         binding.rlSearchResult.visibility = View.GONE
         binding.clSearchNone.visibility = View.VISIBLE
+        ApplicationClass.firebaseAnalytics.logEvent("signupSearchStoreAfter", null)
     }
 
 }

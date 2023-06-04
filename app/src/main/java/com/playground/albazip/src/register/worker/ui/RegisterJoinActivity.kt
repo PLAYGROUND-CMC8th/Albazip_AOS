@@ -23,6 +23,7 @@ class RegisterJoinActivity:BaseActivity<ActivityRegisterJoinBinding>(ActivityReg
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        ApplicationClass.firebaseAnalytics.logEvent("signupCode", null)
 
         // 뒤로가기 버튼
         binding.btnBack.setOnClickListener {

@@ -24,6 +24,8 @@ class ManagerOnBoardingActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        ApplicationClass.firebaseAnalytics.logEvent("signupManagerOnboarding", null)
+
         var boardList = ArrayList<OnBoardData>()
 
         // 관리자 메인화면으로 이동

@@ -35,6 +35,8 @@ class InputInfoFragment : BaseFragment<FragmentInputInfoBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        ApplicationClass.firebaseAnalytics.logEvent("signupInfo", null)
+
         // 메인 화면으로 이동
         binding.btnNext.setOnClickListener {
 

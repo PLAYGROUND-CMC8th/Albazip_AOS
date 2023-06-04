@@ -73,6 +73,8 @@ class InputPlaceMoreBetaActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        ApplicationClass.firebaseAnalytics.logEvent("signupMoreInfo", null)
+
         initRunningTimeBtn()
         moveToOnBoardingPage()
 
