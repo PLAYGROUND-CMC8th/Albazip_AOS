@@ -2,20 +2,16 @@ package com.playground.albazip.src.mypage.manager.workerlist.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.playground.albazip.R
 import com.playground.albazip.config.ApplicationClass
 import com.playground.albazip.config.BaseActivity
 import com.playground.albazip.databinding.ActivityAddWorkerTwoBinding
-import com.playground.albazip.src.community.manager.MCommunityFragment
-import com.playground.albazip.src.main.MainActivity
 import com.playground.albazip.src.main.ManagerMainActivity
-import com.playground.albazip.src.mypage.manager.MMyPageFragment
 import com.playground.albazip.src.mypage.manager.adapter.ToDoListAdapter
+import com.playground.albazip.src.mypage.manager.workerlist.custom.TodoHelpBottomSheet
 import com.playground.albazip.src.mypage.manager.workerlist.data.local.TodoData
 import com.playground.albazip.src.update.setworker.network.MMyPageService
 import com.playground.albazip.src.update.setworker.network.RequestAddPosition
@@ -34,6 +30,8 @@ class AddWorkerTwoActivity :
         binding.ibtnBack.setOnClickListener {
             finish()
         }
+
+        showTodoHelpBottomSheet()
 
         // recyclerview 연결
         todoAdapter = ToDoListAdapter(toDoList, this@AddWorkerTwoActivity)
@@ -57,6 +55,12 @@ class AddWorkerTwoActivity :
             toDoList.add(TodoData("", ""))
             todoAdapter.notifyItemInserted(todoAdapter.itemList.lastIndex)
         }
+
+        val workerDataList: ArrayList<String> =
+            intent.getSerializableExtra("workerStringList") as ArrayList<String>
+        // 알바생 데이터 입력
+        val position = workerDataList[1].substring(0, 2) + " " + workerDataList[1].substring(2)
+        binding.tvTodoPosition.text = getString(R.string.todo_position).format(position)
 
         // 완료 버튼 -> 근무자 추가 POST
         // BUT 타이틀 없으면 등록 x
@@ -128,12 +132,18 @@ class AddWorkerTwoActivity :
             onSuccess200 = {
                 showCustomToast("근무자 등록 성공")
                 val intent = Intent(this, ManagerMainActivity::class.java)
-                intent.putExtra("fromFlag",2)
+                intent.putExtra("fromFlag", 2)
                 startActivity(intent)
                 finishAffinity()
             },
             onError200 = { showCustomToast(it.message.toString()) },
             onError400 = { showCustomToast(it.message.toString()) }
         )
+    }
+
+    private fun showTodoHelpBottomSheet() {
+        binding.tvHelpInfo.setOnClickListener {
+            TodoHelpBottomSheet().show(supportFragmentManager, "todo")
+        }
     }
 }

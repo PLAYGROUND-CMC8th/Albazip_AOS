@@ -10,8 +10,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.google.firebase.FirebaseApp
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.playground.albazip.util.BeeLoadingDialog
 import com.playground.albazip.util.LoadingDialog
 

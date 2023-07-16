@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="방금 설정한 역할의 알바생이\n고정으로 하게 될 업무를 작성해주세요"
+        android:textColor="@color/text4_343434"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="작성 예시:\nㅇㅇ카페 평일 오픈 알바생 업무리스트"
+        android:textColor="@color/text2_a3a3a3"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/fill_light_gray_radius_20">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="7sp"
+            android:text="업무명: 간판 밖으로 내놓기\n설명: 매장 앞 나무 주변에 놓아주세요."
+            android:textColor="@color/text3_6f6f6f"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/fill_light_gray_radius_20">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="7sp"
+            android:text="업무명: 원두, 커피머신 쇼케이스 전원 끄기\n설명: 원두는 1번과 3번 동시에 누르면 되고 커피 머신은 2번과 5번 버튼을 동시에 눌러주세요."
+            android:textColor="@color/text3_6f6f6f"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/fill_light_gray_radius_20">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="7sp"
+            android:text="업무명: 실내 등 조명 끄기\n설명: 스위치는 매장 문 옆에 있고, 실내등은 오른쪽 두번째 입니다."
+            android:textColor="@color/text3_6f6f6f"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/rectangle_fill_yellow_radius_15"
+        android:stateListAnimator="@null"
+        android:text="확인"
+        android:textColor="@color/customBlack"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

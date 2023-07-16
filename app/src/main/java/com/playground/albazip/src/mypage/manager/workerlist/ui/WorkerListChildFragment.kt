@@ -29,11 +29,28 @@ class WorkerListChildFragment(serverCardList:ArrayList<WorkerList>) : BaseFragme
 
         // 직원 명 수 띄우기
         binding.tvWorkerCnt.text = getCardList.size.toString()
-
-        for(i in 0 until getCardList.size){
-            cardList.add(CardData(getCardList[i].positionId,getCardList[i].status,getCardList[i].rank,getCardList[i].image_path.toString(),getCardList[i].title,getCardList[i].first_name))
+        fun isWorkerExist(): Int {
+            return when (getCardList.size) {
+                0 -> 0
+                else -> 1
+            }
         }
-        workerCardAdapter = WorkerCardAdapter(cardList,requireContext())
+        prefs.setInt("isWorkerExist", isWorkerExist())
+
+
+        for (i in 0 until getCardList.size) {
+            cardList.add(
+                CardData(
+                    getCardList[i].positionId,
+                    getCardList[i].status,
+                    getCardList[i].rank,
+                    getCardList[i].image_path.toString(),
+                    getCardList[i].title,
+                    getCardList[i].first_name
+                )
+            )
+        }
+        workerCardAdapter = WorkerCardAdapter(cardList, requireContext())
         binding.rvWorkerList.adapter = workerCardAdapter
 
         cardClickEvent()

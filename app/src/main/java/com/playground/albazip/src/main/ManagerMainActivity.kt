@@ -1,6 +1,7 @@
 package com.playground.albazip.src.main
 
 import android.os.Bundle
+import android.view.View
 import com.playground.albazip.R
 import com.playground.albazip.config.ApplicationClass.Companion.prefs
 import com.playground.albazip.config.BaseActivity
@@ -46,6 +47,7 @@ class ManagerMainActivity :
 
                     // 마이페이지
                     R.id.menu_main_btm_nav_mypage -> {
+                        hideToolTipsByTransaction()
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.manager_main_frm, MMyPageFragment())
                             .commitAllowingStateLoss()
@@ -57,9 +59,37 @@ class ManagerMainActivity :
         }
 
         if (intent.hasExtra("fromFlag")) {
-            findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.manager_main_btm_nav).menu.getItem(2).isChecked=true
+            findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.manager_main_btm_nav).menu.getItem(
+                2
+            ).isChecked = true
         }
 
+        showToolTips()
+    }
+
+    private fun showToolTips() {
+        if (prefs.getInt("isWorkerExist", 0) == 0) {
+            // 띄우기
+            binding.llToolTips.visibility = View.VISIBLE
+            hideToolTipsByClick() // 클릭 활성화
+        } else {
+            // 감추기
+            binding.llToolTips.visibility = View.GONE
+        }
+    }
+
+    private fun hideToolTipsByTransaction() {
+        if (binding.llToolTips.visibility == View.VISIBLE) { // view == visible
+            binding.llToolTips.visibility = View.GONE
+        }
+    }
+
+    private fun hideToolTipsByClick() {
+        if (binding.llToolTips.visibility == View.VISIBLE) {
+            binding.includeToolTips.ivDelete.setOnClickListener {
+                binding.llToolTips.visibility = View.GONE
+            }
+        }
     }
 
     // 뒤로가기 스택 감지
@@ -69,10 +99,10 @@ class ManagerMainActivity :
             //super.onBackPressed()
             backPressCloseHandler.onBackPressed()
         } else {
-            if (prefs.getInt("backStackState", 0) == 1){
+            if (prefs.getInt("backStackState", 0) == 1) {
                 super.onBackPressed()
                 prefs.setInt("backStackState", 0)
-            }else{
+            } else {
                 binding.managerMainBtmNav.selectedItemId = R.id.menu_main_btm_nav_home
             }
         }

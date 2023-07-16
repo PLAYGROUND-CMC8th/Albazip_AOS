@@ -6,6 +6,32 @@
     android:background="#f8f8f8"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:id="@+id/tv_info_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/info_title"
+        android:textColor="@color/text4_343434"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_info_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:text="알바생이 알바집을 회원가입한 후 ‘매장 합류하기’를 선택하고, 아래 코드를 입력하면 이 역할로 알바생이 추가돼요."
+        android:textColor="@color/text3_6f6f6f"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_info_title" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_no_wrote_list"
         android:visibility="gone"
@@ -54,18 +80,19 @@
                 android:layout_marginHorizontal="24dp"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_marginTop="18dp"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_marginTop="52dp"
                     android:gravity="center"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
 
-                    <RelativeLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/rl_copy_bg"
                         android:layout_width="match_parent"
-                        android:layout_height="58dp"
-                        android:background="@drawable/rectangle_fill_white_radius_15">
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:id="@+id/tv_card_code"
@@ -77,46 +104,40 @@
                             android:lineSpacingExtra="4sp"
                             android:textColor="#343434"
                             android:textSize="16sp"
+                            android:layout_marginTop="36dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
                             android:textStyle="bold"
                             tools:text="코드 BZ0134_43D" />
 
-                        <RelativeLayout
-                            android:id="@+id/rl_copy_btn"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="24dp"
-                            android:background="@drawable/oval_fill_yellow">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_copy"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="32dp"
+                            android:layout_marginBottom="20dp"
+                            android:backgroundTint="@color/main_ffd85c"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:minHeight="0dp"
+                            android:paddingVertical="13.75dp"
+                            android:stateListAnimator="@null"
+                            android:text="코드 복사하기"
+                            android:textColor="@color/text4_343434"
+                            android:textStyle="bold"
+                            app:backgroundTintMode="add"
+                            app:cornerRadius="15dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_card_code" />
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:background="@null"
-                                android:src="@drawable/icon_copy_24_px" />
 
-                        </RelativeLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/tv_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="normal"
-                        android:textSize="12sp"
-                        android:textColor="#a3a3a3"
-                        android:letterSpacing="-0.03"
-                        android:lineSpacingExtra="8sp"
-                        android:layout_marginTop="8dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/rl_copy_bg"
-                        android:gravity="center_horizontal"
-                        tools:text="근무자가 코드를 입력하면 등록됩니다."/>
-
-                </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 

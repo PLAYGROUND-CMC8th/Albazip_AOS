@@ -11,18 +11,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.playground.albazip.R
 import com.playground.albazip.config.BaseFragment
 import com.playground.albazip.databinding.FragmentCardInfoBinding
 import com.playground.albazip.src.mypage.manager.workerlist.cardevent.data.EmptyWorkerResponse
-import com.playground.albazip.src.mypage.manager.workerlist.cardevent.data.PositionProfileInfo
 import com.playground.albazip.src.mypage.manager.workerlist.cardevent.data.PositionTaskList
 import com.playground.albazip.src.mypage.manager.workerlist.cardevent.network.EmptyWorkerFragmentView
 import com.playground.albazip.src.mypage.manager.workerlist.cardevent.network.EmptyWorkerService
 import com.playground.albazip.src.mypage.manager.workerlist.editposition.ui.EditWorkerOneActivity
 import com.playground.albazip.src.mypage.worker.init.data.PositionInfo
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 
 // 근무자 카드 클릭 시 뜨는 activity
 class CardNoWorkerFragment(val positionId: Int) : BaseFragment<FragmentCardInfoBinding>(
@@ -39,7 +38,7 @@ class CardNoWorkerFragment(val positionId: Int) : BaseFragment<FragmentCardInfoB
     // 근무자 존재 데이터
 
     // 공통
-    private lateinit var positionProfileInfo: PositionProfileInfo // 프로필 정보
+    private lateinit var rank: String // 직위 정보
     private lateinit var positionInfo: PositionInfo // 포지션 정보
     private lateinit var positionTaskList: ArrayList<PositionTaskList>  // 얘는 나중에 고쳐야 할듯 ㅎㅎ !
 
@@ -96,10 +95,10 @@ class CardNoWorkerFragment(val positionId: Int) : BaseFragment<FragmentCardInfoB
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> CardCodeChildFragment(cardCode) // 근무자 부재
+                0 -> CardCodeChildFragment(cardCode, rank) // 근무자 부재
                 1 -> CardPositionChildFragment(positionInfo, 0, positionId) // 포지션 정보
-                2 -> CardToDoChildFragment(positionTaskList,positionId)// 업무 리스트
-                else -> CardCodeChildFragment(cardCode)
+                2 -> CardToDoChildFragment(positionTaskList, positionId)// 업무 리스트
+                else -> CardCodeChildFragment(cardCode, rank)
             }
         }
     }
@@ -156,6 +155,8 @@ class CardNoWorkerFragment(val positionId: Int) : BaseFragment<FragmentCardInfoB
             positionInfo = response.data.positionInfo
 
             positionTaskList = response.data.positionTaskList
+
+            rank = response.data.positionProfile.rank
         }
 
         init()

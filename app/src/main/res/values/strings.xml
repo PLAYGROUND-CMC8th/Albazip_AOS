@@ -17,6 +17,12 @@
     <string name="common_rest_day">휴무일</string>
     <string name="common_24_hour">24시간 영업</string>
 
+    <!-- 코드 복사 -->
+    <string name="info_title">{%s} 알바생에게\n아래 코드를 공유해주세요</string>
+    <!-- 알바생 추가 -->
+    <string name="todo_position">{%s} 알바생 업무리스트 작성하기</string>
+    <string name="how_to_write"><u>어떻게 작성해야 될 지 모르겠다면.</u></string>
+
     <!-- 매장 추가 정보 -->
     <string name="input_place_more_title">추가 정보를 입력해주세요.</string>
     <string name="input_place_more_running_hour">영업시간</string>

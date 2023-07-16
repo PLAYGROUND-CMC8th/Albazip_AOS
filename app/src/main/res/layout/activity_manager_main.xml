@@ -10,7 +10,21 @@
         android:id="@+id/manager_main_frm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/black"
         android:layout_marginBottom="?attr/actionBarSize" />
+
+    <LinearLayout
+        android:id="@+id/ll_tool_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toTopOf="@id/manager_main_btm_nav"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <include
+            android:id="@+id/include_tool_tips"
+            layout="@layout/inner_tool_tips" />
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/manager_main_btm_nav"
@@ -26,5 +40,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_main_btm_nav" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
