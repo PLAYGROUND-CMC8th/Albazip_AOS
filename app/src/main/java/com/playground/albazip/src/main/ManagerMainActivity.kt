@@ -1,6 +1,7 @@
 package com.playground.albazip.src.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.playground.albazip.R
 import com.playground.albazip.config.ApplicationClass.Companion.prefs
@@ -74,7 +75,11 @@ class ManagerMainActivity :
             hideToolTipsByClick() // 클릭 활성화
         } else {
             // 감추기
-            binding.llToolTips.visibility = View.GONE
+            try {
+                binding.llToolTips.visibility = View.GONE
+            } catch (e:Exception) {
+                Log.e("error",e.toString())
+            }
         }
     }
 
@@ -85,8 +90,8 @@ class ManagerMainActivity :
     }
 
     private fun hideToolTipsByClick() {
-        if (binding.llToolTips.visibility == View.VISIBLE) {
-            binding.includeToolTips.ivDelete.setOnClickListener {
+        binding.includeToolTips.ivDelete.setOnClickListener {
+            if (binding.llToolTips.visibility == View.VISIBLE) {
                 binding.llToolTips.visibility = View.GONE
             }
         }
