@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.playground.albazip.src.splash.SplashActivity
@@ -13,12 +15,21 @@ import com.playground.albazip.src.splash.SplashActivity
 class PermissionSupport(val context: Context, val activity: Activity) {
 
     //요청할 권한 배열 저장
+
     private val permissions = arrayListOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
     )
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private val permissionsFor33 = arrayListOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.READ_MEDIA_IMAGES
+    )
+
     private var permissionList: ArrayList<String>? = null
 
     //권한 요청시 발생하는 창에 대한 결과값을 받기 위해 지정해주는 int 형
@@ -29,12 +40,23 @@ class PermissionSupport(val context: Context, val activity: Activity) {
     fun checkPermission(): Boolean {
         var result: Int
         permissionList = arrayListOf()
-        for (pm in permissions) {
-            result = ContextCompat.checkSelfPermission(context, pm)
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                permissionList!!.add(pm)
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            for (pm in permissionsFor33) {
+                result = ContextCompat.checkSelfPermission(context, pm)
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    permissionList!!.add(pm)
+                }
+            }
+        } else {
+            for (pm in permissions) {
+                result = ContextCompat.checkSelfPermission(context, pm)
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    permissionList!!.add(pm)
+                }
             }
         }
+
         return permissionList!!.isEmpty()
     }
 

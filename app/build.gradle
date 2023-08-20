@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.playground.albazip"
         minSdkVersion 27
-        targetSdkVersion 32
-        versionCode 8
-        versionName "1.0.6"
+        targetSdkVersion 33
+        versionCode 10
+        versionName "1.0.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
